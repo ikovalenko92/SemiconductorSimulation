@@ -40,6 +40,8 @@ public class Machine {
 		this.working = false;		
 		this.processTimes = processTimes;
 		this.waitTimer = 0;
+		
+		processesEnabled = new boolean[6];
 
 		this.rotation = rotation;
 		
@@ -109,6 +111,11 @@ public class Machine {
 		return this.processTimes[i];
 	}
 	
+	public int getTimeLeft() {
+		return this.waitTimer;
+	}
+	
+	
 	//================================================================================
     // System Input
     //================================================================================
@@ -118,19 +125,22 @@ public class Machine {
 	//@ScheduledMethod (start = 1560)
 	public boolean S1(){
 		
-		if (!this.processesEnabled[0]){
+		if (!this.processesEnabled[0] || getPartHere()==null){
 			return false;
 		}
 		
 		//Puts a black box on the part in the top left
 		GeneralPath topleft = new GeneralPath();
-		topleft.moveTo(-1.5,1);
+		topleft.moveTo(-1,1);
+		topleft.lineTo(-1,0);
+		/*topleft.moveTo(-1.5,1);
 		topleft.lineTo(-0.5,1);
 		topleft.lineTo(-0.5,0);
 		topleft.lineTo(-1.5,0);
 		topleft.lineTo(-1.5,1);
 		topleft.closePath();
-		topleft.setWindingRule(1);
+		topleft.setWindingRule(0);*/
+
 		
 		boolean methodCalled = appendShape(new MachineInput(topleft));
 		
@@ -145,19 +155,22 @@ public class Machine {
 	//@ScheduledMethod (start = 1560)
 	public boolean S2(){
 		
-		if (!this.processesEnabled[1]){
+		if (!this.processesEnabled[1] || getPartHere()==null){
 			return false;
 		}
 		
 		//Puts a black box on the part in the top center
 		GeneralPath topcenter = new GeneralPath();
+		topcenter.moveTo(0,1);
+		topcenter.lineTo(0,0);
+		/*
 		topcenter.moveTo(-0.5,1);
 		topcenter.lineTo(0.5,1);
 		topcenter.lineTo(0.5,0);
 		topcenter.lineTo(-0.5,0);
 		topcenter.lineTo(-0.5,1);
 		topcenter.closePath();
-		topcenter.setWindingRule(1);
+		topcenter.setWindingRule(0);*/
 		
 		boolean methodCalled = appendShape(new MachineInput(topcenter));
 		
@@ -172,19 +185,22 @@ public class Machine {
 	//@ScheduledMethod (start = 1560)
 	public boolean S3(){
 		
-		if (!this.processesEnabled[2]){
+		if (!this.processesEnabled[2] || getPartHere()==null){
 			return false;
 		}
 		
 		//Puts a black box on the part in the top right
 		GeneralPath topright = new GeneralPath();
+		topright.moveTo(1,1);
+		topright.lineTo(1,0);
+		/*
 		topright.moveTo(0.5,1);
 		topright.lineTo(1.5,1);
 		topright.lineTo(1.5,0);
 		topright.lineTo(0.5,0);
 		topright.lineTo(0.5,1);
 		topright.closePath();
-		topright.setWindingRule(1);
+		topright.setWindingRule(0)*/
 		
 		boolean methodCalled = appendShape(new MachineInput(topright));
 		
@@ -199,19 +215,22 @@ public class Machine {
 	//@ScheduledMethod (start = 1560)
 	public boolean S4(){
 		
-		if (!this.processesEnabled[3]){
+		if (!this.processesEnabled[3] || getPartHere()==null){
 			return false;
 		}
 		
 		//Puts a black box on the part in the bottom left
 		GeneralPath bottomleft = new GeneralPath();
+		bottomleft.moveTo(-1,0);
+		bottomleft.lineTo(-1,-1);
+		/*
 		bottomleft.moveTo(-1.5,0);
 		bottomleft.lineTo(-0.5,0);
 		bottomleft.lineTo(-0.5,-1);
 		bottomleft.lineTo(-1.5,-1);
 		bottomleft.lineTo(-1.5,0);
 		bottomleft.closePath();
-		bottomleft.setWindingRule(1);
+		bottomleft.setWindingRule(0);*/
 		
 		boolean methodCalled = appendShape(new MachineInput(bottomleft));
 		
@@ -226,19 +245,22 @@ public class Machine {
 	//@ScheduledMethod (start = 1560)
 	public boolean S5(){
 		
-		if (!this.processesEnabled[4]){
+		if (!this.processesEnabled[4] || getPartHere()==null){
 			return false;
 		}
 		
 		//Puts a black box on the part in the bottom center
 		GeneralPath bottomcenter = new GeneralPath();
+		bottomcenter.moveTo(0,0);
+		bottomcenter.lineTo(0,-1);
+		/*
 		bottomcenter.moveTo(-0.5,0);
 		bottomcenter.lineTo(0.5,0);
 		bottomcenter.lineTo(0.5,-1);
 		bottomcenter.lineTo(-0.5,-1);
 		bottomcenter.lineTo(-0.5,0);
 		bottomcenter.closePath();
-		bottomcenter.setWindingRule(1);
+		bottomcenter.setWindingRule(0);*/
 		
 		boolean methodCalled = appendShape(new MachineInput(bottomcenter));
 		
@@ -253,19 +275,22 @@ public class Machine {
 	//@ScheduledMethod (start = 1560)
 	public boolean S6(){
 		
-		if (!this.processesEnabled[5]){
+		if (!this.processesEnabled[5] || getPartHere()==null){
 			return false;
 		}
 		
 		//Puts a black box on the part in the bottom right
 		GeneralPath bottomright = new GeneralPath();
+		bottomright.moveTo(1,0);
+		bottomright.lineTo(1,-1);
+		/*
 		bottomright.moveTo(0.5,0);
 		bottomright.lineTo(1.5,0);
 		bottomright.lineTo(1.5,-1);
 		bottomright.lineTo(0.5,-1);
 		bottomright.lineTo(0.5,0);
 		bottomright.closePath();
-		bottomright.setWindingRule(1);
+		bottomright.setWindingRule(0);*/
 		
 		boolean methodCalled = appendShape(new MachineInput(bottomright));
 		
@@ -378,11 +403,11 @@ public class Machine {
     // For the graphics
     //================================================================================
 	
+	public Point getCenter() {
+		return this.location;
+	}
+	
 	public float getRotation() {
 		return this.rotation;
-	}
-
-	public int getTimeLeft() {
-		return this.waitTimer;
 	}
 }

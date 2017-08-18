@@ -11,6 +11,9 @@ public class MachineLLC {
 	private boolean done;
 	private ArrayList<Program> programList;
 	
+	/**
+	 * @param machine
+	 */
 	public MachineLLC(Machine machine) {
 		this.machine = machine;
 		this.started = false;
@@ -46,22 +49,22 @@ public class MachineLLC {
 	 * @return if the program was run
 	 */
 	public boolean runProgram(String manProcess){
-		if (manProcess=="S1"){
+		if (manProcess.equals("S1")){
 			if (machine.S1()){this.started = true; return true;}
 		}
-		else if (manProcess=="S2"){
+		else if (manProcess.equals("S2")){
 			if (machine.S2()){this.started = true; return true;}
 		}
-		else if (manProcess=="S3"){
+		else if (manProcess.equals("S3")){
 			if (machine.S3()){this.started = true; return true;}
 		}
-		else if (manProcess=="S4"){
+		else if (manProcess.equals("S4")){
 			if (machine.S4()){this.started = true; return true;}
 		}
-		else if (manProcess=="S5"){
+		else if (manProcess.equals("S5")){
 			if (machine.S5()){this.started = true; return true;}
 		}
-		else if (manProcess=="S6"){
+		else if (manProcess.equals("S6")){
 			if (machine.S6()){this.started = true; return true;}
 		}
 		return false;

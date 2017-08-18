@@ -1,8 +1,15 @@
-package systemSimulation;
+package journalPaperSimulation;
+
 
 import java.awt.Point;
+import java.util.ArrayList;
 
+import Machine.Machine;
+import Machine.MachineLLC;
+import Part.Part;
 import Robot.Robot;
+import Robot.RobotLLC;
+import Sensors.RFIDTag;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
@@ -12,9 +19,11 @@ import repast.simphony.space.grid.BouncyBorders;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
+import resourceAgent.MachineAgent;
+import resourceAgent.RobotAgent;
 
 
-public class _TestbedContextBuilder implements ContextBuilder<Object> {
+public class SimulationContextBuilder implements ContextBuilder<Object> {
 	//Overall dimensions of the area
 	private final int XDIM = 160;
 	private final int YDIM = 120;
@@ -22,6 +31,8 @@ public class _TestbedContextBuilder implements ContextBuilder<Object> {
 	//================================================================================
     // Robots
     //================================================================================
+	
+	ArrayList<RobotLLC> listRobotLLC = new ArrayList<RobotLLC>();
 	
 	private Point robotB1Point = new Point(40,90);
 	private Point robotB2Point = new Point(40,30);
@@ -42,6 +53,8 @@ public class _TestbedContextBuilder implements ContextBuilder<Object> {
     //================================================================================
     // Machine
     //================================================================================
+	
+	ArrayList<MachineLLC> listMachineLLC = new ArrayList<MachineLLC>();
 	
 	private Point machineTAPoint = new Point (30,100);
 	private Point machineTBPoint = new Point (50,90);
@@ -88,27 +101,95 @@ public class _TestbedContextBuilder implements ContextBuilder<Object> {
 //------------------------------------------------------------------------------------
 	@SuppressWarnings("rawtypes")
 	@Override
-	public Context build(Context<Object> context) {
-		context.setId("ManufacturingTestbed");
+	public Context<Object> build(Context<Object> context) {
+		context.setId("JournalPaperSimulation");
 		
 		//Physical System Floor
 		Context<Object> physicalContext = new DefaultContext<Object>("physicalContext");
 		context.addSubContext(physicalContext);
+		
+		//Cyber System
+				Context<Object> cyberContext = new DefaultContext<Object>("cyberContext");
+				context.addSubContext(cyberContext);
 		
 		//Physical grid
 		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
 		Grid<Object> physicalGrid =  gridFactory.createGrid ("physicalGrid", physicalContext, new GridBuilderParameters<Object>(new BouncyBorders(),
 						new SimpleGridAdder<Object>(), true, XDIM, YDIM));
 		
-		buildManufacturingSystem(physicalContext, physicalGrid);
+		buildProductionControl(physicalContext, physicalGrid, cyberContext);
+		
+		buildAgentNetwork(cyberContext);
 		
 		return context;
 	}
 
-	private void buildManufacturingSystem(Context<Object> physicalContext, Grid<Object> physicalGrid) {
+	private void buildProductionControl(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
+		//================================================================================
+	    // Robots
+	    //================================================================================
+		
 		Robot robot = new Robot("TestRobot", new Point(50,50), 1, physicalGrid, 10);
 		physicalContext.add(robot);
 		physicalGrid.moveTo(robot, robot.getCenter().x, robot.getCenter().y);
 		
+		RobotLLC robotLLC = new RobotLLC("testRobotLLC", robot);
+		robotLLC.writeMoveObjectProgram("testMove", new Point(45,50), new Point(55,55), "Part");
+		robotLLC.writeMoveObjectProgram("testMove2", new Point(55,55), new Point(55,45), "Part");
+		robotLLC.writeMoveObjectProgram("testMove3", new Point(55,45), new Point(60,50), "Part");
+		cyberContext.add(robotLLC);
+		
+		this.listRobotLLC.add(robotLLC);
+		
+		//================================================================================
+	    // Machines
+	    //================================================================================
+		
+		Machine machine1 = new Machine("TestMachine1", new Point(55,55), physicalGrid, 0, new int[]{10,10,10,10,10,10});
+		physicalContext.add(machine1);
+		physicalGrid.moveTo(machine1, machine1.getCenter().x, machine1.getCenter().y);	
+		MachineLLC machine1LLC = new MachineLLC(machine1);
+
+		Machine machine2 = new Machine("TestMachine2", new Point(55,45), physicalGrid, 0, new int[]{10,10,10,10,10,10});
+		physicalContext.add(machine2);
+		physicalGrid.moveTo(machine2, machine2.getCenter().x, machine2.getCenter().y);
+		MachineLLC machine2LLC = new MachineLLC(machine2);
+		
+		this.listMachineLLC.add(machine1LLC);
+		this.listMachineLLC.add(machine2LLC);
+		
+		//================================================================================
+	    // Parts
+	    //================================================================================
+		
+		Part part = new Part(new RFIDTag('a'));
+		physicalContext.add(part);
+		physicalGrid.moveTo(part, 45, 50);	
 	}
+	
+	private void buildAgentNetwork(Context<Object> cyberContext) {
+		//================================================================================
+	    // Robots
+	    //================================================================================
+		
+		for (RobotLLC robotLLC : this.listRobotLLC){
+			RobotAgent robotAgent = new RobotAgent("testRobotAgent", robotLLC);
+			cyberContext.add(robotAgent);
+		}
+		
+		//================================================================================
+	    // Machines
+	    //================================================================================
+		
+		for (MachineLLC machineLLC : this.listMachineLLC){
+			MachineAgent machine1Agent = new MachineAgent("testMachineAgent", machineLLC);
+			cyberContext.add(machine1Agent);
+		}
+		
+		//================================================================================
+	    // Parts
+	    //================================================================================
+		
+	}
+	
 }

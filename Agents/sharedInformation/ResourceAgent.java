@@ -1,13 +1,27 @@
 package sharedInformation;
 
+import java.util.ArrayList;
+
+import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
 public interface ResourceAgent {
-	public DirectedSparseGraph<SystemVertex, SystemEdge> getGraph(int time);
-	public boolean scheduleGraph(Object object);
 
-	public void notify(Object object, SystemEdge edge);
+	//================================================================================
+    // Part agent communication
+    //================================================================================
 	
-	//public void addListeningPart(PartController partController);
-	//public void removeListeningPart(PartController partController);
+	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getStatus();
+	public void inform(Part part, CapabilitiesEdge edge);
+	public 
+	
+	//public void addListeningPart(ProductAgent productAgent);
+	//public void removeListeningPart(ProductAgent productAgent);
+	
+	//================================================================================
+    // Team Formation request
+    //================================================================================
+	
+	public void teamQuery(PartAgent part, CapabilitiesNode desriedState, int maxNeighborhood, ArrayList<ResourceAgent> teamList);
+	
 } 

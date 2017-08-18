@@ -20,6 +20,10 @@ public class RobotLLC{
 	private boolean working;
 	
 
+	/**
+	 * @param name
+	 * @param robot
+	 */
 	public RobotLLC(String name, Robot robot) {
 		this.robot = robot;
 		this.programList = new ArrayList<Program>();
@@ -39,10 +43,12 @@ public class RobotLLC{
     // Input - Setup a program
     //================================================================================
 	
-	/** Move an object between point a and point b
-	 * @param a where the object is currently located
-	 * @param b where the object needs to go
-	 * @param obj the object to be moved
+
+	/**
+	 * @param name Program  name
+	 * @param a Initial point
+	 * @param b Final point
+	 * @param objectType 
 	 */
 	public void writeMoveObjectProgram(String name, Point a, Point b, String objectType){
 		Program program = new Program(name, a, b);
@@ -93,6 +99,10 @@ public class RobotLLC{
 		return false;
 	}
 	
+	public void setWorking(boolean b) {
+		this.working = b;
+	}
+	
 	//================================================================================
     // Output to HLC (agent)
     //================================================================================
@@ -100,7 +110,18 @@ public class RobotLLC{
 	public boolean getFree(){
 		return !this.working;
 	}
+
+	public int getVelocity() {
+		return this.robot.getVelocity();
+	}
 	
+	public String getHoldingObject() {
+		return this.robot.getPartHere();
+	}	
+	
+	/**
+	 * @return A string array of all programs available to this robot
+	 */
 	public ArrayList<String> getProgramList(){
 		ArrayList<String> programString = new ArrayList<String>(); 
 		
@@ -110,6 +131,10 @@ public class RobotLLC{
 		return programString;
 	}
 	
+	/**
+	 * @param programName The name of the program
+	 * @return The endpoints for the program
+	 */
 	public Point[] getProgramEndpoints(String programName){
 		Point start = null;
 		Point end = null;
@@ -123,11 +148,7 @@ public class RobotLLC{
 		
 		return new Point[]{start,end};
 	}
-	
-	public String getHoldingObject() {
-		return this.robot.getPartHere();
-	}	
-	
+
 	//================================================================================
     // Timed helper functions
     //================================================================================
@@ -253,14 +274,6 @@ public class RobotLLC{
 		public ArrayList<RobotProgram> getProgramList() {
 			return subProgramList;
 		}
-	}
-
-	public int getVelocity() {
-		return this.robot.getVelocity();
-	}
-
-	public void setWorking(boolean b) {
-		this.working = b;
 	}
 
 }

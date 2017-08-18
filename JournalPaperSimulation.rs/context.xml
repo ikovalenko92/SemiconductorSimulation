@@ -1,3 +1,7 @@
 <context id="JournalPaperSimulation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context">
-  	
+  	<context id="physicalContext">
+  	<projection type="grid" id="physicalGrid"/>
+ 	</context>
+ 	<context id="cyberContext">
+ 	</context>
 </context>

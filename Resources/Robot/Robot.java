@@ -288,7 +288,7 @@ public class Robot {
 	/** Creates the L-shaped path
 	 *
 	 */
-	public ArrayList<Point> getPath() {
+	public ArrayList<Point> getLPath() {
 		ArrayList<Point> totalPath = new ArrayList<Point>();
 		
 		//Path is an L shape, first going in the x direction, then going in the y direction
@@ -298,6 +298,14 @@ public class Robot {
 		
 		return totalPath;
 	}
+	
+	/** Only the endpoint
+	 *
+	 */
+	public Point getEnd() {
+		return new Point(end.x - center.x, end.y - center.y);
+	}
+	
 	
 	public Point getCenter() {
 		return this.center;

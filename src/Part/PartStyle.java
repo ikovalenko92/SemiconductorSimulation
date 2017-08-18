@@ -154,4 +154,7 @@ public class PartStyle extends DefaultStyleOGL2D {
 		return ((Part) object).getSize();
 	}
 	
+	public int getBorderSize(Object object){
+		return 0;
+	}
 }
