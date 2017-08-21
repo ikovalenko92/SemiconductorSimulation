@@ -1,5 +1,7 @@
 package sharedInformation;
 
+import intelligentProduct.ProductAgent;
+
 import java.util.ArrayList;
 
 import Part.Part;
@@ -13,7 +15,8 @@ public interface ResourceAgent {
 	
 	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getStatus();
 	public void inform(Part part, CapabilitiesEdge edge);
-	public 
+	public RASchedule getSchedule();
+	public boolean query(Method method, )
 	
 	//public void addListeningPart(ProductAgent productAgent);
 	//public void removeListeningPart(ProductAgent productAgent);
@@ -22,6 +25,6 @@ public interface ResourceAgent {
     // Team Formation request
     //================================================================================
 	
-	public void teamQuery(PartAgent part, CapabilitiesNode desriedState, int maxNeighborhood, ArrayList<ResourceAgent> teamList);
+	public void teamQuery(ProductAgent part, CapabilitiesNode desiredNode, int maxNeighborhood, ArrayList<ResourceAgent> teamList);
 	
 } 
