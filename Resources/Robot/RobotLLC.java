@@ -36,7 +36,7 @@ public class RobotLLC{
 	
 	@Override
 	public String toString() {
-		return "Controller " + this.robot;
+		return this.robot + " Controller";
 	}
 	
 	//================================================================================
@@ -106,6 +106,10 @@ public class RobotLLC{
 	//================================================================================
     // Output to HLC (agent)
     //================================================================================
+	
+	public Robot getRobot(){
+		return this.robot;
+	}
 	
 	public boolean getFree(){
 		return !this.working;

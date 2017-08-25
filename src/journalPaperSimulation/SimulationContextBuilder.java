@@ -21,6 +21,7 @@ import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import resourceAgent.MachineAgent;
 import resourceAgent.RobotAgent;
+import sharedInformation.CapabilitiesEdge;
 
 
 public class SimulationContextBuilder implements ContextBuilder<Object> {
@@ -31,18 +32,26 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	//================================================================================
     // Robots
     //================================================================================
-	
+
+	/**
+	 * List of all of Robot Controllers
+	 */
 	ArrayList<RobotLLC> listRobotLLC = new ArrayList<RobotLLC>();
 	
-	private Point robotB1Point = new Point(40,90);
-	private Point robotB2Point = new Point(40,30);
-	private Point robotB3Point = new Point(80,90);
-	private Point robotB4Point = new Point(80,30);
-	private Point robotB5Point = new Point(120,90);
-	private Point robotB6Point = new Point(120,30);
-	private Point robotM12Point = new Point(40,60);
-	private Point robotM34Point = new Point(80,60);
-	private Point robotM56Point = new Point(120,60);
+	private final Point robotB1Point = new Point(40,90);
+	private final Point robotB2Point = new Point(40,30);
+	private final Point robotB3Point = new Point(80,90);
+	private final Point robotB4Point = new Point(80,30);
+	private final Point robotB5Point = new Point(120,90);
+	private final Point robotB6Point = new Point(120,30);
+	private final Point robotM12Point = new Point(40,60);
+	private final Point robotM34Point = new Point(80,60);
+	private final Point robotM56Point = new Point(120,60);
+	
+	//Points where the robots should go
+	private final Point[] robotLocations = new Point[]{robotB1Point, robotB2Point, robotB3Point,
+			robotB4Point, robotB5Point, robotB6Point, robotM12Point, robotM34Point, robotM56Point};
+
 	
 	//Robot2 is slightly faster
 	//private Data_RobotSystem robot1Data = new Data_RobotSystem("robot1", 8, 20, robot1Point);
@@ -54,6 +63,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
     // Machine
     //================================================================================
 	
+	/**
+	 * List of all of the Machine Controllers
+	 */
 	ArrayList<MachineLLC> listMachineLLC = new ArrayList<MachineLLC>();
 	
 	private Point machineTAPoint = new Point (30,100);
@@ -76,6 +88,12 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private Point machineTRPoint = new Point (130,40);
 	private Point machineTSPoint = new Point (110,20);
 	private Point machineTTPoint = new Point (130,20);
+	
+	private final Point[] machineLocations = new Point[]{machineTAPoint, machineTBPoint, 
+			machineTCPoint, machineTDPoint, machineTEPoint, machineTFPoint, machineTGPoint, 
+			machineTHPoint, machineTIPoint, machineTKPoint, machineTJPoint, machineTLPoint, 
+			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
+			machineTRPoint, machineTSPoint, machineTTPoint};
 
     //================================================================================
     // Storage
@@ -92,6 +110,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private Point buffer1Point = new Point (60,60);
 	private Point buffer2Point = new Point (90,60);
 	
+	private final Point[] storageLocations = new Point[]{enterPoint, exitPoint, depositB1Point, depositB2Point,
+			depositB3Point,depositB4Point, depositB5Point, depositB6Point, buffer1Point, buffer2Point};
+		
 //================================================================================
 // START OF METHODS
 //================================================================================
@@ -102,6 +123,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Context<Object> build(Context<Object> context) {
+		
+		resetVariables();
+		
 		context.setId("JournalPaperSimulation");
 		
 		//Physical System Floor
@@ -175,6 +199,10 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		for (RobotLLC robotLLC : this.listRobotLLC){
 			RobotAgent robotAgent = new RobotAgent("testRobotAgent", robotLLC);
 			cyberContext.add(robotAgent);
+			
+			for (CapabilitiesEdge edge:robotAgent.getCapabilities().getEdges()){
+				System.out.println(edge);
+			}
 		}
 		
 		//================================================================================
@@ -190,6 +218,14 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	    // Parts
 	    //================================================================================
 		
+	}
+	
+	/**
+	 * Makes sure all of the variables are reset whenever we reset the simulation
+	 */
+	private void resetVariables() {
+		this.listMachineLLC.clear();
+		this.listRobotLLC.clear();
 	}
 	
 }

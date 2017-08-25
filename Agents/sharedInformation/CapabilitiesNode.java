@@ -1,39 +1,57 @@
 package sharedInformation;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class CapabilitiesNode {
 	
 	private Object holdingObject;
-	private Point location;
-	private String processCompleted;
+	private PhysicalProperty location;
+	private PhysicalProperty processCompleted;
 	
 	/**
 	 * @param holdingObject
 	 * @param processCompleted
 	 * @param location
 	 */
-	public CapabilitiesNode(Object holdingObject, String processCompleted, Point location){
+	public CapabilitiesNode(Object holdingObject, PhysicalProperty processCompleted, PhysicalProperty location){
 		this.holdingObject = holdingObject;
 		this.location = location;
 		this.processCompleted = processCompleted;
 	}
 
-	public Point getLocation() {
-		return location;
-	}
 
 	public Object getObject() {
 		return holdingObject;
 	}
 	
+	public Point getLocation() {
+		return location.getPoint();
+	}
+
 	public String getProcessCompleted() {
-		return this.processCompleted;
+		if (this.processCompleted==null || this.processCompleted.getProcessCompleted()==null) {return "nothing completed";}
+		
+		return this.processCompleted.getProcessCompleted();
+	}
+	
+	public ArrayList<PhysicalProperty> getPhysicalProperties(){
+		ArrayList<PhysicalProperty> list = new ArrayList<PhysicalProperty>();
+		
+		if (this.location != null){
+			list.add(location);
+		}
+		
+		if (this.processCompleted != null){
+			list.add(processCompleted);
+		}
+		
+		return list;		
 	}
 	
 	@Override
 	public String toString(){
-		return this.holdingObject + " at " + this.location.x + "," + this.location.y + " process done: " + this.processCompleted;
+		return this.holdingObject + " at " + getLocation().x + "," + getLocation().y + " process done: " + this.processCompleted;
 	}
 
 	/* (non-Javadoc)

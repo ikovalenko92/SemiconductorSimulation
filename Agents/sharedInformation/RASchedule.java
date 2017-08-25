@@ -70,6 +70,18 @@ public class RASchedule {
 		endTimes.add(endTime);
 		return true;
 	}
+	
+	public void removePA(ProductAgent productAgent, int startTime){
+		for(int index = 0; index < this.startTimes.size(); index++){
+			//Find if there is a product agent scheduled for the proposed time to remove it
+			if (startTime >= this.startTimes.get(index) && startTime< this.endTimes.get(index) && productAgent.equals(this.productAgents.get(index))){
+				//Remove the product agent if the proposed scheduled agent is found
+				this.startTimes.remove(index);
+				this.endTimes.remove(index);
+				this.productAgents.remove(index);
+			}
+		}
+	}
 
 	/**
 	 * @param startTime
