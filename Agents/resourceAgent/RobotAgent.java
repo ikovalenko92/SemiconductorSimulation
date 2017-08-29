@@ -96,7 +96,25 @@ public class RobotAgent implements ResourceAgent {
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, int currentTime, int maxTime,
 			ArrayList<ResourceAgent> teamList) {
-		// TODO Auto-generated method stub
+		
+		if (desiredProperty.getPoint() != null){
+			for (CapabilitiesNode vertex : this.robotCapabilities.getVertices()){
+				for(PhysicalProperty vertexProperty : vertex.getPhysicalProperties()){
+					if (vertexProperty.equals(desiredProperty)){
+						
+						teamList.add(this);
+						bidTime = this.robotCapabilities.
+						
+						productAgent.submitBid(teamList, bidTime);
+					}
+				}
+			}
+		}
+		
+		
+		for (ResourceAgent neighbogh: this.neighbors){
+			
+		}
 		
 	}
 	
