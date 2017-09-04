@@ -4,12 +4,14 @@ package journalPaperSimulation;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import Buffer.Buffer;
+import Buffer.BufferLLC;
 import Machine.Machine;
 import Machine.MachineLLC;
 import Part.Part;
+import Part.RFIDTag;
 import Robot.Robot;
 import Robot.RobotLLC;
-import Sensors.RFIDTag;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
@@ -29,6 +31,124 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private final int XDIM = 160;
 	private final int YDIM = 120;
 	
+	
+    //================================================================================
+    // Machine
+    //================================================================================
+	
+	/**
+	 * List of all of the Machine Controllers
+	 */
+	ArrayList<MachineLLC> listMachineLLC = new ArrayList<MachineLLC>();
+	
+	//Machine locations
+	private Point machineTAPoint = new Point (30,100);
+	private Point machineTBPoint = new Point (50,90);
+	private Point machineTCPoint = new Point (30,80);
+	private Point machineTDPoint = new Point (50,40);
+	private Point machineTEPoint = new Point (30,30);
+	private Point machineTFPoint = new Point (50,20);
+	private Point machineTGPoint = new Point (70,100);
+	private Point machineTHPoint = new Point (70,80);
+	private Point machineTIPoint = new Point (90,100);
+	private Point machineTJPoint = new Point (90,80);
+	private Point machineTKPoint = new Point (70,40);
+	private Point machineTLPoint = new Point (70,20);
+	private Point machineTMPoint = new Point (90,40);
+	private Point machineTNPoint = new Point (90,20);
+	private Point machineTOPoint = new Point (110,100);
+	private Point machineTPPoint = new Point (130,90);
+	private Point machineTQPoint = new Point (110,80);
+	private Point machineTRPoint = new Point (130,40);
+	private Point machineTSPoint = new Point (110,30);
+	private Point machineTTPoint = new Point (130,20);
+	
+	private final Point[] machineLocations = new Point[]{machineTAPoint, machineTBPoint, 
+			machineTCPoint, machineTDPoint, machineTEPoint, machineTFPoint, machineTGPoint, 
+			machineTHPoint, machineTIPoint, machineTKPoint, machineTJPoint, machineTLPoint, 
+			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
+			machineTRPoint, machineTSPoint, machineTTPoint};
+	
+	//Machine Times
+	private int[] machineTATime = new int[]{225,-1,-1,-1, 255,-1};
+	private int[] machineTBTime = new int[]{225,-1,-1,-1, 255,-1};
+	private int[] machineTCTime = new int[]{225,-1,-1,-1, 255,-1};
+	private int[] machineTDTime = new int[]{225,-1,-1,-1, 255,-1};
+	private int[] machineTETime = new int[]{225,-1,-1,-1, 255,-1};
+	private int[] machineTFTime = new int[]{225,-1,-1,-1, 255,-1};
+	private int[] machineTGTime = new int[]{225,-1,-1,-1, 255,-1};
+	private int[] machineTHTime = new int[]{225,-1,-1,-1, 255,-1};
+	private int[] machineTITime = new int[]{-1,30,-1,50,-1,-1};
+	private int[] machineTJTime = new int[]{-1,30,-1,50,-1,-1};
+	private int[] machineTKTime = new int[]{-1,30,-1,50,-1,-1};
+	private int[] machineTLTime = new int[]{-1,30,-1,50,-1,-1};
+	private int[] machineTMTime = new int[]{-1,-1,55,-1,-1,10};
+	private int[] machineTNTime = new int[]{-1,-1,55,-1,-1,10};
+	private int[] machineTOTime = new int[]{-1,-1,55,-1,-1,10};
+	private int[] machineTPTime = new int[]{-1,-1,55,-1,-1,10};
+	private int[] machineTQTime = new int[]{-1,-1,55,-1,-1,10};
+	private int[] machineTRTime = new int[]{-1,-1,55,-1,-1,10};
+	private int[] machineTSTime = new int[]{-1,-1,55,-1,-1,10};
+	private int[] machineTTTime = new int[]{-1,-1,55,-1,-1,10};
+
+	
+	private int[][] machineTimes = new int[][]{machineTATime, machineTBTime, machineTCTime,
+		machineTDTime, machineTETime, machineTFTime, machineTGTime, machineTHTime, machineTITime,
+		machineTJTime, machineTKTime, machineTLTime, machineTMTime, machineTNTime, machineTOTime,
+		machineTPTime, machineTQTime, machineTRTime, machineTSTime, machineTTTime};
+ 
+
+    //================================================================================
+    // Storage
+    //================================================================================
+	
+	ArrayList<BufferLLC> listBufferLLC = new ArrayList<BufferLLC>();
+		
+	//Storage points for bay buffers
+	private Point enterPointStorage = new Point (18,60);
+	private Point exitPointStorage = new Point (142,60);
+	private Point depositB1Point = new Point (40,70);
+	private Point depositB2Point = new Point (40,50);
+	private Point depositB3Point = new Point (80,70);
+	private Point depositB4Point = new Point (80,50);
+	private Point depositB5Point = new Point (120,70);
+	private Point depositB6Point = new Point (120,50);
+	private Point buffer1Point = new Point (60,60);
+	private Point buffer2Point = new Point (100,60);
+		
+	//Enter points for bay buffers
+	private Point enterPoint = new Point (20,60);
+	private Point depositB1PointEnter = new Point (40,65);
+	private Point depositB2PointEnter = new Point (40,55);
+	private Point depositB3PointEnter = new Point (80,65);
+	private Point depositB4PointEnter = new Point (80,55);
+	private Point depositB5PointEnter = new Point (120,65);
+	private Point depositB6PointEnter = new Point (120,55);
+	private Point buffer1PointEnter = new Point (55,60);
+	private Point buffer2PointEnter = new Point (95,60);
+
+	//Exit points for bay buffers
+	private Point exitPoint = new Point (140,60);
+	private Point depositB1PointExit = new Point (40,75);
+	private Point depositB2PointExit = new Point (40,45);
+	private Point depositB3PointExit = new Point (80,75);
+	private Point depositB4PointExit = new Point (80,45);
+	private Point depositB5PointExit = new Point (120,75);
+	private Point depositB6PointExit = new Point (120,45);
+	private Point buffer1PointExit = new Point (65,60);
+	private Point buffer2PointExit = new Point (105,60);
+	
+	private final Point[] bufferLocations = new Point[]{enterPointStorage, exitPointStorage, depositB1Point, depositB2Point,
+			depositB3Point,depositB4Point, depositB5Point, depositB6Point, buffer1Point, buffer2Point};
+			
+	private final Point[][] bufferEnterLocations = new Point[][]{{enterPoint}, {exitPoint}, {depositB1PointEnter, depositB1PointExit},
+		{depositB2PointEnter, depositB2PointExit}, {depositB3PointEnter, depositB3PointExit}, {depositB4PointEnter, depositB4PointExit},
+		{depositB5PointEnter, depositB5PointExit},{depositB6PointEnter, depositB6PointExit},{buffer1PointEnter, buffer1PointExit},{buffer2PointEnter, buffer2PointExit}};
+	
+	//BUffer names
+	private final String[] bufferNames = new String[]{"EnterBuffer", "ExitBuffer", "depositB1",
+			"depositB2", "depositB3", "depositB4", "depositB5", "depositB6", "buffer1234", "buffer3456"};
+		
 	//================================================================================
     // Robots
     //================================================================================
@@ -48,79 +168,41 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private final Point robotM34Point = new Point(80,60);
 	private final Point robotM56Point = new Point(120,60);
 	
+	// Point that the robots can move between
+	private final Point[] robotB1PointMove = new Point[]{depositB1PointExit, machineTAPoint,
+			machineTBPoint, machineTCPoint};
+	private final Point[] robotB2PointMove = new Point[]{depositB2PointExit, machineTDPoint,
+			machineTEPoint, machineTFPoint};
+	private final Point[] robotB3PointMove = new Point[]{depositB3PointExit, machineTGPoint,
+			machineTHPoint, machineTIPoint, machineTJPoint};
+	private final Point[] robotB4PointMove = new Point[]{depositB4PointExit, machineTKPoint,
+			machineTLPoint, machineTMPoint, machineTNPoint};
+	private final Point[] robotB5PointMove = new Point[]{depositB5PointExit, machineTOPoint,
+			machineTPPoint, machineTQPoint};
+	private final Point[] robotB6PointMove = new Point[]{depositB6PointExit, machineTRPoint,
+			machineTSPoint, machineTTPoint};
+	private final Point[] robotM12PointMove = new Point[]{enterPoint, depositB1PointEnter,
+			depositB2PointEnter, buffer1PointEnter};
+	private final Point[] robotM34PointMove = new Point[]{buffer1PointExit, depositB3PointEnter,
+			depositB4PointEnter, buffer2PointEnter};
+	private final Point[] robotM56PointMove = new Point[]{buffer2PointExit, depositB5PointEnter,
+			depositB6PointEnter, exitPoint};
+	
+	//Robot names
+	private final String[] robotNames = new String[]{"RobotB1", "RobotB2", "RobotB3",
+			"RobotB4", "RobotB5", "RobotB6", "RobotM12", "RobotM34", "RobotM56"};
+	
 	//Points where the robots should go
 	private final Point[] robotLocations = new Point[]{robotB1Point, robotB2Point, robotB3Point,
 			robotB4Point, robotB5Point, robotB6Point, robotM12Point, robotM34Point, robotM56Point};
 
-	
-	//Robot2 is slightly faster
-	//private Data_RobotSystem robot1Data = new Data_RobotSystem("robot1", 8, 20, robot1Point);
-	//private Data_RobotSystem robot2Data = new Data_RobotSystem("robot2", 10, 20, robot2Point);
-	//private Data_RobotSystem robot3Data = new Data_RobotSystem("robot3", 8, 20, robot3Point);
-	//private Data_RobotSystem[] robotData= new Data_RobotSystem[]{robot1Data,robot2Data,robot3Data};	
-
-    //================================================================================
-    // Machine
-    //================================================================================
-	
-	/**
-	 * List of all of the Machine Controllers
-	 */
-	ArrayList<MachineLLC> listMachineLLC = new ArrayList<MachineLLC>();
-	
-	private Point machineTAPoint = new Point (30,100);
-	private Point machineTBPoint = new Point (50,90);
-	private Point machineTCPoint = new Point (30,80);
-	private Point machineTDPoint = new Point (50,40);
-	private Point machineTEPoint = new Point (30,30);
-	private Point machineTFPoint = new Point (50,20);
-	private Point machineTGPoint = new Point (70,100);
-	private Point machineTHPoint = new Point (90,90);
-	private Point machineTIPoint = new Point (70,80);
-	private Point machineTJPoint = new Point (90,40);
-	private Point machineTKPoint = new Point (70,30);
-	private Point machineTLPoint = new Point (90,20);
-	private Point machineTMPoint = new Point (110,100);
-	private Point machineTNPoint = new Point (130,100);
-	private Point machineTOPoint = new Point (110,80);
-	private Point machineTPPoint = new Point (130,80);
-	private Point machineTQPoint = new Point (110,40);
-	private Point machineTRPoint = new Point (130,40);
-	private Point machineTSPoint = new Point (110,20);
-	private Point machineTTPoint = new Point (130,20);
-	
-	private final Point[] machineLocations = new Point[]{machineTAPoint, machineTBPoint, 
-			machineTCPoint, machineTDPoint, machineTEPoint, machineTFPoint, machineTGPoint, 
-			machineTHPoint, machineTIPoint, machineTKPoint, machineTJPoint, machineTLPoint, 
-			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
-			machineTRPoint, machineTSPoint, machineTTPoint};
-
-    //================================================================================
-    // Storage
-    //================================================================================
-	
-	private Point enterPoint = new Point (20,60);
-	private Point exitPoint = new Point (140,60);
-	private Point depositB1Point = new Point (40,70);
-	private Point depositB2Point = new Point (40,50);
-	private Point depositB3Point = new Point (80,70);
-	private Point depositB4Point = new Point (80,50);
-	private Point depositB5Point = new Point (120,70);
-	private Point depositB6Point = new Point (120,50);
-	private Point buffer1Point = new Point (60,60);
-	private Point buffer2Point = new Point (90,60);
-	
-	private final Point[] storageLocations = new Point[]{enterPoint, exitPoint, depositB1Point, depositB2Point,
-			depositB3Point,depositB4Point, depositB5Point, depositB6Point, buffer1Point, buffer2Point};
-		
+	//Where the robots can move things between
+	private final Point[][] robotMoveLocations = new Point[][]{robotB1PointMove, robotB2PointMove, robotB3PointMove,
+		robotB4PointMove, robotB5PointMove, robotB6PointMove, robotM12PointMove, robotM34PointMove, robotM56PointMove};
+			
 //================================================================================
 // START OF METHODS
 //================================================================================
-	
-//------------------------------------------------------------------------------------
-// Initailizing Everything
-//------------------------------------------------------------------------------------
-	@SuppressWarnings("rawtypes")
 	@Override
 	public Context<Object> build(Context<Object> context) {
 		
@@ -149,46 +231,69 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	}
 
 	private void buildProductionControl(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
+		
 		//================================================================================
 	    // Robots
 	    //================================================================================
 		
-		Robot robot = new Robot("TestRobot", new Point(50,50), 1, physicalGrid, 10);
-		physicalContext.add(robot);
-		physicalGrid.moveTo(robot, robot.getCenter().x, robot.getCenter().y);
-		
-		RobotLLC robotLLC = new RobotLLC("testRobotLLC", robot);
-		robotLLC.writeMoveObjectProgram("testMove", new Point(45,50), new Point(55,55), "Part");
-		robotLLC.writeMoveObjectProgram("testMove2", new Point(55,55), new Point(55,45), "Part");
-		robotLLC.writeMoveObjectProgram("testMove3", new Point(55,45), new Point(60,50), "Part");
-		cyberContext.add(robotLLC);
-		
-		this.listRobotLLC.add(robotLLC);
+		for (int index = 0; index < this.robotLocations.length; index++){
+			//Build the physical robot
+			Robot robot = new Robot(this.robotNames[index], this.robotLocations[index], 1, physicalGrid, 25);
+			physicalContext.add(robot);
+			physicalGrid.moveTo(robot, robot.getCenter().x, robot.getCenter().y);
+			
+			//Build the lower level controller
+			RobotLLC robotLLC = new RobotLLC(robot);
+			int locationAmount = this.robotMoveLocations[index].length;
+			for (int j = 0; j < locationAmount; j++){
+				for (int k = 0; k < locationAmount; k++){
+					if(j!=k){
+						//Write the move programs for all of the points that the robot can move the part between
+						robotLLC.writeMoveObjectProgram("move"+j, this.robotMoveLocations[index][j],
+								this.robotMoveLocations[index][k], "Part");
+					}
+				}
+			}
+			
+			this.listRobotLLC.add(robotLLC);
+			cyberContext.add(robotLLC);			
+		}
 		
 		//================================================================================
 	    // Machines
 	    //================================================================================
 		
-		Machine machine1 = new Machine("TestMachine1", new Point(55,55), physicalGrid, 0, new int[]{10,10,10,10,10,10});
-		physicalContext.add(machine1);
-		physicalGrid.moveTo(machine1, machine1.getCenter().x, machine1.getCenter().y);	
-		MachineLLC machine1LLC = new MachineLLC(machine1);
-
-		Machine machine2 = new Machine("TestMachine2", new Point(55,45), physicalGrid, 0, new int[]{10,10,10,10,10,10});
-		physicalContext.add(machine2);
-		physicalGrid.moveTo(machine2, machine2.getCenter().x, machine2.getCenter().y);
-		MachineLLC machine2LLC = new MachineLLC(machine2);
+		//Create new machines using the initialized information
+		for (int index = 0; index < this.machineLocations.length; index++){
+			Machine machine = new Machine("machineT" + ((char) 65+index), this.machineLocations[index], physicalGrid, 0, this.machineTimes[index]);
+			physicalContext.add(machine);
+			physicalGrid.moveTo(machine, machine.getCenter().x,machine.getCenter().y);
+			
+			MachineLLC machineLLC = new MachineLLC(machine);
+			this.listMachineLLC.add(machineLLC);
+		}
 		
-		this.listMachineLLC.add(machine1LLC);
-		this.listMachineLLC.add(machine2LLC);
+		//================================================================================
+	    // Buffers
+	    //================================================================================
 		
+		for (int index = 0; index < this.bufferLocations.length; index++){
+			Buffer buffer = new Buffer(this.bufferNames[index], this.bufferEnterLocations[index], 
+					this.bufferLocations[index], physicalGrid);
+			physicalContext.add(buffer);
+			physicalGrid.moveTo(buffer, buffer.getStoragePoint().x, buffer.getStoragePoint().y);
+			
+			BufferLLC bufferLLC = new BufferLLC(buffer);
+			this.listBufferLLC.add(bufferLLC);
+		}
+				
 		//================================================================================
 	    // Parts
 	    //================================================================================
 		
 		Part part = new Part(new RFIDTag('a'));
 		physicalContext.add(part);
-		physicalGrid.moveTo(part, 45, 50);	
+		physicalGrid.moveTo(part, 18, 60);	
 	}
 	
 	private void buildAgentNetwork(Context<Object> cyberContext) {
@@ -197,12 +302,12 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	    //================================================================================
 		
 		for (RobotLLC robotLLC : this.listRobotLLC){
-			RobotAgent robotAgent = new RobotAgent("testRobotAgent", robotLLC);
-			cyberContext.add(robotAgent);
+			//RobotAgent robotAgent = new RobotAgent("testRobotAgent", robotLLC);
+			//cyberContext.add(robotAgent);
 			
-			for (CapabilitiesEdge edge:robotAgent.getCapabilities().getEdges()){
-				System.out.println(edge);
-			}
+			//for (CapabilitiesEdge edge:robotAgent.getCapabilities().getEdges()){
+				//System.out.println(edge);
+			//}
 		}
 		
 		//================================================================================
@@ -226,6 +331,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private void resetVariables() {
 		this.listMachineLLC.clear();
 		this.listRobotLLC.clear();
+		this.listBufferLLC.clear();
 	}
 	
 }

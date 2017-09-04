@@ -1,4 +1,4 @@
-package Sensors;
+package Part;
 
 import java.util.ArrayList;
 

@@ -20,7 +20,7 @@ public class LotProductAgent implements ProductAgent{
 	
 	private AgentBeliefModel beliefModel;
 	
-	public LotProductAgent(String name, ArrayList<String> processesNeeded, ResourceAgent startingResource){
+	public LotProductAgent(String name, ArrayList<String> processesNeeded, ResourceAgent startingResource, CapabilitiesNode startingNode){
 		this.name = name;
 		
 		// Populate the desired physical properties
@@ -35,9 +35,13 @@ public class LotProductAgent implements ProductAgent{
 		//Create an empty agent belief model
 		this.beliefModel = new AgentBeliefModel();
 		
-		startBidding(startingResource);		
+		startBidding(startingResource, startingNode);		
 	}
 
+	//================================================================================
+    // Part communication
+    //================================================================================
+	
 	@Override
 	public int getPriority() {
 		// TODO Auto-generated method stub
@@ -50,6 +54,10 @@ public class LotProductAgent implements ProductAgent{
 		
 	}
 
+	//================================================================================
+    // Resource Communication
+    //================================================================================
+	
 	@Override
 	public void informEvent(CapabilitiesEdge edge) {
 		// TODO Auto-generated method stub
@@ -69,9 +77,10 @@ public class LotProductAgent implements ProductAgent{
 	/**
 	 * Start a bidding process using the starting resource
 	 * @param resource
+	 * @param startingNode 
 	 */
-	private void startBidding(ResourceAgent resource) {
+	private void startBidding(ResourceAgent resource, CapabilitiesNode startingNode) {
 		PhysicalProperty property = this.processesNeeded.get(0);
-		resource.teamQuery(this, property, 0, 1000, new ArrayList<ResourceAgent>());
+		resource.teamQuery(this, property, startingNode, 0, 1000, new ArrayList<ResourceAgent>());
 	}
 }

@@ -90,9 +90,6 @@ public class Machine {
 		return this.working;
 	}
 	
-	/**
-	 * @return
-	 */
 	public String getPartHere(){
 		Iterable<Object> objectsHere = grid.getObjectsAt(location.x,location.y);
 		for (Object object : objectsHere){

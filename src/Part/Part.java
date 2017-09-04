@@ -3,8 +3,6 @@ package Part;
 import java.awt.Color;
 import java.awt.geom.GeneralPath;
 
-import Sensors.RFIDTag;
-
 
 public class Part {
 
@@ -18,6 +16,7 @@ public class Part {
 	 * Generic physicalComponent_Part = black rectangle of size 4x4 pixels
 	 */
 	public Part(RFIDTag tag){
+		
 		this.shape = new GeneralPath();
 		shape.moveTo(-1.5,-1);
 		shape.lineTo(1.5,-1);
@@ -26,7 +25,7 @@ public class Part {
 		shape.lineTo(-1.5,-1);
 		
 		this.WindingRule = 0;
-		this.size = 4;
+		this.size = 5;
 		this.color = Color.BLACK;
 		
 		shape.setWindingRule(0);
@@ -83,6 +82,6 @@ public class Part {
 	 */
 	@Override
 	public String toString() {
-		return "Part [tag=" + tag.getID() + "]";
+		return "Part" + this.getRFIDTag().getID();
 	}
 }

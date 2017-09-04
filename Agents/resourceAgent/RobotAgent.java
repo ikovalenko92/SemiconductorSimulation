@@ -2,15 +2,16 @@ package resourceAgent;
 
 
 import java.awt.Point;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import org.apache.commons.collections15.Transformer;
 
 import Robot.RobotLLC;
+import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import intelligentProduct.ProductAgent;
 import repast.simphony.engine.schedule.ScheduledMethod;
-import repast.simphony.space.grid.Grid;
-import repast.simphony.ui.probe.ProbedProperty;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
@@ -24,9 +25,11 @@ public class RobotAgent implements ResourceAgent {
 	private String program;
 	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> robotCapabilities;
 	private CapabilitiesEdge runningEdge;
+	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
+	
 	private ArrayList<ResourceAgent> neighbors;
-
-
+	private HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode;
+	
 	/**
 	 * @param name
 	 * @param robotLLC
@@ -37,7 +40,12 @@ public class RobotAgent implements ResourceAgent {
 		this.working = false;
 		this.robotCapabilities = new DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge>();
 		
+		//Edge that is currently running
 		this.runningEdge = null;
+		//Transformer for shortest path
+		this.weightTransformer = new Transformer<CapabilitiesEdge,Integer>(){
+	       	public Integer transform(CapabilitiesEdge edge) {return edge.getWeight();}
+		};
 		
 		this.neighbors = neighbors;
 		
@@ -50,21 +58,73 @@ public class RobotAgent implements ResourceAgent {
 	}
 
 	//================================================================================
-    // Product agent communication
+    // Product/resource team formation
     //================================================================================
 
 	@Override
-	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getCapabilities() {
-		return this.robotCapabilities;
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
+			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList) {
+		
+		ArrayList<ResourceAgent> newTeamList = new ArrayList<ResourceAgent>(teamList);
+		
+		DijkstraShortestPath<CapabilitiesNode, CapabilitiesEdge> shortestPathGetter = 
+				new DijkstraShortestPath<CapabilitiesNode, CapabilitiesEdge>(this.robotCapabilities, this.weightTransformer);
+		shortestPathGetter.reset();
+		
+		// If the desired property is a point
+		if (desiredProperty.getPoint() != null){
+			for (CapabilitiesNode vertex : this.robotCapabilities.getVertices()){
+				for(PhysicalProperty vertexProperty : vertex.getPhysicalProperties()){
+					
+					//If the location fits the desired property
+					if (vertexProperty.equals(desiredProperty)){
+						//Find the shortest path
+						List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, vertex);
+						
+						//Calculate the bid
+						int bidTime = currentTime;
+						for (CapabilitiesEdge pathNode : shortestPathCandidateList){
+							bidTime = bidTime + pathNode.getWeight();
+						}
+						
+						//Submit the bid to the product agent
+						if (bidTime < maxTime){
+							newTeamList.add(this); // Add to the team
+							productAgent.submitBid(teamList, bidTime);
+						}
+					}
+				}
+			}
+		}
+		
+		//If it's not a point, then push this bid to neighbors
+		for (ResourceAgent neighbor: this.neighbors){
+			
+			//If the neighbor isn't part of the team
+			if (!teamList.contains(neighbor)){
+				newTeamList.clear();
+				newTeamList.addAll(teamList);
+				
+				CapabilitiesNode neighborNode = this.tableNeighborNode.get(neighbor);
+				
+				//Find the shortest path
+				List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
+				
+				//Calculate the bid
+				int bidTime = currentTime;
+				for (CapabilitiesEdge pathNode : shortestPathCandidateList){
+					bidTime = bidTime + pathNode.getWeight();
+				}
+				
+				//Push the bid to the resource agent
+				if (bidTime < maxTime){
+					newTeamList.add(this); // Add to the team
+					neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTime, newTeamList);
+				}
+			}
+		}
 	}
-
-
-	@Override
-	public boolean query(String program) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	//================================================================================
     // Product agent scheduling
     //================================================================================
@@ -88,36 +148,23 @@ public class RobotAgent implements ResourceAgent {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	//================================================================================
-    // Product/resource team formation
+    // Product agent communication
     //================================================================================
 
 	@Override
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, int currentTime, int maxTime,
-			ArrayList<ResourceAgent> teamList) {
-		
-		if (desiredProperty.getPoint() != null){
-			for (CapabilitiesNode vertex : this.robotCapabilities.getVertices()){
-				for(PhysicalProperty vertexProperty : vertex.getPhysicalProperties()){
-					if (vertexProperty.equals(desiredProperty)){
-						
-						teamList.add(this);
-						bidTime = this.robotCapabilities.
-						
-						productAgent.submitBid(teamList, bidTime);
-					}
-				}
-			}
-		}
-		
-		
-		for (ResourceAgent neighbogh: this.neighbors){
-			
-		}
-		
+	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getCapabilities() {
+		return this.robotCapabilities;
 	}
-	
+
+
+	@Override
+	public boolean query(String program) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	//================================================================================
     // Helper methods
     //================================================================================
@@ -144,6 +191,23 @@ public class RobotAgent implements ResourceAgent {
 			//Create and add the edge to the capabilities
 			CapabilitiesEdge programEdge = new CapabilitiesEdge(this, startNode, endNode, program, weight);
 			this.robotCapabilities.addEdge(programEdge, startNode, endNode);
+		}
+	}
+	
+	/**
+	 * Finds at which nodes the neighbors are connected
+	 */
+	@ScheduledMethod (start = 1, priority = 5000)
+	public void findNeighborNodes(){
+		this.tableNeighborNode = new HashMap<ResourceAgent, CapabilitiesNode>();
+		
+		//Fill the look up table that matches the neighbor with the node
+		for (ResourceAgent neighbor : this.neighbors){
+			for (CapabilitiesNode node : this.robotCapabilities.getVertices()){
+				neighbor.getCapabilities().containsVertex(node);
+				//Assume only one node can be shared between neighbors
+				this.tableNeighborNode.put(neighbor, node);
+			}
 		}
 	}
 

@@ -32,7 +32,7 @@ public class RobotStyle extends DefaultStyleOGL2D {
 		spatial = shapeFactory.createShape(totalPath);*/
 		
 		Point endpoint = ((Robot) object).getEnd();
-		spatial = shapeFactory.createShape(new Ellipse2D.Double(endpoint.x-0.5,endpoint.y-0.5,1,1));
+		spatial = shapeFactory.createShape(new Ellipse2D.Double(endpoint.x-1.5,endpoint.y-1.5,3,3));
 		
 		return spatial;
 	}

@@ -38,7 +38,7 @@ public class MachineStyle extends DefaultStyleOGL2D {
 	}
 	
 	public float getScale(Object object) {
-		return 14;
+		return 16;
 	}
 	
 	public float getRotation(Object object) {

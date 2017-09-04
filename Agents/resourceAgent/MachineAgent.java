@@ -32,54 +32,52 @@ public class MachineAgent implements ResourceAgent{
 	}
 
 	//================================================================================
-    // Product agent communication
+    // Product/resource team formation
     //================================================================================
-
+	
 	@Override
-	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getCapabilities() {
-		return this.machineCapabilities;
-	}
-
-
-	@Override
-	public boolean query(String program) {
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
+			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
-
+	
 	//================================================================================
     // Product agent scheduling
     //================================================================================
-	
+
 	@Override
 	public RASchedule getSchedule() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	@Override
 	public boolean requestScheduleTime(ProductAgent productAgent, int startTime) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
+	}	
 
 	@Override
 	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	//================================================================================
-    // Product/resource team formation
+    // Product agent communication
     //================================================================================
-
+	
 	@Override
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, int currentTime, int maxTime,
-			ArrayList<ResourceAgent> teamList) {
+	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getCapabilities() {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+	
+	@Override
+	public boolean query(String program) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	//================================================================================
@@ -87,7 +85,6 @@ public class MachineAgent implements ResourceAgent{
     //================================================================================
 	
 	private void createOutputGraph() {
-		
 		
 	}
 	

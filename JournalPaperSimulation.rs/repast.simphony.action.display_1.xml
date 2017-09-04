@@ -7,6 +7,10 @@
       <string>Robot.RobotStyle</string>
     </entry>
     <entry>
+      <string>Buffer.Buffer</string>
+      <string>Buffer.BufferStyle</string>
+    </entry>
+    <entry>
       <string>Part.Part</string>
       <string>Part.PartStyle</string>
     </entry>
@@ -18,6 +22,10 @@
   <editedStyles>
     <entry>
       <string>Robot.Robot</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>Buffer.Buffer</string>
       <null/>
     </entry>
     <entry>
@@ -39,7 +47,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1607656263</hashCode>
+    <hashCode>1612818914</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>physicalGrid</layoutProjection>
@@ -47,15 +55,19 @@
   <layerOrder>
     <entry>
       <string>Robot.Robot</string>
-      <int>2</int>
+      <int>3</int>
+    </entry>
+    <entry>
+      <string>Buffer.Buffer</string>
+      <int>0</int>
     </entry>
     <entry>
       <string>Part.Part</string>
-      <int>1</int>
+      <int>2</int>
     </entry>
     <entry>
       <string>Machine.Machine</string>
-      <int>0</int>
+      <int>1</int>
     </entry>
   </layerOrder>
   <projections>
@@ -87,7 +99,7 @@
               </entry>
               <entry>
                 <string>SHOW</string>
-                <boolean>false</boolean>
+                <boolean>true</boolean>
               </entry>
             </map>
           </entry>

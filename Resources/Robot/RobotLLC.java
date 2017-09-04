@@ -24,7 +24,7 @@ public class RobotLLC{
 	 * @param name
 	 * @param robot
 	 */
-	public RobotLLC(String name, Robot robot) {
+	public RobotLLC(Robot robot) {
 		this.robot = robot;
 		this.programList = new ArrayList<Program>();
 		
@@ -36,7 +36,7 @@ public class RobotLLC{
 	
 	@Override
 	public String toString() {
-		return this.robot + " Controller";
+		return this.robot + " LLC";
 	}
 	
 	//================================================================================

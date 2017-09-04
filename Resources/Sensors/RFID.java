@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import Part.RFIDTag;
 import repast.simphony.space.grid.Grid;
 
 public class RFID {
