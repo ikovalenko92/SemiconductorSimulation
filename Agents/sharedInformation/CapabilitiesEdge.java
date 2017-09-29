@@ -19,7 +19,7 @@ public class CapabilitiesEdge {
 	 * @param agent
 	 * @param parent
 	 * @param child
-	 * @param activeMethod
+	 * @param activeMethod (string)
 	 * @param weight
 	 */
 	public CapabilitiesEdge(Object agent, CapabilitiesNode parent, CapabilitiesNode child, String activeMethod, int weight){

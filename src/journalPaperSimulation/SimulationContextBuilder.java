@@ -3,6 +3,7 @@ package journalPaperSimulation;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Buffer.Buffer;
 import Buffer.BufferLLC;
@@ -12,18 +13,24 @@ import Part.Part;
 import Part.RFIDTag;
 import Robot.Robot;
 import Robot.RobotLLC;
+import intelligentProduct.LotProductAgent;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.dataLoader.ContextBuilder;
+import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.BouncyBorders;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
+import resourceAgent.BufferAgent;
 import resourceAgent.MachineAgent;
 import resourceAgent.RobotAgent;
 import sharedInformation.CapabilitiesEdge;
+import sharedInformation.CapabilitiesNode;
+import sharedInformation.PhysicalProperty;
+import sharedInformation.ResourceAgent;
 
 
 public class SimulationContextBuilder implements ContextBuilder<Object> {
@@ -37,9 +44,14 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
     //================================================================================
 	
 	/**
-	 * List of all of the Machine Controllers
+	 * List of all of Machine controllers
 	 */
-	ArrayList<MachineLLC> listMachineLLC = new ArrayList<MachineLLC>();
+	private ArrayList<MachineLLC> listMachineLLC = new ArrayList<MachineLLC>();
+
+	/**
+	 * List of all Machine agents
+	 */
+	private ArrayList<MachineAgent> listMachineAgent = new ArrayList<MachineAgent>();
 	
 	//Machine locations
 	private Point machineTAPoint = new Point (30,100);
@@ -102,7 +114,15 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
     // Storage
     //================================================================================
 	
-	ArrayList<BufferLLC> listBufferLLC = new ArrayList<BufferLLC>();
+	/**
+	 * List of all of Buffer Controllers
+	 */
+	private ArrayList<BufferLLC> listBufferLLC = new ArrayList<BufferLLC>();
+
+	/**
+	 * List of all Buffer agents
+	 */
+	private ArrayList<BufferAgent> listBufferAgent = new ArrayList<BufferAgent>();
 		
 	//Storage points for bay buffers
 	private Point enterPointStorage = new Point (18,60);
@@ -156,7 +176,12 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	/**
 	 * List of all of Robot Controllers
 	 */
-	ArrayList<RobotLLC> listRobotLLC = new ArrayList<RobotLLC>();
+	private ArrayList<RobotLLC> listRobotLLC = new ArrayList<RobotLLC>();
+
+	/**
+	 * List of all robot agents
+	 */
+	private ArrayList<RobotAgent> listRobotAgent = new ArrayList<RobotAgent>();;    
 	
 	private final Point robotB1Point = new Point(40,90);
 	private final Point robotB2Point = new Point(40,30);
@@ -167,8 +192,16 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private final Point robotM12Point = new Point(40,60);
 	private final Point robotM34Point = new Point(80,60);
 	private final Point robotM56Point = new Point(120,60);
+		
+	//Robot names
+	private final String[] robotNames = new String[]{"RobotB1", "RobotB2", "RobotB3",
+			"RobotB4", "RobotB5", "RobotB6", "RobotM12", "RobotM34", "RobotM56"};
 	
-	// Point that the robots can move between
+	//Points where the robots should go
+	private final Point[] robotLocations = new Point[]{robotB1Point, robotB2Point, robotB3Point,
+			robotB4Point, robotB5Point, robotB6Point, robotM12Point, robotM34Point, robotM56Point};
+	
+	// Points that the robots can move between
 	private final Point[] robotB1PointMove = new Point[]{depositB1PointExit, machineTAPoint,
 			machineTBPoint, machineTCPoint};
 	private final Point[] robotB2PointMove = new Point[]{depositB2PointExit, machineTDPoint,
@@ -188,17 +221,44 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private final Point[] robotM56PointMove = new Point[]{buffer2PointExit, depositB5PointEnter,
 			depositB6PointEnter, exitPoint};
 	
-	//Robot names
-	private final String[] robotNames = new String[]{"RobotB1", "RobotB2", "RobotB3",
-			"RobotB4", "RobotB5", "RobotB6", "RobotM12", "RobotM34", "RobotM56"};
-	
-	//Points where the robots should go
-	private final Point[] robotLocations = new Point[]{robotB1Point, robotB2Point, robotB3Point,
-			robotB4Point, robotB5Point, robotB6Point, robotM12Point, robotM34Point, robotM56Point};
-
 	//Where the robots can move things between
-	private final Point[][] robotMoveLocations = new Point[][]{robotB1PointMove, robotB2PointMove, robotB3PointMove,
+	private final Point[][] robotNeighborLocations = new Point[][]{robotB1PointMove, robotB2PointMove, robotB3PointMove,
 		robotB4PointMove, robotB5PointMove, robotB6PointMove, robotM12PointMove, robotM34PointMove, robotM56PointMove};
+		
+		
+	//================================================================================
+    // Neighborhoods
+    //================================================================================
+		
+	//The index of the MACHINE neighbors for each of the robots
+	private final int[] robotB1MachineIndex = new int[]{0, 1, 2};
+	private final int[] robotB2MachineIndex = new int[]{3, 4, 5};
+	private final int[] robotB3MachineIndex = new int[]{6, 7, 8, 9};
+	private final int[] robotB4MachineIndex = new int[]{10, 11, 12, 13};
+	private final int[] robotB5MachineIndex = new int[]{14, 15, 16};
+	private final int[] robotB6MachineIndex = new int[]{17, 18, 19};
+	private final int[] robotM12MachineIndex = new int[]{};
+	private final int[] robotM34MachineIndex = new int[]{};
+	private final int[] robotM56MachineIndex = new int[]{};
+		
+	// The index of the MACHINE neighbors for all of the robots
+	private final int[][] robotMachineNeighborIndices = new int[][]{robotB1MachineIndex, robotB2MachineIndex, robotB3MachineIndex, robotB4MachineIndex, robotB5MachineIndex, robotB6MachineIndex, robotM12MachineIndex, robotM34MachineIndex, robotM56MachineIndex};
+
+	//The index of the BUFFER neighbors for each of the robots
+	private final int[] robotB1BufferIndex = new int[]{2};
+	private final int[] robotB2BufferIndex = new int[]{3};
+	private final int[] robotB3BufferIndex = new int[]{4};
+	private final int[] robotB4BufferIndex = new int[]{5};
+	private final int[] robotB5BufferIndex = new int[]{6};
+	private final int[] robotB6BufferIndex = new int[]{7};
+	private final int[] robotM12BufferIndex = new int[]{0, 2, 3, 8};
+	private final int[] robotM34BufferIndex = new int[]{4, 5, 8, 9};
+	private final int[] robotM56BufferIndex = new int[]{1, 6, 7, 9};
+			
+	//The index of the BUFFER neighbors for all of the robots
+	private final int[][] robotBufferNeighborIndices = new int[][]{robotB1BufferIndex, robotB2BufferIndex, robotB3BufferIndex,	robotB4BufferIndex, robotB5BufferIndex, robotB6BufferIndex, robotM12BufferIndex, robotM34BufferIndex, robotM56BufferIndex};
+	private HashMap<Point, Object> tableLocationObject;
+
 			
 //================================================================================
 // START OF METHODS
@@ -227,37 +287,15 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		buildAgentNetwork(cyberContext);
 		
+		//Testing
+		cyberContext.add(new Testing(this.listBufferLLC, this.bufferLocations, this.listBufferAgent, cyberContext));
+		
 		return context;
 	}
 
 	private void buildProductionControl(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
-		//================================================================================
-	    // Robots
-	    //================================================================================
-		
-		for (int index = 0; index < this.robotLocations.length; index++){
-			//Build the physical robot
-			Robot robot = new Robot(this.robotNames[index], this.robotLocations[index], 1, physicalGrid, 25);
-			physicalContext.add(robot);
-			physicalGrid.moveTo(robot, robot.getCenter().x, robot.getCenter().y);
-			
-			//Build the lower level controller
-			RobotLLC robotLLC = new RobotLLC(robot);
-			int locationAmount = this.robotMoveLocations[index].length;
-			for (int j = 0; j < locationAmount; j++){
-				for (int k = 0; k < locationAmount; k++){
-					if(j!=k){
-						//Write the move programs for all of the points that the robot can move the part between
-						robotLLC.writeMoveObjectProgram("move"+j, this.robotMoveLocations[index][j],
-								this.robotMoveLocations[index][k], "Part");
-					}
-				}
-			}
-			
-			this.listRobotLLC.add(robotLLC);
-			cyberContext.add(robotLLC);			
-		}
+		this.tableLocationObject = new HashMap<Point, Object>();
 		
 		//================================================================================
 	    // Machines
@@ -271,6 +309,8 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			
 			MachineLLC machineLLC = new MachineLLC(machine);
 			this.listMachineLLC.add(machineLLC);
+			
+			this.tableLocationObject.put(this.machineLocations[index], machine);
 		}
 		
 		//================================================================================
@@ -285,6 +325,40 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			
 			BufferLLC bufferLLC = new BufferLLC(buffer);
 			this.listBufferLLC.add(bufferLLC);
+			
+			this.tableLocationObject.put(this.bufferLocations[index], buffer);
+			for (Point point : this.bufferEnterLocations[index]){
+				this.tableLocationObject.put(point, buffer);
+			}
+		}
+		
+		//================================================================================
+	    // Robots
+	    //================================================================================
+		
+		for (int index = 0; index < this.robotLocations.length; index++){
+			//Build the physical robot
+			Robot robot = new Robot(this.robotNames[index], this.robotLocations[index], 1, physicalGrid, 25);
+			physicalContext.add(robot);
+			physicalGrid.moveTo(robot, robot.getCenter().x, robot.getCenter().y);
+			
+			//Build the lower level controller
+			RobotLLC robotLLC = new RobotLLC(robot);
+			int locationAmount = this.robotNeighborLocations[index].length;
+			for (int j = 0; j < locationAmount; j++){
+				for (int k = 0; k < locationAmount; k++){
+					if(j!=k){
+						//Write the move programs for all of the points that the robot can move the part between
+						robotLLC.writeMoveObjectProgram("move"+j, this.robotNeighborLocations[index][j],
+								this.robotNeighborLocations[index][k], "Part");
+					}
+				}
+			}
+			
+			this.listRobotLLC.add(robotLLC);
+			cyberContext.add(robotLLC);		
+			
+			this.tableLocationObject.put(this.robotLocations[index], robot);
 		}
 				
 		//================================================================================
@@ -302,12 +376,10 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	    //================================================================================
 		
 		for (RobotLLC robotLLC : this.listRobotLLC){
-			//RobotAgent robotAgent = new RobotAgent("testRobotAgent", robotLLC);
-			//cyberContext.add(robotAgent);
+			RobotAgent robotAgent = new RobotAgent(robotLLC.getRobot().toString()+" Agent", robotLLC, this.tableLocationObject);
+			cyberContext.add(robotAgent);
 			
-			//for (CapabilitiesEdge edge:robotAgent.getCapabilities().getEdges()){
-				//System.out.println(edge);
-			//}
+			this.listRobotAgent.add(robotAgent);
 		}
 		
 		//================================================================================
@@ -315,9 +387,48 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	    //================================================================================
 		
 		for (MachineLLC machineLLC : this.listMachineLLC){
-			MachineAgent machine1Agent = new MachineAgent("testMachineAgent", machineLLC);
-			cyberContext.add(machine1Agent);
+			MachineAgent machineAgent = new MachineAgent(machineLLC.getMachine().toString()+" Agent", machineLLC);
+			cyberContext.add(machineAgent);
+			
+			this.listMachineAgent.add(machineAgent);
 		}
+		
+		//================================================================================
+	    // Buffer
+	    //================================================================================
+		
+		for (BufferLLC bufferLLC : this.listBufferLLC){
+			BufferAgent bufferAgent = new BufferAgent(bufferLLC.getBuffer().toString()+" Agent", bufferLLC);
+			cyberContext.add(bufferAgent);
+			
+			this.listBufferAgent.add(bufferAgent);
+		}
+		
+		//================================================================================
+	    // Neighbors
+	    //================================================================================
+		
+		//For resource agents, populate 
+		for(int index = 0; index < this.robotLocations.length; index++){
+			//find the robot agent and the neighbor indices
+			RobotAgent robotAgent = this.listRobotAgent.get(index);
+			int[] robotMachineIndices= this.robotMachineNeighborIndices[index];
+			int[] robotBufferIndices = this.robotBufferNeighborIndices[index];
+			
+			//Machine agents neighbor population
+			for (int machineIndex : robotMachineIndices){
+				MachineAgent machineAgent = this.listMachineAgent.get(machineIndex);
+				robotAgent.addNeighbor(machineAgent);
+				machineAgent.addNeighbor(robotAgent);
+			}
+			
+			//Buffer agents neighbor population
+			for (int bufferIndex : robotBufferIndices){
+				BufferAgent bufferAgent = this.listBufferAgent.get(bufferIndex);
+				robotAgent.addNeighbor(bufferAgent);
+				bufferAgent.addNeighbor(robotAgent);
+			}
+		}		
 		
 		//================================================================================
 	    // Parts
@@ -329,9 +440,27 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	 * Makes sure all of the variables are reset whenever we reset the simulation
 	 */
 	private void resetVariables() {
-		this.listMachineLLC.clear();
+		
+		ArrayList<Object> clearLists = new ArrayList<Object>();
+		clearLists.addAll(listMachineLLC);
+		clearLists.addAll(listRobotLLC);
+		clearLists.addAll(listBufferLLC);
+		clearLists.addAll(listMachineAgent);
+		clearLists.addAll(listRobotAgent);
+		clearLists.addAll(listBufferAgent);
+		
+		for (Object object : clearLists){
+			object = null;
+		}
+		
+		
+		this.listMachineLLC.clear();   
 		this.listRobotLLC.clear();
 		this.listBufferLLC.clear();
+		
+		this.listMachineAgent.clear();
+		this.listRobotAgent.clear();
+		this.listBufferAgent.clear();
 	}
 	
 }

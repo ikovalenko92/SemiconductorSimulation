@@ -66,8 +66,11 @@ public class LotProductAgent implements ProductAgent{
 
 	@Override
 	public void submitBid(ArrayList<ResourceAgent> resourceList, int bidTime) {
-		// TODO Auto-generated method stub
-		
+		String printString = "";
+		for (ResourceAgent resource : resourceList){
+			printString = printString + resource.toString() + " ";
+		}
+		System.out.println("" + resourceList + " " + bidTime);
 	}
 	
 	//================================================================================

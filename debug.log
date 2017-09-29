@@ -583,3 +583,716 @@ java.lang.ArrayIndexOutOfBoundsException: 4
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.run(Unknown Source)
+ERROR [AWT-EventQueue-0] 2017-09-22 14:28:09,948 repast.simphony.ui.RSApplication - Error while initializing simulation
+java.lang.NullPointerException
+	at resourceAgent.MachineAgent.createOutputGraph(MachineAgent.java:127)
+	at resourceAgent.MachineAgent.<init>(MachineAgent.java:39)
+	at journalPaperSimulation.SimulationContextBuilder.buildAgentNetwork(SimulationContextBuilder.java:339)
+	at journalPaperSimulation.SimulationContextBuilder.build(SimulationContextBuilder.java:251)
+	at repast.simphony.dataLoader.engine.ClassNameContextBuilder.build(ClassNameContextBuilder.java:41)
+	at repast.simphony.dataLoader.engine.DataLoaderControllerAction.runInitialize(DataLoaderControllerAction.java:48)
+	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:214)
+	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:1)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:292)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
+	at repast.simphony.util.collections.NaryTree.preOrderTraversal(NaryTree.java:288)
+	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:212)
+	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:383)
+	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:157)
+	at repast.simphony.ui.action.InitRun.actionPerformed(InitRun.java:17)
+	at javax.swing.AbstractButton.fireActionPerformed(Unknown Source)
+	at javax.swing.AbstractButton$Handler.actionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.setPressed(Unknown Source)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Unknown Source)
+	at java.awt.AWTEventMulticaster.mouseReleased(Unknown Source)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Container.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.dispatchEvent(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+FATAL [Thread-8] 2017-09-28 15:01:33,805 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null
+Edges:Edge with weight 1 goes from 20,60 to 18,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@e595e8 using T20,60[EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null] Edge with weight 1 goes from 18,60 to 20,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@e595e8 using F20,60[EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-9] 2017-09-28 15:20:02,549 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null
+Edges:Edge with weight 1 goes from 20,60 to 18,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@68bf38 using T20,60[EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null] Edge with weight 1 goes from 18,60 to 20,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@68bf38 using F20,60[EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-10] 2017-09-28 15:20:15,069 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null
+Edges:Edge with weight 1 goes from 20,60 to 18,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@e39ba4 using T20,60[EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null] Edge with weight 1 goes from 18,60 to 20,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@e39ba4 using F20,60[EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-11] 2017-09-28 15:27:08,753 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null
+Edges:Edge with weight 1 goes from 18,60 to 20,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@170659d using F20,60[EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null] Edge with weight 1 goes from 20,60 to 18,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@170659d using T20,60[EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-12] 2017-09-28 16:01:22,820 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null
+Edges:Edge with weight 1 goes from 20,60 to 18,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@ce42f3 using T20,60[EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null] Edge with weight 1 goes from 18,60 to 20,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@ce42f3 using F20,60[EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-7] 2017-09-28 17:11:25,699 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null
+Edges:Edge with weight 1 goes from 18,60 to 20,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@d77f3e using F20,60[EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null] Edge with weight 1 goes from 20,60 to 18,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@d77f3e using T20,60[EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-8] 2017-09-28 17:12:10,103 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null
+Edges:Edge with weight 1 goes from 20,60 to 18,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@14e73b6 using T20,60[EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null] Edge with weight 1 goes from 18,60 to 20,60.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@14e73b6 using F20,60[EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-7] 2017-09-28 17:15:07,946 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 20,60 process done: null is not part of graph Vertices:RobotM12 at 20,60 process done: null,RobotM12 at 55,60 process done: null,RobotM12 at 40,65 process done: null,RobotM12 at 40,55 process done: null
+Edges:Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[RobotM12 at 20,60 process done: null,RobotM12 at 55,60 process done: null] Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[RobotM12 at 40,65 process done: null,RobotM12 at 55,60 process done: null] Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[RobotM12 at 55,60 process done: null,RobotM12 at 40,55 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[RobotM12 at 40,55 process done: null,RobotM12 at 55,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:76)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+ERROR [AWT-EventQueue-0] 2017-09-28 18:24:11,820 repast.simphony.ui.RSApplication - Error while initializing simulation
+java.lang.NullPointerException
+	at resourceAgent.RobotAgent.createOutputGraph(RobotAgent.java:144)
+	at resourceAgent.RobotAgent.<init>(RobotAgent.java:46)
+	at journalPaperSimulation.SimulationContextBuilder.buildAgentNetwork(SimulationContextBuilder.java:379)
+	at journalPaperSimulation.SimulationContextBuilder.build(SimulationContextBuilder.java:288)
+	at repast.simphony.dataLoader.engine.ClassNameContextBuilder.build(ClassNameContextBuilder.java:41)
+	at repast.simphony.dataLoader.engine.DataLoaderControllerAction.runInitialize(DataLoaderControllerAction.java:48)
+	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:214)
+	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:1)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:292)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
+	at repast.simphony.util.collections.NaryTree.preOrderTraversal(NaryTree.java:288)
+	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:212)
+	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:383)
+	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:157)
+	at repast.simphony.ui.action.InitRun.actionPerformed(InitRun.java:17)
+	at javax.swing.AbstractButton.fireActionPerformed(Unknown Source)
+	at javax.swing.AbstractButton$Handler.actionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.setPressed(Unknown Source)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Unknown Source)
+	at java.awt.AWTEventMulticaster.mouseReleased(Unknown Source)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Container.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.dispatchEvent(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+ERROR [AWT-EventQueue-0] 2017-09-28 18:25:39,909 repast.simphony.ui.RSApplication - Error while initializing simulation
+java.lang.NullPointerException
+	at resourceAgent.RobotAgent.createOutputGraph(RobotAgent.java:144)
+	at resourceAgent.RobotAgent.<init>(RobotAgent.java:46)
+	at journalPaperSimulation.SimulationContextBuilder.buildAgentNetwork(SimulationContextBuilder.java:379)
+	at journalPaperSimulation.SimulationContextBuilder.build(SimulationContextBuilder.java:288)
+	at repast.simphony.dataLoader.engine.ClassNameContextBuilder.build(ClassNameContextBuilder.java:41)
+	at repast.simphony.dataLoader.engine.DataLoaderControllerAction.runInitialize(DataLoaderControllerAction.java:48)
+	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:214)
+	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:1)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:292)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
+	at repast.simphony.util.collections.NaryTree.preOrderTraversal(NaryTree.java:288)
+	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:212)
+	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:383)
+	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:157)
+	at repast.simphony.ui.action.InitRun.actionPerformed(InitRun.java:17)
+	at javax.swing.AbstractButton.fireActionPerformed(Unknown Source)
+	at javax.swing.AbstractButton$Handler.actionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.setPressed(Unknown Source)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Unknown Source)
+	at java.awt.AWTEventMulticaster.mouseReleased(Unknown Source)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Container.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.dispatchEvent(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+ERROR [AWT-EventQueue-0] 2017-09-28 18:27:00,032 repast.simphony.ui.RSApplication - Error while initializing simulation
+java.lang.NullPointerException
+	at resourceAgent.RobotAgent.createOutputGraph(RobotAgent.java:144)
+	at resourceAgent.RobotAgent.<init>(RobotAgent.java:46)
+	at journalPaperSimulation.SimulationContextBuilder.buildAgentNetwork(SimulationContextBuilder.java:379)
+	at journalPaperSimulation.SimulationContextBuilder.build(Unknown Source)
+	at repast.simphony.dataLoader.engine.ClassNameContextBuilder.build(ClassNameContextBuilder.java:41)
+	at repast.simphony.dataLoader.engine.DataLoaderControllerAction.runInitialize(DataLoaderControllerAction.java:48)
+	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:214)
+	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:1)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:292)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
+	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
+	at repast.simphony.util.collections.NaryTree.preOrderTraversal(NaryTree.java:288)
+	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:212)
+	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:383)
+	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:157)
+	at repast.simphony.ui.action.InitRun.actionPerformed(InitRun.java:17)
+	at javax.swing.AbstractButton.fireActionPerformed(Unknown Source)
+	at javax.swing.AbstractButton$Handler.actionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(Unknown Source)
+	at javax.swing.DefaultButtonModel.setPressed(Unknown Source)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Unknown Source)
+	at java.awt.AWTEventMulticaster.mouseReleased(Unknown Source)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Container.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.dispatchEvent(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+FATAL [Thread-7] 2017-09-28 18:28:34,706 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 20,60 process done: null is not part of graph Vertices:null at 55,60 process done: null,null at 20,60 process done: null,null at 40,65 process done: null,null at 40,55 process done: null
+Edges:Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[null at 55,60 process done: null,null at 40,55 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[null at 40,55 process done: null,null at 55,60 process done: null] Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[null at 20,60 process done: null,null at 55,60 process done: null] Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[null at 40,65 process done: null,null at 55,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-8] 2017-09-28 18:29:29,647 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex depositB1 at 40,65 process done: null is not part of graph Vertices:Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@e03,Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@dff
+Edges:Edge with weight 1 goes from 30,80 to 30,80.
+Makes nothing completed.
+ Activated by: resourceAgent.MachineAgent@4e8d01 using Hold[Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 225 goes from 30,80 to 30,80.
+Makes S1.
+ Activated by: resourceAgent.MachineAgent@4e8d01 using S1[Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@dff] Edge with weight 1 goes from 30,80 to 30,80.
+Makes nothing completed.
+ Activated by: resourceAgent.MachineAgent@4e8d01 using Reset[Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@dff,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 1 goes from 30,80 to 30,80.
+Makes nothing completed.
+ Activated by: resourceAgent.MachineAgent@4e8d01 using Reset[Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@e03,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 255 goes from 30,80 to 30,80.
+Makes S5.
+ Activated by: resourceAgent.MachineAgent@4e8d01 using S5[Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@e03] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.MachineAgent.teamQuery(MachineAgent.java:66)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-9] 2017-09-28 18:53:16,829 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null,depositB1 at 40,65 process done: null,depositB2 at 40,55 process done: null
+Edges:Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null] Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-10] 2017-09-28 18:55:04,144 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,depositB1 at 40,65 process done: null,depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null
+Edges:Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-11] 2017-09-28 19:10:50,153 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex buffer1234 at 55,60 process done: null is not part of graph Vertices:Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@dff,Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@e03
+Edges:Edge with weight 1 goes from 30,80 to 30,80.
+Makes nothing completed.
+ Activated by: resourceAgent.MachineAgent@1cf4186 using Reset[Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@dff,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 255 goes from 30,80 to 30,80.
+Makes S5.
+ Activated by: resourceAgent.MachineAgent@1cf4186 using S5[Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@e03] Edge with weight 225 goes from 30,80 to 30,80.
+Makes S1.
+ Activated by: resourceAgent.MachineAgent@1cf4186 using S1[Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@dff] Edge with weight 1 goes from 30,80 to 30,80.
+Makes nothing completed.
+ Activated by: resourceAgent.MachineAgent@1cf4186 using Reset[Machine [name=machineT67] at 30,80 process done: sharedInformation.PhysicalProperty@e03,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 1 goes from 30,80 to 30,80.
+Makes nothing completed.
+ Activated by: resourceAgent.MachineAgent@1cf4186 using Hold[Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT67] at 30,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.MachineAgent.teamQuery(MachineAgent.java:66)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-7] 2017-09-29 11:09:09,696 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:depositB2 at 40,55 process done: null,EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null,depositB1 at 40,65 process done: null
+Edges:Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null] Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-8] 2017-09-29 11:11:23,217 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex buffer1234 at 55,60 process done: null is not part of graph Vertices:depositB1 at 40,75 process done: null,depositB1 at 40,65 process done: null,depositB1 at 40,70 process done: null
+Edges:Edge with weight 1 goes from 40,70 to 40,65.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@197fc2f using F40,65[depositB1 at 40,70 process done: null,depositB1 at 40,65 process done: null] Edge with weight 1 goes from 40,70 to 40,75.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@197fc2f using F40,75[depositB1 at 40,70 process done: null,depositB1 at 40,75 process done: null] Edge with weight 1 goes from 40,75 to 40,70.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@197fc2f using T40,75[depositB1 at 40,75 process done: null,depositB1 at 40,70 process done: null] Edge with weight 1 goes from 40,65 to 40,70.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@197fc2f using T40,65[depositB1 at 40,65 process done: null,depositB1 at 40,70 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more

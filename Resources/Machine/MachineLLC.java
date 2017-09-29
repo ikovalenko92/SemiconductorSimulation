@@ -1,5 +1,6 @@
 package Machine;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -67,6 +68,10 @@ public class MachineLLC {
 		else if (manProcess.equals("S6")){
 			if (machine.S6()){this.started = true; return true;}
 		}
+		else if(manProcess.equals("Hold")){
+			if(!this.machine.getStatus()){return true;};
+		}
+		
 		return false;
 	}
 	
@@ -188,6 +193,14 @@ public class MachineLLC {
 		public int getProcessTime() {
 			return processTime;
 		}		
+	}
+
+	public Machine getMachine() {
+		return this.machine;
+	}
+
+	public Point getLocation() {
+		return this.machine.getCenter();
 	}
 	
 	

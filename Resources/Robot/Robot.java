@@ -2,6 +2,7 @@ package Robot;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Part.Part;
 import repast.simphony.context.Context;
@@ -352,6 +353,10 @@ public class Robot {
 
 	public int getVelocity() {
 		return this.vel;
+	}
+
+	public Grid<Object> getGrid() {
+		return this.grid;
 	}
 	
 }

@@ -61,7 +61,7 @@ public class BufferLLC {
 			return false;
 		}
 		
-		return buffer.moveFromStorage(partName, enterPoint);
+		return buffer.moveToStorage(partName, enterPoint);
 	}
 	//================================================================================
     // Output to HLC
@@ -85,5 +85,9 @@ public class BufferLLC {
 	 */
 	public boolean hasPart(String partName){
 		return this.buffer.getPartList().contains(partName);
+	}
+
+	public Buffer getBuffer() {
+		return this.buffer;
 	}	
 }

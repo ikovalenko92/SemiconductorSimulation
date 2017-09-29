@@ -41,10 +41,16 @@ public class Buffer {
     // System Output
     //================================================================================
 	
+	/**
+	 * @return An array of all points to enter/exit the buffer
+	 */
 	public Point[] getEnterPoints() {
 		return enterPoints;
 	}
 
+	/**
+	 * @return The single storage point
+	 */
 	public Point getStoragePoint() {
 		return storagePoint;
 	}

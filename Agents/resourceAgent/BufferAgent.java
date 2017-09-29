@@ -1,13 +1,14 @@
 package resourceAgent;
 
-import java.lang.reflect.Method;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.commons.collections15.Transformer;
 
-import Machine.MachineLLC;
+import Buffer.BufferLLC;
 import Part.Part;
+import Robot.RobotLLC;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import intelligentProduct.ProductAgent;
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -17,26 +18,19 @@ import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
 import sharedInformation.ResourceAgent;
 
-public class MachineAgent implements ResourceAgent{
+public class BufferAgent implements ResourceAgent {
 
-	private String name;
-	private MachineLLC machine;
-	private boolean working;
-	private int program;
-	
-	private CapabilitiesEdge runningEdge;
-	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> machineCapabilities;
-	
+	private BufferLLC buffer;
+	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> bufferCapabilities;
 	private ArrayList<ResourceAgent> neighbors;
-	private HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode;
+	
+	private HashMap<ResourceAgent, CapabilitiesNode>  tableNeighborNode;
 	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
 
-	public MachineAgent(String name, MachineLLC machine){
-		this.name = name;
-		this.machine = machine;
-		this.working = false;
-		this.machineCapabilities = new DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge>();
-		
+	public BufferAgent(String name, BufferLLC buffer){
+		this.buffer = buffer;
+		this.bufferCapabilities = new DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge>();
+			
 		createOutputGraph();
 		//Transformer for shortest path
 		this.weightTransformer = new Transformer<CapabilitiesEdge,Integer>(){
@@ -53,7 +47,6 @@ public class MachineAgent implements ResourceAgent{
 	public ArrayList<ResourceAgent> getNeighbors(){
 		return this.neighbors;
 	}
-	
 
 	//================================================================================
     // Product/resource team formation
@@ -62,14 +55,10 @@ public class MachineAgent implements ResourceAgent{
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
 			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList) {
-		
+
 		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
-				currentTime, maxTime, teamList, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
+				currentTime, maxTime, teamList, neighbors, tableNeighborNode, bufferCapabilities, weightTransformer);
 	}
-	
-	//================================================================================
-    // Product agent scheduling
-    //================================================================================
 
 	@Override
 	public RASchedule getSchedule() {
@@ -77,36 +66,38 @@ public class MachineAgent implements ResourceAgent{
 		return null;
 	}
 
+	//================================================================================
+    // Product agent scheduling
+    //================================================================================
+	
 	@Override
 	public boolean requestScheduleTime(ProductAgent productAgent, int startTime) {
 		// TODO Auto-generated method stub
 		return false;
-	}	
+	}
 
 	@Override
 	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	//================================================================================
     // Product agent communication
     //================================================================================
 	
 	@Override
 	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getCapabilities() {
-		return this.machineCapabilities;
+		return this.bufferCapabilities;
 	}
-	
+
 	@Override
 	public boolean query(String program, Part part) {
 		// TODO Auto-generated method stub
+		char programType = program.charAt(0);
+		String point = program.substring(1);
 		
-		//Hold
-		
-		//Reset
-		
-		//Program Run
+		String[] tokens = point.split(",");
 		
 		return false;
 	}
@@ -115,31 +106,24 @@ public class MachineAgent implements ResourceAgent{
     // Helper methods
     //================================================================================
 	
-	/**
-	 * Creates a graph that represents the capabilities of this machine
-	 */
 	private void createOutputGraph() {
-		//Node representing the part located in the CNC
-		PhysicalProperty machineLocation = new PhysicalProperty(this.machine.getLocation());
-		CapabilitiesNode startNode = new CapabilitiesNode(this.machine.getMachine(), null, machineLocation);
 		
-		//Create the self-loop to hold it at this cnc
-		CapabilitiesEdge selfEdge = new CapabilitiesEdge(this, startNode, startNode, "Hold", 1);
-		this.machineCapabilities.addEdge(selfEdge, startNode, startNode);	
+		//Create the physical property of being in storage
+		PhysicalProperty storageLocation = new PhysicalProperty(this.buffer.getStoragePoint());
+		CapabilitiesNode storageNode = new CapabilitiesNode(this.buffer.getBuffer(), null, storageLocation);  
 		
-		//Nodes that represent machining operations performed on the part
-		for (String program : this.machine.getProgramList()){
-			//Create the node representing this program being complete
-			PhysicalProperty programName = new PhysicalProperty(program.substring(program.length()-2));
-			CapabilitiesNode programNode = new CapabilitiesNode(this.machine.getMachine(), programName, machineLocation);
-		
-			//Create the edge to go to this node
-			CapabilitiesEdge programEdge = new CapabilitiesEdge(this, startNode, programNode, program, this.machine.getProgramTime(program));
-			this.machineCapabilities.addEdge(programEdge, startNode, programNode);
+		for (Point enterPoints : this.buffer.getEnterPoints()){
+			//Create the node for being at the enter point
+			PhysicalProperty enterLocation = new PhysicalProperty(enterPoints);
+			CapabilitiesNode enterNode = new CapabilitiesNode(this.buffer.getBuffer(), null, enterLocation);
 			
-			//Create the edge to come back to the original position
-			CapabilitiesEdge programReset = new CapabilitiesEdge(this, programNode, startNode, "Reset", 1);
-			this.machineCapabilities.addEdge(programReset, programNode, startNode);
+			//Program to move it FROM storage. Format: Rx,y
+			CapabilitiesEdge programOutEdge = new CapabilitiesEdge(this, storageNode, enterNode, "F" + enterNode.getLocation().x + "," + enterNode.getLocation().y, 1);
+			this.bufferCapabilities.addEdge(programOutEdge, storageNode, enterNode);
+			
+			//Program to move TO from storage. Format: Sx,y
+			CapabilitiesEdge programInEdge = new CapabilitiesEdge(this, enterNode, storageNode, "T" + enterNode.getLocation().x + "," + enterNode.getLocation().y, 1);
+			this.bufferCapabilities.addEdge(programInEdge, enterNode, storageNode);
 		}
 	}
 	
@@ -152,20 +136,12 @@ public class MachineAgent implements ResourceAgent{
 		
 		//Fill the look up table that matches the neighbor with the node
 		for (ResourceAgent neighbor : this.neighbors){
-			for (CapabilitiesNode node : this.machineCapabilities.getVertices()){
+			for (CapabilitiesNode node : this.bufferCapabilities.getVertices()){
 				neighbor.getCapabilities().containsVertex(node);
 				//Assume only one node can be shared between neighbors
 				this.tableNeighborNode.put(neighbor, node);
 			}
 		}
 	}
-	
-	//================================================================================
-    // Testing
-    //================================================================================
-	
-	/*@ScheduledMethod (start = 30)
-	public void testRobot(){
-		this.machine.runProgram(this.machine.getProgramList().remove(0));
-	}*/
+
 }

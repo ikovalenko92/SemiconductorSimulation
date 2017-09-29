@@ -5,10 +5,14 @@ import intelligentProduct.ProductAgent;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
 public interface ResourceAgent {
 
+	public void addNeighbor(ResourceAgent neighbor);
+	public ArrayList<ResourceAgent> getNeighbors();
+	
 	//================================================================================
     // Product/resource team formation
     //================================================================================
@@ -76,5 +80,5 @@ public interface ResourceAgent {
 	 * @param parameter
 	 * @return If the method was accepted by the resource
 	 */
-	public boolean query(String program);
+	public boolean query(String program, Part part);
 } 
