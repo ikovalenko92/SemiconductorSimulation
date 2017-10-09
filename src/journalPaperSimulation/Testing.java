@@ -29,7 +29,7 @@ public class Testing {
 	@ScheduledMethod (start = 2)
 	public void start(){
 		ArrayList<String> desiredList = new ArrayList<String>();
-		desiredList.add("S1");
+		desiredList.add("S2");
 		CapabilitiesNode startingNode = new CapabilitiesNode(this.listBufferLLC.get(0).getBuffer(), null, new PhysicalProperty(this.bufferLocations[0]));
 		LotProductAgent productAgent = new LotProductAgent("testAgent", desiredList, this.listBufferAgent.get(0), startingNode);
 		cyberContext.add(productAgent);

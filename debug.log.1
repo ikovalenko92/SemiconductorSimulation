@@ -1,0 +1,1194 @@
+FATAL [Thread-9] 2017-10-02 16:37:32,452 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null,depositB1 at 40,65 process done: null
+Edges:Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-10] 2017-10-02 16:37:40,989 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:depositB2 at 40,55 process done: null,EnterBuffer at 20,60 process done: null,depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null
+Edges:Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-11] 2017-10-02 16:39:41,682 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex depositB1 at 40,65 process done: null is not part of graph Vertices:depositB1 at 40,75 process done: null,Machine [name=machineT65] at 30,100 process done: null,Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT66] at 50,90 process done: null
+Edges:Edge with weight 20 goes from 30,100 to 30,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB1 LLC using move1[Machine [name=machineT65] at 30,100 process done: null,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 15 goes from 40,75 to 30,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB1 LLC using move0[depositB1 at 40,75 process done: null,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 30 goes from 30,80 to 50,90.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB1 LLC using move3[Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT66] at 50,90 process done: null] Edge with weight 30 goes from 50,90 to 30,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB1 LLC using move2[Machine [name=machineT66] at 50,90 process done: null,Machine [name=machineT67] at 30,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:81)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:92)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-12] 2017-10-02 16:40:42,157 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null,EnterBuffer at 20,60 process done: null,depositB1 at 40,65 process done: null
+Edges:Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-13] 2017-10-02 16:46:17,651 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex depositB1 at 40,65 process done: null is not part of graph Vertices:Machine [name=machineT66] at 50,90 process done: null,depositB1 at 40,75 process done: null,Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT65] at 30,100 process done: null
+Edges:Edge with weight 20 goes from 30,100 to 30,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB1 LLC using move1[Machine [name=machineT65] at 30,100 process done: null,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 15 goes from 40,75 to 30,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB1 LLC using move0[depositB1 at 40,75 process done: null,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 30 goes from 50,90 to 30,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB1 LLC using move2[Machine [name=machineT66] at 50,90 process done: null,Machine [name=machineT67] at 30,80 process done: null] Edge with weight 30 goes from 30,80 to 50,90.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB1 LLC using move3[Machine [name=machineT67] at 30,80 process done: null,Machine [name=machineT66] at 50,90 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-14] 2017-10-02 16:49:25,907 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null,depositB1 at 40,65 process done: null,depositB2 at 40,55 process done: null
+Edges:Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-16] 2017-10-02 16:58:17,454 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 20,60 process done: null is not part of graph Vertices:depositB1 at 40,65 process done: null,depositB1 at 40,75 process done: null,depositB1 at 40,70 process done: null
+Edges:Edge with weight 1 goes from 40,70 to 40,65.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@1d5b227 using F40,65[depositB1 at 40,70 process done: null,depositB1 at 40,65 process done: null] Edge with weight 1 goes from 40,70 to 40,75.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@1d5b227 using F40,75[depositB1 at 40,70 process done: null,depositB1 at 40,75 process done: null] Edge with weight 1 goes from 40,65 to 40,70.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@1d5b227 using T40,65[depositB1 at 40,65 process done: null,depositB1 at 40,70 process done: null] Edge with weight 1 goes from 40,75 to 40,70.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@1d5b227 using T40,75[depositB1 at 40,75 process done: null,depositB1 at 40,70 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-17] 2017-10-02 16:58:24,699 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex EnterBuffer at 18,60 process done: null is not part of graph Vertices:EnterBuffer at 20,60 process done: null,depositB1 at 40,65 process done: null,depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null
+Edges:Edge with weight 20 goes from 40,65 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move1[depositB1 at 40,65 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 35 goes from 20,60 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move0[EnterBuffer at 20,60 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 40,55 to 55,60.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move2[depositB2 at 40,55 process done: null,buffer1234 at 55,60 process done: null] Edge with weight 20 goes from 55,60 to 40,55.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotM12 LLC using move3[buffer1234 at 55,60 process done: null,depositB2 at 40,55 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-15] 2017-10-02 17:02:21,150 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (1.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at Robot.Robot$$FastClassByCGLIB$$b57781a6.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: repast.simphony.space.SpatialException: Object 'Robot.RobotCenterGraphics@1dcd55a' must be added to the grid's context before it can be moved
+	at repast.simphony.space.grid.AbstractGrid.moveTo(AbstractGrid.java:128)
+	at Robot.Robot.addCenter(Robot.java:286)
+	... 10 more
+FATAL [Thread-19] 2017-10-02 17:06:43,383 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex depositB2 at 40,55 process done: null is not part of graph Vertices:depositB1 at 40,75 process done: null,depositB1 at 40,65 process done: null,depositB1 at 40,70 process done: null
+Edges:Edge with weight 1 goes from 40,70 to 40,75.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@14ae34d using F40,75[depositB1 at 40,70 process done: null,depositB1 at 40,75 process done: null] Edge with weight 1 goes from 40,65 to 40,70.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@14ae34d using T40,65[depositB1 at 40,65 process done: null,depositB1 at 40,70 process done: null] Edge with weight 1 goes from 40,70 to 40,65.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@14ae34d using F40,65[depositB1 at 40,70 process done: null,depositB1 at 40,65 process done: null] Edge with weight 1 goes from 40,75 to 40,70.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@14ae34d using T40,75[depositB1 at 40,75 process done: null,depositB1 at 40,70 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-21] 2017-10-02 17:08:48,601 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified source vertex depositB2 at 40,55 process done: null is not part of graph Vertices:depositB1 at 40,70 process done: null,depositB1 at 40,75 process done: null,depositB1 at 40,65 process done: null
+Edges:Edge with weight 1 goes from 40,70 to 40,65.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@1a9f794 using F40,65[depositB1 at 40,70 process done: null,depositB1 at 40,65 process done: null] Edge with weight 1 goes from 40,70 to 40,75.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@1a9f794 using F40,75[depositB1 at 40,70 process done: null,depositB1 at 40,75 process done: null] Edge with weight 1 goes from 40,75 to 40,70.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@1a9f794 using T40,75[depositB1 at 40,75 process done: null,depositB1 at 40,70 process done: null] Edge with weight 1 goes from 40,65 to 40,70.
+Makes nothing completed.
+ Activated by: resourceAgent.BufferAgent@1a9f794 using T40,65[depositB1 at 40,65 process done: null,depositB1 at 40,70 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-22] 2017-10-02 17:09:51,192 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:depositB3 at 80,75 process done: null,Machine [name=machineT75] at 90,80 process done: null,Machine [name=machineT71] at 70,100 process done: null,Machine [name=machineT73] at 90,100 process done: null,Machine [name=machineT72] at 70,80 process done: null
+Edges:Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineT75] at 90,80 process done: null,Machine [name=machineT73] at 90,100 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineT71] at 70,100 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineT72] at 70,80 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineT73] at 90,100 process done: null,Machine [name=machineT75] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-23] 2017-10-02 17:10:10,332 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineT72] at 70,80 process done: null,Machine [name=machineT75] at 90,80 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineT71] at 70,100 process done: null,Machine [name=machineT73] at 90,100 process done: null
+Edges:Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineT75] at 90,80 process done: null,Machine [name=machineT73] at 90,100 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineT73] at 90,100 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineT71] at 70,100 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineT72] at 70,80 process done: null,Machine [name=machineT75] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:80)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:91)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:91)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:91)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:91)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:91)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-24] 2017-10-02 17:10:44,679 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:depositB3 at 80,75 process done: null,Machine [name=machineT71] at 70,100 process done: null,Machine [name=machineT73] at 90,100 process done: null,Machine [name=machineT72] at 70,80 process done: null,Machine [name=machineT75] at 90,80 process done: null
+Edges:Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineT71] at 70,100 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineT72] at 70,80 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineT73] at 90,100 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineT75] at 90,80 process done: null,Machine [name=machineT73] at 90,100 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:83)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:94)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-25] 2017-10-02 19:25:43,049 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineT75] at 90,80 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineT71] at 70,100 process done: null,Machine [name=machineT72] at 70,80 process done: null,Machine [name=machineT73] at 90,100 process done: null
+Edges:Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineT71] at 70,100 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineT75] at 90,80 process done: null,Machine [name=machineT73] at 90,100 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineT73] at 90,100 process done: null,Machine [name=machineT75] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineT72] at 70,80 process done: null,Machine [name=machineT75] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-26] 2017-10-02 19:27:04,817 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:depositB3 at 80,75 process done: null,Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null
+Edges:Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-27] 2017-10-02 19:27:41,299 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTI] at 90,100 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null
+Edges:Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-28] 2017-10-02 19:27:47,560 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTI] at 90,100 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTH] at 70,80 process done: null
+Edges:Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:87)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:98)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-29] 2017-10-02 19:28:22,153 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineTI] at 90,100 process done: null
+Edges:Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-30] 2017-10-02 19:28:27,425 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTI] at 90,100 process done: null,depositB3 at 80,75 process done: null
+Edges:Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-31] 2017-10-02 19:28:44,921 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:depositB3 at 80,75 process done: null,Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null
+Edges:Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-7] 2017-10-02 19:31:38,317 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineTH] at 70,80 process done: null
+Edges:Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-8] 2017-10-02 19:31:48,176 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTG] at 70,100 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineTH] at 70,80 process done: null
+Edges:Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-9] 2017-10-02 19:31:59,316 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTG] at 70,100 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null
+Edges:Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-10] 2017-10-02 19:35:32,325 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTI] at 90,100 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null
+Edges:Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-11] 2017-10-02 19:35:53,059 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:Machine [name=machineTI] at 90,100 process done: null,depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTH] at 70,80 process done: null
+Edges:Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-12] 2017-10-02 19:43:33,974 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:depositB3 at 80,75 process done: null,Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTI] at 90,100 process done: null
+Edges:Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-13] 2017-10-02 19:43:47,765 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTI] at 90,100 process done: null
+Edges:Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more
+FATAL [Thread-14] 2017-10-02 19:44:07,198 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTH] at 70,80 process done: null
+Edges:Edge with weight 20 goes from 70,80 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move2[Machine [name=machineTH] at 70,80 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,80 to 90,100.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move4[Machine [name=machineTK] at 90,80 process done: null,Machine [name=machineTI] at 90,100 process done: null] Edge with weight 15 goes from 80,75 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move0[depositB3 at 80,75 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 40 goes from 70,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move1[Machine [name=machineTG] at 70,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] Edge with weight 20 goes from 90,100 to 90,80.
+Makes nothing completed.
+ Activated by: Robot Agent for RobotB3 LLC using move3[Machine [name=machineTI] at 90,100 process done: null,Machine [name=machineTK] at 90,80 process done: null] 
+	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:88)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:99)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:59)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:87)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:38)
+	at journalPaperSimulation.Testing.start(Testing.java:34)
+	... 10 more

@@ -26,11 +26,11 @@ import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import resourceAgent.BufferAgent;
 import resourceAgent.MachineAgent;
+import resourceAgent.ResourceAgentInterface;
 import resourceAgent.RobotAgent;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
-import sharedInformation.ResourceAgent;
 
 
 public class SimulationContextBuilder implements ContextBuilder<Object> {
@@ -77,11 +77,12 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	
 	private final Point[] machineLocations = new Point[]{machineTAPoint, machineTBPoint, 
 			machineTCPoint, machineTDPoint, machineTEPoint, machineTFPoint, machineTGPoint, 
-			machineTHPoint, machineTIPoint, machineTKPoint, machineTJPoint, machineTLPoint, 
+			machineTHPoint, machineTIPoint, machineTJPoint, machineTKPoint, machineTLPoint, 
 			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
 			machineTRPoint, machineTSPoint, machineTTPoint};
 	
-	//Machine Times
+	//Machine Times: negative numbers indicate that that process can't be performed by the specific machine
+	//e.g. Machine TA can performa process 1 and 5 in 225 and 255 ticks, but can't perform other processes
 	private int[] machineTATime = new int[]{225,-1,-1,-1, 255,-1};
 	private int[] machineTBTime = new int[]{225,-1,-1,-1, 255,-1};
 	private int[] machineTCTime = new int[]{225,-1,-1,-1, 255,-1};
@@ -172,6 +173,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	//================================================================================
     // Robots
     //================================================================================
+	
+	//Speed of the robots
+	final int robotSpeed = 5;
 
 	/**
 	 * List of all of Robot Controllers
@@ -303,7 +307,8 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		//Create new machines using the initialized information
 		for (int index = 0; index < this.machineLocations.length; index++){
-			Machine machine = new Machine("machineT" + ((char) 65+index), this.machineLocations[index], physicalGrid, 0, this.machineTimes[index]);
+			char nameSuffix = (char) (65+index);
+			Machine machine = new Machine("machineT" + nameSuffix, this.machineLocations[index], physicalGrid, 0, this.machineTimes[index]);
 			physicalContext.add(machine);
 			physicalGrid.moveTo(machine, machine.getCenter().x,machine.getCenter().y);
 			
@@ -338,7 +343,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		for (int index = 0; index < this.robotLocations.length; index++){
 			//Build the physical robot
-			Robot robot = new Robot(this.robotNames[index], this.robotLocations[index], 1, physicalGrid, 25);
+			Robot robot = new Robot(this.robotNames[index], this.robotLocations[index], this.robotSpeed, physicalGrid, 25);
 			physicalContext.add(robot);
 			physicalGrid.moveTo(robot, robot.getCenter().x, robot.getCenter().y);
 			
@@ -405,7 +410,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		}
 		
 		//================================================================================
-	    // Neighbors
+	    // Resource agent neighbors
 	    //================================================================================
 		
 		//For resource agents, populate 
@@ -449,10 +454,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		clearLists.addAll(listRobotAgent);
 		clearLists.addAll(listBufferAgent);
 		
-		for (Object object : clearLists){
+		for (@SuppressWarnings("unused") Object object : clearLists){
 			object = null;
 		}
-		
 		
 		this.listMachineLLC.clear();   
 		this.listRobotLLC.clear();

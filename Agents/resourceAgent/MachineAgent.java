@@ -1,6 +1,5 @@
 package resourceAgent;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,9 +14,8 @@ import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
-import sharedInformation.ResourceAgent;
 
-public class MachineAgent implements ResourceAgent{
+public class MachineAgent implements ResourceAgentInterface{
 
 	private String name;
 	private MachineLLC machine;
@@ -27,8 +25,8 @@ public class MachineAgent implements ResourceAgent{
 	private CapabilitiesEdge runningEdge;
 	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> machineCapabilities;
 	
-	private ArrayList<ResourceAgent> neighbors;
-	private HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode;
+	private ArrayList<ResourceAgentInterface> neighbors;
+	private HashMap<ResourceAgentInterface, CapabilitiesNode> tableNeighborNode;
 	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
 
 	public MachineAgent(String name, MachineLLC machine){
@@ -43,25 +41,36 @@ public class MachineAgent implements ResourceAgent{
 	       	public Integer transform(CapabilitiesEdge edge) {return edge.getWeight();}
 		};
 		
-		this.neighbors = new ArrayList<ResourceAgent>();
+		this.neighbors = new ArrayList<ResourceAgentInterface>();
 	}
 	
-	public void addNeighbor(ResourceAgent neighbor){
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MachineAgent for " + this.machine.toString();
+	}
+
+	//================================================================================
+    // Adding/getting neighbors for this resource
+    //================================================================================
+	
+	public void addNeighbor(ResourceAgentInterface neighbor){
 		this.neighbors.add(neighbor);
 	}
 	
-	public ArrayList<ResourceAgent> getNeighbors(){
+	public ArrayList<ResourceAgentInterface> getNeighbors(){
 		return this.neighbors;
 	}
-	
 
 	//================================================================================
     // Product/resource team formation
     //================================================================================
 	
 	@Override
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList) {
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode, 
+			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList) {
 		
 		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
 				currentTime, maxTime, teamList, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
@@ -148,14 +157,15 @@ public class MachineAgent implements ResourceAgent{
 	 */
 	@ScheduledMethod (start = 1, priority = 5000)
 	public void findNeighborNodes(){
-		this.tableNeighborNode = new HashMap<ResourceAgent, CapabilitiesNode>();
+		this.tableNeighborNode = new HashMap<ResourceAgentInterface, CapabilitiesNode>();
 		
 		//Fill the look up table that matches the neighbor with the node
-		for (ResourceAgent neighbor : this.neighbors){
+		for (ResourceAgentInterface neighbor : this.neighbors){
 			for (CapabilitiesNode node : this.machineCapabilities.getVertices()){
-				neighbor.getCapabilities().containsVertex(node);
-				//Assume only one node can be shared between neighbors
-				this.tableNeighborNode.put(neighbor, node);
+				if (neighbor.getCapabilities().containsVertex(node)){
+					//Assume only one node can be shared between neighbors
+					this.tableNeighborNode.put(neighbor, node);
+				};
 			}
 		}
 	}

@@ -1,6 +1,10 @@
-package sharedInformation;
+package resourceAgent;
 
 import intelligentProduct.ProductAgent;
+import sharedInformation.CapabilitiesEdge;
+import sharedInformation.CapabilitiesNode;
+import sharedInformation.PhysicalProperty;
+import sharedInformation.RASchedule;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -8,10 +12,10 @@ import java.util.ArrayList;
 import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
-public interface ResourceAgent {
+public interface ResourceAgentInterface {
 
-	public void addNeighbor(ResourceAgent neighbor);
-	public ArrayList<ResourceAgent> getNeighbors();
+	public void addNeighbor(ResourceAgentInterface neighbor);
+	public ArrayList<ResourceAgentInterface> getNeighbors();
 	
 	//================================================================================
     // Product/resource team formation
@@ -33,7 +37,7 @@ public interface ResourceAgent {
 	 * @param teamList The current team list
 	 */
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList);
+			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList);
 	
 	//================================================================================
     // Product agent scheduling

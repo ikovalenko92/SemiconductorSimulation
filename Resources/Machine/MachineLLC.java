@@ -33,7 +33,7 @@ public class MachineLLC {
 	
 	@Override
 	public String toString() {
-		return "Controller " + this.machine;
+		return "" + this.machine;
 	}
 	
 	

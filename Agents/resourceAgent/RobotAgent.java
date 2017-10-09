@@ -18,20 +18,25 @@ import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
-import sharedInformation.ResourceAgent;
 
-public class RobotAgent implements ResourceAgent {
+public class RobotAgent implements ResourceAgentInterface {
 	
 	private RobotLLC robot;
 	private boolean working;
 	private String program;
+	
+	// Capabilities Graph
 	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> robotCapabilities;
 	private CapabilitiesEdge runningEdge;
 	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
 	
-	private ArrayList<ResourceAgent> neighbors;
-	private HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode;
+	//Neighbors
+	private ArrayList<ResourceAgentInterface> neighbors;
+	private HashMap<ResourceAgentInterface, CapabilitiesNode> tableNeighborNode;
 	private HashMap<Point, Object> tableLocationObject;
+	
+	//Scheduling
+	private RASchedule schedule;
 	
 	/**
 	 * @param name
@@ -50,7 +55,7 @@ public class RobotAgent implements ResourceAgent {
 	       	public Integer transform(CapabilitiesEdge edge) {return edge.getWeight();}
 		};
 
-		this.neighbors = new ArrayList<ResourceAgent>();
+		this.neighbors = new ArrayList<ResourceAgentInterface>();
 		
 		//Table of correlations between location and the object at that location
 		this.tableLocationObject = tableLocationObject;
@@ -58,17 +63,21 @@ public class RobotAgent implements ResourceAgent {
 		createOutputGraph();
 	}
 	
-	public void addNeighbor(ResourceAgent neighbor){
-		this.neighbors.add(neighbor);
-	}
-	
-	public ArrayList<ResourceAgent> getNeighbors(){
-		return this.neighbors;
-	}
-	
 	@Override
 	public String toString() {
 		return "Robot Agent for " + this.robot.toString();
+	}
+	
+	//================================================================================
+    // Adding/getting neighbors for this resource
+    //================================================================================
+	
+	public void addNeighbor(ResourceAgentInterface neighbor){
+		this.neighbors.add(neighbor);
+	}
+	
+	public ArrayList<ResourceAgentInterface> getNeighbors(){
+		return this.neighbors;
 	}
 
 	//================================================================================
@@ -77,7 +86,7 @@ public class RobotAgent implements ResourceAgent {
 
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList) {
+			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList) {
 		
 		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
 				currentTime, maxTime, teamList, neighbors, tableNeighborNode, robotCapabilities, weightTransformer);
@@ -89,8 +98,7 @@ public class RobotAgent implements ResourceAgent {
 	
 	@Override
 	public RASchedule getSchedule() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.schedule;
 	}
 
 
@@ -145,7 +153,7 @@ public class RobotAgent implements ResourceAgent {
 			CapabilitiesNode endNode = new CapabilitiesNode(this.tableLocationObject.get(endLocation.getPoint()), null, endLocation);
 			
 			//Estimate the weight (time it takes to move between two points) using the manhattan distance 
-			int weight = Math.abs(start.x-end.x) + Math.abs(start.y-end.y);
+			int weight = (Math.abs(start.x-end.x) + Math.abs(start.y-end.y))/this.robot.getRobot().getVelocity();
 			
 			//Create and add the edge to the capabilities
 			CapabilitiesEdge programEdge = new CapabilitiesEdge(this, startNode, endNode, program, weight);
@@ -158,19 +166,18 @@ public class RobotAgent implements ResourceAgent {
 	 */
 	@ScheduledMethod (start = 1, priority = 5000)
 	public void findNeighborNodes(){
-		this.tableNeighborNode = new HashMap<ResourceAgent, CapabilitiesNode>();
+		this.tableNeighborNode = new HashMap<ResourceAgentInterface, CapabilitiesNode>();
 		
 		//Fill the look up table that matches the neighbor with the node
-		for (ResourceAgent neighbor : this.neighbors){
+		for (ResourceAgentInterface neighbor : this.neighbors){
 			for (CapabilitiesNode node : this.robotCapabilities.getVertices()){
-				neighbor.getCapabilities().containsVertex(node);
-				//Assume only one node can be shared between neighbors
-				this.tableNeighborNode.put(neighbor, node);
+				if(neighbor.getCapabilities().containsVertex(node)){
+					//Assume only one node can be shared between neighbors
+					this.tableNeighborNode.put(neighbor, node);
+				};
+				
 			}
 		}
-		
-		table
-		System.out.println(x);
 	}
 
 	//================================================================================

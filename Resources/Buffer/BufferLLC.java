@@ -16,10 +16,21 @@ public class BufferLLC {
 		this.name = name;
 		this.buffer = buffer;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return ""+this.buffer;
+	}
+	
 	//================================================================================
     // Input from HLC
     //================================================================================
 	
+
+
 	/**
 	 * @param partName
 	 * @param enterPoint

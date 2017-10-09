@@ -14,12 +14,11 @@ import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
-import sharedInformation.ResourceAgent;
 
 public class ResourceAgentHelper {
 
 	/** Used in the resource agents to create team queries
-	 * @param resourceAgent
+	 * @param resourceAgentInterface
 	 * @param productAgent
 	 * @param desiredProperty
 	 * @param currentNode
@@ -31,67 +30,75 @@ public class ResourceAgentHelper {
 	 * @param capabilities
 	 * @param weightTransformer
 	 */
-	public void teamQuery(ResourceAgent resourceAgent, ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<ResourceAgent> neighbors, HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode,
+	public void teamQuery(ResourceAgentInterface resourceAgentInterface, ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
+			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList, ArrayList<ResourceAgentInterface> neighbors, HashMap<ResourceAgentInterface, CapabilitiesNode> tableNeighborNode,
 				DirectedSparseGraph<CapabilitiesNode,CapabilitiesEdge> capabilities, Transformer<CapabilitiesEdge, Integer> weightTransformer) {
 		
-		ArrayList<ResourceAgent> newTeamList = new ArrayList<ResourceAgent>(teamList);
+		ArrayList<ResourceAgentInterface> newTeamList = new ArrayList<ResourceAgentInterface>(teamList);
 		
 		DijkstraShortestPath<CapabilitiesNode, CapabilitiesEdge> shortestPathGetter = 
 				new DijkstraShortestPath<CapabilitiesNode, CapabilitiesEdge>(capabilities, weightTransformer);
 		shortestPathGetter.reset();
 		
-		// If the desired property is a point
-		if (desiredProperty.getPoint() != null){
-			for (CapabilitiesNode vertex : capabilities.getVertices()){
-				for(PhysicalProperty vertexProperty : vertex.getPhysicalProperties()){
+		//Check if a vertex satisfies a desired property
+		boolean flag = false;
+		CapabilitiesNode desiredVertex = null;
+		for (CapabilitiesNode vertex : capabilities.getVertices()){
+			if(vertex.getPhysicalProperties().contains(desiredProperty)){
+				flag = true;
+				desiredVertex = vertex;
+				break;
+			}
+		}
+		
+		// If a vertex satisfied a desired property
+		if (flag){
+			//Find the shortest path
+			List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, desiredVertex);
+			
+			//Calculate the bid
+			int bidTime = currentTime;
+			for (CapabilitiesEdge pathNode : shortestPathCandidateList){
+				bidTime = bidTime + pathNode.getWeight();
+			}
+			
+			//Submit the bid to the product agent
+			if (bidTime < maxTime){
+				newTeamList.add(resourceAgentInterface); // Add to the team
+				productAgent.submitBid(newTeamList, bidTime);
+			}	
+		}
+		
+		//If the agent can't do the desired property, push the bid negotiation to a neighbor
+		else{
+			//Push it to a neighbor
+			for (ResourceAgentInterface neighbor: neighbors){
+				
+				//If the neighbor isn't part of the team
+				if (!teamList.contains(neighbor)){
+					newTeamList.clear();
+					newTeamList.addAll(teamList);
 					
-					//If the location fits the desired property
-					if (vertexProperty.equals(desiredProperty)){
-						//Find the shortest path
-						List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, vertex);
-						
-						//Calculate the bid
-						int bidTime = currentTime;
-						for (CapabilitiesEdge pathNode : shortestPathCandidateList){
-							bidTime = bidTime + pathNode.getWeight();
-						}
-						
-						//Submit the bid to the product agent
-						if (bidTime < maxTime){
-							newTeamList.add(resourceAgent); // Add to the team
-							productAgent.submitBid(teamList, bidTime);
-						}
+					CapabilitiesNode neighborNode = tableNeighborNode.get(neighbor);
+	
+					//Find the shortest path
+					List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
+					
+					//Calculate the bid
+					int bidTime = currentTime;
+					for (CapabilitiesEdge pathNode : shortestPathCandidateList){
+						bidTime = bidTime + pathNode.getWeight();
+					}
+					
+					//Push the bid to the resource agent
+					if (bidTime < maxTime){
+						newTeamList.add(resourceAgentInterface); // Add to the team
+						neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTime, newTeamList);
 					}
 				}
 			}
 		}
-		
-		//If it's not a point, then push this bid to neighbors
-		for (ResourceAgent neighbor: neighbors){
-			
-			//If the neighbor isn't part of the team
-			if (!teamList.contains(neighbor)){
-				newTeamList.clear();
-				newTeamList.addAll(teamList);
-				
-				CapabilitiesNode neighborNode = tableNeighborNode.get(neighbor);
-
-				//Find the shortest path
-				List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
-				
-				//Calculate the bid
-				int bidTime = currentTime;
-				for (CapabilitiesEdge pathNode : shortestPathCandidateList){
-					bidTime = bidTime + pathNode.getWeight();
-				}
-				
-				//Push the bid to the resource agent
-				if (bidTime < maxTime){
-					newTeamList.add(resourceAgent); // Add to the team
-					neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTime, newTeamList);
-				}
-			}
-		}
 	}
+
+	
 }

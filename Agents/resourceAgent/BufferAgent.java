@@ -16,15 +16,14 @@ import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
-import sharedInformation.ResourceAgent;
 
-public class BufferAgent implements ResourceAgent {
+public class BufferAgent implements ResourceAgentInterface {
 
 	private BufferLLC buffer;
 	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> bufferCapabilities;
-	private ArrayList<ResourceAgent> neighbors;
+	private ArrayList<ResourceAgentInterface> neighbors;
 	
-	private HashMap<ResourceAgent, CapabilitiesNode>  tableNeighborNode;
+	private HashMap<ResourceAgentInterface, CapabilitiesNode>  tableNeighborNode;
 	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
 
 	public BufferAgent(String name, BufferLLC buffer){
@@ -37,14 +36,26 @@ public class BufferAgent implements ResourceAgent {
 	       	public Integer transform(CapabilitiesEdge edge) {return edge.getWeight();}
 		};
 		
-		this.neighbors = new ArrayList<ResourceAgent>();
+		this.neighbors = new ArrayList<ResourceAgentInterface>();
 	}
 	
-	public void addNeighbor(ResourceAgent neighbor){
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "BufferAgent for " + this.buffer.toString();
+	}
+	
+	//================================================================================
+    // Adding/getting neighbors for this resource
+    //================================================================================
+	
+	public void addNeighbor(ResourceAgentInterface neighbor){
 		this.neighbors.add(neighbor);
 	}
 	
-	public ArrayList<ResourceAgent> getNeighbors(){
+	public ArrayList<ResourceAgentInterface> getNeighbors(){
 		return this.neighbors;
 	}
 
@@ -52,9 +63,10 @@ public class BufferAgent implements ResourceAgent {
     // Product/resource team formation
     //================================================================================
 	
+
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList) {
+			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList) {
 
 		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
 				currentTime, maxTime, teamList, neighbors, tableNeighborNode, bufferCapabilities, weightTransformer);
@@ -132,14 +144,15 @@ public class BufferAgent implements ResourceAgent {
 	 */
 	@ScheduledMethod (start = 1, priority = 5000)
 	public void findNeighborNodes(){
-		this.tableNeighborNode = new HashMap<ResourceAgent, CapabilitiesNode>();
+		this.tableNeighborNode = new HashMap<ResourceAgentInterface, CapabilitiesNode>();
 		
 		//Fill the look up table that matches the neighbor with the node
-		for (ResourceAgent neighbor : this.neighbors){
+		for (ResourceAgentInterface neighbor : this.neighbors){
 			for (CapabilitiesNode node : this.bufferCapabilities.getVertices()){
-				neighbor.getCapabilities().containsVertex(node);
-				//Assume only one node can be shared between neighbors
-				this.tableNeighborNode.put(neighbor, node);
+				if(neighbor.getCapabilities().containsVertex(node)){
+					//Assume only one node can be shared between neighbors
+					this.tableNeighborNode.put(neighbor, node);
+				};
 			}
 		}
 	}

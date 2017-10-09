@@ -36,7 +36,7 @@ public class RobotLLC{
 	
 	@Override
 	public String toString() {
-		return this.robot + " LLC";
+		return "" + this.robot;
 	}
 	
 	//================================================================================

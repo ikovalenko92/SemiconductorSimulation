@@ -1,11 +1,12 @@
 package sharedInformation;
 
 import intelligentProduct.ProductAgent;
+import resourceAgent.ResourceAgentInterface;
 
 import java.util.ArrayList;
 
 public class RASchedule {
-	ResourceAgent resourceAgent;
+	ResourceAgentInterface resourceAgentInterface;
 	ArrayList<ProductAgent> productAgents;
 	ArrayList<Integer> startTimes;
 	ArrayList<Integer> endTimes;
@@ -13,14 +14,14 @@ public class RASchedule {
 	/**
 	 * Part agents, start times, and end times array lists must be the same size. Start and End Times must be sorted
 	 * 
-	 * @param resourceAgent
+	 * @param resourceAgentInterface
 	 * @param partAgents (Array List) The part agents that occupy the resource agent
 	 * @param startTimes (Array List)
 	 * @param endTimes (Array List)
 	 */
-	public RASchedule(ResourceAgent resourceAgent) {
+	public RASchedule(ResourceAgentInterface resourceAgentInterface) {
 		
-		this.resourceAgent = resourceAgent;
+		this.resourceAgentInterface = resourceAgentInterface;
 		this.productAgents = new ArrayList<ProductAgent>();
 		this.startTimes = new ArrayList<Integer>();
 		this.endTimes = new ArrayList<Integer>();
@@ -29,7 +30,7 @@ public class RASchedule {
 	public boolean addPA(ProductAgent productAgent, Integer startTime, Integer endTime){
 		
 		if (startTime < 0 || endTime <= 0 || endTime<startTime ){
-			System.out.println("End time and start time are wrong for " + resourceAgent + " for " + productAgent);
+			System.out.println("End time and start time are wrong for " + resourceAgentInterface + " for " + productAgent);
 			return false;
 		}
 		
@@ -57,7 +58,7 @@ public class RASchedule {
 					return true;
 				}
 				else{
-					System.out.println("Resource busy " + resourceAgent + " for " + productAgent);
+					System.out.println("Resource busy " + resourceAgentInterface + " for " + productAgent);
 					return false;
 				}
 			}

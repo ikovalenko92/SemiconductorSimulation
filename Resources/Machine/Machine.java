@@ -68,7 +68,7 @@ public class Machine {
 	 */
 	@Override
 	public String toString() {
-		return "Machine [name=" + name + "]";
+		return this.name;
 	}
 
 	
