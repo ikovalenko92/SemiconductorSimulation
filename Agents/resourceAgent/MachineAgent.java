@@ -15,7 +15,7 @@ import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
 
-public class MachineAgent implements ResourceAgentInterface{
+public class MachineAgent implements ResourceAgent{
 
 	private String name;
 	private MachineLLC machine;
@@ -25,10 +25,15 @@ public class MachineAgent implements ResourceAgentInterface{
 	private CapabilitiesEdge runningEdge;
 	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> machineCapabilities;
 	
-	private ArrayList<ResourceAgentInterface> neighbors;
-	private HashMap<ResourceAgentInterface, CapabilitiesNode> tableNeighborNode;
+	private ArrayList<ResourceAgent> neighbors;
+	private HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode;
 	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
+	private RASchedule schedule;
 
+	/**
+	 * @param name
+	 * @param Machine LLC
+	 */
 	public MachineAgent(String name, MachineLLC machine){
 		this.name = name;
 		this.machine = machine;
@@ -41,7 +46,9 @@ public class MachineAgent implements ResourceAgentInterface{
 	       	public Integer transform(CapabilitiesEdge edge) {return edge.getWeight();}
 		};
 		
-		this.neighbors = new ArrayList<ResourceAgentInterface>();
+		this.neighbors = new ArrayList<ResourceAgent>();
+
+		this.schedule = new RASchedule(this);
 	}
 	
 	/* (non-Javadoc)
@@ -56,11 +63,11 @@ public class MachineAgent implements ResourceAgentInterface{
     // Adding/getting neighbors for this resource
     //================================================================================
 	
-	public void addNeighbor(ResourceAgentInterface neighbor){
+	public void addNeighbor(ResourceAgent neighbor){
 		this.neighbors.add(neighbor);
 	}
 	
-	public ArrayList<ResourceAgentInterface> getNeighbors(){
+	public ArrayList<ResourceAgent> getNeighbors(){
 		return this.neighbors;
 	}
 
@@ -70,10 +77,10 @@ public class MachineAgent implements ResourceAgentInterface{
 	
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode, 
-			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList) {
+			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList) {
 		
 		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
-				currentTime, maxTime, teamList, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
+				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
 	}
 	
 	//================================================================================
@@ -82,20 +89,17 @@ public class MachineAgent implements ResourceAgentInterface{
 
 	@Override
 	public RASchedule getSchedule() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.schedule;
 	}
 
 	@Override
-	public boolean requestScheduleTime(ProductAgent productAgent, int startTime) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean requestScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
+		return this.schedule.addPA(productAgent, startTime, endTime,false);
 	}	
 
 	@Override
 	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.removeScheduleTime(productAgent, startTime);
 	}
 	
 	//================================================================================
@@ -108,10 +112,11 @@ public class MachineAgent implements ResourceAgentInterface{
 	}
 	
 	@Override
-	public boolean query(String program, Part part) {
-		// TODO Auto-generated method stub
+	public boolean query(String program, ProductAgent productAgent) {
+		//Check if schedule holds
 		
 		//Hold
+		
 		
 		//Reset
 		
@@ -157,10 +162,10 @@ public class MachineAgent implements ResourceAgentInterface{
 	 */
 	@ScheduledMethod (start = 1, priority = 5000)
 	public void findNeighborNodes(){
-		this.tableNeighborNode = new HashMap<ResourceAgentInterface, CapabilitiesNode>();
+		this.tableNeighborNode = new HashMap<ResourceAgent, CapabilitiesNode>();
 		
 		//Fill the look up table that matches the neighbor with the node
-		for (ResourceAgentInterface neighbor : this.neighbors){
+		for (ResourceAgent neighbor : this.neighbors){
 			for (CapabilitiesNode node : this.machineCapabilities.getVertices()){
 				if (neighbor.getCapabilities().containsVertex(node)){
 					//Assume only one node can be shared between neighbors

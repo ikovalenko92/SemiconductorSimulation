@@ -26,7 +26,7 @@ import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import resourceAgent.BufferAgent;
 import resourceAgent.MachineAgent;
-import resourceAgent.ResourceAgentInterface;
+import resourceAgent.ResourceAgent;
 import resourceAgent.RobotAgent;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
@@ -262,6 +262,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	//The index of the BUFFER neighbors for all of the robots
 	private final int[][] robotBufferNeighborIndices = new int[][]{robotB1BufferIndex, robotB2BufferIndex, robotB3BufferIndex,	robotB4BufferIndex, robotB5BufferIndex, robotB6BufferIndex, robotM12BufferIndex, robotM34BufferIndex, robotM56BufferIndex};
 	private HashMap<Point, Object> tableLocationObject;
+	private Part testPart;
 
 			
 //================================================================================
@@ -292,7 +293,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		buildAgentNetwork(cyberContext);
 		
 		//Testing
-		cyberContext.add(new Testing(this.listBufferLLC, this.bufferLocations, this.listBufferAgent, cyberContext));
+		cyberContext.add(new Testing(this.listBufferLLC, this.bufferLocations, this.listBufferAgent, cyberContext, this.testPart));
 		
 		return context;
 	}
@@ -354,7 +355,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 				for (int k = 0; k < locationAmount; k++){
 					if(j!=k){
 						//Write the move programs for all of the points that the robot can move the part between
-						robotLLC.writeMoveObjectProgram("move"+j, this.robotNeighborLocations[index][j],
+						robotLLC.writeMoveObjectProgram("move"+j + "" + k, this.robotNeighborLocations[index][j],
 								this.robotNeighborLocations[index][k], "Part");
 					}
 				}
@@ -370,9 +371,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	    // Parts
 	    //================================================================================
 		
-		Part part = new Part(new RFIDTag('a'));
-		physicalContext.add(part);
-		physicalGrid.moveTo(part, 18, 60);	
+		this.testPart = new Part(new RFIDTag('a'));
+		physicalContext.add(testPart);
+		physicalGrid.moveTo(testPart, 18, 60);	
 	}
 	
 	private void buildAgentNetwork(Context<Object> cyberContext) {

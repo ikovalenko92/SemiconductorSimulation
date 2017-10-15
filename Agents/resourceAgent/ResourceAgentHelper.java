@@ -18,7 +18,7 @@ import sharedInformation.RASchedule;
 public class ResourceAgentHelper {
 
 	/** Used in the resource agents to create team queries
-	 * @param resourceAgentInterface
+	 * @param resourceAgent
 	 * @param productAgent
 	 * @param desiredProperty
 	 * @param currentNode
@@ -30,11 +30,12 @@ public class ResourceAgentHelper {
 	 * @param capabilities
 	 * @param weightTransformer
 	 */
-	public void teamQuery(ResourceAgentInterface resourceAgentInterface, ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList, ArrayList<ResourceAgentInterface> neighbors, HashMap<ResourceAgentInterface, CapabilitiesNode> tableNeighborNode,
-				DirectedSparseGraph<CapabilitiesNode,CapabilitiesEdge> capabilities, Transformer<CapabilitiesEdge, Integer> weightTransformer) {
+	public void teamQuery(ResourceAgent resourceAgent, ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
+			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList, ArrayList<ResourceAgent> neighbors,
+			HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode,	DirectedSparseGraph<CapabilitiesNode,CapabilitiesEdge> capabilities, Transformer<CapabilitiesEdge, Integer> weightTransformer) {
 		
-		ArrayList<ResourceAgentInterface> newTeamList = new ArrayList<ResourceAgentInterface>(teamList);
+		ArrayList<ResourceAgent> newTeamList = new ArrayList<ResourceAgent>(teamList);
+		ArrayList<CapabilitiesEdge> newEdgeList = new ArrayList<CapabilitiesEdge>(edgeList);
 		
 		DijkstraShortestPath<CapabilitiesNode, CapabilitiesEdge> shortestPathGetter = 
 				new DijkstraShortestPath<CapabilitiesNode, CapabilitiesEdge>(capabilities, weightTransformer);
@@ -60,24 +61,25 @@ public class ResourceAgentHelper {
 			int bidTime = currentTime;
 			for (CapabilitiesEdge pathNode : shortestPathCandidateList){
 				bidTime = bidTime + pathNode.getWeight();
+				newEdgeList.add(pathNode);
 			}
 			
 			//Submit the bid to the product agent
 			if (bidTime < maxTime){
-				newTeamList.add(resourceAgentInterface); // Add to the team
-				productAgent.submitBid(newTeamList, bidTime);
+				newTeamList.add(resourceAgent); // Add to the team
+				productAgent.submitBid(newTeamList, bidTime, newEdgeList);
 			}	
 		}
 		
 		//If the agent can't do the desired property, push the bid negotiation to a neighbor
 		else{
 			//Push it to a neighbor
-			for (ResourceAgentInterface neighbor: neighbors){
+			for (ResourceAgent neighbor: neighbors){
 				
-				//If the neighbor isn't part of the team
+				//If the neighbor isn't already part of the team
 				if (!teamList.contains(neighbor)){
-					newTeamList.clear();
-					newTeamList.addAll(teamList);
+					newTeamList.clear(); //Reset previous instance of the newTeamList
+					newTeamList.addAll(teamList); //Add the initial team list
 					
 					CapabilitiesNode neighborNode = tableNeighborNode.get(neighbor);
 	
@@ -85,15 +87,18 @@ public class ResourceAgentHelper {
 					List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
 					
 					//Calculate the bid
-					int bidTime = currentTime;
+					int bidTime = currentTime; //Reset bid time
+					newEdgeList.clear(); //Reset previous instance of the newTeamList
+					newEdgeList.addAll(edgeList); //Add the initial team list
 					for (CapabilitiesEdge pathNode : shortestPathCandidateList){
 						bidTime = bidTime + pathNode.getWeight();
+						newEdgeList.add(pathNode);
 					}
 					
 					//Push the bid to the resource agent
 					if (bidTime < maxTime){
-						newTeamList.add(resourceAgentInterface); // Add to the team
-						neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTime, newTeamList);
+						newTeamList.add(resourceAgent); // Add to the team
+						neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTime, newTeamList, newEdgeList);
 					}
 				}
 			}

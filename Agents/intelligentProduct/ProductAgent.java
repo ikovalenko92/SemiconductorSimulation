@@ -2,18 +2,20 @@ package intelligentProduct;
 
 import java.util.ArrayList;
 
-import resourceAgent.ResourceAgentInterface;
+import resourceAgent.ResourceAgent;
 import sharedInformation.CapabilitiesEdge;
 
 public interface ProductAgent {
 
+	public String getPartName();
+	
 	//================================================================================
     // Part agent communication
     //================================================================================
 	
 	public int getPriority();
 	
-	public void rescheduleRequest(ResourceAgentInterface resourceAgentInterface, int startTime);
+	public void rescheduleRequest(ResourceAgent resourceAgent, int startTime);
 	
 	//================================================================================
     // Resource agent communication
@@ -21,5 +23,5 @@ public interface ProductAgent {
 	
 	public void informEvent(CapabilitiesEdge edge);
 	
-	public void submitBid(ArrayList<ResourceAgentInterface> resourceList, int bidTime);
+	public void submitBid(ArrayList<ResourceAgent> resourceList, int bidTime, ArrayList<CapabilitiesEdge> edgeList);
 }

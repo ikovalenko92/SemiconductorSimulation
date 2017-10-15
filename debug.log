@@ -79,3 +79,175 @@ Caused by: java.lang.NullPointerException
 	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:42)
 	at journalPaperSimulation.Testing.start(Testing.java:34)
 	... 10 more
+FATAL [Thread-7] 2017-10-12 20:14:58,776 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (6.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.ClassNotFoundException: ResourceAgent
+	at org.java.plugin.standard.StandardPluginClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Unknown Source)
+	at journalPaperSimulation.Testing.check(Testing.java:41)
+	... 10 more
+FATAL [Thread-8] 2017-10-12 20:19:20,129 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (6.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.ClassNotFoundException: RobotAgent
+	at org.java.plugin.standard.StandardPluginClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Unknown Source)
+	at journalPaperSimulation.Testing.check(Testing.java:41)
+	... 10 more
+FATAL [Thread-9] 2017-10-12 20:20:38,329 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (6.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token ")", delete this token
+
+	at journalPaperSimulation.Testing.check(Testing.java:41)
+	... 10 more
+FATAL [Thread-10] 2017-10-12 20:20:46,624 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (6.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token ")", delete this token
+
+	at journalPaperSimulation.Testing.check(Testing.java:41)
+	... 10 more
+WARN  [Thread-14] 2017-10-12 20:22:41,243 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'startSchedulingMethod([])' in class intelligentProduct.LotProductAgent, returning null
+FATAL [Thread-14] 2017-10-12 20:22:41,244 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Method intelligentProduct.LotProductAgent.startSchedulingMethod() not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at intelligentProduct.LotProductAgent.submitBid(LotProductAgent.java:87)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:70)
+	at resourceAgent.MachineAgent.teamQuery(MachineAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:93)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:74)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:93)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:74)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:93)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:74)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:119)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:49)
+	at journalPaperSimulation.Testing.start(Testing.java:35)
+	... 10 more
+WARN  [Thread-15] 2017-10-12 20:22:52,462 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'startSchedulingMethod([])' in class intelligentProduct.LotProductAgent, returning null
+FATAL [Thread-15] 2017-10-12 20:22:52,464 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (2.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.IllegalArgumentException: Method intelligentProduct.LotProductAgent.startSchedulingMethod() not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at intelligentProduct.LotProductAgent.submitBid(LotProductAgent.java:87)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:70)
+	at resourceAgent.MachineAgent.teamQuery(MachineAgent.java:82)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:93)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:74)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:93)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:74)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:93)
+	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:100)
+	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:74)
+	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:119)
+	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:49)
+	at journalPaperSimulation.Testing.start(Testing.java:35)
+	... 10 more

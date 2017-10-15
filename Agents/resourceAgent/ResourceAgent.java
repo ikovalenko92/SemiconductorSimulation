@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
-public interface ResourceAgentInterface {
+public interface ResourceAgent {
 
-	public void addNeighbor(ResourceAgentInterface neighbor);
-	public ArrayList<ResourceAgentInterface> getNeighbors();
+	public void addNeighbor(ResourceAgent neighbor);
+	public ArrayList<ResourceAgent> getNeighbors();
 	
 	//================================================================================
     // Product/resource team formation
@@ -24,20 +24,14 @@ public interface ResourceAgentInterface {
 	/**
 	 * Bidding propogation to find resource agent teammates to complete a requested task
 	 * @param productAgent The product agent sending the request
-	 * @param desiredNode The desired capabilities node that the PA wants to achieve
-	 * @param maxNeighborhood The max allowed neighborhood of the PA
-	 * @param teamList The current team list
-	 */
-	/**
-	 * Bidding propogation to find resource agent teammates to complete a requested task
-	 * @param productAgent The product agent sending the request
 	 * @param desiredProperty The product agent sending the request
 	 * @param currentTime The current time
 	 * @param maxTime The max allowed time
 	 * @param teamList The current team list
+	 * @param edgeList The current list of capabilities edges for each resource
 	 */
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList);
+			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList);
 	
 	//================================================================================
     // Product agent scheduling
@@ -59,7 +53,7 @@ public interface ResourceAgentInterface {
 	 * @param startTime the start time time of request
 	 * @return If the part was successfully scheduled
 	 */
-	public boolean requestScheduleTime(ProductAgent productAgent, int startTime);
+	public boolean requestScheduleTime(ProductAgent productAgent, int startTime, int endTime);
 	
 	/**
 	 * API for one of the PA Schedule Manager method
@@ -84,5 +78,5 @@ public interface ResourceAgentInterface {
 	 * @param parameter
 	 * @return If the method was accepted by the resource
 	 */
-	public boolean query(String program, Part part);
+	public boolean query(String program, ProductAgent productAgent);
 } 

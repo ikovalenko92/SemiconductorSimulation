@@ -29,8 +29,6 @@ public class BufferLLC {
     // Input from HLC
     //================================================================================
 	
-
-
 	/**
 	 * @param partName
 	 * @param enterPoint
@@ -50,7 +48,7 @@ public class BufferLLC {
 			return false;
 		}	
 		
-		return buffer.moveFromStorage(partName, enterPoint);
+		return buffer.moveToStorage(partName, enterPoint);
 	}
 	
 	/**
@@ -72,7 +70,7 @@ public class BufferLLC {
 			return false;
 		}
 		
-		return buffer.moveToStorage(partName, enterPoint);
+		return buffer.moveFromStorage(partName, enterPoint);
 	}
 	//================================================================================
     // Output to HLC

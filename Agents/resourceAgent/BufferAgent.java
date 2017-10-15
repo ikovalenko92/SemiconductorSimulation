@@ -17,14 +17,15 @@ import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
 
-public class BufferAgent implements ResourceAgentInterface {
+public class BufferAgent implements ResourceAgent {
 
 	private BufferLLC buffer;
 	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> bufferCapabilities;
-	private ArrayList<ResourceAgentInterface> neighbors;
+	private ArrayList<ResourceAgent> neighbors;
 	
-	private HashMap<ResourceAgentInterface, CapabilitiesNode>  tableNeighborNode;
+	private HashMap<ResourceAgent, CapabilitiesNode>  tableNeighborNode;
 	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
+	private RASchedule schedule;
 
 	public BufferAgent(String name, BufferLLC buffer){
 		this.buffer = buffer;
@@ -36,7 +37,9 @@ public class BufferAgent implements ResourceAgentInterface {
 	       	public Integer transform(CapabilitiesEdge edge) {return edge.getWeight();}
 		};
 		
-		this.neighbors = new ArrayList<ResourceAgentInterface>();
+		this.neighbors = new ArrayList<ResourceAgent>();
+		
+		this.schedule = new RASchedule(this);
 	}
 	
 	/* (non-Javadoc)
@@ -51,11 +54,11 @@ public class BufferAgent implements ResourceAgentInterface {
     // Adding/getting neighbors for this resource
     //================================================================================
 	
-	public void addNeighbor(ResourceAgentInterface neighbor){
+	public void addNeighbor(ResourceAgent neighbor){
 		this.neighbors.add(neighbor);
 	}
 	
-	public ArrayList<ResourceAgentInterface> getNeighbors(){
+	public ArrayList<ResourceAgent> getNeighbors(){
 		return this.neighbors;
 	}
 
@@ -66,16 +69,15 @@ public class BufferAgent implements ResourceAgentInterface {
 
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgentInterface> teamList) {
+			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList) {
 
 		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
-				currentTime, maxTime, teamList, neighbors, tableNeighborNode, bufferCapabilities, weightTransformer);
+				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, bufferCapabilities, weightTransformer);
 	}
 
 	@Override
 	public RASchedule getSchedule() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.schedule;
 	}
 
 	//================================================================================
@@ -83,33 +85,53 @@ public class BufferAgent implements ResourceAgentInterface {
     //================================================================================
 	
 	@Override
-	public boolean requestScheduleTime(ProductAgent productAgent, int startTime) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean requestScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
+		this.schedule.addPA(productAgent, startTime, endTime, true);
+		return true;
 	}
 
 	@Override
 	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	//================================================================================
     // Product agent communication
     //================================================================================
 	
+	/* (non-Javadoc)
+	 * @see resourceAgent.ResourceAgent#getCapabilities()
+	 */
 	@Override
 	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getCapabilities() {
 		return this.bufferCapabilities;
 	}
 
+	/* (non-Javadoc)
+	 * @see resourceAgent.ResourceAgent#query(java.lang.String, Part.Part)
+	 */
 	@Override
-	public boolean query(String program, Part part) {
-		// TODO Auto-generated method stub
-		char programType = program.charAt(0);
+	public boolean query(String program, ProductAgent productAgent) {
+		// No need to check if the part is on schedule since it's a buffer
+		
+		//Find the relevant position
 		String point = program.substring(1);
 		
 		String[] tokens = point.split(",");
+		
+		int x = Integer.parseInt(tokens[0]);
+		int y = Integer.parseInt(tokens[1]);
+		
+		//Obtain the program
+		char programType = program.charAt(0);
+		
+		//Run the corresponding program
+		if (programType == 'F'){
+			this.buffer.moveFromStorage(productAgent.getPartName(), new Point(x,y));
+		}
+		else{
+			this.buffer.moveToStorage(productAgent.getPartName(), new Point(x,y));
+		}
 		
 		return false;
 	}
@@ -118,6 +140,9 @@ public class BufferAgent implements ResourceAgentInterface {
     // Helper methods
     //================================================================================
 	
+	/**
+	 * Helper method to create the capabilities graph for the part
+	 */
 	private void createOutputGraph() {
 		
 		//Create the physical property of being in storage
@@ -129,11 +154,11 @@ public class BufferAgent implements ResourceAgentInterface {
 			PhysicalProperty enterLocation = new PhysicalProperty(enterPoints);
 			CapabilitiesNode enterNode = new CapabilitiesNode(this.buffer.getBuffer(), null, enterLocation);
 			
-			//Program to move it FROM storage. Format: Rx,y
+			//Program to move it FROM storage. Format: Fx,y
 			CapabilitiesEdge programOutEdge = new CapabilitiesEdge(this, storageNode, enterNode, "F" + enterNode.getLocation().x + "," + enterNode.getLocation().y, 1);
 			this.bufferCapabilities.addEdge(programOutEdge, storageNode, enterNode);
 			
-			//Program to move TO from storage. Format: Sx,y
+			//Program to move TO storage. Format: Tx,y
 			CapabilitiesEdge programInEdge = new CapabilitiesEdge(this, enterNode, storageNode, "T" + enterNode.getLocation().x + "," + enterNode.getLocation().y, 1);
 			this.bufferCapabilities.addEdge(programInEdge, enterNode, storageNode);
 		}
@@ -144,10 +169,10 @@ public class BufferAgent implements ResourceAgentInterface {
 	 */
 	@ScheduledMethod (start = 1, priority = 5000)
 	public void findNeighborNodes(){
-		this.tableNeighborNode = new HashMap<ResourceAgentInterface, CapabilitiesNode>();
+		this.tableNeighborNode = new HashMap<ResourceAgent, CapabilitiesNode>();
 		
 		//Fill the look up table that matches the neighbor with the node
-		for (ResourceAgentInterface neighbor : this.neighbors){
+		for (ResourceAgent neighbor : this.neighbors){
 			for (CapabilitiesNode node : this.bufferCapabilities.getVertices()){
 				if(neighbor.getCapabilities().containsVertex(node)){
 					//Assume only one node can be shared between neighbors
