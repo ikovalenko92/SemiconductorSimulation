@@ -132,12 +132,12 @@ public class RobotAgent implements ResourceAgent {
 
 	@Override
 	public boolean query(String program, ProductAgent productAgent) {
-		
+		//Check if the query conforms with the current schedule
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		double startTime = schedule.getTickCount();
 		
 		CapabilitiesEdge desiredEdge = null;
-		
+
 		for (CapabilitiesEdge edge : this.getCapabilities().getEdges()){
 			if (edge.getActiveMethod().equals(program)){
 				desiredEdge = edge;
@@ -145,6 +145,7 @@ public class RobotAgent implements ResourceAgent {
 			}
 		}
 		
+		//If the product agent is scheduled for this time, run the desired program
 		if (desiredEdge!=null &&  this.schedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
 			return this.robot.runMoveObjectProgram(program);
 		}

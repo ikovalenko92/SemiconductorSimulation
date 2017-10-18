@@ -24,4 +24,6 @@ public interface ProductAgent {
 	public void informEvent(CapabilitiesEdge edge);
 	
 	public void submitBid(ArrayList<ResourceAgent> resourceList, int bidTime, ArrayList<CapabilitiesEdge> edgeList);
+	
+	public void updateEdge(CapabilitiesEdge oldEdge, CapabilitiesEdge newEdge);
 }
