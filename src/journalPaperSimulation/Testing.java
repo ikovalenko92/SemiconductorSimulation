@@ -35,7 +35,12 @@ public class Testing {
 	@ScheduledMethod (start = 2)
 	public void start(){
 		ArrayList<String> desiredList = new ArrayList<String>();
+		desiredList.add("S1");
 		desiredList.add("S2");
+		desiredList.add("S3");
+		desiredList.add("S4");
+		desiredList.add("S5");
+		desiredList.add("S6");
 		CapabilitiesNode startingNode = new CapabilitiesNode(this.listBufferLLC.get(0).getBuffer(), null, new PhysicalProperty(this.bufferLocations[0]));
 		LotProductAgent productAgent = new LotProductAgent(this.part, desiredList, this.listBufferAgent.get(0), startingNode, 0);
 		
@@ -43,7 +48,7 @@ public class Testing {
 		cyberContext.add(productAgent);
 	}
 	
-	@ScheduledMethod (start = 6)
+	
 	public void check() throws ClassNotFoundException{
 		//Iterable<Class> a = this.cyberContext.getAgentTypes();
 		for (Object resourceAgent : this.cyberContext.getObjects(Class.forName("resourceAgent.ResourceAgent"))){

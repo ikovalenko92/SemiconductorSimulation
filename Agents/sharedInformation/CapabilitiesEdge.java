@@ -3,13 +3,15 @@ package sharedInformation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import resourceAgent.ResourceAgent;
+
 public class CapabilitiesEdge {
 	
 	private CapabilitiesNode parent;
 	private CapabilitiesNode child;
 	private int weight;
 	
-	private Object activeObject;
+	private ResourceAgent activeAgent;
 	private String activeMethod;
 	
 	private boolean controllability;
@@ -22,11 +24,11 @@ public class CapabilitiesEdge {
 	 * @param activeMethod (string)
 	 * @param weight
 	 */
-	public CapabilitiesEdge(Object agent, CapabilitiesNode parent, CapabilitiesNode child, String activeMethod, int weight){
+	public CapabilitiesEdge(ResourceAgent agent, CapabilitiesNode parent, CapabilitiesNode child, String activeMethod, int weight){
 		this.parent = parent;
 		this.child = child;
 		
-		this.activeObject = agent;
+		this.activeAgent = agent;
 		this.activeMethod = activeMethod;
 		
 		this.weight = weight;
@@ -52,8 +54,8 @@ public class CapabilitiesEdge {
 		return this.activeMethod;
 	}
 	
-	public Object getActiveObject() {
-		return this.activeObject;
+	public ResourceAgent getActiveAgent() {
+		return this.activeAgent;
 	}
 	
 	//================================================================================
@@ -97,7 +99,7 @@ public class CapabilitiesEdge {
 	 */
 	public CapabilitiesEdge copy(){
 		CapabilitiesEdge edge = null;
-		edge = new CapabilitiesEdge(this.activeObject, parent, child, activeMethod, this.weight);
+		edge = new CapabilitiesEdge(this.activeAgent, parent, child, activeMethod, this.weight);
 			
 		edge.setControllability(this.controllability);
 		edge.setObservability(this.observability);
@@ -110,7 +112,7 @@ public class CapabilitiesEdge {
 	
 	return "Edge with weight " + this.weight + " goes from " + parent.getLocation().x + "," + parent.getLocation().y + " to " + child.getLocation().x + "," + child.getLocation().y + ".\n"
 			+ "Makes " + child.getProcessCompleted() + ".\n"
-			+ " Activated by: " + this.activeObject + " using " + this.activeMethod;//.getName() + "(" + activeParametersString + ")\n"
+			+ " Activated by: " + this.activeAgent + " using " + this.activeMethod;//.getName() + "(" + activeParametersString + ")\n"
 			//+ " Controllable: " + this.controllability + ", Observable: " + this.observability;
 	}
 

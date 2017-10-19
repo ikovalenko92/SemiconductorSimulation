@@ -63,7 +63,7 @@ public class RobotLLC{
 		
 		//Move back
 		RobotProgram moveCenter = new RobotProgram(this.robot, this.homeMethod);
-		program.add(moveCenter);
+		//program.add(moveCenter);
 		
 		//Move where you want the object to be
 		RobotProgram moveto2 = new RobotProgram(this.robot, this.moveToMethod, b);

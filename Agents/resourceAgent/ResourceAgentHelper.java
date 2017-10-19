@@ -1,5 +1,6 @@
 package resourceAgent;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +55,7 @@ public class ResourceAgentHelper {
 		
 		// If a vertex satisfied a desired property
 		if (flag){
+			
 			//Find the shortest path
 			List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, desiredVertex);
 			

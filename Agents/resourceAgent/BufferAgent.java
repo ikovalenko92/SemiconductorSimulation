@@ -11,6 +11,9 @@ import Part.Part;
 import Robot.RobotLLC;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import intelligentProduct.ProductAgent;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
@@ -114,6 +117,20 @@ public class BufferAgent implements ResourceAgent {
 	public boolean query(String program, ProductAgent productAgent) {
 		// No need to check if the part is on schedule since it's a buffer
 		
+		//If the queried program is true, 
+		if (program == "End"){
+			return true;
+		}
+		
+		//Find the desired edge
+		CapabilitiesEdge desiredEdge = null;
+		for (CapabilitiesEdge edge : this.getCapabilities().getEdges()){
+			if (edge.getActiveMethod().equals(program)){
+				desiredEdge = edge;
+				break;
+			}
+		}
+		
 		//Find the relevant position
 		String point = program.substring(1);
 		
@@ -127,13 +144,32 @@ public class BufferAgent implements ResourceAgent {
 		
 		//Run the corresponding program
 		if (programType == 'F'){
-			this.buffer.moveFromStorage(productAgent.getPartName(), new Point(x,y));
+			if (this.buffer.moveFromStorage(productAgent.getPartName(), new Point(x,y)) == true){
+				//Let the part know that the edge is done
+				this.informPA(productAgent, desiredEdge);
+				return true;
+			}
+			
 		}
-		else{
-			this.buffer.moveToStorage(productAgent.getPartName(), new Point(x,y));
+		else if (programType == 'T'){
+			if (this.buffer.moveToStorage(productAgent.getPartName(), new Point(x,y))){
+				//Let the part know that the edge is done
+				this.informPA(productAgent, desiredEdge);
+				return true;
+			}
 		}
 		
 		return false;
+	}
+	
+	/** Check when the edge is done and inform the product agent
+	 * @param productAgent
+	 * @param edge
+	 */
+	private void informPA(ProductAgent productAgent, CapabilitiesEdge edge){
+		//Using the edge of the weight (might need to check with Robot LLC in the future)
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent, "informEvent", new Object[]{edge});
 	}
 	
 	//================================================================================

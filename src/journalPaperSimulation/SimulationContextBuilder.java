@@ -13,20 +13,18 @@ import Part.Part;
 import Part.RFIDTag;
 import Robot.Robot;
 import Robot.RobotLLC;
-import intelligentProduct.LotProductAgent;
+import intelligentProduct.PartAgentCreatorforBuffer;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.dataLoader.ContextBuilder;
-import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.BouncyBorders;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import resourceAgent.BufferAgent;
 import resourceAgent.MachineAgent;
-import resourceAgent.ResourceAgent;
 import resourceAgent.RobotAgent;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
@@ -81,28 +79,39 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
 			machineTRPoint, machineTSPoint, machineTTPoint};
 	
+	int scale = 10;
+	//Time for processes
+	//int S1time = 225*scale;
+	int S1time = 22*scale;
+	int S2time = 30*scale;
+	int S3time = 55*scale;
+	int S4time = 50*scale;
+	//int S5time = 255*scale;
+	int S5time = 25*scale;
+	int S6time = 10*scale;
+	
 	//Machine Times: negative numbers indicate that that process can't be performed by the specific machine
 	//e.g. Machine TA can performa process 1 and 5 in 225 and 255 ticks, but can't perform other processes
-	private int[] machineTATime = new int[]{225,-1,-1,-1, 255,-1};
-	private int[] machineTBTime = new int[]{225,-1,-1,-1, 255,-1};
-	private int[] machineTCTime = new int[]{225,-1,-1,-1, 255,-1};
-	private int[] machineTDTime = new int[]{225,-1,-1,-1, 255,-1};
-	private int[] machineTETime = new int[]{225,-1,-1,-1, 255,-1};
-	private int[] machineTFTime = new int[]{225,-1,-1,-1, 255,-1};
-	private int[] machineTGTime = new int[]{225,-1,-1,-1, 255,-1};
-	private int[] machineTHTime = new int[]{225,-1,-1,-1, 255,-1};
-	private int[] machineTITime = new int[]{-1,30,-1,50,-1,-1};
-	private int[] machineTJTime = new int[]{-1,30,-1,50,-1,-1};
-	private int[] machineTKTime = new int[]{-1,30,-1,50,-1,-1};
-	private int[] machineTLTime = new int[]{-1,30,-1,50,-1,-1};
-	private int[] machineTMTime = new int[]{-1,-1,55,-1,-1,10};
-	private int[] machineTNTime = new int[]{-1,-1,55,-1,-1,10};
-	private int[] machineTOTime = new int[]{-1,-1,55,-1,-1,10};
-	private int[] machineTPTime = new int[]{-1,-1,55,-1,-1,10};
-	private int[] machineTQTime = new int[]{-1,-1,55,-1,-1,10};
-	private int[] machineTRTime = new int[]{-1,-1,55,-1,-1,10};
-	private int[] machineTSTime = new int[]{-1,-1,55,-1,-1,10};
-	private int[] machineTTTime = new int[]{-1,-1,55,-1,-1,10};
+	private int[] machineTATime = new int[]{S1time,-1,-1,-1, S5time,-1};
+	private int[] machineTBTime = new int[]{S1time,-1,-1,-1,S5time,-1};
+	private int[] machineTCTime = new int[]{S1time,-1,-1,-1,S5time,-1};
+	private int[] machineTDTime = new int[]{S1time,-1,-1,-1,S5time,-1};
+	private int[] machineTETime = new int[]{S1time,-1,-1,-1,S5time,-1};
+	private int[] machineTFTime = new int[]{S1time,-1,-1,-1,S5time,-1};
+	private int[] machineTGTime = new int[]{S1time,-1,-1,-1,S5time,-1};
+	private int[] machineTHTime = new int[]{S1time,-1,-1,-1,S5time,-1};
+	private int[] machineTITime = new int[]{-1,-1,S3time,-1,-1,S6time};
+	private int[] machineTJTime = new int[]{-1,-1,S3time,-1,-1,S6time};
+	private int[] machineTKTime = new int[]{-1,-1,S3time,-1,-1,S6time};
+	private int[] machineTLTime = new int[]{-1,-1,S3time,-1,-1,S6time};
+	private int[] machineTMTime = new int[]{-1,S2time,-1,S4time,-1,-1};
+	private int[] machineTNTime = new int[]{-1,S2time,-1,S4time,-1,-1};
+	private int[] machineTOTime = new int[]{-1,S2time,-1,S4time,-1,-1};
+	private int[] machineTPTime = new int[]{-1,S2time,-1,S4time,-1,-1};
+	private int[] machineTQTime = new int[]{-1,S2time,-1,S4time,-1,-1};
+	private int[] machineTRTime = new int[]{-1,S2time,-1,S4time,-1,-1};
+	private int[] machineTSTime = new int[]{-1,S2time,-1,S4time,-1,-1};
+	private int[] machineTTTime = new int[]{-1,S2time,-1,S4time,-1,-1};
 
 	
 	private int[][] machineTimes = new int[][]{machineTATime, machineTBTime, machineTCTime,
@@ -139,25 +148,25 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 	//Enter points for bay buffers
 	private Point enterPoint = new Point (20,60);
-	private Point depositB1PointEnter = new Point (40,65);
-	private Point depositB2PointEnter = new Point (40,55);
-	private Point depositB3PointEnter = new Point (80,65);
-	private Point depositB4PointEnter = new Point (80,55);
-	private Point depositB5PointEnter = new Point (120,65);
-	private Point depositB6PointEnter = new Point (120,55);
-	private Point buffer1PointEnter = new Point (55,60);
-	private Point buffer2PointEnter = new Point (95,60);
+	private Point depositB1PointEnter = new Point (40,68);
+	private Point depositB2PointEnter = new Point (40,52);
+	private Point depositB3PointEnter = new Point (80,68);
+	private Point depositB4PointEnter = new Point (80,52);
+	private Point depositB5PointEnter = new Point (120,68);
+	private Point depositB6PointEnter = new Point (120,52);
+	private Point buffer1PointEnter = new Point (58,60);
+	private Point buffer2PointEnter = new Point (98,60);
 
 	//Exit points for bay buffers
 	private Point exitPoint = new Point (140,60);
-	private Point depositB1PointExit = new Point (40,75);
-	private Point depositB2PointExit = new Point (40,45);
-	private Point depositB3PointExit = new Point (80,75);
-	private Point depositB4PointExit = new Point (80,45);
-	private Point depositB5PointExit = new Point (120,75);
-	private Point depositB6PointExit = new Point (120,45);
-	private Point buffer1PointExit = new Point (65,60);
-	private Point buffer2PointExit = new Point (105,60);
+	private Point depositB1PointExit = new Point (40,72);
+	private Point depositB2PointExit = new Point (40,48);
+	private Point depositB3PointExit = new Point (80,72);
+	private Point depositB4PointExit = new Point (80,48);
+	private Point depositB5PointExit = new Point (120,72);
+	private Point depositB6PointExit = new Point (120,48);
+	private Point buffer1PointExit = new Point (62,60);
+	private Point buffer2PointExit = new Point (102,60);
 	
 	private final Point[] bufferLocations = new Point[]{enterPointStorage, exitPointStorage, depositB1Point, depositB2Point,
 			depositB3Point,depositB4Point, depositB5Point, depositB6Point, buffer1Point, buffer2Point};
@@ -292,9 +301,6 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		buildAgentNetwork(cyberContext);
 		
-		//Testing
-		cyberContext.add(new Testing(this.listBufferLLC, this.bufferLocations, this.listBufferAgent, cyberContext, this.testPart));
-		
 		return context;
 	}
 
@@ -373,7 +379,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		this.testPart = new Part(new RFIDTag('a'));
 		physicalContext.add(testPart);
-		physicalGrid.moveTo(testPart, 18, 60);	
+		physicalGrid.moveTo(testPart, 18, 60);
 	}
 	
 	private void buildAgentNetwork(Context<Object> cyberContext) {
@@ -406,9 +412,25 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		for (BufferLLC bufferLLC : this.listBufferLLC){
 			BufferAgent bufferAgent = new BufferAgent(bufferLLC.getBuffer().toString()+" Agent", bufferLLC);
 			cyberContext.add(bufferAgent);
-			
+						
 			this.listBufferAgent.add(bufferAgent);
+			
+			//DoneProperty for end buffer agent//
+			//Adds a Done physical property to the exit buffer agent
+			if (bufferLLC.getBuffer().getStoragePoint().equals(exitPointStorage)){				
+				CapabilitiesNode n = null;
+				for (CapabilitiesNode node : bufferAgent.getCapabilities().getVertices()){
+					for (PhysicalProperty property : node.getPhysicalProperties()){
+						if (property.getPoint().equals(exitPointStorage)){n = node;}
+					}
+				}
+				CapabilitiesNode addNode = new CapabilitiesNode(bufferLLC.getBuffer(), new PhysicalProperty("End"), new PhysicalProperty(n.getLocation()));
+				CapabilitiesEdge addEdge = new CapabilitiesEdge(bufferAgent, n, addNode, "End", 0);
+				bufferAgent.getCapabilities().addEdge(addEdge, n, addNode);}
+			//DoneProperty for end buffer agent//
 		}
+		
+		
 		
 		//================================================================================
 	    // Resource agent neighbors
@@ -434,11 +456,15 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 				robotAgent.addNeighbor(bufferAgent);
 				bufferAgent.addNeighbor(robotAgent);
 			}
-		}		
+		}
 		
 		//================================================================================
 	    // Parts
 	    //================================================================================
+
+		PartAgentCreatorforBuffer partAgentCreatorforBuffer = 
+				new PartAgentCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0), cyberContext);
+		cyberContext.add(partAgentCreatorforBuffer);
 		
 	}
 	

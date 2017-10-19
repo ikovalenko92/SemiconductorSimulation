@@ -66,21 +66,35 @@ public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, Capa
 	 * Clears everything except the current node and the dummy first node (edge that indicates current state)
 	 */
 	public void clear() {
+		//Clear desired nodes
 		this.clearDesiredNodes();
 		
-		//keep the current node
+		ArrayList<CapabilitiesNode> removeVertices = new ArrayList<CapabilitiesNode>();
+		ArrayList<CapabilitiesEdge> removeEdges = new ArrayList<CapabilitiesEdge>();
+		
+		//Find all the vertices to remove
 		for (CapabilitiesNode node : getVertices()){
+			// Keep the current and dummy nodes (starting)
 			if (!this.currentNode.equals(node) && !this.currentNode.equals(dummyEmptyNode)){
-				this.removeVertex(node);
+				removeVertices.add(node);
 			}
 		}
 		
-		//keep the starting edge
+		//Find all the edges to remove
 		for (CapabilitiesEdge edge: getEdges()){
+			// Keep the starting edge
 			if (!this.startingEdge.equals(edge)){
-				this.removeEdge(edge);
+				removeEdges.add(edge);
 			}
 		}
 		
+		for (CapabilitiesNode node : removeVertices){this.removeVertex(node);}
+		for (CapabilitiesEdge edge: removeEdges){this.removeEdge(edge);}
+		
+		// Clean up
+		removeVertices.clear();
+		removeEdges.clear();
+		removeVertices = null;
+		removeEdges = null;
 	}
 }

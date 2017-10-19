@@ -9,6 +9,9 @@ import Machine.MachineLLC;
 import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import intelligentProduct.ProductAgent;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
@@ -113,16 +116,59 @@ public class MachineAgent implements ResourceAgent{
 	
 	@Override
 	public boolean query(String program, ProductAgent productAgent) {
-		//Check if schedule holds
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double startTime = schedule.getTickCount();
 		
-		//Hold
+		//Find the desired edge
+		CapabilitiesEdge desiredEdge = null;
+		for (CapabilitiesEdge edge : this.getCapabilities().getEdges()){
+			if (edge.getActiveMethod().equals(program)){
+				desiredEdge = edge;
+				break;
+			}
+		}
 		
-		
-		//Reset
-		
-		//Program Run
-		
+		//If the product agent is scheduled for this time, run the desired program
+		if (desiredEdge!=null &&  this.schedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
+			if (desiredEdge.getActiveMethod() == "Hold"){
+				this.machine.doNothing();
+				informPA(productAgent, desiredEdge);
+				return true;
+			}
+			else if (desiredEdge.getActiveMethod() == "Reset"){
+				return false;
+			}
+			else{
+				if (this.machine.runProgram(desiredEdge.getActiveMethod())){
+					informPA(productAgent, desiredEdge);
+					return true;
+				}
+			}
+		}		
 		return false;
+	}
+	
+	/** Check when the edge is done and inform the product agent
+	 * @param productAgent
+	 * @param edge
+	 */
+	private void informPA(ProductAgent productAgent, CapabilitiesEdge edge){
+		//Using the edge of the weight (might need to check with Robot LLC in the future)
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
+				"informEvent", new Object[]{edge});
+		
+		// If this is not a hold method (i.e. one of the programs was run)
+		// Inform the product agent that the machine was "reset" and new programs can be run on it
+		if (!(edge.getActiveMethod() == "Hold")){
+			for (CapabilitiesEdge resetEdge : this.machineCapabilities.getIncidentEdges(edge.getChild())){
+				if (resetEdge.getActiveMethod()=="Reset"){
+					schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
+							"informEvent", new Object[]{resetEdge});
+				}
+			}
+			
+		}
 	}
 	
 	//================================================================================
@@ -152,7 +198,7 @@ public class MachineAgent implements ResourceAgent{
 			this.machineCapabilities.addEdge(programEdge, startNode, programNode);
 			
 			//Create the edge to come back to the original position
-			CapabilitiesEdge programReset = new CapabilitiesEdge(this, programNode, startNode, "Reset", 1);
+			CapabilitiesEdge programReset = new CapabilitiesEdge(this, programNode, startNode, "Reset", 0);
 			this.machineCapabilities.addEdge(programReset, programNode, startNode);
 		}
 	}

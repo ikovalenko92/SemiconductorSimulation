@@ -59,6 +59,17 @@ public class Buffer {
 		return this.partList;
 	}
 	
+	public Part getPartatStorage() {
+		
+		for (Object object : this.grid.getObjectsAt(storagePoint.x, storagePoint.y)){
+			if (object.getClass().getName().contains("Part")){
+				return (Part) object;
+			}
+		}
+		
+		return null;
+	}
+	
 
 	//================================================================================
     // System Input

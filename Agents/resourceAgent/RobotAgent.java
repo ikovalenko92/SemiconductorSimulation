@@ -132,12 +132,11 @@ public class RobotAgent implements ResourceAgent {
 
 	@Override
 	public boolean query(String program, ProductAgent productAgent) {
-		//Check if the query conforms with the current schedule
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		double startTime = schedule.getTickCount();
 		
+		//Find the desired edge
 		CapabilitiesEdge desiredEdge = null;
-
 		for (CapabilitiesEdge edge : this.getCapabilities().getEdges()){
 			if (edge.getActiveMethod().equals(program)){
 				desiredEdge = edge;
@@ -147,10 +146,24 @@ public class RobotAgent implements ResourceAgent {
 		
 		//If the product agent is scheduled for this time, run the desired program
 		if (desiredEdge!=null &&  this.schedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
-			return this.robot.runMoveObjectProgram(program);
+			if (this.robot.runMoveObjectProgram(program)){
+				this.informPA(productAgent, desiredEdge);
+				return true;
+			}
 		}
 		
 		return false;
+	}
+	
+	/** Check when the edge is done and inform the product agent
+	 * @param productAgent
+	 * @param edge
+	 */
+	private void informPA(ProductAgent productAgent, CapabilitiesEdge edge){
+		//Using the edge of the weight (might need to check with Robot LLC in the future)
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
+				"informEvent", new Object[]{edge});
 	}
 
 	//================================================================================
@@ -168,6 +181,7 @@ public class RobotAgent implements ResourceAgent {
 			Point[] endpoints = this.robot.getProgramEndpoints(program);
 			Point start = endpoints[0];
 			Point end = endpoints[1];
+			Point center = this.robot.getRobot().getCenter();
 			
 			//Create the physical property of being in each location
 			PhysicalProperty startLocation = new PhysicalProperty(start);
@@ -179,8 +193,10 @@ public class RobotAgent implements ResourceAgent {
 			
 			//Estimate the weight (time it takes to move between two points) using the manhattan distance.
 			//Multiplier to give more time to the robot to perform the action
-			double multiplier = 2;
-			int weight = (int) ((Math.abs(start.x-end.x) + Math.abs(start.y-end.y))*multiplier/this.robot.getRobot().getVelocity());
+			int distTravel = (int) (Math.abs(center.x-start.x) + Math.abs(center.y-start.y) + Math.abs(start.x-end.x) + Math.abs(start.y-end.y)
+					+ Math.abs(center.x-end.x) + Math.abs(center.y-end.y));
+			int pickPlaceOffset = 11;
+			int weight = (int) ((distTravel)/this.robot.getRobot().getVelocity()) + pickPlaceOffset;
 			
 			//Create and add the edge to the capabilities
 			CapabilitiesEdge programEdge = new CapabilitiesEdge(this, startNode, endNode, program, weight);

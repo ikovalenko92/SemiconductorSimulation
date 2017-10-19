@@ -47,7 +47,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1278902966</hashCode>
+    <hashCode>1619967319</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>physicalGrid</layoutProjection>
@@ -55,7 +55,7 @@
   <layerOrder>
     <entry>
       <string>Robot.Robot</string>
-      <int>3</int>
+      <int>2</int>
     </entry>
     <entry>
       <string>Buffer.Buffer</string>
@@ -63,7 +63,7 @@
     </entry>
     <entry>
       <string>Part.Part</string>
-      <int>2</int>
+      <int>3</int>
     </entry>
     <entry>
       <string>Machine.Machine</string>
