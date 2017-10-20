@@ -102,4 +102,5 @@ public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, Capa
 		removeVertices = null;
 		removeEdges = null;
 	}
+	
 }

@@ -10,6 +10,7 @@ import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
+import repast.simphony.engine.schedule.ScheduledMethod;
 import resourceAgent.ResourceAgent;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
@@ -34,13 +35,10 @@ public class LotProductAgent implements ProductAgent{
 	private CapabilitiesEdge queriedEdge;
 	private ResourceAgent lastResourceAgent;
 	
-	public static int PAnumber = 0;
+	private int PANumber = -1;
 	
 	public LotProductAgent(Part part, ArrayList<String> processesNeeded, ResourceAgent startingResource, 
 			CapabilitiesNode startingNode, int priority){
-		
-		PAnumber +=1;
-		
 		this.partName = part.toString();
 		this.priority = priority;
 		
@@ -69,8 +67,8 @@ public class LotProductAgent implements ProductAgent{
 		this.queriedEdge = null;		
 	}
 	
-	public void resetPANumber(){
-		LotProductAgent.PAnumber = 0;
+	public void setPANumber(int number){
+		this.PANumber = number;
 	}
 	
 	/* (non-Javadoc)
@@ -78,7 +76,7 @@ public class LotProductAgent implements ProductAgent{
 	 */
 	@Override
 	public String toString() {
-		return "PA" + this.PAnumber + " for " + this.partName;
+		return "PA" + this.PANumber + " for " + this.partName;
 	}
 
 
@@ -113,7 +111,7 @@ public class LotProductAgent implements ProductAgent{
 		
 		//Start scheduling 1 tick after the first bid comes in (other bids should come in at the same tick)
 		if (!this.startSchedulingMethod){
-			startSchedulingMethod = true;
+			this.startSchedulingMethod = true;
 			ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 			
 			//Schedule the Resource Scheduling Method one tick in the future
@@ -148,6 +146,11 @@ public class LotProductAgent implements ProductAgent{
 	public void informEvent(CapabilitiesEdge edge) {
 		this.lastResourceAgent = edge.getActiveAgent();
 		
+		
+		if (this.toString().contains("3")){
+			int a =5;
+		}
+		
 		//If there is no next action to do (new part or finished with current desired task), ask for more bids 
 		if (this.agentPlan.getNextAction(edge) == null){
 			
@@ -168,7 +171,7 @@ public class LotProductAgent implements ProductAgent{
 			this.beliefModel.setCurrentNode(edge.getChild());
 			
 			//Find the next planned action to request from the RA
-			CapabilitiesEdge nextEdge = this.agentPlan.getNextAction(queriedEdge);
+			CapabilitiesEdge nextEdge = this.agentPlan.getNextAction(queriedEdge);			
 			
 			//If the next action matches the current state of the part, then do it.
 			if (nextEdge.getParent().equals(this.beliefModel.getCurrentNode())){
@@ -317,7 +320,7 @@ public class LotProductAgent implements ProductAgent{
 			scheduledPathAgents = null;
 				
 			//Start the querying method (1 tick in the future)
-			CapabilitiesEdge queryEdge = agentPlan.getActionatTime((int) startTime+1);			
+			CapabilitiesEdge queryEdge = agentPlan.getActionatNextTime((int) startTime+1);			
 			schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(queryEdge)), this, "queryResource", 
 					new Object[]{queryEdge.getActiveAgent(), queryEdge});			
 		}

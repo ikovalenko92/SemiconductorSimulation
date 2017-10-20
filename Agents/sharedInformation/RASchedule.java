@@ -1,13 +1,15 @@
 package sharedInformation;
 
 import intelligentProduct.ProductAgent;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduledMethod;
 import resourceAgent.ResourceAgent;
 
 import java.util.ArrayList;
 
 public class RASchedule {
 	ResourceAgent resourceAgent;
-	ArrayList<ProductAgent> productAgents;
+	ArrayList<String> productAgents;
 	ArrayList<Integer> startTimes;
 	ArrayList<Integer> endTimes;
 	
@@ -20,13 +22,11 @@ public class RASchedule {
 	 * @param endTimes (Array List)
 	 */
 	public RASchedule(ResourceAgent resourceAgent) {
-		
 		this.resourceAgent = resourceAgent;
-		this.productAgents = new ArrayList<ProductAgent>();
+		this.productAgents = new ArrayList<String>();
 		this.startTimes = new ArrayList<Integer>();
 		this.endTimes = new ArrayList<Integer>();
 	}
-	
 	
 
 	/* (non-Javadoc)
@@ -45,6 +45,8 @@ public class RASchedule {
 	}
 	
 	public boolean checkPATime(ProductAgent productAgent, int startTime, int endTime){
+		String productAgentName = productAgent.toString();
+		
 		Integer checkStartTime;
 		Integer checkEndTime;
 		
@@ -55,7 +57,7 @@ public class RASchedule {
 			
 			//Check to see if the product agent has this time reserved
 			if (startTime >= checkStartTime && endTime<=checkEndTime){
-				if (this.productAgents.get(i).equals(productAgent)){
+				if (this.productAgents.get(i).equals(productAgentName)){
 					return true;
 				}
 				else{
@@ -74,8 +76,7 @@ public class RASchedule {
 	 * @return
 	 */
 	public boolean addPA(ProductAgent productAgent, Integer startTime, Integer endTime, boolean allowMultiple){
-		
-		
+		String productAgentName = productAgent.toString();
 		
 		if (startTime < 0 || endTime <= 0 || endTime<startTime ){
 			System.out.println("End time and start time are wrong for " + resourceAgent + " for " + productAgent);
@@ -84,7 +85,7 @@ public class RASchedule {
 		
 		//If the new product agent is the first product agent to be added
 		if (productAgents.size() == 0){
-			productAgents.add(productAgent);
+			productAgents.add(productAgentName);
 			startTimes.add(startTime);
 			endTimes.add(endTime);
 			return true;
@@ -102,7 +103,7 @@ public class RASchedule {
 				
 				if (startTime < checkEndTime){
 					if (endTime <= checkStartTime){
-						productAgents.add(i,productAgent);
+						productAgents.add(i,productAgentName);
 						startTimes.add(i,startTime);
 						endTimes.add(i,endTime);
 						return true;
@@ -117,21 +118,23 @@ public class RASchedule {
 		
 		
 		//If the new part agent is scheduled last and the resource is free
-		productAgents.add(productAgent);
+		productAgents.add(productAgentName);
 		startTimes.add(startTime);
 		endTimes.add(endTime);
 		return true;
 	}
 	
 	/** Removes a product agent from the schedul
-	 * @param productAgent
+	 * @param productAgentName
 	 * @param startTime
 	 * @return 
 	 */
 	public boolean removePA(ProductAgent productAgent, int startTime){
+		String productAgentName = productAgent.toString();
+		
 		for(int index = 0; index < this.startTimes.size(); index++){
 			//Find if there is a product agent scheduled for the proposed time to remove it
-			if (startTime >= this.startTimes.get(index) && startTime< this.endTimes.get(index) && productAgent.equals(this.productAgents.get(index))){
+			if (startTime >= this.startTimes.get(index) && startTime< this.endTimes.get(index) && productAgentName.equals(this.productAgents.get(index))){
 				//Remove the product agent if the proposed scheduled agent is found
 				this.startTimes.remove(index);
 				this.endTimes.remove(index);

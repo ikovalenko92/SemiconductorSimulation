@@ -1,551 +1,4 @@
-FATAL [Thread-7] 2017-10-19 17:25:01,844 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (2563.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Specified source vertex machineTP at 130,90 process done: sharedInformation.PhysicalProperty@e00 is not part of graph Vertices:machineTN at 90,20 process done: null,machineTR at 130,40 process done: null,depositB6 at 120,48 process done: null,machineTO at 110,100 process done: null,depositB6 at 120,52 process done: null,depositB3 at 80,72 process done: null,machineTO at 110,100 process done: sharedInformation.PhysicalProperty@e02,buffer3456 at 100,60 process done: null,machineTN at 90,20 process done: sharedInformation.PhysicalProperty@e02,machineTR at 130,40 process done: sharedInformation.PhysicalProperty@e02,depositB5 at 120,68 process done: null,depositB4 at 80,52 process done: null,machineTM at 90,40 process done: null,depositB3 at 80,68 process done: null,depositB5 at 120,70 process done: null,depositB6 at 120,50 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02,machineTS at 110,30 process done: null,buffer3456 at 102,60 process done: null,machineTQ at 110,80 process done: sharedInformation.PhysicalProperty@e02,buffer3456 at 98,60 process done: null,machineTS at 110,30 process done: sharedInformation.PhysicalProperty@e02,depositB4 at 80,48 process done: null,machineTP at 130,90 process done: null,machineTP at 130,90 process done: sharedInformation.PhysicalProperty@e02,machineTQ at 110,80 process done: null,depositB3 at 80,70 process done: null,machineTT at 130,20 process done: null,depositB4 at 80,50 process done: null,depositB5 at 120,72 process done: null,machineTT at 130,20 process done: sharedInformation.PhysicalProperty@e02,machineTJ at 90,80 process done: null
-Edges:Edge with weight 500 goes from 130,40 to 130,40.
-Makes S4.
- Activated by: MachineAgent for machineTR using S4
-[machineTR at 130,40 process done: null,machineTR at 130,40 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 23 goes from 102,60 to 120,68.
-Makes nothing completed.
- Activated by: Robot Agent for RobotM56 using move01
-[buffer3456 at 102,60 process done: null,depositB5 at 120,68 process done: null] Edge with weight 1 goes from 120,50 to 120,48.
-Makes nothing completed.
- Activated by: BufferAgent for depositB6 using F120,48
-[depositB6 at 120,50 process done: null,depositB6 at 120,48 process done: null] Edge with weight 23 goes from 80,68 to 98,60.
-Makes nothing completed.
- Activated by: Robot Agent for RobotM34 using move13
-[depositB3 at 80,68 process done: null,buffer3456 at 98,60 process done: null] Edge with weight 24 goes from 90,80 to 80,72.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB3 using move40
-[machineTJ at 90,80 process done: null,depositB3 at 80,72 process done: null] Edge with weight 1 goes from 80,70 to 80,68.
-Makes nothing completed.
- Activated by: BufferAgent for depositB3 using F80,68
-[depositB3 at 80,70 process done: null,depositB3 at 80,68 process done: null] Edge with weight 500 goes from 110,80 to 110,80.
-Makes S4.
- Activated by: MachineAgent for machineTQ using S4
-[machineTQ at 110,80 process done: null,machineTQ at 110,80 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 28 goes from 80,48 to 90,20.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB4 using move04
-[depositB4 at 80,48 process done: null,machineTN at 90,20 process done: null] Edge with weight 28 goes from 120,48 to 130,20.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB6 using move03
-[depositB6 at 120,48 process done: null,machineTT at 130,20 process done: null] Edge with weight 1 goes from 80,72 to 80,70.
-Makes nothing completed.
- Activated by: BufferAgent for depositB3 using T80,72
-[depositB3 at 80,72 process done: null,depositB3 at 80,70 process done: null] Edge with weight 500 goes from 110,100 to 110,100.
-Makes S4.
- Activated by: MachineAgent for machineTO using S4
-[machineTO at 110,100 process done: null,machineTO at 110,100 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 23 goes from 102,60 to 120,52.
-Makes nothing completed.
- Activated by: Robot Agent for RobotM56 using move02
-[buffer3456 at 102,60 process done: null,depositB6 at 120,52 process done: null] Edge with weight 24 goes from 80,48 to 90,40.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB4 using move03
-[depositB4 at 80,48 process done: null,machineTM at 90,40 process done: null] Edge with weight 500 goes from 130,90 to 130,90.
-Makes S4.
- Activated by: MachineAgent for machineTP using S4
-[machineTP at 130,90 process done: null,machineTP at 130,90 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 1 goes from 100,60 to 102,60.
-Makes nothing completed.
- Activated by: BufferAgent for buffer3456 using F102,60
-[buffer3456 at 100,60 process done: null,buffer3456 at 102,60 process done: null] Edge with weight 24 goes from 120,48 to 110,30.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB6 using move02
-[depositB6 at 120,48 process done: null,machineTS at 110,30 process done: null] Edge with weight 648 goes from 90,40 to 90,40.
-Makes S4.
- Activated by: MachineAgent for machineTM using S4
-[machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 28 goes from 120,72 to 110,100.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB5 using move01
-[depositB5 at 120,72 process done: null,machineTO at 110,100 process done: null] Edge with weight 24 goes from 120,72 to 130,90.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB5 using move02
-[depositB5 at 120,72 process done: null,machineTP at 130,90 process done: null] Edge with weight 24 goes from 120,72 to 110,80.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB5 using move03
-[depositB5 at 120,72 process done: null,machineTQ at 110,80 process done: null] Edge with weight 1 goes from 80,52 to 80,50.
-Makes nothing completed.
- Activated by: BufferAgent for depositB4 using T80,52
-[depositB4 at 80,52 process done: null,depositB4 at 80,50 process done: null] Edge with weight 748 goes from 90,20 to 90,20.
-Makes S4.
- Activated by: MachineAgent for machineTN using S4
-[machineTN at 90,20 process done: null,machineTN at 90,20 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 19 goes from 80,68 to 80,52.
-Makes nothing completed.
- Activated by: Robot Agent for RobotM34 using move12
-[depositB3 at 80,68 process done: null,depositB4 at 80,52 process done: null] Edge with weight 1 goes from 98,60 to 100,60.
-Makes nothing completed.
- Activated by: BufferAgent for buffer3456 using T98,60
-[buffer3456 at 98,60 process done: null,buffer3456 at 100,60 process done: null] Edge with weight 1 goes from 120,52 to 120,50.
-Makes nothing completed.
- Activated by: BufferAgent for depositB6 using T120,52
-[depositB6 at 120,52 process done: null,depositB6 at 120,50 process done: null] Edge with weight 24 goes from 120,48 to 130,40.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB6 using move01
-[depositB6 at 120,48 process done: null,machineTR at 130,40 process done: null] Edge with weight 500 goes from 110,30 to 110,30.
-Makes S4.
- Activated by: MachineAgent for machineTS using S4
-[machineTS at 110,30 process done: null,machineTS at 110,30 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 1 goes from 120,68 to 120,70.
-Makes nothing completed.
- Activated by: BufferAgent for depositB5 using T120,68
-[depositB5 at 120,68 process done: null,depositB5 at 120,70 process done: null] Edge with weight 500 goes from 130,20 to 130,20.
-Makes S4.
- Activated by: MachineAgent for machineTT using S4
-[machineTT at 130,20 process done: null,machineTT at 130,20 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 1 goes from 120,70 to 120,72.
-Makes nothing completed.
- Activated by: BufferAgent for depositB5 using F120,72
-[depositB5 at 120,70 process done: null,depositB5 at 120,72 process done: null] Edge with weight 1 goes from 80,50 to 80,48.
-Makes nothing completed.
- Activated by: BufferAgent for depositB4 using F80,48
-[depositB4 at 80,50 process done: null,depositB4 at 80,48 process done: null] 
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:337)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:309)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:226)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:288)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:188)
-	... 9 more
-FATAL [Thread-8] 2017-10-19 17:28:03,354 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5088.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Specified source vertex machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e00 is not part of graph Vertices:machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02
-Edges:Edge with weight 700 goes from 90,40 to 90,40.
-Makes S4.
- Activated by: MachineAgent for machineTM using S4
-[machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02] 
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:337)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:309)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:226)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:288)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:188)
-	... 9 more
-FATAL [Thread-9] 2017-10-19 17:28:55,533 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5088.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Specified source vertex machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e00 is not part of graph Vertices:depositB6 at 120,48 process done: null,depositB6 at 120,52 process done: null,depositB4 at 80,52 process done: null,machineTM at 90,40 process done: null,machineTR at 130,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02,depositB5 at 120,72 process done: null,buffer3456 at 102,60 process done: null,machineTJ at 90,80 process done: null,depositB3 at 80,68 process done: null,machineTP at 130,90 process done: sharedInformation.PhysicalProperty@e02,buffer3456 at 100,60 process done: null,machineTP at 130,90 process done: null,depositB5 at 120,70 process done: null,machineTS at 110,30 process done: sharedInformation.PhysicalProperty@e02,machineTS at 110,30 process done: null,machineTN at 90,20 process done: sharedInformation.PhysicalProperty@e02,machineTN at 90,20 process done: null,depositB4 at 80,50 process done: null,machineTQ at 110,80 process done: sharedInformation.PhysicalProperty@e02,depositB6 at 120,50 process done: null,depositB5 at 120,68 process done: null,machineTO at 110,100 process done: null,machineTQ at 110,80 process done: null,machineTO at 110,100 process done: sharedInformation.PhysicalProperty@e02,machineTT at 130,20 process done: null,depositB3 at 80,70 process done: null,buffer3456 at 98,60 process done: null,machineTT at 130,20 process done: sharedInformation.PhysicalProperty@e02,depositB4 at 80,48 process done: null,depositB3 at 80,72 process done: null,machineTR at 130,40 process done: sharedInformation.PhysicalProperty@e02
-Edges:Edge with weight 500 goes from 130,90 to 130,90.
-Makes S4.
- Activated by: MachineAgent for machineTP using S4
-[machineTP at 130,90 process done: null,machineTP at 130,90 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 25 goes from 120,48 to 130,40.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB6 using move01
-[depositB6 at 120,48 process done: null,machineTR at 130,40 process done: null] Edge with weight 24 goes from 102,60 to 120,68.
-Makes nothing completed.
- Activated by: Robot Agent for RobotM56 using move01
-[buffer3456 at 102,60 process done: null,depositB5 at 120,68 process done: null] Edge with weight 24 goes from 80,68 to 98,60.
-Makes nothing completed.
- Activated by: Robot Agent for RobotM34 using move13
-[depositB3 at 80,68 process done: null,buffer3456 at 98,60 process done: null] Edge with weight 29 goes from 120,72 to 110,100.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB5 using move01
-[depositB5 at 120,72 process done: null,machineTO at 110,100 process done: null] Edge with weight 500 goes from 110,30 to 110,30.
-Makes S4.
- Activated by: MachineAgent for machineTS using S4
-[machineTS at 110,30 process done: null,machineTS at 110,30 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 1 goes from 80,50 to 80,48.
-Makes nothing completed.
- Activated by: BufferAgent for depositB4 using F80,48
-[depositB4 at 80,50 process done: null,depositB4 at 80,48 process done: null] Edge with weight 1 goes from 120,70 to 120,72.
-Makes nothing completed.
- Activated by: BufferAgent for depositB5 using F120,72
-[depositB5 at 120,70 process done: null,depositB5 at 120,72 process done: null] Edge with weight 20 goes from 80,68 to 80,52.
-Makes nothing completed.
- Activated by: Robot Agent for RobotM34 using move12
-[depositB3 at 80,68 process done: null,depositB4 at 80,52 process done: null] Edge with weight 500 goes from 90,40 to 90,40.
-Makes S4.
- Activated by: MachineAgent for machineTM using S4
-[machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 25 goes from 80,48 to 90,40.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB4 using move03
-[depositB4 at 80,48 process done: null,machineTM at 90,40 process done: null] Edge with weight 1 goes from 100,60 to 102,60.
-Makes nothing completed.
- Activated by: BufferAgent for buffer3456 using F102,60
-[buffer3456 at 100,60 process done: null,buffer3456 at 102,60 process done: null] Edge with weight 1 goes from 120,68 to 120,70.
-Makes nothing completed.
- Activated by: BufferAgent for depositB5 using T120,68
-[depositB5 at 120,68 process done: null,depositB5 at 120,70 process done: null] Edge with weight 1 goes from 80,52 to 80,50.
-Makes nothing completed.
- Activated by: BufferAgent for depositB4 using T80,52
-[depositB4 at 80,52 process done: null,depositB4 at 80,50 process done: null] Edge with weight 29 goes from 80,48 to 90,20.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB4 using move04
-[depositB4 at 80,48 process done: null,machineTN at 90,20 process done: null] Edge with weight 500 goes from 110,100 to 110,100.
-Makes S4.
- Activated by: MachineAgent for machineTO using S4
-[machineTO at 110,100 process done: null,machineTO at 110,100 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 25 goes from 90,80 to 80,72.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB3 using move40
-[machineTJ at 90,80 process done: null,depositB3 at 80,72 process done: null] Edge with weight 500 goes from 130,20 to 130,20.
-Makes S4.
- Activated by: MachineAgent for machineTT using S4
-[machineTT at 130,20 process done: null,machineTT at 130,20 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 1 goes from 98,60 to 100,60.
-Makes nothing completed.
- Activated by: BufferAgent for buffer3456 using T98,60
-[buffer3456 at 98,60 process done: null,buffer3456 at 100,60 process done: null] Edge with weight 1 goes from 80,70 to 80,68.
-Makes nothing completed.
- Activated by: BufferAgent for depositB3 using F80,68
-[depositB3 at 80,70 process done: null,depositB3 at 80,68 process done: null] Edge with weight 29 goes from 120,48 to 130,20.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB6 using move03
-[depositB6 at 120,48 process done: null,machineTT at 130,20 process done: null] Edge with weight 500 goes from 90,20 to 90,20.
-Makes S4.
- Activated by: MachineAgent for machineTN using S4
-[machineTN at 90,20 process done: null,machineTN at 90,20 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 25 goes from 120,72 to 130,90.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB5 using move02
-[depositB5 at 120,72 process done: null,machineTP at 130,90 process done: null] Edge with weight 1 goes from 120,50 to 120,48.
-Makes nothing completed.
- Activated by: BufferAgent for depositB6 using F120,48
-[depositB6 at 120,50 process done: null,depositB6 at 120,48 process done: null] Edge with weight 1 goes from 120,52 to 120,50.
-Makes nothing completed.
- Activated by: BufferAgent for depositB6 using T120,52
-[depositB6 at 120,52 process done: null,depositB6 at 120,50 process done: null] Edge with weight 500 goes from 130,40 to 130,40.
-Makes S4.
- Activated by: MachineAgent for machineTR using S4
-[machineTR at 130,40 process done: null,machineTR at 130,40 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 24 goes from 102,60 to 120,52.
-Makes nothing completed.
- Activated by: Robot Agent for RobotM56 using move02
-[buffer3456 at 102,60 process done: null,depositB6 at 120,52 process done: null] Edge with weight 25 goes from 120,72 to 110,80.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB5 using move03
-[depositB5 at 120,72 process done: null,machineTQ at 110,80 process done: null] Edge with weight 1 goes from 80,72 to 80,70.
-Makes nothing completed.
- Activated by: BufferAgent for depositB3 using T80,72
-[depositB3 at 80,72 process done: null,depositB3 at 80,70 process done: null] Edge with weight 600 goes from 110,80 to 110,80.
-Makes S4.
- Activated by: MachineAgent for machineTQ using S4
-[machineTQ at 110,80 process done: null,machineTQ at 110,80 process done: sharedInformation.PhysicalProperty@e02] Edge with weight 25 goes from 120,48 to 110,30.
-Makes nothing completed.
- Activated by: Robot Agent for RobotB6 using move02
-[depositB6 at 120,48 process done: null,machineTS at 110,30 process done: null] 
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:337)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:309)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:226)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:288)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:188)
-	... 9 more
-FATAL [Thread-10] 2017-10-19 17:29:52,215 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5096.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Specified source vertex machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e00 is not part of graph Vertices:machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02,machineTM at 90,40 process done: null
-Edges:Edge with weight 702 goes from 90,40 to 90,40.
-Makes S4.
- Activated by: MachineAgent for machineTM using S4
-[machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02] 
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:337)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:309)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:226)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:288)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:188)
-	... 9 more
-FATAL [Thread-11] 2017-10-19 17:30:03,049 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5088.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Specified source vertex machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e00 is not part of graph Vertices:machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02
-Edges:Edge with weight 700 goes from 90,40 to 90,40.
-Makes S4.
- Activated by: MachineAgent for machineTM using S4
-[machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02] 
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:337)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:309)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:226)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:288)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:188)
-	... 9 more
-FATAL [Thread-12] 2017-10-19 17:34:33,650 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (6.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.Error: Unresolved compilation problem: 
-	Syntax error, insert "}" to complete Block
-
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:237)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:292)
-	... 9 more
-FATAL [Thread-13] 2017-10-19 17:38:42,773 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5088.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Specified source vertex machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e00 is not part of graph Vertices:machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02,machineTM at 90,40 process done: null
-Edges:Edge with weight 700 goes from 90,40 to 90,40.
-Makes S4.
- Activated by: MachineAgent for machineTM using S4
-[machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02] 
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:239)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:294)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:188)
-	... 9 more
-FATAL [Thread-14] 2017-10-19 17:59:26,190 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5088.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Specified source vertex machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e00 is not part of graph Vertices:machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02
-Edges:Edge with weight 700 goes from 90,40 to 90,40.
-Makes S4.
- Activated by: MachineAgent for machineTM using S4
-[machineTM at 90,40 process done: null,machineTM at 90,40 process done: sharedInformation.PhysicalProperty@e02] 
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:337)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:309)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:227)
-	at intelligentProduct.LotProductAgent.startScheduling(Unknown Source)
-	at intelligentProduct.LotProductAgent.informEvent(Unknown Source)
-	... 9 more
-FATAL [Thread-15] 2017-10-19 17:59:29,217 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at sharedInformation.CapabilitiesNode.getLocation(CapabilitiesNode.java:29)
-	at sharedInformation.CapabilitiesNode.toString(CapabilitiesNode.java:54)
-	at java.lang.String.valueOf(Unknown Source)
-	at java.lang.StringBuilder.append(Unknown Source)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:102)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:273)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-16] 2017-10-19 17:59:32,785 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at sharedInformation.CapabilitiesNode.getLocation(CapabilitiesNode.java:29)
-	at sharedInformation.CapabilitiesNode.toString(CapabilitiesNode.java:54)
-	at java.lang.String.valueOf(Unknown Source)
-	at java.lang.StringBuilder.append(Unknown Source)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:102)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:273)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-7] 2017-10-19 18:00:13,497 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at sharedInformation.CapabilitiesNode.getLocation(CapabilitiesNode.java:29)
-	at sharedInformation.CapabilitiesNode.toString(CapabilitiesNode.java:54)
-	at java.lang.String.valueOf(Unknown Source)
-	at java.lang.StringBuilder.append(Unknown Source)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:102)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:273)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-8] 2017-10-19 18:02:43,315 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at sharedInformation.CapabilitiesNode.getLocation(CapabilitiesNode.java:29)
-	at sharedInformation.CapabilitiesNode.toString(CapabilitiesNode.java:54)
-	at java.lang.String.valueOf(Unknown Source)
-	at java.lang.StringBuilder.append(Unknown Source)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:102)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:273)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-9] 2017-10-19 18:02:49,402 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at sharedInformation.CapabilitiesNode.getLocation(CapabilitiesNode.java:29)
-	at sharedInformation.CapabilitiesNode.toString(CapabilitiesNode.java:54)
-	at java.lang.String.valueOf(Unknown Source)
-	at java.lang.StringBuilder.append(Unknown Source)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:102)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:273)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-10] 2017-10-19 18:04:14,374 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Specified source vertex null at 0,0 process done: null is not part of graph Vertices:EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null
-Edges:Edge with weight 1 goes from 20,60 to 18,60.
-Makes nothing completed.
- Activated by: BufferAgent for EnterBuffer using T20,60
-[EnterBuffer at 20,60 process done: null,EnterBuffer at 18,60 process done: null] Edge with weight 1 goes from 18,60 to 20,60.
-Makes nothing completed.
- Activated by: BufferAgent for EnterBuffer using F20,60
-[EnterBuffer at 18,60 process done: null,EnterBuffer at 20,60 process done: null] 
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:160)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:102)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:273)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-11] 2017-10-19 18:07:31,569 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+FATAL [Thread-12] 2017-10-20 13:39:15,929 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
 java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
@@ -561,10 +14,9 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:227)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:290)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
 	... 9 more
-FATAL [Thread-12] 2017-10-19 18:08:29,648 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+FATAL [Thread-7] 2017-10-20 13:40:14,098 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
 java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
@@ -580,10 +32,278 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:227)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:290)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
 	... 9 more
-FATAL [Thread-13] 2017-10-19 18:10:21,867 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+FATAL [Thread-8] 2017-10-20 13:41:22,814 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-9] 2017-10-20 13:44:24,013 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (35.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:218)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:283)
+	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:180)
+	... 9 more
+FATAL [Thread-7] 2017-10-20 13:45:25,498 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-8] 2017-10-20 13:45:49,808 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-9] 2017-10-20 13:46:08,003 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (35.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:218)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:283)
+	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:180)
+	... 9 more
+FATAL [Thread-10] 2017-10-20 13:46:15,681 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-11] 2017-10-20 13:46:27,142 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-7] 2017-10-20 13:48:23,329 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (35.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:218)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:283)
+	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:180)
+	... 9 more
+FATAL [Thread-7] 2017-10-20 13:49:39,295 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-8] 2017-10-20 13:49:48,846 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-9] 2017-10-20 13:51:22,957 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-10] 2017-10-20 13:53:57,710 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-7] 2017-10-20 14:00:36,581 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (381.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:319)
+	... 9 more
+FATAL [Thread-9] 2017-10-20 14:03:02,366 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (381.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:323)
+	... 9 more
+FATAL [Thread-7] 2017-10-20 14:08:02,448 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
 java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
@@ -598,371 +318,10 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
-Caused by: java.lang.Error: Unresolved compilation problem: 
-
-	at intelligentProduct.AgentBeliefModel.getDesiredNodes(AgentBeliefModel.java:55)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:226)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:290)
-	... 9 more
-FATAL [Thread-14] 2017-10-19 18:10:25,685 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NoSuchMethodError: intelligentProduct.AgentBeliefModel.<init>(LsharedInformation/CapabilitiesNode;)V
-	at intelligentProduct.LotProductAgent.<init>(LotProductAgent.java:63)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:60)
-	... 9 more
-FATAL [Thread-7] 2017-10-19 18:11:47,959 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (2600.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:227)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:290)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:324)
 	... 9 more
-FATAL [Thread-8] 2017-10-19 18:13:31,729 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (2600.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:227)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:290)
-	... 9 more
-FATAL [Thread-7] 2017-10-19 18:20:12,705 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5088.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:226)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:288)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:188)
-	... 9 more
-FATAL [Thread-7] 2017-10-19 19:12:27,498 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IndexOutOfBoundsException: Index: 1, Size: 0
-	at java.util.ArrayList.rangeCheck(Unknown Source)
-	at java.util.ArrayList.get(Unknown Source)
-	at sharedInformation.RASchedule.getNextFreeTime(RASchedule.java:199)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:103)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:265)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:160)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-8] 2017-10-19 19:12:38,923 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-	at java.util.ArrayList.rangeCheck(Unknown Source)
-	at java.util.ArrayList.get(Unknown Source)
-	at sharedInformation.RASchedule.getNextFreeTime(RASchedule.java:199)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:103)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:265)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:160)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-9] 2017-10-19 19:12:50,266 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.ArrayIndexOutOfBoundsException: -1
-	at java.util.ArrayList.elementData(Unknown Source)
-	at java.util.ArrayList.get(Unknown Source)
-	at sharedInformation.RASchedule.getNextFreeTime(RASchedule.java:199)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:103)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:265)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:160)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
-	... 9 more
-FATAL [Thread-9] 2017-10-19 19:24:40,437 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (106.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.IllegalArgumentException: Edges weights must be non-negative
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.singleSourceShortestPath(DijkstraDistance.java:203)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:349)
-	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraDistance.getDistanceMap(DijkstraDistance.java:309)
-	at intelligentProduct.LotProductAgent.getBestPath(LotProductAgent.java:220)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:285)
-	... 9 more
-FATAL [Thread-13] 2017-10-19 19:38:34,668 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (381.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:322)
-	... 9 more
-FATAL [Thread-7] 2017-10-19 19:42:47,675 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (381.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:322)
-	... 9 more
-FATAL [Thread-8] 2017-10-19 19:43:46,846 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (381.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:322)
-	... 9 more
-FATAL [Thread-9] 2017-10-19 19:44:57,683 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (371.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:322)
-	... 9 more
-FATAL [Thread-10] 2017-10-19 19:45:42,975 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (381.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:322)
-	... 9 more
-FATAL [Thread-7] 2017-10-19 19:52:07,280 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (381.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:322)
-	... 9 more
-FATAL [Thread-10] 2017-10-19 20:01:34,596 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (406.0)
-java.lang.NullPointerException
-	at repast.simphony.visualization.engine.DisplayComponentControllerAction$DisplayUpdater.execute(DisplayComponentControllerAction.java:44)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:238)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-FATAL [Thread-11] 2017-10-19 20:04:21,128 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (306.0)
-java.lang.NullPointerException
-	at repast.simphony.visualization.engine.DisplayComponentControllerAction$DisplayUpdater.execute(DisplayComponentControllerAction.java:44)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:238)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-FATAL [Thread-12] 2017-10-19 20:04:49,182 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (306.0)
-java.lang.NullPointerException
-	at repast.simphony.visualization.engine.DisplayComponentControllerAction$DisplayUpdater.execute(DisplayComponentControllerAction.java:44)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:238)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-FATAL [Thread-13] 2017-10-19 20:04:55,223 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (6.0)
-java.lang.NullPointerException
-	at repast.simphony.visualization.engine.DisplayComponentControllerAction$DisplayUpdater.execute(DisplayComponentControllerAction.java:44)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:238)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-FATAL [Thread-7] 2017-10-19 20:06:10,069 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (381.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:326)
-	... 9 more
-FATAL [Thread-8] 2017-10-20 10:39:35,508 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (381.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:326)
-	... 9 more
-FATAL [Thread-8] 2017-10-20 11:11:40,874 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+FATAL [Thread-8] 2017-10-20 14:10:04,280 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
 java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
@@ -977,14 +336,11 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
-Caused by: java.lang.Error: Unresolved compilation problem: 
-	Unreachable code
-
-	at resourceAgent.RobotAgent.requestScheduleTime(RobotAgent.java:113)
-	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:300)
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:324)
 	... 9 more
-FATAL [Thread-15] 2017-10-20 11:20:41,538 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
+FATAL [Thread-9] 2017-10-20 14:10:39,134 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (6.0)
 java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
 	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
@@ -994,18 +350,50 @@ java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
 	at java.lang.Thread.run(Unknown Source)
 Caused by: java.lang.reflect.InvocationTargetException
-	at Part.PartCreatorforBuffer$$FastClassByCGLIB$$f4fe38eb.invoke(<generated>)
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
-Caused by: java.lang.Error: Unresolved compilation problems: 
-	edge cannot be resolved
-	edge cannot be resolved
-
-	at resourceAgent.RobotAgent.teamQuery(RobotAgent.java:97)
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:126)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
-	at intelligentProduct.LotProductAgent.startBidding(LotProductAgent.java:265)
-	at intelligentProduct.LotProductAgent.informEvent(LotProductAgent.java:160)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:324)
+	... 9 more
+FATAL [Thread-7] 2017-10-20 14:22:50,361 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (381.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.changeToAction(PAPlan.java:158)
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:130)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:324)
+	... 9 more
+FATAL [Thread-8] 2017-10-20 14:24:40,143 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (381.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.LotProductAgent$$FastClassByCGLIB$$73dba1b1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.PAPlan.changeToAction(PAPlan.java:158)
+	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:130)
+	at intelligentProduct.LotProductAgent.startScheduling(LotProductAgent.java:324)
 	... 9 more

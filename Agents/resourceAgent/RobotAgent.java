@@ -69,6 +69,14 @@ public class RobotAgent implements ResourceAgent {
 		this.RAschedule = new RASchedule(this);
 	}
 	
+	/*@ScheduledMethod ( start = 1 , interval = 1, priority = -50000)
+	public void adf(){
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double startTime = schedule.getTickCount();
+		if (this.toString().contains("M12")){
+			System.out.println(this.getSchedule()+ ""+startTime);}
+	}*/
+	
 	@Override
 	public String toString() {
 		return "Robot Agent for " + this.robot.toString();
@@ -93,6 +101,7 @@ public class RobotAgent implements ResourceAgent {
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
 			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList) {
+		
 		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
 				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, robotCapabilities, weightTransformer);
 	}
@@ -142,6 +151,10 @@ public class RobotAgent implements ResourceAgent {
 				desiredEdge = edge;
 				break;
 			}
+		}
+		
+		if (productAgent.toString().contains("3")){
+			int a =5;
 		}
 		
 		//If the product agent is scheduled for this time, run the desired program

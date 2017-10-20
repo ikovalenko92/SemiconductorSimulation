@@ -25,9 +25,11 @@ public class PartCreatorforBuffer {
 	private double startTime;
 	private double intervalTime;
 	
+	private int PAnumber;
+	
 	public PartCreatorforBuffer(Buffer buffer, BufferAgent bufferAgent, Grid<Object> physicalGrid, Context<Object> physicalContext, Context<Object> cyberContext) {
 		this.startTime = 5;
-		this.intervalTime = 100;
+		this.intervalTime = 150;
 		
 		this.buffer = buffer;
 		this.bufferAgent = bufferAgent;
@@ -38,6 +40,8 @@ public class PartCreatorforBuffer {
 				
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		schedule.schedule(ScheduleParameters.createRepeating(startTime,intervalTime), this, "startPartAgentCreation");
+		
+		this.PAnumber = -1;
 	}
 	
 	/**
@@ -61,9 +65,8 @@ public class PartCreatorforBuffer {
 		productAgent.informEvent(new CapabilitiesEdge(bufferAgent, null, startingNode, null, 0));
 		cyberContext.add(productAgent);
 		
-		if (this.startTime == RunEnvironment.getInstance().getCurrentSchedule().getTickCount()){
-			productAgent.resetPANumber();
-		}
+		this.PAnumber = this.PAnumber+1;
+		productAgent.setPANumber(this.PAnumber);
 	}
 	
 	/**

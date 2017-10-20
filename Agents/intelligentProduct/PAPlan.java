@@ -5,9 +5,10 @@ import sharedInformation.CapabilitiesEdge;
 import java.util.ArrayList;
 
 public class PAPlan {
-	ProductAgent productAgent;
-	ArrayList<CapabilitiesEdge> actions;
-	ArrayList<Integer> startTimes;
+	private ProductAgent productAgent;
+	private ArrayList<String> actions;
+	private ArrayList<Integer> startTimes;
+	private ArrayList<CapabilitiesEdge> edges;
 	
 	/**
 	 * Part agents, start times array lists must be the same size
@@ -19,8 +20,10 @@ public class PAPlan {
 	 */
 	public PAPlan(ProductAgent productAgent) {
 		this.productAgent = productAgent;
-		this.actions = new ArrayList<CapabilitiesEdge>();
+		this.actions = new ArrayList<String>();
 		this.startTimes = new ArrayList<Integer>();
+		
+		this.edges = new ArrayList<CapabilitiesEdge>();
 	}
 
 	/* (non-Javadoc)
@@ -41,7 +44,8 @@ public class PAPlan {
 	 * @param startTime
 	 * @return
 	 */
-	public boolean addAction(CapabilitiesEdge action, Integer startTime){
+	public boolean addAction(CapabilitiesEdge edge, Integer startTime){
+		String action = changeToAction(edge);
 		
 		if (startTime < 0){
 			System.out.println("Start time is wrong for " + this.productAgent + " for " + action);
@@ -52,6 +56,7 @@ public class PAPlan {
 		if (actions.size() == 0){
 			actions.add(action);
 			startTimes.add(startTime);
+			this.edges.add(edge);
 			return true;
 		}
 		
@@ -63,6 +68,7 @@ public class PAPlan {
 				if (startTime < checkStartTime){
 					this.actions.add(i,action);
 					startTimes.add(i,startTime);
+					this.edges.add(edge);
 					return true;
 				}
 				else if (checkStartTime == startTime){
@@ -74,6 +80,7 @@ public class PAPlan {
 		//If the new part agent is scheduled last and the resource is free
 		actions.add(action);
 		startTimes.add(startTime);
+		this.edges.add(edge);
 		return true;
 	}
 	
@@ -81,11 +88,14 @@ public class PAPlan {
 	 * @param action
 	 * @param startTime
 	 */
-	public void removeAction(CapabilitiesEdge action){
+	public void removeAction(CapabilitiesEdge edge){
+		String action = changeToAction(edge);
+		
 		int index = actions.indexOf(action);
 		if (index != -1){
 			actions.remove(index);
 			startTimes.remove(index);
+			this.edges.remove(edge);
 		}
 		else{
 			System.out.println("No " + action + " in " + this.productAgent);
@@ -96,14 +106,16 @@ public class PAPlan {
 	 * @param action
 	 * @return
 	 */
-	public CapabilitiesEdge getNextAction(CapabilitiesEdge action){
+	public CapabilitiesEdge getNextAction(CapabilitiesEdge edge){
+		String action = changeToAction(edge);
+		
 		int index = actions.indexOf(action);
 		
 		if (index != -1){
 			if (actions.size()-1 == index){
 				return null;
 			}
-			return actions.get(index+1);
+			return changeToEdge(actions.get(index+1));
 		}
 		
 		//System.out.println("No " + action + " planned for " + this.productAgent);
@@ -114,7 +126,9 @@ public class PAPlan {
 	 * @param action
 	 * @return
 	 */
-	public Integer getTimeofAction(CapabilitiesEdge action){
+	public Integer getTimeofAction(CapabilitiesEdge edge){
+		String action = changeToAction(edge);
+		
 		int index = actions.indexOf(action);
 		
 		if (index != -1){
@@ -129,16 +143,36 @@ public class PAPlan {
 	 * @param time
 	 * @return
 	 */
-	public CapabilitiesEdge getActionatTime(int time){
-		int index = startTimes.indexOf(time);
-		
-		if (index != -1){
-			return actions.get(index);
+	public CapabilitiesEdge getActionatNextTime(int time){
+		for (int i=0;i<this.startTimes.size();i++){
+			Integer startTime = this.startTimes.get(i);
+			if (startTime>=time){
+				return changeToEdge(actions.get(i));
+			}
 		}
 		
-		System.out.println("No action starts at" + time + " for " + this.productAgent);
+		System.out.println("No action starts at or after " + time + " for " + this.productAgent);
 		return null;
 	}
+	
+	public String changeToAction(CapabilitiesEdge edge){
+		return "" + edge.getActiveAgent() + "," + edge.getActiveMethod();
+	}
+	
+	
+	/** Reutrn the Capabilities Edge with this hash code
+	 * @param string
+	 * @return
+	 */
+	public CapabilitiesEdge changeToEdge(String name){
+		for (CapabilitiesEdge edge : this.edges){
+			if (changeToAction(edge).equals(name)){
+				return edge;
+			}
+		}
+		return null;
+	}
+	
 	
 	
 }
