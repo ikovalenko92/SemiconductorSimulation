@@ -1,10 +1,12 @@
 package intelligentProduct;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
+import sharedInformation.PhysicalProperty;
 
 @SuppressWarnings("serial")
 public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge>{
@@ -14,9 +16,9 @@ public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, Capa
 	private CapabilitiesNode dummyEmptyNode;
 	private CapabilitiesEdge startingEdge;
 	
-	public AgentBeliefModel(){
-		this.dummyEmptyNode = new CapabilitiesNode(null, null, null);
-		this.currentNode = new CapabilitiesNode(null, null, null);
+	public AgentBeliefModel(CapabilitiesNode currentNode){
+		this.dummyEmptyNode = new CapabilitiesNode(null, null, new PhysicalProperty(new Point(0,0)));
+		this.currentNode = currentNode;
 		this.startingEdge = new CapabilitiesEdge(null, dummyEmptyNode, currentNode, null, 0);
 		this.addEdge(startingEdge, dummyEmptyNode, currentNode);
 	}
@@ -31,6 +33,7 @@ public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, Capa
 	}
 	
 	public void setCurrentNode(CapabilitiesNode currentNode){
+		addVertex(currentNode);
 		this.currentNode = currentNode;
 	}
 	
@@ -39,7 +42,9 @@ public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, Capa
 	}
 	
 	public void addDesiredNode(CapabilitiesNode desiredNode){
-		this.desiredNodes.add(desiredNode);
+		if (this.containsVertex(desiredNode)){
+			this.desiredNodes.add(desiredNode);
+		}
 	}
 	
 	public void clearDesiredNodes(){

@@ -1,7 +1,5 @@
 package Part;
 
-import java.util.ArrayList;
-
 /**
  * @author ikoval
  * Build the RFID tag by creating setters/getters for various information
@@ -28,7 +26,7 @@ public class RFIDTag {
 
 	@Override
 	public String toString() {
-		return "Type = [" + Type + "]";
+		return Type + "";
 	}
 	
 	/* (non-Javadoc)

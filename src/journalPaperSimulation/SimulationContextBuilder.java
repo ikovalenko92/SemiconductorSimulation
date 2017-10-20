@@ -9,11 +9,9 @@ import Buffer.Buffer;
 import Buffer.BufferLLC;
 import Machine.Machine;
 import Machine.MachineLLC;
-import Part.Part;
-import Part.RFIDTag;
+import Part.PartCreatorforBuffer;
 import Robot.Robot;
 import Robot.RobotLLC;
-import intelligentProduct.PartAgentCreatorforBuffer;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
@@ -271,7 +269,6 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	//The index of the BUFFER neighbors for all of the robots
 	private final int[][] robotBufferNeighborIndices = new int[][]{robotB1BufferIndex, robotB2BufferIndex, robotB3BufferIndex,	robotB4BufferIndex, robotB5BufferIndex, robotB6BufferIndex, robotM12BufferIndex, robotM34BufferIndex, robotM56BufferIndex};
 	private HashMap<Point, Object> tableLocationObject;
-	private Part testPart;
 
 			
 //================================================================================
@@ -300,6 +297,8 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		buildProductionControl(physicalContext, physicalGrid, cyberContext);
 		
 		buildAgentNetwork(cyberContext);
+		
+		buildPartCreator(physicalContext, physicalGrid, cyberContext);
 		
 		return context;
 	}
@@ -370,16 +369,8 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			this.listRobotLLC.add(robotLLC);
 			cyberContext.add(robotLLC);		
 			
-			this.tableLocationObject.put(this.robotLocations[index], robot);
+			this.tableLocationObject.put(this.robotLocations[index], robot);			
 		}
-				
-		//================================================================================
-	    // Parts
-	    //================================================================================
-		
-		this.testPart = new Part(new RFIDTag('a'));
-		physicalContext.add(testPart);
-		physicalGrid.moveTo(testPart, 18, 60);
 	}
 	
 	private void buildAgentNetwork(Context<Object> cyberContext) {
@@ -458,14 +449,30 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			}
 		}
 		
+		
+	}
+	
+
+	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
+		
+		PartCreatorforBuffer partCreator = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				physicalGrid, physicalContext, cyberContext);
+		cyberContext.add(partCreator);
+		
+		//================================================================================
+	    // Parts
+	    //================================================================================
+				
+		//testPart = new Part(new RFIDTag('a'));
+		//physicalContext.add(testPart);
+		//physicalGrid.moveTo(testPart, 18, 60);
+
 		//================================================================================
 	    // Parts
 	    //================================================================================
 
-		PartAgentCreatorforBuffer partAgentCreatorforBuffer = 
-				new PartAgentCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0), cyberContext);
-		cyberContext.add(partAgentCreatorforBuffer);
-		
+		//PartAgentCreatorforBuffer partAgentCreatorforBuffer = new PartAgentCreatorforBuffer(this.listBufferAgent.get(0), cyberContext);
+		//cyberContext.add(partAgentCreatorforBuffer);
 	}
 	
 	/**

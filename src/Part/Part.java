@@ -16,7 +16,6 @@ public class Part {
 	 * Generic physicalComponent_Part = black rectangle of size 4x4 pixels
 	 */
 	public Part(RFIDTag tag){
-		
 		this.shape = new GeneralPath();
 		shape.moveTo(-1.5,-1);
 		shape.lineTo(1.5,-1);
@@ -82,6 +81,6 @@ public class Part {
 	 */
 	@Override
 	public String toString() {
-		return "Part" + this.getRFIDTag().getID();
+		return "Part" + this.tag;
 	}
 }

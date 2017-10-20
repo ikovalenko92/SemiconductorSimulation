@@ -9,6 +9,7 @@ import org.apache.commons.collections15.Transformer;
 
 import Part.Part;
 import Robot.RobotLLC;
+import bsh.This;
 import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import intelligentProduct.ProductAgent;
@@ -39,7 +40,7 @@ public class RobotAgent implements ResourceAgent {
 	private HashMap<Point, Object> tableLocationObject;
 	
 	//Scheduling
-	private RASchedule schedule;
+	private RASchedule RAschedule;
 	
 	/**
 	 * @param name
@@ -65,7 +66,7 @@ public class RobotAgent implements ResourceAgent {
 		
 		createOutputGraph();
 		
-		this.schedule = new RASchedule(this);
+		this.RAschedule = new RASchedule(this);
 	}
 	
 	@Override
@@ -92,7 +93,6 @@ public class RobotAgent implements ResourceAgent {
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
 			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList) {
-		
 		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
 				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, robotCapabilities, weightTransformer);
 	}
@@ -103,19 +103,19 @@ public class RobotAgent implements ResourceAgent {
 	
 	@Override
 	public RASchedule getSchedule() {
-		return this.schedule;
+		return this.RAschedule;
 	}
 
 
 	@Override
 	public boolean requestScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
-		return this.schedule.addPA(productAgent, startTime, endTime, false);
+		return this.RAschedule.addPA(productAgent, startTime, endTime, false);
 	}
 
 
 	@Override
 	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
-		return this.removeScheduleTime(productAgent, startTime);
+		return this.RAschedule.removePA(productAgent, startTime);
 	}
 	
 	//================================================================================
@@ -145,7 +145,7 @@ public class RobotAgent implements ResourceAgent {
 		}
 		
 		//If the product agent is scheduled for this time, run the desired program
-		if (desiredEdge!=null &&  this.schedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
+		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
 			if (this.robot.runMoveObjectProgram(program)){
 				this.informPA(productAgent, desiredEdge);
 				return true;
@@ -195,7 +195,7 @@ public class RobotAgent implements ResourceAgent {
 			//Multiplier to give more time to the robot to perform the action
 			int distTravel = (int) (Math.abs(center.x-start.x) + Math.abs(center.y-start.y) + Math.abs(start.x-end.x) + Math.abs(start.y-end.y)
 					+ Math.abs(center.x-end.x) + Math.abs(center.y-end.y));
-			int pickPlaceOffset = 11;
+			int pickPlaceOffset = 14;
 			int weight = (int) ((distTravel)/this.robot.getRobot().getVelocity()) + pickPlaceOffset;
 			
 			//Create and add the edge to the capabilities

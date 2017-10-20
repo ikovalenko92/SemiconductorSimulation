@@ -112,8 +112,85 @@ public class CapabilitiesEdge {
 	
 	return "Edge with weight " + this.weight + " goes from " + parent.getLocation().x + "," + parent.getLocation().y + " to " + child.getLocation().x + "," + child.getLocation().y + ".\n"
 			+ "Makes " + child.getProcessCompleted() + ".\n"
-			+ " Activated by: " + this.activeAgent + " using " + this.activeMethod;//.getName() + "(" + activeParametersString + ")\n"
+			+ " Activated by: " + this.activeAgent + " using " + this.activeMethod + "\n";//.getName() + "(" + activeParametersString + ")\n"
 			//+ " Controllable: " + this.controllability + ", Observable: " + this.observability;
 	}
+
+	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((activeAgent == null) ? 0 : activeAgent.hashCode());
+		result = prime * result + ((activeMethod == null) ? 0 : activeMethod.hashCode());
+		result = prime * result + ((child == null) ? 0 : child.hashCode());
+		result = prime * result + (controllability ? 1231 : 1237);
+		result = prime * result + (observability ? 1231 : 1237);
+		result = prime * result + ((parent == null) ? 0 : parent.hashCode());
+		result = prime * result + weight;
+		return result;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof CapabilitiesEdge)) {
+			return false;
+		}
+		CapabilitiesEdge other = (CapabilitiesEdge) obj;
+		if (activeAgent == null) {
+			if (other.activeAgent != null) {
+				return false;
+			}
+		} else if (!activeAgent.equals(other.activeAgent)) {
+			return false;
+		}
+		if (activeMethod == null) {
+			if (other.activeMethod != null) {
+				return false;
+			}
+		} else if (!activeMethod.equals(other.activeMethod)) {
+			return false;
+		}
+		if (child == null) {
+			if (other.child != null) {
+				return false;
+			}
+		} else if (!child.equals(other.child)) {
+			return false;
+		}
+		if (controllability != other.controllability) {
+			return false;
+		}
+		if (observability != other.observability) {
+			return false;
+		}
+		if (parent == null) {
+			if (other.parent != null) {
+				return false;
+			}
+		} else if (!parent.equals(other.parent)) {
+			return false;
+		}
+		if (weight != other.weight) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 
 }

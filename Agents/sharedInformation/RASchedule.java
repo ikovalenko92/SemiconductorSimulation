@@ -66,8 +66,6 @@ public class RASchedule {
 		return false;
 	}
 
-
-
 	/** Add a product agent to the schedule
 	 * @param productAgent
 	 * @param startTime
@@ -76,6 +74,8 @@ public class RASchedule {
 	 * @return
 	 */
 	public boolean addPA(ProductAgent productAgent, Integer startTime, Integer endTime, boolean allowMultiple){
+		
+		
 		
 		if (startTime < 0 || endTime <= 0 || endTime<startTime ){
 			System.out.println("End time and start time are wrong for " + resourceAgent + " for " + productAgent);
@@ -126,8 +126,9 @@ public class RASchedule {
 	/** Removes a product agent from the schedul
 	 * @param productAgent
 	 * @param startTime
+	 * @return 
 	 */
-	public void removePA(ProductAgent productAgent, int startTime){
+	public boolean removePA(ProductAgent productAgent, int startTime){
 		for(int index = 0; index < this.startTimes.size(); index++){
 			//Find if there is a product agent scheduled for the proposed time to remove it
 			if (startTime >= this.startTimes.get(index) && startTime< this.endTimes.get(index) && productAgent.equals(this.productAgents.get(index))){
@@ -135,15 +136,18 @@ public class RASchedule {
 				this.startTimes.remove(index);
 				this.endTimes.remove(index);
 				this.productAgents.remove(index);
+				return true;
 			}
 		}
+		
+		return false;
 	}
 
-	/**
+	/** Gets the amount of free time before the resource is taken again
 	 * @param startTime
-	 * @return The time the resource is free after the start time
+	 * @return
 	 */
-	public int getFreeTime(int startTime){
+	public int getFreeTimeAmount(int startTime){
 		//Large number if there is nothing after this part
 		int ret = 100000;
 		
@@ -169,6 +173,33 @@ public class RASchedule {
 		}
 		
 		return ret;
+	}
+	
+	/** Gets the next time the resource doesn't have anything scheduled
+	 * @param startTime
+	 * @param pathValue 
+	 * @return
+	 */
+	public int getNextFreeTime(int startTime, int timeAction){
+		//If there are no end times or it's after all the scheduled events, return the start time
+		if (endTimes.size() == 0 || startTime > endTimes.get(endTimes.size()-1)){
+			return startTime;
+		}
+				
+		int checkEndTime = startTime+timeAction;
+		
+		//Check to see if the resource is working
+		for(int i = 0; i < startTimes.size(); i++){
+			if (startTimes.get(i) > startTime + checkEndTime){
+				if (i==0 || endTimes.get(i-1)<startTime){
+					return startTime;
+				}
+			}
+			
+		}		
+		
+		//System.out.println(ret);
+		return endTimes.get(endTimes.size()-1)+1;
 	}
 	
 }

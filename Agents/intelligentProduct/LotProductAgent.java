@@ -1,20 +1,14 @@
 package intelligentProduct;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.collections15.Transformer;
 
 import Part.Part;
 import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
-import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
-import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
 import resourceAgent.ResourceAgent;
 import sharedInformation.CapabilitiesEdge;
@@ -38,9 +32,15 @@ public class LotProductAgent implements ProductAgent{
 	private boolean startSchedulingMethod;
 	private PAPlan agentPlan;
 	private CapabilitiesEdge queriedEdge;
+	private ResourceAgent lastResourceAgent;
+	
+	public static int PAnumber = 0;
 	
 	public LotProductAgent(Part part, ArrayList<String> processesNeeded, ResourceAgent startingResource, 
 			CapabilitiesNode startingNode, int priority){
+		
+		PAnumber +=1;
+		
 		this.partName = part.toString();
 		this.priority = priority;
 		
@@ -54,7 +54,7 @@ public class LotProductAgent implements ProductAgent{
 		this.processesDone = new ArrayList<PhysicalProperty>();
 		
 		//Create an empty agent belief model
-		this.beliefModel = new AgentBeliefModel();
+		this.beliefModel = new AgentBeliefModel(startingNode);
 		
 		//No actions have been planned
 		this.agentPlan = new PAPlan(this);
@@ -69,12 +69,16 @@ public class LotProductAgent implements ProductAgent{
 		this.queriedEdge = null;		
 	}
 	
+	public void resetPANumber(){
+		LotProductAgent.PAnumber = 0;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Product Agent " + this.partName;
+		return "PA" + this.PAnumber + " for " + this.partName;
 	}
 
 
@@ -105,7 +109,7 @@ public class LotProductAgent implements ProductAgent{
     //================================================================================
 
 	@Override
-	public void submitBid(ArrayList<ResourceAgent> resourceList, int bidTime, ArrayList<CapabilitiesEdge> edgeList) {
+	public void submitBid(ArrayList<ResourceAgent> resourceList, ArrayList<CapabilitiesEdge> edgeList) {
 		
 		//Start scheduling 1 tick after the first bid comes in (other bids should come in at the same tick)
 		if (!this.startSchedulingMethod){
@@ -142,7 +146,7 @@ public class LotProductAgent implements ProductAgent{
 	
 	@Override
 	public void informEvent(CapabilitiesEdge edge) {
-		System.out.println(this.agentPlan.getNextAction(edge));
+		this.lastResourceAgent = edge.getActiveAgent();
 		
 		//If there is no next action to do (new part or finished with current desired task), ask for more bids 
 		if (this.agentPlan.getNextAction(edge) == null){
@@ -152,9 +156,8 @@ public class LotProductAgent implements ProductAgent{
 					this.processesDone.add(property);
 				}
 			}
-			
-			
-			startBidding(edge.getActiveAgent(), beliefModel.getCurrentNode());
+	
+			startBidding(lastResourceAgent, beliefModel.getCurrentNode());
 		}
 		
 		//If the event is part of your local environmnet
@@ -169,7 +172,7 @@ public class LotProductAgent implements ProductAgent{
 			
 			//If the next action matches the current state of the part, then do it.
 			if (nextEdge.getParent().equals(this.beliefModel.getCurrentNode())){
-				schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()), 
+				schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(nextEdge)), 
 						this, "queryResource", new Object[]{nextEdge.getActiveAgent(),nextEdge});
 			}
 			
@@ -186,9 +189,13 @@ public class LotProductAgent implements ProductAgent{
 	 * @param edge
 	 */
 	public void queryResource(ResourceAgent resourceAgent, CapabilitiesEdge edge){
-		//Set the queried edge
+		//Set the queried edge		
 		this.queriedEdge = edge;
-		resourceAgent.query(edge.getActiveMethod(), this);
+		boolean queried = resourceAgent.query(edge.getActiveMethod(), this);
+		
+		if (!queried){
+			System.out.println("" + this + " query did not work for " + resourceAgent + " " + edge);
+		}
 	}
 	
 	//================================================================================
@@ -254,9 +261,13 @@ public class LotProductAgent implements ProductAgent{
 		
 		//For the next needed process, request bids
 		PhysicalProperty property = this.getDesiredProperty();
-		resource.teamQuery(this, property, startingNode, 0, this.getBidTime(), new ArrayList<ResourceAgent>(), new ArrayList<CapabilitiesEdge>());
+		int currentTime = (int) RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		resource.teamQuery(this, property, startingNode, currentTime, this.getBidTime(), new ArrayList<ResourceAgent>(), new ArrayList<CapabilitiesEdge>());
 	}
 	
+	/** The desired property for the product agent
+	 * @return
+	 */
 	private PhysicalProperty getDesiredProperty() {
 		for (PhysicalProperty property : this.processesNeeded){
 			if (!this.processesDone.contains(property)){
@@ -278,21 +289,51 @@ public class LotProductAgent implements ProductAgent{
 		double startTime = schedule.getTickCount();
 		int futureScheduleTime = (int) (startTime+1);
 		
+		//Flag if scheduling doesn't work
+		boolean badPathFlag = false;
+		ArrayList<ResourceAgent> scheduledPathAgents = new ArrayList<ResourceAgent>();
+		ArrayList<Integer> scheduledPathTimes = new ArrayList<Integer>();
+		
 		//For each edge in the path, request to schedule the action with the desired RA
-		for (CapabilitiesEdge edge : bestPath){
-			edge.getActiveAgent().requestScheduleTime(this, futureScheduleTime, futureScheduleTime + edge.getWeight());
-			this.agentPlan.addAction(edge, futureScheduleTime);
-			futureScheduleTime += edge.getWeight();
+		for (CapabilitiesEdge edge : bestPath){			
+			int edgeOffset = edge.getWeight() - edge.getActiveAgent().getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
+			if (!edge.getActiveAgent().requestScheduleTime(this, futureScheduleTime + edgeOffset, futureScheduleTime + edge.getWeight())){
+				badPathFlag = true;
+				break;
+			}
+			this.agentPlan.addAction(edge, futureScheduleTime + edgeOffset);
+	
+			//Keep track of the schedule so that we can remove it if there is a bad path
+			scheduledPathTimes.add(futureScheduleTime + edgeOffset);
+			scheduledPathAgents.add(edge.getActiveAgent());
+			
+			futureScheduleTime += edge.getWeight();	
 		}
 		
-		//Scheduling method was finished
-		this.startSchedulingMethod = false;
-		
+		if (!badPathFlag){
+			//Scheduling method was finished
+			this.startSchedulingMethod = false;
+			scheduledPathTimes = null;
+			scheduledPathAgents = null;
+				
+			//Start the querying method (1 tick in the future)
+			CapabilitiesEdge queryEdge = agentPlan.getActionatTime((int) startTime+1);			
+			schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(queryEdge)), this, "queryResource", 
+					new Object[]{queryEdge.getActiveAgent(), queryEdge});			
+		}
+		else{
+			//For each edge in the path, request to remove the scheduled actions with the desired RA
+			for (int index = 0; index<scheduledPathAgents.size();index++){
+				scheduledPathAgents.get(index).removeScheduleTime(this, scheduledPathTimes.get(index));
+			}
 			
-		//Start the querying method
-		CapabilitiesEdge queryEdge = agentPlan.getActionatTime((int) startTime+1);
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+1), this, "queryResource", 
-				new Object[]{queryEdge.getActiveAgent(), queryEdge});
+			//Garbage collecting
+			scheduledPathTimes = null;
+			scheduledPathAgents = null;
+			
+			//Ask for biddings
+			startBidding(lastResourceAgent, beliefModel.getCurrentNode());
+		}
 	}
 	
 }
