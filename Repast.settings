@@ -3,15 +3,15 @@
   <hashtable>
     <default>
       <loadFactor>0.75</loadFactor>
-      <threshold>5</threshold>
+      <threshold>3</threshold>
     </default>
-    <int>7</int>
+    <int>5</int>
     <int>3</int>
-    <string>SettingsRegistryId</string>
-    <string>Repast.registry</string>
     <string>SettingsFileName</string>
     <string>Repast.settings</string>
+    <string>SettingsRegistryId</string>
+    <string>Repast.registry</string>
     <string>LastLoadedScenario</string>
-    <string>C:\Users\ikoval\Documents\GitHub\SemiconductorSimulation\JournalPaperSimulation.rs</string>
+    <string>/Users/ikovalenko/Documents/GitHub/SemiconductorSimulation/JournalPaperSimulation.rs</string>
   </hashtable>
 </simphony.settings.SettingsRegistry>

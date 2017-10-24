@@ -77,7 +77,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
 			machineTRPoint, machineTSPoint, machineTTPoint};
 	
-	int scale = 10;
+	/*int scale = 10;
 	//Time for processes
 	//int S1time = 225*scale;
 	int S1time = 22*scale;
@@ -86,7 +86,18 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	int S4time = 50*scale;
 	//int S5time = 255*scale;
 	int S5time = 25*scale;
-	int S6time = 10*scale;
+	int S6time = 10*scale;*/
+	
+	int scale = 10;
+	//Time for processes
+	//int S1time = 225*scale;
+	int S1time = 25*scale;
+	int S2time = 30*scale;
+	int S3time = 55*scale;
+	int S4time = 50*scale;
+	//int S5time = 255*scale;
+	int S5time = 45*scale;
+	int S6time = 15*scale;
 	
 	//Machine Times: negative numbers indicate that that process can't be performed by the specific machine
 	//e.g. Machine TA can performa process 1 and 5 in 225 and 255 ticks, but can't perform other processes

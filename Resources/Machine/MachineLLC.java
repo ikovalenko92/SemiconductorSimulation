@@ -43,30 +43,31 @@ public class MachineLLC {
 	
 	/**
 	 * @param manProcess
+	 * @param partName 
 	 * @param 0: change color to cyan
 	 * @param 1: reduces size by half
 	 * @param 2: changes the shape to a triangle
 	 * @param 3: adds a triangle
 	 * @return if the program was run
 	 */
-	public boolean runProgram(String manProcess){
+	public boolean runProgram(String manProcess, String partName){
 		if (manProcess.equals("S1")){
-			if (machine.S1()){this.started = true; return true;}
+			if (machine.S1(partName)){this.started = true; return true;}
 		}
 		else if (manProcess.equals("S2")){
-			if (machine.S2()){this.started = true; return true;}
+			if (machine.S2(partName)){this.started = true; return true;}
 		}
 		else if (manProcess.equals("S3")){
-			if (machine.S3()){this.started = true; return true;}
+			if (machine.S3(partName)){this.started = true; return true;}
 		}
 		else if (manProcess.equals("S4")){
-			if (machine.S4()){this.started = true; return true;}
+			if (machine.S4(partName)){this.started = true; return true;}
 		}
 		else if (manProcess.equals("S5")){
-			if (machine.S5()){this.started = true; return true;}
+			if (machine.S5(partName)){this.started = true; return true;}
 		}
 		else if (manProcess.equals("S6")){
-			if (machine.S6()){this.started = true; return true;}
+			if (machine.S6(partName)){this.started = true; return true;}
 		}
 		else if(manProcess.equals("Hold")){
 			if(!this.machine.getStatus()){return true;};

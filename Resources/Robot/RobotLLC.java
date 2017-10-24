@@ -18,6 +18,8 @@ public class RobotLLC{
 	
 	private ArrayList<RobotProgram> programRun;
 	private boolean working;
+
+	private String partName;
 	
 
 	/**
@@ -30,6 +32,8 @@ public class RobotLLC{
 		
 		this.programRun = new ArrayList<RobotProgram>();
 		this.working = false;
+		
+		this.partName = null;
 		
 		populateMethods();
 	}
@@ -85,13 +89,15 @@ public class RobotLLC{
 	
 	/**
 	 * @param programInput The name (String) of the program (e.g. "ConveyorToCNC")
+	 * @param string 
 	 * @return if this program was queried for the controller
 	 */
-	public boolean runMoveObjectProgram(String programInput){
+	public boolean runMoveObjectProgram(String programInput, String partName){
 		for (Program prog : this.programList){
 			if (prog.getName().equals(programInput) && !this.working){
 				this.working = true;
 				programRun.addAll(prog.getProgramList());
+				this.partName = partName;
 				return true;
 			}
 		}
@@ -180,7 +186,12 @@ public class RobotLLC{
 			
 			//Try running the program on the robot
 			try {
-				runProgram.getMethod().invoke(runProgram.getRobot(),runProgram.getRobotInput());
+				if (runProgram.getMethod().toString().contains("pickUp")){
+					runProgram.getMethod().invoke(runProgram.getRobot(),runProgram.getRobotInput(),this.partName);
+				}
+				else{
+					runProgram.getMethod().invoke(runProgram.getRobot(),runProgram.getRobotInput());
+				}
 			}
 			catch (IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException e) {
@@ -215,7 +226,7 @@ public class RobotLLC{
 		
 		//pickUp Method
 		try {
-			this.pickUpMethod = robot.getClass().getMethod("pickUp", new Class[] {RobotInput.class});
+			this.pickUpMethod = robot.getClass().getMethod("pickUp", new Class[] {RobotInput.class, "string".getClass()});
 		}
 		catch (NoSuchMethodException | SecurityException e){
 			System.err.println(this + " Check pickUp");

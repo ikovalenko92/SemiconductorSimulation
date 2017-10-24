@@ -153,13 +153,9 @@ public class RobotAgent implements ResourceAgent {
 			}
 		}
 		
-		if (productAgent.toString().contains("3")){
-			int a =5;
-		}
-		
 		//If the product agent is scheduled for this time, run the desired program
 		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
-			if (this.robot.runMoveObjectProgram(program)){
+			if (this.robot.runMoveObjectProgram(program,productAgent.getPartName())){
 				this.informPA(productAgent, desiredEdge);
 				return true;
 			}

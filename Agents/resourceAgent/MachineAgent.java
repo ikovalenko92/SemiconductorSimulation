@@ -139,7 +139,7 @@ public class MachineAgent implements ResourceAgent{
 				return false;
 			}
 			else{
-				if (this.machine.runProgram(desiredEdge.getActiveMethod())){
+				if (this.machine.runProgram(desiredEdge.getActiveMethod(),productAgent.getPartName())){
 					informPA(productAgent, desiredEdge);
 					return true;
 				}

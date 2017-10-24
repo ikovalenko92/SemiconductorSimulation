@@ -144,12 +144,8 @@ public class LotProductAgent implements ProductAgent{
 	
 	@Override
 	public void informEvent(CapabilitiesEdge edge) {
+		//Save the last resource
 		this.lastResourceAgent = edge.getActiveAgent();
-		
-		
-		if (this.toString().contains("3")){
-			int a =5;
-		}
 		
 		//If there is no next action to do (new part or finished with current desired task), ask for more bids 
 		if (this.agentPlan.getNextAction(edge) == null){
@@ -334,7 +330,7 @@ public class LotProductAgent implements ProductAgent{
 			scheduledPathTimes = null;
 			scheduledPathAgents = null;
 			
-			//Ask for biddings
+			//Ask for biddings again
 			startBidding(lastResourceAgent, beliefModel.getCurrentNode());
 		}
 	}

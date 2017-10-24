@@ -11,6 +11,7 @@ import repast.simphony.space.grid.Grid;
 public class Machine {
 	private String name;
 	private Point location;
+	private Point processLocation;
 	private Grid<Object> grid;
 	
 	private boolean working;
@@ -24,6 +25,7 @@ public class Machine {
 	
 	private boolean[] processesEnabled;
 	private int[] processTimes;
+	private String partName;
 
 	/**
 	 * @param name
@@ -35,6 +37,7 @@ public class Machine {
 	public Machine(String name, Point location, Grid<Object> grid, float rotation, int[] processTimes){
 		this.name = name;
 		this.location = location;
+		this.processLocation = new Point(location.x, location.y-3);
 		this.grid = grid;
 		
 		this.working = false;		
@@ -120,7 +123,7 @@ public class Machine {
 	//Processes that can be run on the machine
 	
 	//@ScheduledMethod (start = 1560)
-	public boolean S1(){
+	public boolean S1(String partName){
 		
 		if (!this.processesEnabled[0] || getPartHere()==null){
 			return false;
@@ -138,11 +141,12 @@ public class Machine {
 		topleft.closePath();
 		topleft.setWindingRule(0);*/
 
-		
+		this.partName = partName;
 		boolean methodCalled = appendShape(new MachineInput(topleft));
 		
 		if (methodCalled){
 			waitTimer = this.processTimes[0];
+			move(partName,this.location,this.processLocation);
 			return true;
 		}
 		
@@ -150,7 +154,7 @@ public class Machine {
 	}
 	
 	//@ScheduledMethod (start = 1560)
-	public boolean S2(){
+	public boolean S2(String partName){
 		
 		if (!this.processesEnabled[1] || getPartHere()==null){
 			return false;
@@ -169,10 +173,12 @@ public class Machine {
 		topcenter.closePath();
 		topcenter.setWindingRule(0);*/
 		
+		this.partName = partName;
 		boolean methodCalled = appendShape(new MachineInput(topcenter));
 		
 		if (methodCalled){
 			waitTimer = this.processTimes[1];
+			move(partName,this.location,this.processLocation);
 			return true;
 		}
 		
@@ -180,7 +186,7 @@ public class Machine {
 	}
 		
 	//@ScheduledMethod (start = 1560)
-	public boolean S3(){
+	public boolean S3(String partName){
 		
 		if (!this.processesEnabled[2] || getPartHere()==null){
 			return false;
@@ -199,10 +205,12 @@ public class Machine {
 		topright.closePath();
 		topright.setWindingRule(0)*/
 		
+		this.partName = partName;
 		boolean methodCalled = appendShape(new MachineInput(topright));
 		
 		if (methodCalled){
 			waitTimer = this.processTimes[2];
+			move(partName,this.location,this.processLocation);
 			return true;
 		}
 		
@@ -210,7 +218,7 @@ public class Machine {
 	}
 		
 	//@ScheduledMethod (start = 1560)
-	public boolean S4(){
+	public boolean S4(String partName){
 		
 		if (!this.processesEnabled[3] || getPartHere()==null){
 			return false;
@@ -229,10 +237,12 @@ public class Machine {
 		bottomleft.closePath();
 		bottomleft.setWindingRule(0);*/
 		
+		this.partName = partName;
 		boolean methodCalled = appendShape(new MachineInput(bottomleft));
 		
 		if (methodCalled){
 			waitTimer = this.processTimes[3];
+			move(partName,this.location,this.processLocation);
 			return true;
 		}
 		
@@ -240,7 +250,7 @@ public class Machine {
 	}
 		
 	//@ScheduledMethod (start = 1560)
-	public boolean S5(){
+	public boolean S5(String partName){
 		
 		if (!this.processesEnabled[4] || getPartHere()==null){
 			return false;
@@ -259,10 +269,12 @@ public class Machine {
 		bottomcenter.closePath();
 		bottomcenter.setWindingRule(0);*/
 		
+		this.partName = partName;
 		boolean methodCalled = appendShape(new MachineInput(bottomcenter));
 		
 		if (methodCalled){
 			waitTimer = this.processTimes[4];
+			move(partName,this.location,this.processLocation);
 			return true;
 		}
 		
@@ -270,7 +282,7 @@ public class Machine {
 	}
 		
 	//@ScheduledMethod (start = 1560)
-	public boolean S6(){
+	public boolean S6(String partName){
 		
 		if (!this.processesEnabled[5] || getPartHere()==null){
 			return false;
@@ -288,11 +300,13 @@ public class Machine {
 		bottomright.lineTo(0.5,0);
 		bottomright.closePath();
 		bottomright.setWindingRule(0);*/
-		
+
+		this.partName = partName;
 		boolean methodCalled = appendShape(new MachineInput(bottomright));
 		
 		if (methodCalled){
 			waitTimer = this.processTimes[5];
+			move(partName,this.location,this.processLocation);
 			return true;
 		}
 		
@@ -310,7 +324,7 @@ public class Machine {
 			
 			//Check the object is a physicalComponent_Part 
 			for (Object object : objectsHere){
-				if (object.getClass().getName().contains("Part")){
+				if (object.getClass().getName().contains("Part") && object.toString().contains(this.partName)){
 					
 					//Keep everything else the same
 					savePartProperties((Part) object);
@@ -370,7 +384,7 @@ public class Machine {
 	 * 
 	 */
 	private void makeChanges() {
-		Iterable<Object> objectsHere = grid.getObjectsAt(location.x,location.y);
+		Iterable<Object> objectsHere = grid.getObjectsAt(this.processLocation.x,this.processLocation.y);
 		
 		//Check the object is a physicalComponent_Part 
 		for (Object object : objectsHere){
@@ -393,13 +407,30 @@ public class Machine {
 		this.partColor = null;
 		
 		//Finish working
-		this.working = false;		
+		this.working = false;
+		
+		move(this.partName,this.processLocation,this.location);
+	}
+	
+	private void move(String partName, Point location, Point destination) {
+		Iterable<Object> objectsHere = grid.getObjectsAt(location.x,location.y);
+		
+		Object desiredObject = null;
+		for (Object object : objectsHere){
+			if (object.getClass().getName().contains("Part") && object.toString().contains(this.partName)){
+				desiredObject = object;
+				break;
+			}
+		}
+		
+		grid.moveTo(desiredObject, destination.x, destination.y);
 	}
 	
 	//================================================================================
     // For the graphics
     //================================================================================
-	
+
+
 	public Point getCenter() {
 		return this.location;
 	}

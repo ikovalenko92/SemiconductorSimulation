@@ -46,9 +46,12 @@ public class BufferLLC {
 		
 		if (!flag){
 			return false;
-		}	
+		}
+		
+		System.out.println(partName);
 		
 		return buffer.moveToStorage(partName, enterPoint);
+
 	}
 	
 	/**

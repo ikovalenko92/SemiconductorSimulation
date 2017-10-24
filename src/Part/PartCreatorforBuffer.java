@@ -29,7 +29,7 @@ public class PartCreatorforBuffer {
 	
 	public PartCreatorforBuffer(Buffer buffer, BufferAgent bufferAgent, Grid<Object> physicalGrid, Context<Object> physicalContext, Context<Object> cyberContext) {
 		this.startTime = 5;
-		this.intervalTime = 150;
+		this.intervalTime = 250;
 		
 		this.buffer = buffer;
 		this.bufferAgent = bufferAgent;
@@ -49,13 +49,14 @@ public class PartCreatorforBuffer {
 	 */
 	public void startPartAgentCreation(){
 		//set the part type
-		char partType = 'a';
+		char partType = 'a';	
+		this.PAnumber = this.PAnumber+1;
 		
 		//Part and agent will be based on the storage of the bufer
 		Point storagePoint = this.buffer.getStoragePoint();
 		
 		// Create a new physical part
-		Part part = new Part(new RFIDTag(partType));
+		Part part = new Part(new RFIDTag(PAnumber+"",partType));
 		physicalContext.add(part);
 		physicalGrid.moveTo(part, storagePoint.x, storagePoint.y);
 		
@@ -64,8 +65,7 @@ public class PartCreatorforBuffer {
 		LotProductAgent productAgent = new LotProductAgent(part, getDesiredList(partType), bufferAgent, startingNode, 0);
 		productAgent.informEvent(new CapabilitiesEdge(bufferAgent, null, startingNode, null, 0));
 		cyberContext.add(productAgent);
-		
-		this.PAnumber = this.PAnumber+1;
+
 		productAgent.setPANumber(this.PAnumber);
 	}
 	

@@ -7,9 +7,11 @@ package Part;
 public class RFIDTag {
 
 	private char Type = 'Z';
+	private String name;
 	
-	public RFIDTag(char Type){
-		this.Type = Type;
+	public RFIDTag(String name, char type){
+		this.name = name;
+		this.Type = type;
 	}
 	
 	public int getID(){
@@ -26,7 +28,7 @@ public class RFIDTag {
 
 	@Override
 	public String toString() {
-		return Type + "";
+		return name + Type + "";
 	}
 	
 	/* (non-Javadoc)

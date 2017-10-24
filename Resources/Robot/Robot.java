@@ -105,7 +105,7 @@ public class Robot {
 	 * @param objectType The string associated with the object class
 	 * @return if the command was run
 	 */
-	public boolean pickUp(RobotInput input){
+	public boolean pickUp(RobotInput input, String partName){
 		if (input.getDestination() != null || input.getObjectType() == null ){
 			System.out.println("For " + this + " pickUp method doesn't have the right robot input");
 			return false;
@@ -123,7 +123,7 @@ public class Robot {
 			
 			//If it is the desired object type, pick up that object
 			for (Object object : objectsHere){
-				if (object.getClass().getSimpleName().contains(objectType)){
+				if (object.getClass().getSimpleName().contains(objectType) && object.toString().contains(partName)){
 					pickObject = object;
 					break;
 				}
