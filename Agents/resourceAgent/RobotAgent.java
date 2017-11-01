@@ -117,8 +117,9 @@ public class RobotAgent implements ResourceAgent {
 
 
 	@Override
-	public boolean requestScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
-		return this.RAschedule.addPA(productAgent, startTime, endTime, false);
+	public boolean requestScheduleTime(ProductAgent productAgent, CapabilitiesEdge edge, int startTime, int endTime) {
+		int edgeOffset = edge.getWeight() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
+		return this.RAschedule.addPA(productAgent, startTime+edgeOffset, endTime, false);
 	}
 
 
@@ -140,25 +141,28 @@ public class RobotAgent implements ResourceAgent {
 	}
 
 	@Override
-	public boolean query(String program, ProductAgent productAgent) {
-		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		double startTime = schedule.getTickCount();
-		
+	public boolean query(CapabilitiesEdge queriedEdge, ProductAgent productAgent) {
 		//Find the desired edge
 		CapabilitiesEdge desiredEdge = null;
-		for (CapabilitiesEdge edge : this.getCapabilities().getEdges()){
-			if (edge.getActiveMethod().equals(program)){
-				desiredEdge = edge;
+		for (CapabilitiesEdge robotEdge : this.getCapabilities().getEdges()){
+			if (robotEdge.getActiveMethod().equals(queriedEdge.getActiveMethod())){
+				desiredEdge = robotEdge;
 				break;
 			}
 		}
 		
-		//If the product agent is scheduled for this time, run the desired program
+		//Find the offset between the queried edge and when the actual program should be run
+		int edgeOffset = queriedEdge.getWeight() - this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getWeight();
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double startTime = schedule.getTickCount()+edgeOffset;
+		
+		//If the product agent is scheduled for this time, run the desired program at that time;
 		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
-			if (this.robot.runMoveObjectProgram(program,productAgent.getPartName())){
-				this.informPA(productAgent, desiredEdge);
-				return true;
-			}
+			//Schedule it for the future
+			schedule.schedule(ScheduleParameters.createOneTime(startTime), 
+					this.robot, "runMoveObjectProgram", new Object[]{queriedEdge.getActiveMethod(),productAgent.getPartName()});
+			this.informPA(productAgent, queriedEdge);
+			return true;
 		}
 		
 		return false;

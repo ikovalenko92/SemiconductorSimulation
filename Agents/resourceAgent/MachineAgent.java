@@ -31,7 +31,7 @@ public class MachineAgent implements ResourceAgent{
 	private ArrayList<ResourceAgent> neighbors;
 	private HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode;
 	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
-	private RASchedule schedule;
+	private RASchedule RAschedule;
 
 	/**
 	 * @param name
@@ -51,7 +51,7 @@ public class MachineAgent implements ResourceAgent{
 		
 		this.neighbors = new ArrayList<ResourceAgent>();
 
-		this.schedule = new RASchedule(this);
+		this.RAschedule = new RASchedule(this);
 	}
 	
 	/* (non-Javadoc)
@@ -92,12 +92,13 @@ public class MachineAgent implements ResourceAgent{
 
 	@Override
 	public RASchedule getSchedule() {
-		return this.schedule;
+		return this.RAschedule;
 	}
 
 	@Override
-	public boolean requestScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
-		return this.schedule.addPA(productAgent, startTime, endTime,false);
+	public boolean requestScheduleTime(ProductAgent productAgent,CapabilitiesEdge edge, int startTime, int endTime) {
+		int edgeOffset = edge.getWeight() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
+		return this.RAschedule.addPA(productAgent, startTime+edgeOffset, endTime, false);
 	}	
 
 	@Override
@@ -115,21 +116,24 @@ public class MachineAgent implements ResourceAgent{
 	}
 	
 	@Override
-	public boolean query(String program, ProductAgent productAgent) {
-		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		double startTime = schedule.getTickCount();
-		
+	public boolean query(CapabilitiesEdge queriedEdge, ProductAgent productAgent) {
+
 		//Find the desired edge
 		CapabilitiesEdge desiredEdge = null;
 		for (CapabilitiesEdge edge : this.getCapabilities().getEdges()){
-			if (edge.getActiveMethod().equals(program)){
+			if (edge.getActiveMethod().equals(queriedEdge.getActiveMethod())){
 				desiredEdge = edge;
 				break;
 			}
 		}
 		
+		//Find the offset between the queried edge and when the actual program should be run
+		int edgeOffset = queriedEdge.getWeight() - this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getWeight();
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double startTime = schedule.getTickCount()+edgeOffset;
+		
 		//If the product agent is scheduled for this time, run the desired program
-		if (desiredEdge!=null &&  this.schedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
+		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
 			if (desiredEdge.getActiveMethod() == "Hold"){
 				this.machine.doNothing();
 				informPA(productAgent, desiredEdge);
@@ -139,10 +143,11 @@ public class MachineAgent implements ResourceAgent{
 				return false;
 			}
 			else{
-				if (this.machine.runProgram(desiredEdge.getActiveMethod(),productAgent.getPartName())){
-					informPA(productAgent, desiredEdge);
-					return true;
-				}
+				//Schedule it for the future
+				schedule.schedule(ScheduleParameters.createOneTime(startTime), 
+						this.machine, "runProgram", new Object[]{queriedEdge.getActiveMethod(),productAgent.getPartName()});
+				this.informPA(productAgent, queriedEdge);
+				return true;
 			}
 		}		
 		return false;

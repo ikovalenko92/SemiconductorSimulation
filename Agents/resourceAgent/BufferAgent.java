@@ -88,8 +88,8 @@ public class BufferAgent implements ResourceAgent {
     //================================================================================
 	
 	@Override
-	public boolean requestScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
-		this.schedule.addPA(productAgent, startTime, endTime, true);
+	public boolean requestScheduleTime(ProductAgent productAgent,CapabilitiesEdge edge, int startTime, int endTime) {
+		//int edgeOffset = edge.getWeight() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
 		return true;
 	}
 
@@ -114,8 +114,9 @@ public class BufferAgent implements ResourceAgent {
 	 * @see resourceAgent.ResourceAgent#query(java.lang.String, Part.Part)
 	 */
 	@Override
-	public boolean query(String program, ProductAgent productAgent) {
+	public boolean query(CapabilitiesEdge queriedEdge, ProductAgent productAgent) {
 		// No need to check if the part is on schedule since it's a buffer
+		String program = queriedEdge.getActiveMethod();
 		
 		//If the queried program is true, 
 		if (program == "End"){

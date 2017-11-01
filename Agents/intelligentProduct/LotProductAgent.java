@@ -190,7 +190,7 @@ public class LotProductAgent implements ProductAgent{
 	public void queryResource(ResourceAgent resourceAgent, CapabilitiesEdge edge){
 		//Set the queried edge		
 		this.queriedEdge = edge;
-		boolean queried = resourceAgent.query(edge.getActiveMethod(), this);
+		boolean queried = resourceAgent.query(edge, this);
 		
 		if (!queried){
 			System.out.println("" + this + " query did not work for " + resourceAgent + " " + edge);
@@ -295,20 +295,19 @@ public class LotProductAgent implements ProductAgent{
 		
 		//For each edge in the path, request to schedule the action with the desired RA
 		for (CapabilitiesEdge edge : bestPath){			
-			int edgeOffset = edge.getWeight() - edge.getActiveAgent().getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
-			if (!edge.getActiveAgent().requestScheduleTime(this, futureScheduleTime + edgeOffset, futureScheduleTime + edge.getWeight())){
+			//int edgeOffset = edge.getWeight() - edge.getActiveAgent().getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
+			if (!edge.getActiveAgent().requestScheduleTime(this, edge, futureScheduleTime, futureScheduleTime + edge.getWeight())){
 				badPathFlag = true;
 				break;
 			}
-			this.agentPlan.addAction(edge, futureScheduleTime + edgeOffset);
+			this.agentPlan.addAction(edge, futureScheduleTime);
 	
 			//Keep track of the schedule so that we can remove it if there is a bad path
-			scheduledPathTimes.add(futureScheduleTime + edgeOffset);
+			scheduledPathTimes.add(futureScheduleTime);
 			scheduledPathAgents.add(edge.getActiveAgent());
 			
 			futureScheduleTime += edge.getWeight();	
 		}
-		
 		if (!badPathFlag){
 			//Scheduling method was finished
 			this.startSchedulingMethod = false;

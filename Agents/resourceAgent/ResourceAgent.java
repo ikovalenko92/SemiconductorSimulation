@@ -50,10 +50,11 @@ public interface ResourceAgent {
 	 */
 	/**
 	 * @param productAgent the product agent to schedule
-	 * @param startTime the start time time of request
+	 * @param edge the start time time of request
+	 * @param endTime 
 	 * @return If the part was successfully scheduled
 	 */
-	public boolean requestScheduleTime(ProductAgent productAgent, int startTime, int endTime);
+	public boolean requestScheduleTime(ProductAgent productAgent, CapabilitiesEdge edge, int startTime, int endTime);
 	
 	/**
 	 * API for one of the PA Schedule Manager method
@@ -78,5 +79,5 @@ public interface ResourceAgent {
 	 * @param parameter
 	 * @return If the method was accepted by the resource
 	 */
-	public boolean query(String program, ProductAgent productAgent);
+	public boolean query(CapabilitiesEdge edge, ProductAgent productAgent);
 } 
