@@ -37,6 +37,11 @@ public class LotProductAgent implements ProductAgent{
 	
 	private int PANumber = -1;
 	
+	//@ScheduledMethod ( start = 1 , interval = 1)
+	public void stopCheck(){
+		//System.out.println("CHECK");
+	}
+	
 	public LotProductAgent(Part part, ArrayList<String> processesNeeded, ResourceAgent startingResource, 
 			CapabilitiesNode startingNode, int priority){
 		this.partName = part.toString();
@@ -144,11 +149,14 @@ public class LotProductAgent implements ProductAgent{
 	
 	@Override
 	public void informEvent(CapabilitiesEdge edge) {
+		
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		
 		//Save the last resource
 		this.lastResourceAgent = edge.getActiveAgent();
 		
 		//If there is no next action to do (new part or finished with current desired task), ask for more bids 
-		if (this.agentPlan.getNextAction(edge) == null){
+		if (this.agentPlan.getNextAction(edge, (int) schedule.getTickCount()) == null){
 			
 			for (PhysicalProperty property : edge.getChild().getPhysicalProperties()){
 				if (this.processesNeeded.contains(property)){
@@ -160,25 +168,23 @@ public class LotProductAgent implements ProductAgent{
 		}
 		
 		//If the event is part of your local environmnet
-		else{
-			ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-			
+		else{			
 			//Update the belief model of the current node
 			this.beliefModel.setCurrentNode(edge.getChild());
 			
 			//Find the next planned action to request from the RA
-			CapabilitiesEdge nextEdge = this.agentPlan.getNextAction(queriedEdge);			
+			CapabilitiesEdge nextEdge = this.agentPlan.getNextAction(queriedEdge, (int) schedule.getTickCount());			
 			
 			//If the next action matches the current state of the part, then do it.
 			if (nextEdge.getParent().equals(this.beliefModel.getCurrentNode())){
-				schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(nextEdge)), 
+				schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(nextEdge,(int) schedule.getTickCount())), 
 						this, "queryResource", new Object[]{nextEdge.getActiveAgent(),nextEdge});
 			}
 			
 			// Else, reschedule based on the current agent belief model
 			else{
 //TODO reschedule for all methods
-				this.startScheduling();
+				//this.startScheduling();
 			}
 		}
 	}
@@ -194,6 +200,7 @@ public class LotProductAgent implements ProductAgent{
 		
 		if (!queried){
 			System.out.println("" + this + " query did not work for " + resourceAgent + " " + edge);
+			//this.startBidding(this.lastResourceAgent, this.beliefModel.getCurrentNode());
 		}
 	}
 	
@@ -237,7 +244,6 @@ public class LotProductAgent implements ProductAgent{
 			}
 		};
 	}
-	
 	
 	/** The function for the product agent to set the bid time
 	 * @return
@@ -315,8 +321,8 @@ public class LotProductAgent implements ProductAgent{
 			scheduledPathAgents = null;
 				
 			//Start the querying method (1 tick in the future)
-			CapabilitiesEdge queryEdge = agentPlan.getActionatNextTime((int) startTime+1);			
-			schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(queryEdge)), this, "queryResource", 
+			CapabilitiesEdge queryEdge = agentPlan.getActionatNextTime((int) startTime+1);
+			schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(queryEdge,(int) startTime)), this, "queryResource", 
 					new Object[]{queryEdge.getActiveAgent(), queryEdge});			
 		}
 		else{

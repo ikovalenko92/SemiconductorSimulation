@@ -87,44 +87,40 @@ public class ResourceAgentHelper {
 			}	
 		}
 		
-		//If the agent can't do the desired property, push the bid negotiation to a neighbor
-		else{
-			//Push it to a neighbor
-			for (ResourceAgent neighbor: neighbors){
+		//Push the bid negotiation to a neighbor
+		for (ResourceAgent neighbor: neighbors){
+			//If the neighbor isn't already part of the team
+			if (!teamList.contains(neighbor)){
+				newTeamList.clear(); //Reset previous instance of the newTeamList
+				newTeamList.addAll(teamList); //Add the initial team list
 				
-				//If the neighbor isn't already part of the team
-				if (!teamList.contains(neighbor)){
-					newTeamList.clear(); //Reset previous instance of the newTeamList
-					newTeamList.addAll(teamList); //Add the initial team list
-					
-					CapabilitiesNode neighborNode = tableNeighborNode.get(neighbor);
-	
-					//Find the shortest path
-					List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
-					int pathValue = shortestPathGetter.getDistanceMap(currentNode).get(neighborNode).intValue();
-					
-					//Find the time when the resource is available and add it to the bid
-					int nextTimeAvailable = resourceAgent.getSchedule().getNextFreeTime(currentTime,pathValue);
-					int timeOffset = nextTimeAvailable-currentTime;
-										
-					for (CapabilitiesEdge edge:shortestPathCandidateList){
-						edge.setWeight(edge.getWeight()+timeOffset);
-					}
-					
-					//Calculate the bid
-					int bidTime = currentTime; //Reset bid time
-					newEdgeList.clear(); //Reset previous instance of the newTeamList
-					newEdgeList.addAll(edgeList); //Add the initial team list
-					for (CapabilitiesEdge pathNode : shortestPathCandidateList){
-						bidTime = bidTime + pathNode.getWeight();
-						newEdgeList.add(pathNode);
-					}
-					
-					//Push the bid to the resource agent
-					if (bidTime < currentTime + maxTimeAllowed){
-						newTeamList.add(resourceAgent); // Add to the team
-						neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTimeAllowed, newTeamList, newEdgeList);
-					}
+				CapabilitiesNode neighborNode = tableNeighborNode.get(neighbor);
+
+				//Find the shortest path
+				List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
+				int pathValue = shortestPathGetter.getDistanceMap(currentNode).get(neighborNode).intValue();
+				
+				//Find the time when the resource is available and add it to the bid
+				int nextTimeAvailable = resourceAgent.getSchedule().getNextFreeTime(currentTime,pathValue);
+				int timeOffset = nextTimeAvailable-currentTime;
+									
+				for (CapabilitiesEdge edge:shortestPathCandidateList){
+					edge.setWeight(edge.getWeight()+timeOffset);
+				}
+				
+				//Calculate the bid
+				int bidTime = currentTime; //Reset bid time
+				newEdgeList.clear(); //Reset previous instance of the newTeamList
+				newEdgeList.addAll(edgeList); //Add the initial team list
+				for (CapabilitiesEdge pathNode : shortestPathCandidateList){
+					bidTime = bidTime + pathNode.getWeight();
+					newEdgeList.add(pathNode);
+				}
+				
+				//Push the bid to the resource agent
+				if (bidTime < currentTime + maxTimeAllowed){
+					newTeamList.add(resourceAgent); // Add to the team
+					neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTimeAllowed, newTeamList, newEdgeList);
 				}
 			}
 		}

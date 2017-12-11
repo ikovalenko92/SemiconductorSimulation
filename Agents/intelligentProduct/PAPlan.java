@@ -106,33 +106,42 @@ public class PAPlan {
 	 * @param action
 	 * @return
 	 */
-	public CapabilitiesEdge getNextAction(CapabilitiesEdge edge){
+	public CapabilitiesEdge getNextAction(CapabilitiesEdge edge, int currentTime){
 		String action = changeToAction(edge);
 		
-		int index = actions.indexOf(action);
-		
-		if (index != -1){
-			if (actions.size()-1 == index){
-				return null;
+		//Don't include the last edge
+		for (int index = 0; index<(actions.size()-1);index++){
+			if(action.equals(actions.get(index))){
+				if(currentTime<=startTimes.get(index+1)){
+					return changeToEdge(actions.get(index+1));
+				}
 			}
-			return changeToEdge(actions.get(index+1));
 		}
+		
+		/*int index = actions.indexOf(action);
+		if (index != -1){
+			if (actions.size()-1 == index){return null;}
+			return changeToEdge(actions.get(index+1));
+		}*/
 		
 		//System.out.println("No " + action + " planned for " + this.productAgent);
 		return null;
 	}
 	
 	/** Returns the time of the specified action that is planned for this product agent
+	 * @param d 
 	 * @param action
 	 * @return
 	 */
-	public Integer getTimeofAction(CapabilitiesEdge edge){
+	public Integer getTimeofAction(CapabilitiesEdge edge, double currentTime){
 		String action = changeToAction(edge);
 		
-		int index = actions.indexOf(action);
-		
-		if (index != -1){
-			return startTimes.get(index);
+		for (int index = 0; index<actions.size();index++){
+			if(action.equals(actions.get(index))){
+				if(currentTime<=startTimes.get(index)){
+					return startTimes.get(index);
+				}
+			}
 		}
 		
 		System.out.println("No " + action + " planned for " + this.productAgent);

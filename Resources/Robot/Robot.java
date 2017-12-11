@@ -2,8 +2,6 @@ package Robot;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import Part.Part;
 import repast.simphony.context.Context;
 import repast.simphony.engine.schedule.ScheduledMethod;
