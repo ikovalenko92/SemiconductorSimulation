@@ -10,7 +10,7 @@ import org.apache.commons.collections15.Transformer;
 import Part.Part;
 import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import intelligentProduct.ProductAgent;
+import intelligentProduct.ProductAgentIntf;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import sharedInformation.CapabilitiesEdge;
@@ -22,7 +22,7 @@ public class ResourceAgentHelper {
 
 	/** Used in the resource agents to create team queries
 	 * @param resourceAgent
-	 * @param productAgent
+	 * @param productAgentIntf
 	 * @param desiredProperty
 	 * @param currentNode
 	 * @param currentTime
@@ -33,7 +33,7 @@ public class ResourceAgentHelper {
 	 * @param capabilities
 	 * @param weightTransformer
 	 */
-	public void teamQuery(ResourceAgent resourceAgent, ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
+	public void teamQuery(ResourceAgent resourceAgent, ProductAgentIntf productAgentIntf, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
 			int currentTime, int maxTimeAllowed, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList, ArrayList<ResourceAgent> neighbors,
 			HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode,	DirectedSparseGraph<CapabilitiesNode,CapabilitiesEdge> RAcapabilities, Transformer<CapabilitiesEdge, Integer> weightTransformer) {
 		
@@ -83,7 +83,7 @@ public class ResourceAgentHelper {
 			//Submit the bid to the product agent
 			if (bidTime < currentTime + maxTimeAllowed){
 				newTeamList.add(resourceAgent); // Add to the team
-				productAgent.submitBid(newTeamList, newEdgeList);
+				productAgentIntf.submitBid(newTeamList, newEdgeList);
 			}	
 		}
 		
@@ -120,7 +120,7 @@ public class ResourceAgentHelper {
 				//Push the bid to the resource agent
 				if (bidTime < currentTime + maxTimeAllowed){
 					newTeamList.add(resourceAgent); // Add to the team
-					neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTimeAllowed, newTeamList, newEdgeList);
+					neighbor.teamQuery(productAgentIntf, desiredProperty, neighborNode, bidTime, maxTimeAllowed, newTeamList, newEdgeList);
 				}
 			}
 		}

@@ -8,7 +8,7 @@ import org.apache.commons.collections15.Transformer;
 import Machine.MachineLLC;
 import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import intelligentProduct.ProductAgent;
+import intelligentProduct.ProductAgentIntf;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
@@ -79,10 +79,10 @@ public class MachineAgent implements ResourceAgent{
     //================================================================================
 	
 	@Override
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode, 
+	public void teamQuery(ProductAgentIntf productAgentIntf, PhysicalProperty desiredProperty, CapabilitiesNode currentNode, 
 			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList) {
 		
-		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
+		new ResourceAgentHelper().teamQuery(this, productAgentIntf, desiredProperty, currentNode,
 				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
 	}
 	
@@ -96,14 +96,14 @@ public class MachineAgent implements ResourceAgent{
 	}
 
 	@Override
-	public boolean requestScheduleTime(ProductAgent productAgent,CapabilitiesEdge edge, int startTime, int endTime) {
+	public boolean requestScheduleTime(ProductAgentIntf productAgentIntf,CapabilitiesEdge edge, int startTime, int endTime) {
 		int edgeOffset = edge.getWeight() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
-		return this.RAschedule.addPA(productAgent, startTime+edgeOffset, endTime, false);
+		return this.RAschedule.addPA(productAgentIntf, startTime+edgeOffset, endTime, false);
 	}	
 
 	@Override
-	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
-		return this.removeScheduleTime(productAgent, startTime);
+	public boolean removeScheduleTime(ProductAgentIntf productAgentIntf, int startTime) {
+		return this.removeScheduleTime(productAgentIntf, startTime);
 	}
 	
 	//================================================================================
@@ -116,7 +116,7 @@ public class MachineAgent implements ResourceAgent{
 	}
 	
 	@Override
-	public boolean query(CapabilitiesEdge queriedEdge, ProductAgent productAgent) {
+	public boolean query(CapabilitiesEdge queriedEdge, ProductAgentIntf productAgentIntf) {
 
 		//Find the desired edge
 		CapabilitiesEdge desiredEdge = null;
@@ -133,10 +133,10 @@ public class MachineAgent implements ResourceAgent{
 		double startTime = schedule.getTickCount()+edgeOffset;
 		
 		//If the product agent is scheduled for this time, run the desired program
-		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
+		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgentIntf, (int) startTime, (int) startTime+desiredEdge.getWeight())){
 			if (desiredEdge.getActiveMethod() == "Hold"){
 				this.machine.doNothing();
-				informPA(productAgent, desiredEdge);
+				informPA(productAgentIntf, desiredEdge);
 				return true;
 			}
 			else if (desiredEdge.getActiveMethod() == "Reset"){
@@ -145,8 +145,8 @@ public class MachineAgent implements ResourceAgent{
 			else{
 				//Schedule it for the future
 				schedule.schedule(ScheduleParameters.createOneTime(startTime), 
-						this.machine, "runProgram", new Object[]{queriedEdge.getActiveMethod(),productAgent.getPartName()});
-				this.informPA(productAgent, queriedEdge);
+						this.machine, "runProgram", new Object[]{queriedEdge.getActiveMethod(),productAgentIntf.getPartName()});
+				this.informPA(productAgentIntf, queriedEdge);
 				return true;
 			}
 		}		
@@ -154,13 +154,13 @@ public class MachineAgent implements ResourceAgent{
 	}
 	
 	/** Check when the edge is done and inform the product agent
-	 * @param productAgent
+	 * @param productAgentIntf
 	 * @param edge
 	 */
-	private void informPA(ProductAgent productAgent, CapabilitiesEdge edge){
+	private void informPA(ProductAgentIntf productAgentIntf, CapabilitiesEdge edge){
 		//Using the edge of the weight (might need to check with Robot LLC in the future)
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgentIntf,
 				"informEvent", new Object[]{edge});
 		
 		// If this is not a hold method (i.e. one of the programs was run)
@@ -168,7 +168,7 @@ public class MachineAgent implements ResourceAgent{
 		if (!(edge.getActiveMethod() == "Hold")){
 			for (CapabilitiesEdge resetEdge : this.machineCapabilities.getIncidentEdges(edge.getChild())){
 				if (resetEdge.getActiveMethod()=="Reset"){
-					schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
+					schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgentIntf,
 							"informEvent", new Object[]{resetEdge});
 				}
 			}

@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import Buffer.Buffer;
-import intelligentProduct.LotProductAgent;
+import intelligentProduct.ProductAgent;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
@@ -62,7 +62,7 @@ public class PartCreatorforBuffer {
 		
 		// Create a new Product Agent and inform the part that it was created
 		CapabilitiesNode startingNode = new CapabilitiesNode(buffer, null, new PhysicalProperty(storagePoint));
-		LotProductAgent productAgent = new LotProductAgent(part, getDesiredList(partType), bufferAgent, startingNode, 0);
+		ProductAgent productAgent = new ProductAgent(part, getDesiredList(partType), bufferAgent, startingNode, 0);
 		productAgent.informEvent(new CapabilitiesEdge(bufferAgent, null, startingNode, null, 0));
 		cyberContext.add(productAgent);
 

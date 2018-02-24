@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import Buffer.BufferLLC;
 import Part.Part;
-import intelligentProduct.LotProductAgent;
+import intelligentProduct.ProductAgent;
 import repast.simphony.context.Context;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import resourceAgent.BufferAgent;
@@ -42,7 +42,7 @@ public class Testing {
 		desiredList.add("S5");
 		desiredList.add("S6");
 		CapabilitiesNode startingNode = new CapabilitiesNode(this.listBufferLLC.get(0).getBuffer(), null, new PhysicalProperty(this.bufferLocations[0]));
-		LotProductAgent productAgent = new LotProductAgent(this.part, desiredList, this.listBufferAgent.get(0), startingNode, 0);
+		ProductAgent productAgent = new ProductAgent(this.part, desiredList, this.listBufferAgent.get(0), startingNode, 0);
 		
 		productAgent.informEvent(new CapabilitiesEdge(this.listBufferAgent.get(0), null, startingNode, null, 0));
 		cyberContext.add(productAgent);

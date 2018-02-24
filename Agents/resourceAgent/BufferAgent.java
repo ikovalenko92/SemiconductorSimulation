@@ -10,7 +10,7 @@ import Buffer.BufferLLC;
 import Part.Part;
 import Robot.RobotLLC;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import intelligentProduct.ProductAgent;
+import intelligentProduct.ProductAgentIntf;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
@@ -71,10 +71,10 @@ public class BufferAgent implements ResourceAgent {
 	
 
 	@Override
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
+	public void teamQuery(ProductAgentIntf productAgentIntf, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
 			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList) {
 
-		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
+		new ResourceAgentHelper().teamQuery(this, productAgentIntf, desiredProperty, currentNode,
 				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, bufferCapabilities, weightTransformer);
 	}
 
@@ -88,13 +88,13 @@ public class BufferAgent implements ResourceAgent {
     //================================================================================
 	
 	@Override
-	public boolean requestScheduleTime(ProductAgent productAgent,CapabilitiesEdge edge, int startTime, int endTime) {
+	public boolean requestScheduleTime(ProductAgentIntf productAgentIntf,CapabilitiesEdge edge, int startTime, int endTime) {
 		//int edgeOffset = edge.getWeight() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
 		return true;
 	}
 
 	@Override
-	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
+	public boolean removeScheduleTime(ProductAgentIntf productAgentIntf, int startTime) {
 		return true;
 	}
 
@@ -114,7 +114,7 @@ public class BufferAgent implements ResourceAgent {
 	 * @see resourceAgent.ResourceAgent#query(java.lang.String, Part.Part)
 	 */
 	@Override
-	public boolean query(CapabilitiesEdge queriedEdge, ProductAgent productAgent) {
+	public boolean query(CapabilitiesEdge queriedEdge, ProductAgentIntf productAgentIntf) {
 		// No need to check if the part is on schedule since it's a buffer
 		String program = queriedEdge.getActiveMethod();
 		
@@ -145,17 +145,17 @@ public class BufferAgent implements ResourceAgent {
 		
 		//Run the corresponding program
 		if (programType == 'F'){
-			if (this.buffer.moveFromStorage(productAgent.getPartName(), new Point(x,y)) == true){
+			if (this.buffer.moveFromStorage(productAgentIntf.getPartName(), new Point(x,y)) == true){
 				//Let the part know that the edge is done
-				this.informPA(productAgent, desiredEdge);
+				this.informPA(productAgentIntf, desiredEdge);
 				return true;
 			}
 			
 		}
 		else if (programType == 'T'){
-			if (this.buffer.moveToStorage(productAgent.getPartName(), new Point(x,y))){
+			if (this.buffer.moveToStorage(productAgentIntf.getPartName(), new Point(x,y))){
 				//Let the part know that the edge is done
-				this.informPA(productAgent, desiredEdge);
+				this.informPA(productAgentIntf, desiredEdge);
 				return true;
 			}
 		}
@@ -164,13 +164,13 @@ public class BufferAgent implements ResourceAgent {
 	}
 	
 	/** Check when the edge is done and inform the product agent
-	 * @param productAgent
+	 * @param productAgentIntf
 	 * @param edge
 	 */
-	private void informPA(ProductAgent productAgent, CapabilitiesEdge edge){
+	private void informPA(ProductAgentIntf productAgentIntf, CapabilitiesEdge edge){
 		//Using the edge of the weight (might need to check with Robot LLC in the future)
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent, "informEvent", new Object[]{edge});
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgentIntf, "informEvent", new Object[]{edge});
 	}
 	
 	//================================================================================

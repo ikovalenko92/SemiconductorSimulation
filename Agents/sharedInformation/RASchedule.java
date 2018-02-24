@@ -1,6 +1,6 @@
 package sharedInformation;
 
-import intelligentProduct.ProductAgent;
+import intelligentProduct.ProductAgentIntf;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import resourceAgent.ResourceAgent;
@@ -44,8 +44,8 @@ public class RASchedule {
 		return resourceAgent + "Schedule:" + total;
 	}
 	
-	public boolean checkPATime(ProductAgent productAgent, int startTime, int endTime){
-		String productAgentName = productAgent.toString();
+	public boolean checkPATime(ProductAgentIntf productAgentIntf, int startTime, int endTime){
+		String productAgentName = productAgentIntf.toString();
 		
 		Integer checkStartTime;
 		Integer checkEndTime;
@@ -69,17 +69,17 @@ public class RASchedule {
 	}
 
 	/** Add a product agent to the schedule
-	 * @param productAgent
+	 * @param productAgentIntf
 	 * @param startTime
 	 * @param endTime
 	 * @param allowMultiple
 	 * @return
 	 */
-	public boolean addPA(ProductAgent productAgent, Integer startTime, Integer endTime, boolean allowMultiple){
-		String productAgentName = productAgent.toString();
+	public boolean addPA(ProductAgentIntf productAgentIntf, Integer startTime, Integer endTime, boolean allowMultiple){
+		String productAgentName = productAgentIntf.toString();
 		
 		if (startTime < 0 || endTime <= 0 || endTime<startTime ){
-			System.out.println("End time and start time are wrong for " + resourceAgent + " for " + productAgent);
+			System.out.println("End time and start time are wrong for " + resourceAgent + " for " + productAgentIntf);
 			return false;
 		}
 		
@@ -109,7 +109,7 @@ public class RASchedule {
 						return true;
 					}
 					else{
-						System.out.println("Resource busy " + resourceAgent + " for " + productAgent);
+						System.out.println("Resource busy " + resourceAgent + " for " + productAgentIntf);
 						return false;
 					}
 				}
@@ -129,8 +129,8 @@ public class RASchedule {
 	 * @param startTime
 	 * @return 
 	 */
-	public boolean removePA(ProductAgent productAgent, int startTime){
-		String productAgentName = productAgent.toString();
+	public boolean removePA(ProductAgentIntf productAgentIntf, int startTime){
+		String productAgentName = productAgentIntf.toString();
 		
 		for(int index = 0; index < this.startTimes.size(); index++){
 			//Find if there is a product agent scheduled for the proposed time to remove it

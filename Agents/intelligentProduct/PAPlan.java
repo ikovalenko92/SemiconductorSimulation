@@ -5,7 +5,7 @@ import sharedInformation.CapabilitiesEdge;
 import java.util.ArrayList;
 
 public class PAPlan {
-	private ProductAgent productAgent;
+	private ProductAgentIntf productAgentIntf;
 	private ArrayList<String> actions;
 	private ArrayList<Integer> startTimes;
 	private ArrayList<CapabilitiesEdge> edges;
@@ -18,8 +18,8 @@ public class PAPlan {
 	 * @param startTimes (Array List)
 	 * @param endTimes (Array List)
 	 */
-	public PAPlan(ProductAgent productAgent) {
-		this.productAgent = productAgent;
+	public PAPlan(ProductAgentIntf productAgentIntf) {
+		this.productAgentIntf = productAgentIntf;
 		this.actions = new ArrayList<String>();
 		this.startTimes = new ArrayList<Integer>();
 		
@@ -36,7 +36,7 @@ public class PAPlan {
 		for (int i = 0; i<this.actions.size();i++){
 			total = total + " "+ this.actions.get(i) + " [" + this.startTimes.get(i) + "];";		
 		}
-		return productAgent + "Schedule:" + total;
+		return productAgentIntf + "Schedule:" + total;
 	}
 	
 	/** Add a desired action to the schedule
@@ -48,7 +48,7 @@ public class PAPlan {
 		String action = changeToAction(edge);
 		
 		if (startTime < 0){
-			System.out.println("Start time is wrong for " + this.productAgent + " for " + action);
+			System.out.println("Start time is wrong for " + this.productAgentIntf + " for " + action);
 			return false;
 		}
 		
@@ -72,7 +72,7 @@ public class PAPlan {
 					return true;
 				}
 				else if (checkStartTime == startTime){
-					System.out.println("Product busy " + action + " for " + this.productAgent);
+					System.out.println("Product busy " + action + " for " + this.productAgentIntf);
 					return false;
 				}
 		}
@@ -98,7 +98,7 @@ public class PAPlan {
 			this.edges.remove(edge);
 		}
 		else{
-			System.out.println("No " + action + " in " + this.productAgent);
+			System.out.println("No " + action + " in " + this.productAgentIntf);
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class PAPlan {
 			}
 		}
 		
-		System.out.println("No " + action + " planned for " + this.productAgent);
+		System.out.println("No " + action + " planned for " + this.productAgentIntf);
 		return null;
 	}
 	
@@ -160,7 +160,7 @@ public class PAPlan {
 			}
 		}
 		
-		System.out.println("No action starts at or after " + time + " for " + this.productAgent);
+		System.out.println("No action starts at or after " + time + " for " + this.productAgentIntf);
 		return null;
 	}
 	

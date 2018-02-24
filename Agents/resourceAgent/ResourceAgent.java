@@ -1,6 +1,6 @@
 package resourceAgent;
 
-import intelligentProduct.ProductAgent;
+import intelligentProduct.ProductAgentIntf;
 import sharedInformation.CapabilitiesEdge;
 import sharedInformation.CapabilitiesNode;
 import sharedInformation.PhysicalProperty;
@@ -23,14 +23,14 @@ public interface ResourceAgent {
 	
 	/**
 	 * Bidding propogation to find resource agent teammates to complete a requested task
-	 * @param productAgent The product agent sending the request
+	 * @param productAgentIntf The product agent sending the request
 	 * @param desiredProperty The product agent sending the request
 	 * @param currentTime The current time
 	 * @param maxTime The max allowed time
 	 * @param teamList The current team list
 	 * @param edgeList The current list of capabilities edges for each resource
 	 */
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
+	public void teamQuery(ProductAgentIntf productAgentIntf, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
 			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList);
 	
 	//================================================================================
@@ -49,20 +49,20 @@ public interface ResourceAgent {
 	 * 
 	 */
 	/**
-	 * @param productAgent the product agent to schedule
+	 * @param productAgentIntf the product agent to schedule
 	 * @param edge the start time time of request
 	 * @param endTime 
 	 * @return If the part was successfully scheduled
 	 */
-	public boolean requestScheduleTime(ProductAgent productAgent, CapabilitiesEdge edge, int startTime, int endTime);
+	public boolean requestScheduleTime(ProductAgentIntf productAgentIntf, CapabilitiesEdge edge, int startTime, int endTime);
 	
 	/**
 	 * API for one of the PA Schedule Manager method
-	 * @param productAgent the product agent to remove
+	 * @param productAgentIntf the product agent to remove
 	 * @param startTime the start time time of request
 	 * @return If the part was successfully removed from the schedule
 	 */
-	public boolean removeScheduleTime(ProductAgent productAgent, int startTime);
+	public boolean removeScheduleTime(ProductAgentIntf productAgentIntf, int startTime);
 	
 	//================================================================================
     // Product agent communication
@@ -79,5 +79,5 @@ public interface ResourceAgent {
 	 * @param parameter
 	 * @return If the method was accepted by the resource
 	 */
-	public boolean query(CapabilitiesEdge edge, ProductAgent productAgent);
+	public boolean query(CapabilitiesEdge edge, ProductAgentIntf productAgentIntf);
 } 
