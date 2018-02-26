@@ -1,8 +1,8 @@
 package resourceAgent;
 
-import intelligentProduct.ProductAgentIntf;
-import sharedInformation.CapabilitiesEdge;
-import sharedInformation.CapabilitiesNode;
+import intelligentProduct.ProductAgent;
+import sharedInformation.ResourceEvent;
+import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
 
@@ -13,7 +13,11 @@ import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 
 public interface ResourceAgent {
-
+	
+	//================================================================================
+    // Setting up local neighbors
+    //================================================================================
+	
 	public void addNeighbor(ResourceAgent neighbor);
 	public ArrayList<ResourceAgent> getNeighbors();
 	
@@ -23,15 +27,15 @@ public interface ResourceAgent {
 	
 	/**
 	 * Bidding propogation to find resource agent teammates to complete a requested task
-	 * @param productAgentIntf The product agent sending the request
+	 * @param productAgent The product agent sending the request
 	 * @param desiredProperty The product agent sending the request
 	 * @param currentTime The current time
 	 * @param maxTime The max allowed time
 	 * @param teamList The current team list
 	 * @param edgeList The current list of capabilities edges for each resource
 	 */
-	public void teamQuery(ProductAgentIntf productAgentIntf, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList);
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode,
+			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<ResourceEvent> edgeList);
 	
 	//================================================================================
     // Product agent scheduling
@@ -49,29 +53,21 @@ public interface ResourceAgent {
 	 * 
 	 */
 	/**
-	 * @param productAgentIntf the product agent to schedule
+	 * @param productAgent the product agent to schedule
 	 * @param edge the start time time of request
 	 * @param endTime 
 	 * @return If the part was successfully scheduled
 	 */
-	public boolean requestScheduleTime(ProductAgentIntf productAgentIntf, CapabilitiesEdge edge, int startTime, int endTime);
+	public boolean requestScheduleTime(ProductAgent productAgent, ResourceEvent edge, int startTime, int endTime);
 	
 	/**
 	 * API for one of the PA Schedule Manager method
-	 * @param productAgentIntf the product agent to remove
+	 * @param productAgent the product agent to remove
 	 * @param startTime the start time time of request
 	 * @return If the part was successfully removed from the schedule
 	 */
-	public boolean removeScheduleTime(ProductAgentIntf productAgentIntf, int startTime);
+	public boolean removeScheduleTime(ProductAgent productAgent, int startTime);
 	
-	//================================================================================
-    // Product agent communication
-    //================================================================================
-	
-	/** API for the PA Input Translator method
-	 * @return The capabilities graph of the RA
-	 */
-	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getCapabilities();
 	
 	/**
 	 * API for the PA Action Requester method
@@ -79,5 +75,14 @@ public interface ResourceAgent {
 	 * @param parameter
 	 * @return If the method was accepted by the resource
 	 */
-	public boolean query(CapabilitiesEdge edge, ProductAgentIntf productAgentIntf);
+	public boolean query(ResourceEvent edge, ProductAgent productAgent);
+	
+	//================================================================================
+    // Resource agent - Resource Agent communication
+    //================================================================================
+	
+	/** API for the PA Input Translator method
+	 * @return The capabilities graph of the RA
+	 */
+	public DirectedSparseGraph<ProductState, ResourceEvent> getCapabilities();
 } 

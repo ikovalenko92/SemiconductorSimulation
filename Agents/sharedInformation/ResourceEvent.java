@@ -5,10 +5,10 @@ import java.util.Arrays;
 
 import resourceAgent.ResourceAgent;
 
-public class CapabilitiesEdge {
+public class ResourceEvent {
 	
-	private CapabilitiesNode parent;
-	private CapabilitiesNode child;
+	private ProductState parent;
+	private ProductState child;
 	private int weight;
 	
 	private ResourceAgent activeAgent;
@@ -24,7 +24,7 @@ public class CapabilitiesEdge {
 	 * @param activeMethod (string)
 	 * @param weight
 	 */
-	public CapabilitiesEdge(ResourceAgent agent, CapabilitiesNode parent, CapabilitiesNode child, String activeMethod, int weight){
+	public ResourceEvent(ResourceAgent agent, ProductState parent, ProductState child, String activeMethod, int weight){
 		this.parent = parent;
 		this.child = child;
 		
@@ -38,11 +38,11 @@ public class CapabilitiesEdge {
 	}
 
 	
-	public CapabilitiesNode getParent(){
+	public ProductState getParent(){
 		return this.parent;
 	}
 	
-	public CapabilitiesNode getChild(){
+	public ProductState getChild(){
 		return this.child;
 	}
 	
@@ -66,7 +66,7 @@ public class CapabilitiesEdge {
 		this.weight = weight;
 	}
 	
-	public void setChild(CapabilitiesNode child) {
+	public void setChild(ProductState child) {
 		this.child = child;
 	}
 	
@@ -97,9 +97,9 @@ public class CapabilitiesEdge {
 	/**
 	 * @return a copy of this edge
 	 */
-	public CapabilitiesEdge copy(){
-		CapabilitiesEdge edge = null;
-		edge = new CapabilitiesEdge(this.activeAgent, parent, child, activeMethod, this.weight);
+	public ResourceEvent copy(){
+		ResourceEvent edge = null;
+		edge = new ResourceEvent(this.activeAgent, parent, child, activeMethod, this.weight);
 			
 		edge.setControllability(this.controllability);
 		edge.setObservability(this.observability);
@@ -147,10 +147,10 @@ public class CapabilitiesEdge {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof CapabilitiesEdge)) {
+		if (!(obj instanceof ResourceEvent)) {
 			return false;
 		}
-		CapabilitiesEdge other = (CapabilitiesEdge) obj;
+		ResourceEvent other = (ResourceEvent) obj;
 		if (activeAgent == null) {
 			if (other.activeAgent != null) {
 				return false;

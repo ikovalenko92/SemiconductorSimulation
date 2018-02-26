@@ -8,13 +8,13 @@ import org.apache.commons.collections15.Transformer;
 import Machine.MachineLLC;
 import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import intelligentProduct.ProductAgentIntf;
+import intelligentProduct.ProductAgent;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
-import sharedInformation.CapabilitiesEdge;
-import sharedInformation.CapabilitiesNode;
+import sharedInformation.ResourceEvent;
+import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
 
@@ -25,12 +25,12 @@ public class MachineAgent implements ResourceAgent{
 	private boolean working;
 	private int program;
 	
-	private CapabilitiesEdge runningEdge;
-	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> machineCapabilities;
+	private ResourceEvent runningEdge;
+	private DirectedSparseGraph<ProductState, ResourceEvent> machineCapabilities;
 	
 	private ArrayList<ResourceAgent> neighbors;
-	private HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode;
-	private Transformer<CapabilitiesEdge, Integer> weightTransformer;
+	private HashMap<ResourceAgent, ProductState> tableNeighborNode;
+	private Transformer<ResourceEvent, Integer> weightTransformer;
 	private RASchedule RAschedule;
 
 	/**
@@ -41,12 +41,12 @@ public class MachineAgent implements ResourceAgent{
 		this.name = name;
 		this.machine = machine;
 		this.working = false;
-		this.machineCapabilities = new DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge>();
+		this.machineCapabilities = new DirectedSparseGraph<ProductState, ResourceEvent>();
 		
 		createOutputGraph();
 		//Transformer for shortest path
-		this.weightTransformer = new Transformer<CapabilitiesEdge,Integer>(){
-	       	public Integer transform(CapabilitiesEdge edge) {return edge.getWeight();}
+		this.weightTransformer = new Transformer<ResourceEvent,Integer>(){
+	       	public Integer transform(ResourceEvent edge) {return edge.getWeight();}
 		};
 		
 		this.neighbors = new ArrayList<ResourceAgent>();
@@ -79,10 +79,10 @@ public class MachineAgent implements ResourceAgent{
     //================================================================================
 	
 	@Override
-	public void teamQuery(ProductAgentIntf productAgentIntf, PhysicalProperty desiredProperty, CapabilitiesNode currentNode, 
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList) {
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode, 
+			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<ResourceEvent> edgeList) {
 		
-		new ResourceAgentHelper().teamQuery(this, productAgentIntf, desiredProperty, currentNode,
+		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
 				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
 	}
 	
@@ -96,14 +96,14 @@ public class MachineAgent implements ResourceAgent{
 	}
 
 	@Override
-	public boolean requestScheduleTime(ProductAgentIntf productAgentIntf,CapabilitiesEdge edge, int startTime, int endTime) {
+	public boolean requestScheduleTime(ProductAgent productAgent,ResourceEvent edge, int startTime, int endTime) {
 		int edgeOffset = edge.getWeight() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
-		return this.RAschedule.addPA(productAgentIntf, startTime+edgeOffset, endTime, false);
+		return this.RAschedule.addPA(productAgent, startTime+edgeOffset, endTime, false);
 	}	
 
 	@Override
-	public boolean removeScheduleTime(ProductAgentIntf productAgentIntf, int startTime) {
-		return this.removeScheduleTime(productAgentIntf, startTime);
+	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
+		return this.removeScheduleTime(productAgent, startTime);
 	}
 	
 	//================================================================================
@@ -111,16 +111,16 @@ public class MachineAgent implements ResourceAgent{
     //================================================================================
 	
 	@Override
-	public DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> getCapabilities() {
+	public DirectedSparseGraph<ProductState, ResourceEvent> getCapabilities() {
 		return this.machineCapabilities;
 	}
 	
 	@Override
-	public boolean query(CapabilitiesEdge queriedEdge, ProductAgentIntf productAgentIntf) {
+	public boolean query(ResourceEvent queriedEdge, ProductAgent productAgent) {
 
 		//Find the desired edge
-		CapabilitiesEdge desiredEdge = null;
-		for (CapabilitiesEdge edge : this.getCapabilities().getEdges()){
+		ResourceEvent desiredEdge = null;
+		for (ResourceEvent edge : this.getCapabilities().getEdges()){
 			if (edge.getActiveMethod().equals(queriedEdge.getActiveMethod())){
 				desiredEdge = edge;
 				break;
@@ -133,10 +133,10 @@ public class MachineAgent implements ResourceAgent{
 		double startTime = schedule.getTickCount()+edgeOffset;
 		
 		//If the product agent is scheduled for this time, run the desired program
-		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgentIntf, (int) startTime, (int) startTime+desiredEdge.getWeight())){
+		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
 			if (desiredEdge.getActiveMethod() == "Hold"){
 				this.machine.doNothing();
-				informPA(productAgentIntf, desiredEdge);
+				informPA(productAgent, desiredEdge);
 				return true;
 			}
 			else if (desiredEdge.getActiveMethod() == "Reset"){
@@ -145,8 +145,8 @@ public class MachineAgent implements ResourceAgent{
 			else{
 				//Schedule it for the future
 				schedule.schedule(ScheduleParameters.createOneTime(startTime), 
-						this.machine, "runProgram", new Object[]{queriedEdge.getActiveMethod(),productAgentIntf.getPartName()});
-				this.informPA(productAgentIntf, queriedEdge);
+						this.machine, "runProgram", new Object[]{queriedEdge.getActiveMethod(),productAgent.getPartName()});
+				this.informPA(productAgent, queriedEdge);
 				return true;
 			}
 		}		
@@ -154,21 +154,21 @@ public class MachineAgent implements ResourceAgent{
 	}
 	
 	/** Check when the edge is done and inform the product agent
-	 * @param productAgentIntf
+	 * @param productAgent
 	 * @param edge
 	 */
-	private void informPA(ProductAgentIntf productAgentIntf, CapabilitiesEdge edge){
+	private void informPA(ProductAgent productAgent, ResourceEvent edge){
 		//Using the edge of the weight (might need to check with Robot LLC in the future)
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgentIntf,
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
 				"informEvent", new Object[]{edge});
 		
 		// If this is not a hold method (i.e. one of the programs was run)
 		// Inform the product agent that the machine was "reset" and new programs can be run on it
 		if (!(edge.getActiveMethod() == "Hold")){
-			for (CapabilitiesEdge resetEdge : this.machineCapabilities.getIncidentEdges(edge.getChild())){
+			for (ResourceEvent resetEdge : this.machineCapabilities.getIncidentEdges(edge.getChild())){
 				if (resetEdge.getActiveMethod()=="Reset"){
-					schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgentIntf,
+					schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
 							"informEvent", new Object[]{resetEdge});
 				}
 			}
@@ -186,24 +186,24 @@ public class MachineAgent implements ResourceAgent{
 	private void createOutputGraph() {
 		//Node representing the part located in the CNC
 		PhysicalProperty machineLocation = new PhysicalProperty(this.machine.getLocation());
-		CapabilitiesNode startNode = new CapabilitiesNode(this.machine.getMachine(), null, machineLocation);
+		ProductState startNode = new ProductState(this.machine.getMachine(), null, machineLocation);
 		
 		//Create the self-loop to hold it at this cnc
-		CapabilitiesEdge selfEdge = new CapabilitiesEdge(this, startNode, startNode, "Hold", 1);
+		ResourceEvent selfEdge = new ResourceEvent(this, startNode, startNode, "Hold", 1);
 		this.machineCapabilities.addEdge(selfEdge, startNode, startNode);	
 		
 		//Nodes that represent machining operations performed on the part
 		for (String program : this.machine.getProgramList()){
 			//Create the node representing this program being complete
 			PhysicalProperty programName = new PhysicalProperty(program.substring(program.length()-2));
-			CapabilitiesNode programNode = new CapabilitiesNode(this.machine.getMachine(), programName, machineLocation);
+			ProductState programNode = new ProductState(this.machine.getMachine(), programName, machineLocation);
 		
 			//Create the edge to go to this node
-			CapabilitiesEdge programEdge = new CapabilitiesEdge(this, startNode, programNode, program, this.machine.getProgramTime(program));
+			ResourceEvent programEdge = new ResourceEvent(this, startNode, programNode, program, this.machine.getProgramTime(program));
 			this.machineCapabilities.addEdge(programEdge, startNode, programNode);
 			
 			//Create the edge to come back to the original position
-			CapabilitiesEdge programReset = new CapabilitiesEdge(this, programNode, startNode, "Reset", 0);
+			ResourceEvent programReset = new ResourceEvent(this, programNode, startNode, "Reset", 0);
 			this.machineCapabilities.addEdge(programReset, programNode, startNode);
 		}
 	}
@@ -213,11 +213,11 @@ public class MachineAgent implements ResourceAgent{
 	 */
 	@ScheduledMethod (start = 1, priority = 5000)
 	public void findNeighborNodes(){
-		this.tableNeighborNode = new HashMap<ResourceAgent, CapabilitiesNode>();
+		this.tableNeighborNode = new HashMap<ResourceAgent, ProductState>();
 		
 		//Fill the look up table that matches the neighbor with the node
 		for (ResourceAgent neighbor : this.neighbors){
-			for (CapabilitiesNode node : this.machineCapabilities.getVertices()){
+			for (ProductState node : this.machineCapabilities.getVertices()){
 				if (neighbor.getCapabilities().containsVertex(node)){
 					//Assume only one node can be shared between neighbors
 					this.tableNeighborNode.put(neighbor, node);

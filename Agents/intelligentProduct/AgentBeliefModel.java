@@ -4,44 +4,48 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import sharedInformation.CapabilitiesEdge;
-import sharedInformation.CapabilitiesNode;
+import sharedInformation.ResourceEvent;
+import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
-@SuppressWarnings("serial")
-public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge>{
+public class AgentBeliefModel extends DirectedSparseGraph<ProductState, ResourceEvent>{
 
-	private CapabilitiesNode currentNode = null;
-	private ArrayList<CapabilitiesNode> desiredNodes = new ArrayList<CapabilitiesNode>();
-	private CapabilitiesNode dummyEmptyNode;
-	private CapabilitiesEdge startingEdge;
+	private ProductState currentNode = null;
+	private ArrayList<ProductState> desiredNodes = new ArrayList<ProductState>();
+	private ProductState dummyEmptyNode;
+	private ResourceEvent startingEdge;
 	
-	public AgentBeliefModel(CapabilitiesNode currentNode){
-		this.dummyEmptyNode = new CapabilitiesNode(null, null, new PhysicalProperty(new Point(0,0)));
+	public AgentBeliefModel(ProductState currentNode){
+		this.dummyEmptyNode = new ProductState(null, null, new PhysicalProperty(new Point(0,0)));
 		this.currentNode = currentNode;
-		this.startingEdge = new CapabilitiesEdge(null, dummyEmptyNode, currentNode, null, 0);
+		this.startingEdge = new ResourceEvent(null, dummyEmptyNode, currentNode, null, 0);
 		this.addEdge(startingEdge, dummyEmptyNode, currentNode);
 	}
 	
+	public AgentBeliefModel(ProductAgentInstance productAgentInstance,
+			ProductState startingNode) {
+		// TODO Auto-generated constructor stub
+	}
+
 	/** Add a list of edges
 	 * @param edgeList
 	 */
-	public void addEdges(ArrayList<CapabilitiesEdge> edgeList) {
-		for (CapabilitiesEdge edge:edgeList){
+	public void addEdges(ArrayList<ResourceEvent> edgeList) {
+		for (ResourceEvent edge:edgeList){
 			this.addEdge(edge, edge.getParent(), edge.getChild());
 		}
 	}
 	
-	public void setCurrentNode(CapabilitiesNode currentNode){
+	public void setCurrentNode(ProductState currentNode){
 		addVertex(currentNode);
 		this.currentNode = currentNode;
 	}
 	
-	public CapabilitiesNode getCurrentNode() {
+	public ProductState getCurrentNode() {
 		return this.currentNode;
 	}
 	
-	public void addDesiredNode(CapabilitiesNode desiredNode){
+	public void addDesiredNode(ProductState desiredNode){
 		if (this.containsVertex(desiredNode)){
 			this.desiredNodes.add(desiredNode);
 		}
@@ -51,7 +55,7 @@ public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, Capa
 		this.desiredNodes.clear();
 	}
 
-	public ArrayList<CapabilitiesNode> getDesiredNodes() {
+	public ArrayList<ProductState> getDesiredNodes() {
 		return this.desiredNodes;
 	}
 	
@@ -74,11 +78,11 @@ public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, Capa
 		//Clear desired nodes
 		this.clearDesiredNodes();
 		
-		ArrayList<CapabilitiesNode> removeVertices = new ArrayList<CapabilitiesNode>();
-		ArrayList<CapabilitiesEdge> removeEdges = new ArrayList<CapabilitiesEdge>();
+		ArrayList<ProductState> removeVertices = new ArrayList<ProductState>();
+		ArrayList<ResourceEvent> removeEdges = new ArrayList<ResourceEvent>();
 		
 		//Find all the vertices to remove
-		for (CapabilitiesNode node : getVertices()){
+		for (ProductState node : getVertices()){
 			// Keep the current and dummy nodes (starting)
 			if (!this.currentNode.equals(node) && !this.currentNode.equals(dummyEmptyNode)){
 				removeVertices.add(node);
@@ -86,15 +90,15 @@ public class AgentBeliefModel extends DirectedSparseGraph<CapabilitiesNode, Capa
 		}
 		
 		//Find all the edges to remove
-		for (CapabilitiesEdge edge: getEdges()){
+		for (ResourceEvent edge: getEdges()){
 			// Keep the starting edge
 			if (!this.startingEdge.equals(edge)){
 				removeEdges.add(edge);
 			}
 		}
 		
-		for (CapabilitiesNode node : removeVertices){this.removeVertex(node);}
-		for (CapabilitiesEdge edge: removeEdges){this.removeEdge(edge);}
+		for (ProductState node : removeVertices){this.removeVertex(node);}
+		for (ResourceEvent edge: removeEdges){this.removeEdge(edge);}
 		
 		// Clean up
 		removeVertices.clear();

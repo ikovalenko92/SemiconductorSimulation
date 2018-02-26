@@ -4,15 +4,15 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import Buffer.Buffer;
-import intelligentProduct.ProductAgent;
+import intelligentProduct.ProductAgentInstance;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.space.grid.Grid;
 import resourceAgent.BufferAgent;
-import sharedInformation.CapabilitiesEdge;
-import sharedInformation.CapabilitiesNode;
+import sharedInformation.ResourceEvent;
+import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
 public class PartCreatorforBuffer {
@@ -61,12 +61,12 @@ public class PartCreatorforBuffer {
 		physicalGrid.moveTo(part, storagePoint.x, storagePoint.y);
 		
 		// Create a new Product Agent and inform the part that it was created
-		CapabilitiesNode startingNode = new CapabilitiesNode(buffer, null, new PhysicalProperty(storagePoint));
-		ProductAgent productAgent = new ProductAgent(part, getDesiredList(partType), bufferAgent, startingNode, 0);
-		productAgent.informEvent(new CapabilitiesEdge(bufferAgent, null, startingNode, null, 0));
-		cyberContext.add(productAgent);
+		ProductState startingNode = new ProductState(buffer, null, new PhysicalProperty(storagePoint));
+		ProductAgentInstance productAgentInstance = new ProductAgentInstance(part, getDesiredList(partType), bufferAgent, startingNode, 0);
+		productAgentInstance.informEvent(new ResourceEvent(bufferAgent, null, startingNode, null, 0));
+		cyberContext.add(productAgentInstance);
 
-		productAgent.setPANumber(this.PAnumber);
+		productAgentInstance.setPANumber(this.PAnumber);
 	}
 	
 	/**

@@ -1,14 +1,14 @@
 package intelligentProduct;
 
-import sharedInformation.CapabilitiesEdge;
+import sharedInformation.ResourceEvent;
 
 import java.util.ArrayList;
 
 public class PAPlan {
-	private ProductAgentIntf productAgentIntf;
+	private ProductAgent productAgent;
 	private ArrayList<String> actions;
 	private ArrayList<Integer> startTimes;
-	private ArrayList<CapabilitiesEdge> edges;
+	private ArrayList<ResourceEvent> edges;
 	
 	/**
 	 * Part agents, start times array lists must be the same size
@@ -18,12 +18,12 @@ public class PAPlan {
 	 * @param startTimes (Array List)
 	 * @param endTimes (Array List)
 	 */
-	public PAPlan(ProductAgentIntf productAgentIntf) {
-		this.productAgentIntf = productAgentIntf;
+	public PAPlan(ProductAgent productAgent) {
+		this.productAgent = productAgent;
 		this.actions = new ArrayList<String>();
 		this.startTimes = new ArrayList<Integer>();
 		
-		this.edges = new ArrayList<CapabilitiesEdge>();
+		this.edges = new ArrayList<ResourceEvent>();
 	}
 
 	/* (non-Javadoc)
@@ -36,7 +36,7 @@ public class PAPlan {
 		for (int i = 0; i<this.actions.size();i++){
 			total = total + " "+ this.actions.get(i) + " [" + this.startTimes.get(i) + "];";		
 		}
-		return productAgentIntf + "Schedule:" + total;
+		return productAgent + "Schedule:" + total;
 	}
 	
 	/** Add a desired action to the schedule
@@ -44,11 +44,11 @@ public class PAPlan {
 	 * @param startTime
 	 * @return
 	 */
-	public boolean addAction(CapabilitiesEdge edge, Integer startTime){
+	public boolean addAction(ResourceEvent edge, Integer startTime){
 		String action = changeToAction(edge);
 		
 		if (startTime < 0){
-			System.out.println("Start time is wrong for " + this.productAgentIntf + " for " + action);
+			System.out.println("Start time is wrong for " + this.productAgent + " for " + action);
 			return false;
 		}
 		
@@ -72,7 +72,7 @@ public class PAPlan {
 					return true;
 				}
 				else if (checkStartTime == startTime){
-					System.out.println("Product busy " + action + " for " + this.productAgentIntf);
+					System.out.println("Product busy " + action + " for " + this.productAgent);
 					return false;
 				}
 		}
@@ -88,7 +88,7 @@ public class PAPlan {
 	 * @param action
 	 * @param startTime
 	 */
-	public void removeAction(CapabilitiesEdge edge){
+	public void removeAction(ResourceEvent edge){
 		String action = changeToAction(edge);
 		
 		int index = actions.indexOf(action);
@@ -98,7 +98,7 @@ public class PAPlan {
 			this.edges.remove(edge);
 		}
 		else{
-			System.out.println("No " + action + " in " + this.productAgentIntf);
+			System.out.println("No " + action + " in " + this.productAgent);
 		}
 	}
 	
@@ -106,7 +106,7 @@ public class PAPlan {
 	 * @param action
 	 * @return
 	 */
-	public CapabilitiesEdge getNextAction(CapabilitiesEdge edge, int currentTime){
+	public ResourceEvent getNextAction(ResourceEvent edge, int currentTime){
 		String action = changeToAction(edge);
 		
 		//Don't include the last edge
@@ -133,7 +133,7 @@ public class PAPlan {
 	 * @param action
 	 * @return
 	 */
-	public Integer getTimeofAction(CapabilitiesEdge edge, double currentTime){
+	public Integer getTimeofAction(ResourceEvent edge, double currentTime){
 		String action = changeToAction(edge);
 		
 		for (int index = 0; index<actions.size();index++){
@@ -144,7 +144,7 @@ public class PAPlan {
 			}
 		}
 		
-		System.out.println("No " + action + " planned for " + this.productAgentIntf);
+		System.out.println("No " + action + " planned for " + this.productAgent);
 		return null;
 	}
 	
@@ -152,7 +152,7 @@ public class PAPlan {
 	 * @param time
 	 * @return
 	 */
-	public CapabilitiesEdge getActionatNextTime(int time){
+	public ResourceEvent getActionatNextTime(int time){
 		for (int i=0;i<this.startTimes.size();i++){
 			Integer startTime = this.startTimes.get(i);
 			if (startTime>=time){
@@ -160,11 +160,11 @@ public class PAPlan {
 			}
 		}
 		
-		System.out.println("No action starts at or after " + time + " for " + this.productAgentIntf);
+		System.out.println("No action starts at or after " + time + " for " + this.productAgent);
 		return null;
 	}
 	
-	public String changeToAction(CapabilitiesEdge edge){
+	public String changeToAction(ResourceEvent edge){
 		return "" + edge.getActiveAgent() + "," + edge.getActiveMethod();
 	}
 	
@@ -173,8 +173,8 @@ public class PAPlan {
 	 * @param string
 	 * @return
 	 */
-	public CapabilitiesEdge changeToEdge(String name){
-		for (CapabilitiesEdge edge : this.edges){
+	public ResourceEvent changeToEdge(String name){
+		for (ResourceEvent edge : this.edges){
 			if (changeToAction(edge).equals(name)){
 				return edge;
 			}

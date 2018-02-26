@@ -24,8 +24,8 @@ import repast.simphony.space.grid.SimpleGridAdder;
 import resourceAgent.BufferAgent;
 import resourceAgent.MachineAgent;
 import resourceAgent.RobotAgent;
-import sharedInformation.CapabilitiesEdge;
-import sharedInformation.CapabilitiesNode;
+import sharedInformation.ResourceEvent;
+import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
 
@@ -420,14 +420,14 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			//DoneProperty for end buffer agent//
 			//Adds a Done physical property to the exit buffer agent
 			if (bufferLLC.getBuffer().getStoragePoint().equals(exitPointStorage)){				
-				CapabilitiesNode n = null;
-				for (CapabilitiesNode node : bufferAgent.getCapabilities().getVertices()){
+				ProductState n = null;
+				for (ProductState node : bufferAgent.getCapabilities().getVertices()){
 					for (PhysicalProperty property : node.getPhysicalProperties()){
 						if (property.getPoint().equals(exitPointStorage)){n = node;}
 					}
 				}
-				CapabilitiesNode addNode = new CapabilitiesNode(bufferLLC.getBuffer(), new PhysicalProperty("End"), new PhysicalProperty(n.getLocation()));
-				CapabilitiesEdge addEdge = new CapabilitiesEdge(bufferAgent, n, addNode, "End", 0);
+				ProductState addNode = new ProductState(bufferLLC.getBuffer(), new PhysicalProperty("End"), new PhysicalProperty(n.getLocation()));
+				ResourceEvent addEdge = new ResourceEvent(bufferAgent, n, addNode, "End", 0);
 				bufferAgent.getCapabilities().addEdge(addEdge, n, addNode);}
 			//DoneProperty for end buffer agent//
 		}

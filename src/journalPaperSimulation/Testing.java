@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 import Buffer.BufferLLC;
 import Part.Part;
-import intelligentProduct.ProductAgent;
+import intelligentProduct.ProductAgentInstance;
 import repast.simphony.context.Context;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import resourceAgent.BufferAgent;
 import resourceAgent.ResourceAgent;
-import sharedInformation.CapabilitiesEdge;
-import sharedInformation.CapabilitiesNode;
+import sharedInformation.ResourceEvent;
+import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
 public class Testing {
@@ -41,11 +41,11 @@ public class Testing {
 		desiredList.add("S4");
 		desiredList.add("S5");
 		desiredList.add("S6");
-		CapabilitiesNode startingNode = new CapabilitiesNode(this.listBufferLLC.get(0).getBuffer(), null, new PhysicalProperty(this.bufferLocations[0]));
-		ProductAgent productAgent = new ProductAgent(this.part, desiredList, this.listBufferAgent.get(0), startingNode, 0);
+		ProductState startingNode = new ProductState(this.listBufferLLC.get(0).getBuffer(), null, new PhysicalProperty(this.bufferLocations[0]));
+		ProductAgentInstance productAgentInstance = new ProductAgentInstance(this.part, desiredList, this.listBufferAgent.get(0), startingNode, 0);
 		
-		productAgent.informEvent(new CapabilitiesEdge(this.listBufferAgent.get(0), null, startingNode, null, 0));
-		cyberContext.add(productAgent);
+		productAgentInstance.informEvent(new ResourceEvent(this.listBufferAgent.get(0), null, startingNode, null, 0));
+		cyberContext.add(productAgentInstance);
 	}
 	
 	

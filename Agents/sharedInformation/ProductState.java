@@ -3,7 +3,7 @@ package sharedInformation;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class CapabilitiesNode {
+public class ProductState {
 	
 	private Object holdingObject;
 	private PhysicalProperty location;
@@ -14,7 +14,7 @@ public class CapabilitiesNode {
 	 * @param processCompleted
 	 * @param location
 	 */
-	public CapabilitiesNode(Object holdingObject, PhysicalProperty processCompleted, PhysicalProperty location){
+	public ProductState(Object holdingObject, PhysicalProperty processCompleted, PhysicalProperty location){
 		this.holdingObject = holdingObject;
 		this.location = location;
 		this.processCompleted = processCompleted;
@@ -78,10 +78,10 @@ public class CapabilitiesNode {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof CapabilitiesNode)) {
+		if (!(obj instanceof ProductState)) {
 			return false;
 		}
-		CapabilitiesNode other = (CapabilitiesNode) obj;
+		ProductState other = (ProductState) obj;
 		if (holdingObject == null) {
 			if (other.holdingObject != null) {
 				return false;

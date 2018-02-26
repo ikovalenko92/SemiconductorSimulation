@@ -10,11 +10,11 @@ import org.apache.commons.collections15.Transformer;
 import Part.Part;
 import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
-import intelligentProduct.ProductAgentIntf;
+import intelligentProduct.ProductAgent;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
-import sharedInformation.CapabilitiesEdge;
-import sharedInformation.CapabilitiesNode;
+import sharedInformation.ResourceEvent;
+import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 import sharedInformation.RASchedule;
 
@@ -22,7 +22,7 @@ public class ResourceAgentHelper {
 
 	/** Used in the resource agents to create team queries
 	 * @param resourceAgent
-	 * @param productAgentIntf
+	 * @param productAgent
 	 * @param desiredProperty
 	 * @param currentNode
 	 * @param currentTime
@@ -33,24 +33,24 @@ public class ResourceAgentHelper {
 	 * @param capabilities
 	 * @param weightTransformer
 	 */
-	public void teamQuery(ResourceAgent resourceAgent, ProductAgentIntf productAgentIntf, PhysicalProperty desiredProperty, CapabilitiesNode currentNode,
-			int currentTime, int maxTimeAllowed, ArrayList<ResourceAgent> teamList, ArrayList<CapabilitiesEdge> edgeList, ArrayList<ResourceAgent> neighbors,
-			HashMap<ResourceAgent, CapabilitiesNode> tableNeighborNode,	DirectedSparseGraph<CapabilitiesNode,CapabilitiesEdge> RAcapabilities, Transformer<CapabilitiesEdge, Integer> weightTransformer) {
+	public void teamQuery(ResourceAgent resourceAgent, ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode,
+			int currentTime, int maxTimeAllowed, ArrayList<ResourceAgent> teamList, ArrayList<ResourceEvent> edgeList, ArrayList<ResourceAgent> neighbors,
+			HashMap<ResourceAgent, ProductState> tableNeighborNode,	DirectedSparseGraph<ProductState,ResourceEvent> RAcapabilities, Transformer<ResourceEvent, Integer> weightTransformer) {
 		
 		//Set-up. New lists are created for pointer purposes
 		ArrayList<ResourceAgent> newTeamList = new ArrayList<ResourceAgent>(teamList);
-		ArrayList<CapabilitiesEdge> newEdgeList = new ArrayList<CapabilitiesEdge>(edgeList);
-		DirectedSparseGraph<CapabilitiesNode,CapabilitiesEdge> capabilities = copyGraph(RAcapabilities);
+		ArrayList<ResourceEvent> newEdgeList = new ArrayList<ResourceEvent>(edgeList);
+		DirectedSparseGraph<ProductState,ResourceEvent> capabilities = copyGraph(RAcapabilities);
 				
-		DijkstraShortestPath<CapabilitiesNode, CapabilitiesEdge> shortestPathGetter = 
-				new DijkstraShortestPath<CapabilitiesNode, CapabilitiesEdge>(capabilities, weightTransformer);
+		DijkstraShortestPath<ProductState, ResourceEvent> shortestPathGetter = 
+				new DijkstraShortestPath<ProductState, ResourceEvent>(capabilities, weightTransformer);
 		shortestPathGetter.reset();
 		
 		
 		//Check if a vertex satisfies a desired property
 		boolean flag = false;
-		CapabilitiesNode desiredVertex = null;
-		for (CapabilitiesNode vertex : capabilities.getVertices()){
+		ProductState desiredVertex = null;
+		for (ProductState vertex : capabilities.getVertices()){
 			if(vertex.getPhysicalProperties().contains(desiredProperty)){
 				flag = true;
 				desiredVertex = vertex;
@@ -62,20 +62,20 @@ public class ResourceAgentHelper {
 		if (flag){
 			
 			//Find the shortest path
-			List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, desiredVertex);
+			List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, desiredVertex);
 			int pathValue = shortestPathGetter.getDistanceMap(currentNode).get(desiredVertex).intValue();
 			
 			//Find the time when the resource is available and add it to the bid
 			int nextTimeAvailable = resourceAgent.getSchedule().getNextFreeTime(currentTime,pathValue);	
 			int timeOffset = nextTimeAvailable-currentTime;
 			
-			for (CapabilitiesEdge edge:shortestPathCandidateList){
+			for (ResourceEvent edge:shortestPathCandidateList){
 				edge.setWeight(edge.getWeight()+timeOffset);
 			}
 			
 			//Calculate the bid
 			int bidTime = currentTime;
-			for (CapabilitiesEdge pathNode : shortestPathCandidateList){
+			for (ResourceEvent pathNode : shortestPathCandidateList){
 				bidTime = bidTime + pathNode.getWeight();
 				newEdgeList.add(pathNode);
 			}
@@ -83,7 +83,7 @@ public class ResourceAgentHelper {
 			//Submit the bid to the product agent
 			if (bidTime < currentTime + maxTimeAllowed){
 				newTeamList.add(resourceAgent); // Add to the team
-				productAgentIntf.submitBid(newTeamList, newEdgeList);
+				productAgent.submitBid(newTeamList, newEdgeList);
 			}	
 		}
 		
@@ -94,17 +94,17 @@ public class ResourceAgentHelper {
 				newTeamList.clear(); //Reset previous instance of the newTeamList
 				newTeamList.addAll(teamList); //Add the initial team list
 				
-				CapabilitiesNode neighborNode = tableNeighborNode.get(neighbor);
+				ProductState neighborNode = tableNeighborNode.get(neighbor);
 
 				//Find the shortest path
-				List<CapabilitiesEdge> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
+				List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
 				int pathValue = shortestPathGetter.getDistanceMap(currentNode).get(neighborNode).intValue();
 				
 				//Find the time when the resource is available and add it to the bid
 				int nextTimeAvailable = resourceAgent.getSchedule().getNextFreeTime(currentTime,pathValue);
 				int timeOffset = nextTimeAvailable-currentTime;
 									
-				for (CapabilitiesEdge edge:shortestPathCandidateList){
+				for (ResourceEvent edge:shortestPathCandidateList){
 					edge.setWeight(edge.getWeight()+timeOffset);
 				}
 				
@@ -112,7 +112,7 @@ public class ResourceAgentHelper {
 				int bidTime = currentTime; //Reset bid time
 				newEdgeList.clear(); //Reset previous instance of the newTeamList
 				newEdgeList.addAll(edgeList); //Add the initial team list
-				for (CapabilitiesEdge pathNode : shortestPathCandidateList){
+				for (ResourceEvent pathNode : shortestPathCandidateList){
 					bidTime = bidTime + pathNode.getWeight();
 					newEdgeList.add(pathNode);
 				}
@@ -120,7 +120,7 @@ public class ResourceAgentHelper {
 				//Push the bid to the resource agent
 				if (bidTime < currentTime + maxTimeAllowed){
 					newTeamList.add(resourceAgent); // Add to the team
-					neighbor.teamQuery(productAgentIntf, desiredProperty, neighborNode, bidTime, maxTimeAllowed, newTeamList, newEdgeList);
+					neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTimeAllowed, newTeamList, newEdgeList);
 				}
 			}
 		}
@@ -134,12 +134,12 @@ public class ResourceAgentHelper {
 	 * @param oldgraph
 	 * @return
 	 */
-	private DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> copyGraph(
-			DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> oldgraph) {
-		DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> graph = new DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge>();
+	private DirectedSparseGraph<ProductState, ResourceEvent> copyGraph(
+			DirectedSparseGraph<ProductState, ResourceEvent> oldgraph) {
+		DirectedSparseGraph<ProductState, ResourceEvent> graph = new DirectedSparseGraph<ProductState, ResourceEvent>();
 		
-		for (CapabilitiesEdge e : oldgraph.getEdges()){
-			CapabilitiesEdge newEdge = e.copy();
+		for (ResourceEvent e : oldgraph.getEdges()){
+			ResourceEvent newEdge = e.copy();
 			graph.addEdge(newEdge,newEdge.getParent(),newEdge.getChild());
 		}
 		
@@ -149,12 +149,12 @@ public class ResourceAgentHelper {
 	/** Clears the graph
 	 * @param graph
 	 */
-	private void clearGraph(DirectedSparseGraph<CapabilitiesNode, CapabilitiesEdge> graph) {
-		for (CapabilitiesEdge e : graph.getEdges()){
+	private void clearGraph(DirectedSparseGraph<ProductState, ResourceEvent> graph) {
+		for (ResourceEvent e : graph.getEdges()){
 			e = null;
 		}
 		
-		for (CapabilitiesNode v : graph.getVertices()){
+		for (ProductState v : graph.getVertices()){
 	        v = null;
 		}    
 	}

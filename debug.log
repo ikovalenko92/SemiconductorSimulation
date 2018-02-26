@@ -14,7 +14,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-7] 2017-10-20 13:40:14,098 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
@@ -32,7 +32,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-8] 2017-10-20 13:41:22,814 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -51,7 +51,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-9] 2017-10-20 13:44:24,013 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (35.0)
@@ -69,9 +69,9 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.getBestPath(LotProductAgent.java:218)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:283)
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:180)
+	at intelligentProduct.ProductAgentInstance.getBestPath(LotProductAgent.java:218)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:283)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:180)
 	... 9 more
 FATAL [Thread-7] 2017-10-20 13:45:25,498 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -90,7 +90,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-8] 2017-10-20 13:45:49,808 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -109,7 +109,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-9] 2017-10-20 13:46:08,003 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (35.0)
@@ -127,9 +127,9 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.getBestPath(LotProductAgent.java:218)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:283)
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:180)
+	at intelligentProduct.ProductAgentInstance.getBestPath(LotProductAgent.java:218)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:283)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:180)
 	... 9 more
 FATAL [Thread-10] 2017-10-20 13:46:15,681 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -148,7 +148,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-11] 2017-10-20 13:46:27,142 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -167,7 +167,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-7] 2017-10-20 13:48:23,329 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (35.0)
@@ -185,9 +185,9 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.getBestPath(LotProductAgent.java:218)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:283)
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:180)
+	at intelligentProduct.ProductAgentInstance.getBestPath(LotProductAgent.java:218)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:283)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:180)
 	... 9 more
 FATAL [Thread-7] 2017-10-20 13:49:39,295 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -206,7 +206,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-8] 2017-10-20 13:49:48,846 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -225,7 +225,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-9] 2017-10-20 13:51:22,957 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -244,7 +244,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-10] 2017-10-20 13:53:57,710 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (9.0)
@@ -263,7 +263,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-7] 2017-10-20 14:00:36,581 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (381.0)
@@ -282,7 +282,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:319)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:319)
 	... 9 more
 FATAL [Thread-9] 2017-10-20 14:03:02,366 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (381.0)
@@ -301,7 +301,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:124)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:323)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:323)
 	... 9 more
 FATAL [Thread-7] 2017-10-20 14:08:02,448 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
@@ -319,7 +319,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:324)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:324)
 	... 9 more
 FATAL [Thread-8] 2017-10-20 14:10:04,280 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
@@ -337,7 +337,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:324)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:324)
 	... 9 more
 FATAL [Thread-9] 2017-10-20 14:10:39,134 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
@@ -355,7 +355,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:324)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:324)
 	... 9 more
 FATAL [Thread-7] 2017-10-20 14:22:50,361 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (381.0)
@@ -375,7 +375,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.changeToAction(PAPlan.java:158)
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:130)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:324)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:324)
 	... 9 more
 FATAL [Thread-8] 2017-10-20 14:24:40,143 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (381.0)
@@ -395,7 +395,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 Caused by: java.lang.NullPointerException
 	at intelligentProduct.PAPlan.changeToAction(PAPlan.java:158)
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:130)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:324)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:324)
 	... 9 more
 FATAL [Thread-6] 2017-10-20 23:31:23,887 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (15.0)
@@ -437,7 +437,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Machine.java:145)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-7] 2017-10-21 15:12:03,498 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (60.0)
@@ -462,7 +462,7 @@ Caused by: java.util.ConcurrentModificationException
 	at Machine.Machine.S1(Machine.java:150)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-8] 2017-10-21 15:13:26,878 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (310.0)
@@ -501,7 +501,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Machine.java:145)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 WARN  [Thread-10] 2017-10-21 15:17:44,672 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'move([class java.lang.String, class java.awt.Point, class java.awt.Point])' in class Machine.Machine, returning null
 FATAL [Thread-10] 2017-10-21 15:17:44,673 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
@@ -678,7 +678,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Machine.java:145)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-14] 2017-10-21 15:30:05,205 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (310.0)
@@ -749,7 +749,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Machine.java:145)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-8] 2017-10-21 15:41:02,739 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (60.0)
@@ -772,7 +772,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Machine.java:145)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-9] 2017-10-21 15:41:50,346 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (60.0)
@@ -795,7 +795,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Machine.java:145)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-10] 2017-10-21 15:42:03,825 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (60.0)
@@ -818,7 +818,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Machine.java:145)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-11] 2017-10-21 15:42:08,406 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (60.0)
@@ -841,7 +841,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Machine.java:145)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-12] 2017-10-21 15:43:31,914 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (60.0)
@@ -864,7 +864,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S1(Unknown Source)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:55)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-6] 2017-10-21 15:44:58,335 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (745.0)
@@ -887,7 +887,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S3(Machine.java:208)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:61)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-11] 2017-10-21 15:56:28,473 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (745.0)
@@ -910,7 +910,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S3(Machine.java:208)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:61)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-6] 2017-10-21 15:57:06,258 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (745.0)
@@ -933,7 +933,7 @@ Caused by: java.lang.NullPointerException
 	at Machine.Machine.S3(Machine.java:208)
 	at Machine.MachineLLC.runProgram(MachineLLC.java:61)
 	at resourceAgent.MachineAgent.query(MachineAgent.java:142)
-	at intelligentProduct.ProductAgent.queryResource(LotProductAgent.java:197)
+	at intelligentProduct.ProductAgentInstance.queryResource(LotProductAgent.java:197)
 	... 9 more
 FATAL [Thread-7] 2017-11-16 13:47:49,160 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (8.0)
@@ -954,7 +954,7 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 6, Size: 6
 	at java.util.ArrayList.rangeCheck(Unknown Source)
 	at java.util.ArrayList.get(Unknown Source)
 	at intelligentProduct.PAPlan.getTimeofAction(PAPlan.java:134)
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:186)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:186)
 	... 9 more
 FATAL [Thread-8] 2017-11-16 13:48:21,081 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (8.0)
@@ -972,7 +972,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:186)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:186)
 	... 9 more
 FATAL [Thread-9] 2017-11-16 13:48:25,910 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (8.0)
@@ -990,7 +990,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:186)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:186)
 	... 9 more
 FATAL [Thread-10] 2017-11-16 13:49:14,705 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (2046.0)
@@ -1008,7 +1008,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:186)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:186)
 	... 9 more
 FATAL [Thread-11] 2017-11-16 16:57:36,099 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (2046.0)
@@ -1026,7 +1026,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:187)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:187)
 	... 9 more
 FATAL [Thread-7] 2017-11-16 17:21:25,992 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (2046.0)
@@ -1044,7 +1044,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:187)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:187)
 	... 9 more
 FATAL [Thread-7] 2017-11-16 17:24:02,984 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (310.0)
@@ -1065,7 +1065,7 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 6, Size: 6
 	at java.util.ArrayList.rangeCheck(Unknown Source)
 	at java.util.ArrayList.get(Unknown Source)
 	at intelligentProduct.PAPlan.getNextAction(PAPlan.java:114)
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:165)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:165)
 	... 9 more
 FATAL [Thread-11] 2017-11-16 17:31:50,196 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (10183.0)
@@ -1083,9 +1083,9 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgent.getBestPath(LotProductAgent.java:228)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:292)
-	at intelligentProduct.ProductAgent.informEvent(LotProductAgent.java:189)
+	at intelligentProduct.ProductAgentInstance.getBestPath(LotProductAgent.java:228)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:292)
+	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:189)
 	... 9 more
 FATAL [Thread-13] 2017-11-16 17:56:38,436 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (4500.0)
@@ -1105,6 +1105,6 @@ Caused by: java.lang.reflect.InvocationTargetException
 Caused by: java.lang.IllegalArgumentException: Specified target vertex null is not part of graph Vertices:machineTP at 130,90 process done: null
 Edges:
 	at edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath.getPath(DijkstraShortestPath.java:164)
-	at intelligentProduct.ProductAgent.getBestPath(LotProductAgent.java:233)
-	at intelligentProduct.ProductAgent.startScheduling(LotProductAgent.java:290)
+	at intelligentProduct.ProductAgentInstance.getBestPath(LotProductAgent.java:233)
+	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:290)
 	... 9 more
