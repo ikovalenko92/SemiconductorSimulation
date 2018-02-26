@@ -19,11 +19,6 @@ public class ProductState {
 		this.location = location;
 		this.processCompleted = processCompleted;
 	}
-
-
-	public Object getObject() {
-		return holdingObject;
-	}
 	
 	public Point getLocation() {
 		return location.getPoint();

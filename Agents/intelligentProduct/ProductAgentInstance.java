@@ -7,6 +7,7 @@ import org.apache.commons.collections15.Transformer;
 
 import Part.Part;
 import edu.uci.ics.jung.algorithms.shortestpath.DijkstraShortestPath;
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
@@ -31,6 +32,20 @@ public class ProductAgentInstance implements ProductAgent{
 
 	@Override
 	public void initializeExitPlan() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
+	@Override
+	public void informEvent(DirectedSparseGraph<ProductState, ResourceEvent> systemOutput, ProductState currentState,
+			ArrayList<ResourceEvent> occuredEvents) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateEdge(ResourceEvent rescheduleEdge) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -113,7 +128,7 @@ public class ProductAgentInstance implements ProductAgent{
     //================================================================================
 
 	@Override
-	public void submitBid(ArrayList<ResourceAgent> resourceList, ArrayList<ResourceEvent> edgeList) {
+	public void submitBid(DirectedSparseGraph<ProductState, ResourceEvent> bid) {
 		
 		//Start scheduling 1 tick after the first bid comes in (other bids should come in at the same tick)
 		if (!this.startSchedulingMethod){
@@ -131,7 +146,6 @@ public class ProductAgentInstance implements ProductAgent{
 		this.beliefModel.addDesiredNode(edgeList.get(edgeList.size()-1).getChild());
 	}
 	
-	@Override
 	public void updateEdge(ResourceEvent oldEdge, ResourceEvent newEdge){
 		
 		//If the model has the edge, update it
@@ -147,14 +161,13 @@ public class ProductAgentInstance implements ProductAgent{
 			System.out.println(this + " doesn't have " + oldEdge + " in updateEdge()");
 		}
 	}
-	
-	@Override
+
 	public void informEvent(ResourceEvent edge) {
 		
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		
 		//Save the last resource
-		this.lastResourceAgent = edge.getActiveAgent();
+		this.lastResourceAgent = edge.getEventAgent();
 		
 		//If there is no next action to do (new part or finished with current desired task), ask for more bids 
 		if (this.agentPlan.getNextAction(edge, (int) schedule.getTickCount()) == null){
@@ -179,7 +192,7 @@ public class ProductAgentInstance implements ProductAgent{
 			//If the next action matches the current state of the part, then do it.
 			if (nextEdge.getParent().equals(this.beliefModel.getCurrentNode())){
 				schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(nextEdge,(int) schedule.getTickCount())), 
-						this, "queryResource", new Object[]{nextEdge.getActiveAgent(),nextEdge});
+						this, "queryResource", new Object[]{nextEdge.getEventAgent(),nextEdge});
 			}
 			
 			// Else, reschedule based on the current agent belief model
@@ -241,7 +254,7 @@ public class ProductAgentInstance implements ProductAgent{
 	private Transformer<ResourceEvent, Integer> getWeightTransformer(){
 		return new Transformer<ResourceEvent,Integer>(){
 			public Integer transform(ResourceEvent edge) {
-				return edge.getWeight(); // Transformer takes just the edge of weight and weighs it as one (can change)
+				return edge.getEventTime(); // Transformer takes just the edge of weight and weighs it as one (can change)
 			}
 		};
 	}
@@ -303,7 +316,7 @@ public class ProductAgentInstance implements ProductAgent{
 		//For each edge in the path, request to schedule the action with the desired RA
 		for (ResourceEvent edge : bestPath){			
 			//int edgeOffset = edge.getWeight() - edge.getActiveAgent().getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
-			if (!edge.getActiveAgent().requestScheduleTime(this, edge, futureScheduleTime, futureScheduleTime + edge.getWeight())){
+			if (!edge.getEventAgent().requestScheduleTime(this, edge, futureScheduleTime, futureScheduleTime + edge.getEventTime())){
 				badPathFlag = true;
 				break;
 			}
@@ -311,9 +324,9 @@ public class ProductAgentInstance implements ProductAgent{
 	
 			//Keep track of the schedule so that we can remove it if there is a bad path
 			scheduledPathTimes.add(futureScheduleTime);
-			scheduledPathAgents.add(edge.getActiveAgent());
+			scheduledPathAgents.add(edge.getEventAgent());
 			
-			futureScheduleTime += edge.getWeight();	
+			futureScheduleTime += edge.getEventTime();	
 		}
 		if (!badPathFlag){
 			//Scheduling method was finished
@@ -324,7 +337,7 @@ public class ProductAgentInstance implements ProductAgent{
 			//Start the querying method (1 tick in the future)
 			ResourceEvent queryEdge = agentPlan.getActionatNextTime((int) startTime+1);
 			schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(queryEdge,(int) startTime)), this, "queryResource", 
-					new Object[]{queryEdge.getActiveAgent(), queryEdge});			
+					new Object[]{queryEdge.getEventAgent(), queryEdge});			
 		}
 		else{
 			//For each edge in the path, request to remove the scheduled actions with the desired RA
@@ -340,5 +353,6 @@ public class ProductAgentInstance implements ProductAgent{
 			startBidding(lastResourceAgent, beliefModel.getCurrentNode());
 		}
 	}
+
 	
 }

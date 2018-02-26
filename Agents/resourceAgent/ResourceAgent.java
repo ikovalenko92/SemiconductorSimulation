@@ -22,7 +22,7 @@ public interface ResourceAgent {
 	public ArrayList<ResourceAgent> getNeighbors();
 	
 	//================================================================================
-    // Product/resource team formation
+    // PA to RA Communication
     //================================================================================
 	
 	/**
@@ -34,25 +34,10 @@ public interface ResourceAgent {
 	 * @param teamList The current team list
 	 * @param edgeList The current list of capabilities edges for each resource
 	 */
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<ResourceEvent> edgeList);
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode, 
+			int maxTime, DirectedSparseGraph<ProductState,ResourceEvent> bid, int currentTime);
 	
-	//================================================================================
-    // Product agent scheduling
-    //================================================================================
-	
-	/**
-	 * API for one of the PA Schedule Manager method
-	 * @return The schedule of this resource agent
-	 */
-	public RASchedule getSchedule();
-	
-	/**
-	 * API for one of the PA Schedule Manager method
-	 * @return If the part was successfully scheduled
-	 * 
-	 */
-	/**
+	/** From the PA's scheduling
 	 * @param productAgent the product agent to schedule
 	 * @param edge the start time time of request
 	 * @param endTime 
@@ -60,26 +45,25 @@ public interface ResourceAgent {
 	 */
 	public boolean requestScheduleTime(ProductAgent productAgent, ResourceEvent edge, int startTime, int endTime);
 	
-	/**
-	 * API for one of the PA Schedule Manager method
+	/** From the PA's scheduling
 	 * @param productAgent the product agent to remove
 	 * @param startTime the start time time of request
 	 * @return If the part was successfully removed from the schedule
 	 */
-	public boolean removeScheduleTime(ProductAgent productAgent, int startTime);
+	public boolean removeScheduleTime(ProductAgent productAgent, int startTime, int endTime);
 	
-	
-	/**
-	 * API for the PA Action Requester method
-	 * @param method
-	 * @param parameter
-	 * @return If the method was accepted by the resource
+	/** From the PA's event translator
+	 * @param desiredEdge
+	 * @param productAgent
+	 * @return 
 	 */
-	public boolean query(ResourceEvent edge, ProductAgent productAgent);
+	public boolean query(ResourceEvent desiredEdge, ProductAgent productAgent);
 	
 	//================================================================================
-    // Resource agent - Resource Agent communication
+    // RA to RA communication
     //================================================================================
+	
+	public RASchedule getSchedule();
 	
 	/** API for the PA Input Translator method
 	 * @return The capabilities graph of the RA

@@ -1,17 +1,14 @@
 package sharedInformation;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
-
 import resourceAgent.ResourceAgent;
 
 public class ResourceEvent {
 	
 	private ProductState parent;
 	private ProductState child;
-	private int weight;
+	private int eventTime;
 	
-	private ResourceAgent activeAgent;
+	private ResourceAgent eventAgent;
 	private String activeMethod;
 	
 	private boolean controllability;
@@ -22,21 +19,20 @@ public class ResourceEvent {
 	 * @param parent
 	 * @param child
 	 * @param activeMethod (string)
-	 * @param weight
+	 * @param eventTime
 	 */
-	public ResourceEvent(ResourceAgent agent, ProductState parent, ProductState child, String activeMethod, int weight){
+	public ResourceEvent(ResourceAgent agent, ProductState parent, ProductState child, String activeMethod, int eventTime){
 		this.parent = parent;
 		this.child = child;
 		
-		this.activeAgent = agent;
+		this.eventAgent = agent;
 		this.activeMethod = activeMethod;
 		
-		this.weight = weight;
+		this.eventTime = eventTime;
 		
 		this.controllability = false;
 		this.observability = false;
 	}
-
 	
 	public ProductState getParent(){
 		return this.parent;
@@ -46,16 +42,16 @@ public class ResourceEvent {
 		return this.child;
 	}
 	
-	public int getWeight(){
-		return this.weight;
+	public int getEventTime(){
+		return this.eventTime;
 	}
 		
 	public String getActiveMethod() {
 		return this.activeMethod;
 	}
 	
-	public ResourceAgent getActiveAgent() {
-		return this.activeAgent;
+	public ResourceAgent getEventAgent() {
+		return this.eventAgent;
 	}
 	
 	//================================================================================
@@ -63,7 +59,7 @@ public class ResourceEvent {
     //================================================================================
 	
 	public void setWeight(int weight){
-		this.weight = weight;
+		this.eventTime = weight;
 	}
 	
 	public void setChild(ProductState child) {
@@ -99,7 +95,7 @@ public class ResourceEvent {
 	 */
 	public ResourceEvent copy(){
 		ResourceEvent edge = null;
-		edge = new ResourceEvent(this.activeAgent, parent, child, activeMethod, this.weight);
+		edge = new ResourceEvent(this.eventAgent, parent, child, activeMethod, this.eventTime);
 			
 		edge.setControllability(this.controllability);
 		edge.setObservability(this.observability);
@@ -110,9 +106,9 @@ public class ResourceEvent {
 	@Override
 	public String toString(){
 	
-	return "Edge with weight " + this.weight + " goes from " + parent.getLocation().x + "," + parent.getLocation().y + " to " + child.getLocation().x + "," + child.getLocation().y + ".\n"
+	return "Edge with weight " + this.eventTime + " goes from " + parent.getLocation().x + "," + parent.getLocation().y + " to " + child.getLocation().x + "," + child.getLocation().y + ".\n"
 			+ "Makes " + child.getProcessCompleted() + ".\n"
-			+ " Activated by: " + this.activeAgent + " using " + this.activeMethod + "\n";//.getName() + "(" + activeParametersString + ")\n"
+			+ " Activated by: " + this.eventAgent + " using " + this.activeMethod + "\n";//.getName() + "(" + activeParametersString + ")\n"
 			//+ " Controllable: " + this.controllability + ", Observable: " + this.observability;
 	}
 
@@ -125,13 +121,13 @@ public class ResourceEvent {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((activeAgent == null) ? 0 : activeAgent.hashCode());
+		result = prime * result + ((eventAgent == null) ? 0 : eventAgent.hashCode());
 		result = prime * result + ((activeMethod == null) ? 0 : activeMethod.hashCode());
 		result = prime * result + ((child == null) ? 0 : child.hashCode());
 		result = prime * result + (controllability ? 1231 : 1237);
 		result = prime * result + (observability ? 1231 : 1237);
 		result = prime * result + ((parent == null) ? 0 : parent.hashCode());
-		result = prime * result + weight;
+		result = prime * result + eventTime;
 		return result;
 	}
 
@@ -151,11 +147,11 @@ public class ResourceEvent {
 			return false;
 		}
 		ResourceEvent other = (ResourceEvent) obj;
-		if (activeAgent == null) {
-			if (other.activeAgent != null) {
+		if (eventAgent == null) {
+			if (other.eventAgent != null) {
 				return false;
 			}
-		} else if (!activeAgent.equals(other.activeAgent)) {
+		} else if (!eventAgent.equals(other.eventAgent)) {
 			return false;
 		}
 		if (activeMethod == null) {
@@ -185,7 +181,7 @@ public class ResourceEvent {
 		} else if (!parent.equals(other.parent)) {
 			return false;
 		}
-		if (weight != other.weight) {
+		if (eventTime != other.eventTime) {
 			return false;
 		}
 		return true;

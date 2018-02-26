@@ -7,8 +7,6 @@ import java.util.HashMap;
 import org.apache.commons.collections15.Transformer;
 
 import Buffer.BufferLLC;
-import Part.Part;
-import Robot.RobotLLC;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import intelligentProduct.ProductAgent;
 import repast.simphony.engine.environment.RunEnvironment;
@@ -28,7 +26,7 @@ public class BufferAgent implements ResourceAgent {
 	
 	private HashMap<ResourceAgent, ProductState>  tableNeighborNode;
 	private Transformer<ResourceEvent, Integer> weightTransformer;
-	private RASchedule schedule;
+	private RASchedule RAschedule;
 
 	public BufferAgent(String name, BufferLLC buffer){
 		this.buffer = buffer;
@@ -37,12 +35,12 @@ public class BufferAgent implements ResourceAgent {
 		createOutputGraph();
 		//Transformer for shortest path
 		this.weightTransformer = new Transformer<ResourceEvent,Integer>(){
-	       	public Integer transform(ResourceEvent edge) {return edge.getWeight();}
+	       	public Integer transform(ResourceEvent edge) {return edge.getEventTime();}
 		};
 		
 		this.neighbors = new ArrayList<ResourceAgent>();
 		
-		this.schedule = new RASchedule(this);
+		this.RAschedule = new RASchedule(this);
 	}
 	
 	/* (non-Javadoc)
@@ -71,21 +69,22 @@ public class BufferAgent implements ResourceAgent {
 	
 
 	@Override
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode,
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<ResourceEvent> edgeList) {
-
-		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
-				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, bufferCapabilities, weightTransformer);
-	}
-
-	@Override
-	public RASchedule getSchedule() {
-		return this.schedule;
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode, 
+			int maxTime, DirectedSparseGraph<ProductState,ResourceEvent> bid, int currentTime) {
+		
+		new ResourceAgentHelper().teamQuery(productAgent, desiredProperty, currentNode, maxTime, bid,
+				currentTime, this, neighbors, tableNeighborNode, bufferCapabilities, weightTransformer);
 	}
 
 	//================================================================================
     // Product agent scheduling
     //================================================================================
+	
+	
+	@Override
+	public RASchedule getSchedule() {
+		return this.RAschedule;
+	}
 	
 	@Override
 	public boolean requestScheduleTime(ProductAgent productAgent,ResourceEvent edge, int startTime, int endTime) {
@@ -94,7 +93,7 @@ public class BufferAgent implements ResourceAgent {
 	}
 
 	@Override
-	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
+	public boolean removeScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
 		return true;
 	}
 
@@ -115,7 +114,7 @@ public class BufferAgent implements ResourceAgent {
 	 */
 	@Override
 	public boolean query(ResourceEvent queriedEdge, ProductAgent productAgent) {
-		// No need to check if the part is on schedule since it's a buffer
+		// No need to check if the part is on RAschedule since it's a buffer
 		String program = queriedEdge.getActiveMethod();
 		
 		//If the queried program is true, 
@@ -170,7 +169,7 @@ public class BufferAgent implements ResourceAgent {
 	private void informPA(ProductAgent productAgent, ResourceEvent edge){
 		//Using the edge of the weight (might need to check with Robot LLC in the future)
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent, "informEvent", new Object[]{edge});
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent, "informEvent", new Object[]{edge});
 	}
 	
 	//================================================================================

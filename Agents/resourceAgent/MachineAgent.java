@@ -46,7 +46,7 @@ public class MachineAgent implements ResourceAgent{
 		createOutputGraph();
 		//Transformer for shortest path
 		this.weightTransformer = new Transformer<ResourceEvent,Integer>(){
-	       	public Integer transform(ResourceEvent edge) {return edge.getWeight();}
+	       	public Integer transform(ResourceEvent edge) {return edge.getEventTime();}
 		};
 		
 		this.neighbors = new ArrayList<ResourceAgent>();
@@ -80,10 +80,10 @@ public class MachineAgent implements ResourceAgent{
 	
 	@Override
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode, 
-			int currentTime, int maxTime, ArrayList<ResourceAgent> teamList, ArrayList<ResourceEvent> edgeList) {
+			int maxTime, DirectedSparseGraph<ProductState,ResourceEvent> bid, int currentTime) {
 		
-		new ResourceAgentHelper().teamQuery(this, productAgent, desiredProperty, currentNode,
-				currentTime, maxTime, teamList, edgeList, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
+		new ResourceAgentHelper().teamQuery(productAgent, desiredProperty, currentNode, maxTime, bid,
+				currentTime, this, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
 	}
 	
 	//================================================================================
@@ -94,16 +94,16 @@ public class MachineAgent implements ResourceAgent{
 	public RASchedule getSchedule() {
 		return this.RAschedule;
 	}
-
+	
 	@Override
 	public boolean requestScheduleTime(ProductAgent productAgent,ResourceEvent edge, int startTime, int endTime) {
-		int edgeOffset = edge.getWeight() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
+		int edgeOffset = edge.getEventTime() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getEventTime();
 		return this.RAschedule.addPA(productAgent, startTime+edgeOffset, endTime, false);
 	}	
 
 	@Override
-	public boolean removeScheduleTime(ProductAgent productAgent, int startTime) {
-		return this.removeScheduleTime(productAgent, startTime);
+	public boolean removeScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
+		return this.removeScheduleTime(productAgent, startTime, endTime);
 	}
 	
 	//================================================================================
@@ -128,12 +128,12 @@ public class MachineAgent implements ResourceAgent{
 		}
 		
 		//Find the offset between the queried edge and when the actual program should be run
-		int edgeOffset = queriedEdge.getWeight() - this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getWeight();
+		int edgeOffset = queriedEdge.getEventTime() - this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getEventTime();
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		double startTime = schedule.getTickCount()+edgeOffset;
 		
 		//If the product agent is scheduled for this time, run the desired program
-		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getWeight())){
+		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getEventTime())){
 			if (desiredEdge.getActiveMethod() == "Hold"){
 				this.machine.doNothing();
 				informPA(productAgent, desiredEdge);
@@ -160,7 +160,7 @@ public class MachineAgent implements ResourceAgent{
 	private void informPA(ProductAgent productAgent, ResourceEvent edge){
 		//Using the edge of the weight (might need to check with Robot LLC in the future)
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
 				"informEvent", new Object[]{edge});
 		
 		// If this is not a hold method (i.e. one of the programs was run)
@@ -168,7 +168,7 @@ public class MachineAgent implements ResourceAgent{
 		if (!(edge.getActiveMethod() == "Hold")){
 			for (ResourceEvent resetEdge : this.machineCapabilities.getIncidentEdges(edge.getChild())){
 				if (resetEdge.getActiveMethod()=="Reset"){
-					schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getWeight()), productAgent,
+					schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
 							"informEvent", new Object[]{resetEdge});
 				}
 			}

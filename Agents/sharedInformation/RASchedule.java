@@ -127,9 +127,10 @@ public class RASchedule {
 	/** Removes a product agent from the schedul
 	 * @param productAgentName
 	 * @param startTime
+	 * @param endTime 
 	 * @return 
 	 */
-	public boolean removePA(ProductAgent productAgent, int startTime){
+	public boolean removePA(ProductAgent productAgent, int startTime, int endTime){
 		String productAgentName = productAgent.toString();
 		
 		for(int index = 0; index < this.startTimes.size(); index++){

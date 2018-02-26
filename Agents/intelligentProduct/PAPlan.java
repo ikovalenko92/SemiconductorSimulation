@@ -165,7 +165,7 @@ public class PAPlan {
 	}
 	
 	public String changeToAction(ResourceEvent edge){
-		return "" + edge.getActiveAgent() + "," + edge.getActiveMethod();
+		return "" + edge.getEventAgent() + "," + edge.getActiveMethod();
 	}
 	
 	

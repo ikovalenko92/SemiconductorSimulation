@@ -2,7 +2,9 @@ package intelligentProduct;
 
 import java.util.ArrayList;
 
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import resourceAgent.ResourceAgent;
+import sharedInformation.ProductState;
 import sharedInformation.ResourceEvent;
 
 public interface ProductAgent {
@@ -10,7 +12,7 @@ public interface ProductAgent {
 	public String getPartName();
 	
 	//================================================================================
-    // Part agent communication
+    // PA to PA communication
     //================================================================================
 	
 	public int getPriority();
@@ -26,12 +28,23 @@ public interface ProductAgent {
 	public void initializeExitPlan();
 	
 	//================================================================================
-    // Resource agent communication
+    // RA to PA communication
     //================================================================================
 	
-	public void informEvent(ResourceEvent edge);
+	/** Input to the event translator
+	 * @param systemOutput
+	 * @param currentState
+	 * @param occuredEvents
+	 */
+	public void informEvent(DirectedSparseGraph<ProductState,ResourceEvent> systemOutput, ProductState currentState, ArrayList<ResourceEvent> occuredEvents);
 	
-	public void submitBid(ArrayList<ResourceAgent> resourceList, ArrayList<ResourceEvent> edgeList);
+	/**  Input to the bid translator
+	 * @param bid DirectedSparseGraph
+	 */
+	public void submitBid(DirectedSparseGraph<ProductState,ResourceEvent> bid);
 	
-	public void updateEdge(ResourceEvent oldEdge, ResourceEvent newEdge);
+	/** Input to the scheduling translator
+	 * @param rescheduleEdge
+	 */
+	public void updateEdge(ResourceEvent rescheduleEdge);
 }

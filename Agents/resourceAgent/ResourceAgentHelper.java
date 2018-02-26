@@ -3,6 +3,7 @@ package resourceAgent;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections15.Transformer;
@@ -24,7 +25,7 @@ public class ResourceAgentHelper {
 	 * @param resourceAgent
 	 * @param productAgent
 	 * @param desiredProperty
-	 * @param currentNode
+	 * @param currentPartState
 	 * @param currentTime
 	 * @param maxTime
 	 * @param teamList
@@ -33,24 +34,39 @@ public class ResourceAgentHelper {
 	 * @param capabilities
 	 * @param weightTransformer
 	 */
-	public void teamQuery(ResourceAgent resourceAgent, ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode,
-			int currentTime, int maxTimeAllowed, ArrayList<ResourceAgent> teamList, ArrayList<ResourceEvent> edgeList, ArrayList<ResourceAgent> neighbors,
-			HashMap<ResourceAgent, ProductState> tableNeighborNode,	DirectedSparseGraph<ProductState,ResourceEvent> RAcapabilities, Transformer<ResourceEvent, Integer> weightTransformer) {
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty,	ProductState currentPartState, int maxTimeAllowed,
+			DirectedSparseGraph<ProductState,ResourceEvent> existingBid, int currentTime,
+			// Resource Specific Information below. This is necessary because the ResourceAgentHelper method is outside the RA.
+			// If the teamQuery() was inside the RA, the below information could be accessed locally and doesn't need to be passed in the method.
+			ResourceAgent resourceAgent, ArrayList<ResourceAgent> neighbors, HashMap<ResourceAgent, ProductState> tableNeighborNode,
+			DirectedSparseGraph<ProductState,ResourceEvent> RAcapabilities, Transformer<ResourceEvent, Integer> weightTransformer) {
 		
-		//Set-up. New lists are created for pointer purposes
-		ArrayList<ResourceAgent> newTeamList = new ArrayList<ResourceAgent>(teamList);
-		ArrayList<ResourceEvent> newEdgeList = new ArrayList<ResourceEvent>(edgeList);
-		DirectedSparseGraph<ProductState,ResourceEvent> capabilities = copyGraph(RAcapabilities);
+		DirectedSparseGraph<ProductState,ResourceEvent> updatedCapabilities = copyGraph(RAcapabilities); //need to update based on current schedule
+		//Copy graphs to not mess with pointers
+		DirectedSparseGraph<ProductState,ResourceEvent> bid = copyGraph(existingBid);
+		DirectedSparseGraph<ProductState,ResourceEvent> searchGraph = copyGraph(existingBid);
+		
+		// 1. Update events in capabilities based on current schedule
+		// 2. Create new full graph (capabilities + bid)
+		Iterator<ResourceEvent> itr = updatedCapabilities.getEdges().iterator();
+		while (itr.hasNext()){
+			// Find the edge and update it based on current schedule
+			ResourceEvent edge = itr.next();
+			edge.setWeight(resourceAgent.getSchedule().getNextFreeTime(currentTime,edge.getEventTime()));
+			
+			//Add to entire graph
+			searchGraph.addEdge(edge, edge.getParent(), edge.getChild());
+		}
 				
 		DijkstraShortestPath<ProductState, ResourceEvent> shortestPathGetter = 
-				new DijkstraShortestPath<ProductState, ResourceEvent>(capabilities, weightTransformer);
+				new DijkstraShortestPath<ProductState, ResourceEvent>(searchGraph, weightTransformer);
 		shortestPathGetter.reset();
 		
 		
-		//Check if a vertex satisfies a desired property
+		//Check if a node in the capabilities graph satisfies a desired property
 		boolean flag = false;
 		ProductState desiredVertex = null;
-		for (ProductState vertex : capabilities.getVertices()){
+		for (ProductState vertex : updatedCapabilities.getVertices()){
 			if(vertex.getPhysicalProperties().contains(desiredProperty)){
 				flag = true;
 				desiredVertex = vertex;
@@ -62,72 +78,50 @@ public class ResourceAgentHelper {
 		if (flag){
 			
 			//Find the shortest path
-			List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, desiredVertex);
-			int pathValue = shortestPathGetter.getDistanceMap(currentNode).get(desiredVertex).intValue();
-			
-			//Find the time when the resource is available and add it to the bid
-			int nextTimeAvailable = resourceAgent.getSchedule().getNextFreeTime(currentTime,pathValue);	
-			int timeOffset = nextTimeAvailable-currentTime;
-			
-			for (ResourceEvent edge:shortestPathCandidateList){
-				edge.setWeight(edge.getWeight()+timeOffset);
-			}
+			List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(currentPartState, desiredVertex);
+			int pathValue = shortestPathGetter.getDistanceMap(currentPartState).get(desiredVertex).intValue();
 			
 			//Calculate the bid
 			int bidTime = currentTime;
-			for (ResourceEvent pathNode : shortestPathCandidateList){
-				bidTime = bidTime + pathNode.getWeight();
-				newEdgeList.add(pathNode);
+			for (ResourceEvent path : shortestPathCandidateList){
+				bidTime = bidTime + path.getEventTime();
+				bid.addEdge(path, path.getParent(), path.getChild());
 			}
-	
+			
 			//Submit the bid to the product agent
 			if (bidTime < currentTime + maxTimeAllowed){
-				newTeamList.add(resourceAgent); // Add to the team
-				productAgent.submitBid(newTeamList, newEdgeList);
+				productAgent.submitBid(bid);
 			}	
 		}
 		
 		//Push the bid negotiation to a neighbor
-		for (ResourceAgent neighbor: neighbors){
-			//If the neighbor isn't already part of the team
-			if (!teamList.contains(neighbor)){
-				newTeamList.clear(); //Reset previous instance of the newTeamList
-				newTeamList.addAll(teamList); //Add the initial team list
-				
-				ProductState neighborNode = tableNeighborNode.get(neighbor);
+		for (ResourceAgent neighbor: neighbors){	
+			ProductState neighborNode = tableNeighborNode.get(neighbor);
 
-				//Find the shortest path
-				List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(currentNode, neighborNode);
-				int pathValue = shortestPathGetter.getDistanceMap(currentNode).get(neighborNode).intValue();
-				
-				//Find the time when the resource is available and add it to the bid
-				int nextTimeAvailable = resourceAgent.getSchedule().getNextFreeTime(currentTime,pathValue);
-				int timeOffset = nextTimeAvailable-currentTime;
-									
-				for (ResourceEvent edge:shortestPathCandidateList){
-					edge.setWeight(edge.getWeight()+timeOffset);
-				}
-				
-				//Calculate the bid
-				int bidTime = currentTime; //Reset bid time
-				newEdgeList.clear(); //Reset previous instance of the newTeamList
-				newEdgeList.addAll(edgeList); //Add the initial team list
-				for (ResourceEvent pathNode : shortestPathCandidateList){
-					bidTime = bidTime + pathNode.getWeight();
-					newEdgeList.add(pathNode);
-				}
-				
-				//Push the bid to the resource agent
-				if (bidTime < currentTime + maxTimeAllowed){
-					newTeamList.add(resourceAgent); // Add to the team
-					neighbor.teamQuery(productAgent, desiredProperty, neighborNode, bidTime, maxTimeAllowed, newTeamList, newEdgeList);
-				}
+			//Find the shortest path
+			List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(currentPartState, neighborNode);
+			int pathValue = shortestPathGetter.getDistanceMap(currentPartState).get(neighborNode).intValue();
+			
+			//Calculate the bid
+			int bidTime = currentTime; //Reset bid time
+			for (ResourceEvent path : shortestPathCandidateList){
+				bidTime = bidTime + path.getEventTime();
+				bid.addEdge(path, path.getParent(), path.getChild());
+			}
+			
+			//Push the bid to the resource agent
+			if (bidTime < currentTime + maxTimeAllowed){
+				neighbor.teamQuery(productAgent, desiredProperty, currentPartState, maxTimeAllowed, bid, bidTime);
 			}
 		}
 		
 		//For garbage collector
-		clearGraph(capabilities);
-		capabilities = null;
+		clearGraph(updatedCapabilities);
+		updatedCapabilities = null;
+		clearGraph(bid);
+		bid = null;
+		clearGraph(searchGraph);
+		searchGraph = null;
 	}
 
 	/** Copies the graph
