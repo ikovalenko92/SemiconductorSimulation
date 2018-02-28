@@ -26,7 +26,7 @@ public interface ResourceAgent {
     //================================================================================
 	
 	/**
-	 * Bidding propogation to find resource agent teammates to complete a requested task
+	 * Bidding propagation to find resource agent teammates to complete a requested task
 	 * @param productAgent The product agent sending the request
 	 * @param desiredProperty The product agent sending the request
 	 * @param currentTime The current time

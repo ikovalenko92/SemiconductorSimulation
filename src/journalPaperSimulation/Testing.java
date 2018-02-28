@@ -14,6 +14,8 @@ import sharedInformation.ResourceEvent;
 import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
+
+//NOT USING RIGHT NOW
 public class Testing {
 
 
@@ -32,7 +34,6 @@ public class Testing {
 		this.part = part;
 	}
 
-	@ScheduledMethod (start = 2)
 	public void start(){
 		ArrayList<String> desiredList = new ArrayList<String>();
 		desiredList.add("S1");
@@ -42,10 +43,10 @@ public class Testing {
 		desiredList.add("S5");
 		desiredList.add("S6");
 		ProductState startingNode = new ProductState(this.listBufferLLC.get(0).getBuffer(), null, new PhysicalProperty(this.bufferLocations[0]));
-		ProductAgentInstance productAgentInstance = new ProductAgentInstance(this.part, desiredList, this.listBufferAgent.get(0), startingNode, 0);
+		//ProductAgentInstance productAgentInstance = new ProductAgentInstance(this.part, desiredList, this.listBufferAgent.get(0), startingNode, 0);
 		
-		productAgentInstance.informEvent(new ResourceEvent(this.listBufferAgent.get(0), null, startingNode, null, 0));
-		cyberContext.add(productAgentInstance);
+		//productAgentInstance.informEvent(new ResourceEvent(this.listBufferAgent.get(0), null, startingNode, null, 0));
+		//cyberContext.add(productAgentInstance);
 	}
 	
 	

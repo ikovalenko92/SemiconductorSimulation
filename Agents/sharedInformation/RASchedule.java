@@ -138,8 +138,17 @@ public class RASchedule {
 			if (startTime >= this.startTimes.get(index) && startTime< this.endTimes.get(index) && productAgentName.equals(this.productAgents.get(index))){
 				//Remove the product agent if the proposed scheduled agent is found
 				this.startTimes.remove(index);
-				this.endTimes.remove(index);
-				this.productAgents.remove(index);
+				
+				//Check if the desired end time is after the indexed end time
+				if (endTime>=this.endTimes.get(index)){
+					this.endTimes.remove(index);
+					this.productAgents.remove(index);
+				}
+				//If it is not, just shorten the length of the event by moving the start time to the proposed endTime
+				else{
+					this.startTimes.add(index, endTime);
+				}
+				
 				return true;
 			}
 		}

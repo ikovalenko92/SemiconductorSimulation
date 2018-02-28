@@ -1,4 +1,4 @@
-package intelligentProduct;
+package initializingAgents;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,11 +6,9 @@ import sharedInformation.PhysicalProperty;
 
 public class ProductionPlan {
 
-	private ProductAgentInstance productAgentInstance;
 	private ArrayList<HashSet<PhysicalProperty>> setList;
 	
-	public ProductionPlan(ProductAgentInstance productAgentInstance) {
-		this.productAgentInstance = productAgentInstance;
+	public ProductionPlan() {
 		
 		this.setList = new ArrayList<HashSet<PhysicalProperty>>();
 		HashSet<PhysicalProperty> initialSet = new HashSet<PhysicalProperty>();
@@ -29,7 +27,7 @@ public class ProductionPlan {
 			output = output + "},";
 		}
 		
-		return "Production Plan for " + this.productAgentInstance + ": " + output;
+		return output;
 	}
 
 

@@ -1108,3 +1108,253 @@ Edges:
 	at intelligentProduct.ProductAgentInstance.getBestPath(LotProductAgent.java:233)
 	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:290)
 	... 9 more
+WARN  [Thread-6] 2018-02-27 16:05:32,520 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Robot.Robot, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-6] 2018-02-27 16:05:32,521 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Robot.Robot, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:56)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-7] 2018-02-27 16:06:16,612 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Robot.Robot, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-7] 2018-02-27 16:06:16,613 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Robot.Robot, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:56)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-8] 2018-02-27 16:07:54,538 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Robot.Robot, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-8] 2018-02-27 16:07:54,539 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Robot.Robot, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:57)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-9] 2018-02-27 16:12:09,416 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Robot.Robot, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-9] 2018-02-27 16:12:09,416 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Robot.Robot, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:56)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-10] 2018-02-27 16:13:05,887 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Part.Part, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-10] 2018-02-27 16:13:05,888 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Part.Part, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:56)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-11] 2018-02-27 16:15:42,826 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Part.Part, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-11] 2018-02-27 16:15:42,826 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Part.Part, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:56)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-12] 2018-02-27 16:16:00,923 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Part.Part, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-12] 2018-02-27 16:16:00,923 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Part.Part, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:56)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-13] 2018-02-27 16:25:20,816 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Part.Part, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-13] 2018-02-27 16:25:20,816 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Part.Part, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:56)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-14] 2018-02-27 16:28:03,854 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Part.Part, class [Ljava.lang.Object;])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-14] 2018-02-27 16:28:03,854 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Part.Part, [Ljava.lang.Object;) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:56)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more
+WARN  [Thread-15] 2018-02-27 16:28:29,028 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'moveTo([class Robot.Robot, class java.lang.Integer, class java.lang.Integer])' in class repast.simphony.context.space.grid.ContextGrid, returning null
+FATAL [Thread-15] 2018-02-27 16:28:29,029 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.IllegalArgumentException: Method repast.simphony.context.space.grid.ContextGrid.moveTo(Robot.Robot, java.lang.Integer, java.lang.Integer) not found!
+	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
+	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
+	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
+	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
+	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
+	at resourceAgent.ExitAgent.query(ExitAgent.java:58)
+	at intelligentProduct.ProductAgentInstance.queryResource(ProductAgentInstance.java:206)
+	... 9 more

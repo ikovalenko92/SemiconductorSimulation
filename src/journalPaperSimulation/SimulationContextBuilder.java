@@ -1,6 +1,8 @@
 package journalPaperSimulation;
 
 
+import initializingAgents.PartCreatorforBuffer;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +11,6 @@ import Buffer.Buffer;
 import Buffer.BufferLLC;
 import Machine.Machine;
 import Machine.MachineLLC;
-import Part.PartCreatorforBuffer;
 import Robot.Robot;
 import Robot.RobotLLC;
 import repast.simphony.context.Context;
@@ -22,6 +23,7 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.SimpleGridAdder;
 import resourceAgent.BufferAgent;
+import resourceAgent.ExitAgent;
 import resourceAgent.MachineAgent;
 import resourceAgent.RobotAgent;
 import sharedInformation.ResourceEvent;
@@ -34,6 +36,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private final int XDIM = 160;
 	private final int YDIM = 120;
 	
+//================================================================================
+// START OF VARIABLE INITIALIZING
+//================================================================================	
 	
     //================================================================================
     // Machine
@@ -77,17 +82,6 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
 			machineTRPoint, machineTSPoint, machineTTPoint};
 	
-	/*int scale = 10;
-	//Time for processes
-	//int S1time = 225*scale;
-	int S1time = 22*scale;
-	int S2time = 30*scale;
-	int S3time = 55*scale;
-	int S4time = 50*scale;
-	//int S5time = 255*scale;
-	int S5time = 25*scale;
-	int S6time = 10*scale;*/
-	
 	int scale = 10;
 	//Time for processes
 	//int S1time = 225*scale;
@@ -130,7 +124,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
  
 
     //================================================================================
-    // Storage
+    // Buffers
     //================================================================================
 	
 	/**
@@ -280,11 +274,19 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	//The index of the BUFFER neighbors for all of the robots
 	private final int[][] robotBufferNeighborIndices = new int[][]{robotB1BufferIndex, robotB2BufferIndex, robotB3BufferIndex,	robotB4BufferIndex, robotB5BufferIndex, robotB6BufferIndex, robotM12BufferIndex, robotM34BufferIndex, robotM56BufferIndex};
 	private HashMap<Point, Object> tableLocationObject;
+	
+	//================================================================================
+    // Exit Agent
+    //================================================================================
 
-			
+	private final Point exitHumanPoint = new Point(10,10);
+	private ExitAgent exitHumanAgent;
+	
 //================================================================================
 // START OF METHODS
 //================================================================================
+	
+	
 	@Override
 	public Context<Object> build(Context<Object> context) {
 		
@@ -382,6 +384,16 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			
 			this.tableLocationObject.put(this.robotLocations[index], robot);			
 		}
+		
+		//================================================================================
+	    // Exit Robot (and Agent)
+	    //================================================================================
+		
+		Robot exitHumanRobot = new Robot("exitHuman", exitHumanPoint, 200, physicalGrid, 200);
+		physicalContext.add(exitHumanRobot);
+		physicalGrid.moveTo(exitHumanRobot, exitHumanPoint.x,exitHumanPoint.y);
+		this.exitHumanAgent = new ExitAgent("exitHumanAgent", exitHumanRobot, "exit", physicalGrid);
+		cyberContext.add(exitHumanRobot);
 	}
 	
 	private void buildAgentNetwork(Context<Object> cyberContext) {
@@ -435,7 +447,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		
 		//================================================================================
-	    // Resource agent neighbors
+	    // Resource agents neighbors
 	    //================================================================================
 		
 		//For resource agents, populate 
@@ -460,14 +472,13 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			}
 		}
 		
-		
 	}
 	
 
 	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
 		PartCreatorforBuffer partCreator = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				physicalGrid, physicalContext, cyberContext);
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext);
 		cyberContext.add(partCreator);
 		
 		//================================================================================

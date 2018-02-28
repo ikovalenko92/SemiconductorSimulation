@@ -118,13 +118,7 @@ public class PAPlan {
 			}
 		}
 		
-		/*int index = actions.indexOf(action);
-		if (index != -1){
-			if (actions.size()-1 == index){return null;}
-			return changeToEdge(actions.get(index+1));
-		}*/
-		
-		//System.out.println("No " + action + " planned for " + this.productAgent);
+		System.out.println("No " + action + " planned for " + this.productAgent);
 		return null;
 	}
 	

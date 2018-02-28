@@ -8,21 +8,21 @@ import sharedInformation.ResourceEvent;
 import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
-public class AgentBeliefModel extends DirectedSparseGraph<ProductState, ResourceEvent>{
+public class EnvironmentModel extends DirectedSparseGraph<ProductState, ResourceEvent>{
 
 	private ProductState currentNode = null;
 	private ArrayList<ProductState> desiredNodes = new ArrayList<ProductState>();
 	private ProductState dummyEmptyNode;
 	private ResourceEvent startingEdge;
 	
-	public AgentBeliefModel(ProductState currentNode){
+	public EnvironmentModel(ProductState currentNode){
 		this.dummyEmptyNode = new ProductState(null, null, new PhysicalProperty(new Point(0,0)));
 		this.currentNode = currentNode;
 		this.startingEdge = new ResourceEvent(null, dummyEmptyNode, currentNode, null, 0);
 		this.addEdge(startingEdge, dummyEmptyNode, currentNode);
 	}
 	
-	public AgentBeliefModel(ProductAgentInstance productAgentInstance,
+	public EnvironmentModel(ProductAgentInstance productAgentInstance,
 			ProductState startingNode) {
 		// TODO Auto-generated constructor stub
 	}

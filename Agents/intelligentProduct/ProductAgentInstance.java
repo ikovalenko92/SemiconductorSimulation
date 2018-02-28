@@ -1,5 +1,8 @@
 package intelligentProduct;
 
+import initializingAgents.ExitPlan;
+import initializingAgents.ProductionPlan;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,34 +24,7 @@ import sharedInformation.PhysicalProperty;
  * @author ikoval
  *
  */
-public class ProductAgentInstance implements ProductAgent{
-	
-
-	@Override
-	public void initializeProductionPlan() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void initializeExitPlan() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
-	@Override
-	public void informEvent(DirectedSparseGraph<ProductState, ResourceEvent> systemOutput, ProductState currentState,
-			ArrayList<ResourceEvent> occuredEvents) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateEdge(ResourceEvent rescheduleEdge) {
-		// TODO Auto-generated method stub
-		
-	}
+public class ProductAgentInstance implements ProductAgent{	
 	
 	private String partName;
 	private int PANumber = -1;
@@ -59,24 +35,25 @@ public class ProductAgentInstance implements ProductAgent{
 	private ProductionPlan productionPlan;
 	private ExitPlan exitPlan;
 	private ProductHistory productHistory;
-	private AgentBeliefModel beliefModel;
-	private PAPlan agentPlan;
+	private EnvironmentModel beliefModel;
+	private PAPlan plan;
 	
 	private ResourceEvent queriedEdge;
 	private ResourceAgent lastResourceAgent;
 	
+	private ISchedule simulationSchedule;
 	
-	public ProductAgentInstance(Part part, ArrayList<String> processesNeeded, ResourceAgent startingResource, 
-			ProductState startingNode, int priority){
+	public ProductAgentInstance(Part part, ResourceAgent startingResource, ProductState startingNode, int priority,
+			ProductionPlan productionPlan, ExitPlan exitPlan){
 		this.partName = part.toString();
 		this.priority = priority;
 		
 		//Initialize the Knowledge Base
-		this.productionPlan = new ProductionPlan(this);
-		this.exitPlan = new ExitPlan(this);
-		this.productHistory = new ProductHistory(this,startingNode);
-		this.beliefModel = new AgentBeliefModel(this,startingNode);
-		this.agentPlan = new PAPlan(this);
+		this.productionPlan = productionPlan; // Production Plan
+		this.exitPlan = exitPlan; 
+		this.productHistory = new ProductHistory(this,startingNode); //Product History
+		this.beliefModel = new EnvironmentModel(this,startingNode); // Environment Model
+		this.plan = new PAPlan(this); //Agent Plan
 		
 		//Don't need to start the bidding process
 		this.startSchedulingMethod = false;
@@ -85,48 +62,42 @@ public class ProductAgentInstance implements ProductAgent{
 		this.beliefModel.setCurrentNode(startingNode);
 		
 		//No edge queried
-		this.queriedEdge = null;		
+		this.queriedEdge = null;
+		
+		this.simulationSchedule = RunEnvironment.getInstance().getCurrentSchedule();
 	}
 	
 	public void setPANumber(int number){
 		this.PANumber = number;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "PA" + this.PANumber + " for " + this.partName;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see intelligentProduct.ProductAgent#getPartName()
-	 */
 	public String getPartName(){
 		return this.partName;
 	}
-
+	
 	//================================================================================
-    // Part communication
+    // Decision Director
+    //================================================================================
+
+	private void updateEnvironmentModel(DirectedSparseGraph<ProductState, ResourceEvent> systemOutput,
+			ProductState currentState, ArrayList<ResourceEvent> occuredEvents) {
+		// TODO Auto-generated method stub
+	}
+	
+	private ResourceEvent requestNewPlan() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//================================================================================
+    // Exploring/Bidding (RA Communication)
     //================================================================================
 	
-	@Override
-	public int getPriority() {
-		return this.priority;
-	}
-
-	@Override
-	public void rescheduleRequest(ResourceAgent resourceAgent, int startTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	//================================================================================
-    // Communication from Resources
-    //================================================================================
-
 	@Override
 	public void submitBid(DirectedSparseGraph<ProductState, ResourceEvent> bid) {
 		
@@ -140,10 +111,40 @@ public class ProductAgentInstance implements ProductAgent{
 		}	
 		
 		//Add all of the edges in the bid to the agent belief model
-		this.beliefModel.addEdges(edgeList);
+		//this.beliefModel.addEdges(edgeList);
 		
 		//Add the last node as a desired node to the agent belief model
-		this.beliefModel.addDesiredNode(edgeList.get(edgeList.size()-1).getChild());
+		//this.beliefModel.addDesiredNode(edgeList.get(edgeList.size()-1).getChild());
+	}
+	
+	/**
+	 * Start a bidding process using the starting resource
+	 * @param resource
+	 * @param startingNode 
+	 */
+	private void startBidding(ResourceAgent resource, ProductState startingNode) {
+		this.beliefModel.clear();
+		
+		//For the next needed process, request bids
+		PhysicalProperty property = this.getDesiredProperty();
+		int currentTime = (int) RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		//resource.teamQuery(this, property, startingNode, currentTime, this.getBidTime(), new ArrayList<ResourceAgent>(), new ArrayList<ResourceEvent>());
+	}
+	
+	
+	/** The function for the product agent to set the bid time
+	 * @return
+	 */
+	private int getBidTime() {
+		return 3000;
+	}
+	//================================================================================
+    // Planning/Scheduling (RA Communication)
+    //================================================================================
+
+	@Override
+	public void updateEdge(ResourceEvent rescheduleEdge) {
+		// TODO Auto-generated method stub
 	}
 	
 	public void updateEdge(ResourceEvent oldEdge, ResourceEvent newEdge){
@@ -162,47 +163,82 @@ public class ProductAgentInstance implements ProductAgent{
 		}
 	}
 
-	public void informEvent(ResourceEvent edge) {
+	/**
+	 * Called by the scheduling method
+	 */
+	public void startScheduling(){
+		List<ResourceEvent> bestPath = this.getBestPath(); //Use the best bid
 		
+		//Schedule 1 tick in the future
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double startTime = schedule.getTickCount();
+		int futureScheduleTime = (int) (startTime+1);
 		
-		//Save the last resource
-		this.lastResourceAgent = edge.getEventAgent();
+		//Flag if scheduling doesn't work
+		boolean badPathFlag = false;
+		ArrayList<ResourceAgent> scheduledPathAgents = new ArrayList<ResourceAgent>();
+		ArrayList<Integer> scheduledPathTimes = new ArrayList<Integer>();
 		
-		//If there is no next action to do (new part or finished with current desired task), ask for more bids 
-		if (this.agentPlan.getNextAction(edge, (int) schedule.getTickCount()) == null){
-			
-			for (PhysicalProperty property : edge.getChild().getPhysicalProperties()){
-				//if (this.processesNeeded.contains(property)){
-					//this.processesDone.add(property);
-				//}
+		//For each edge in the path, request to schedule the action with the desired RA
+		for (ResourceEvent edge : bestPath){			
+			//int edgeOffset = edge.getWeight() - edge.getActiveAgent().getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
+			if (!edge.getEventAgent().requestScheduleTime(this, edge, futureScheduleTime, futureScheduleTime + edge.getEventTime())){
+				badPathFlag = true;
+				break;
 			}
+			this.plan.addAction(edge, futureScheduleTime);
 	
-			startBidding(lastResourceAgent, beliefModel.getCurrentNode());
+			//Keep track of the schedule so that we can remove it if there is a bad path
+			scheduledPathTimes.add(futureScheduleTime);
+			scheduledPathAgents.add(edge.getEventAgent());
+			
+			futureScheduleTime += edge.getEventTime();	
 		}
-		
-		//If the event is part of your local environmnet
-		else{			
-			//Update the belief model of the current node
-			this.beliefModel.setCurrentNode(edge.getChild());
-			
-			//Find the next planned action to request from the RA
-			ResourceEvent nextEdge = this.agentPlan.getNextAction(queriedEdge, (int) schedule.getTickCount());			
-			
-			//If the next action matches the current state of the part, then do it.
-			if (nextEdge.getParent().equals(this.beliefModel.getCurrentNode())){
-				schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(nextEdge,(int) schedule.getTickCount())), 
-						this, "queryResource", new Object[]{nextEdge.getEventAgent(),nextEdge});
+		if (!badPathFlag){
+			//Scheduling method was finished
+			this.startSchedulingMethod = false;
+			scheduledPathTimes = null;
+			scheduledPathAgents = null;
+				
+			//Start the querying method (1 tick in the future)
+			ResourceEvent queryEdge = plan.getActionatNextTime((int) startTime+1);
+			schedule.schedule(ScheduleParameters.createOneTime(this.plan.getTimeofAction(queryEdge,(int) startTime)), this, "queryResource", 
+					new Object[]{queryEdge.getEventAgent(), queryEdge});			
+		}
+		else{
+			//For each edge in the path, request to remove the scheduled actions with the desired RA
+			for (int index = 0; index<scheduledPathAgents.size();index++){
+				//scheduledPathAgents.get(index).removeScheduleTime(this, scheduledPathTimes.get(index));
 			}
 			
-			// Else, reschedule based on the current agent belief model
-			else{
-//TODO reschedule for all methods
-				//this.startScheduling();
-			}
+			//Garbage collecting
+			scheduledPathTimes = null;
+			scheduledPathAgents = null;
+			
+			//Ask for biddings again
+			startBidding(lastResourceAgent, beliefModel.getCurrentNode());
 		}
 	}
 	
+	//================================================================================
+    // Execution (RA Communication)
+    //================================================================================
+	
+	@Override
+	public void informEvent(DirectedSparseGraph<ProductState, ResourceEvent> systemOutput, ProductState currentState,
+			ArrayList<ResourceEvent> occuredEvents) {
+		updateEnvironmentModel(systemOutput,currentState,occuredEvents);
+		
+		ResourceEvent nextAction = this.plan.getNextAction(occuredEvents.get(occuredEvents.size()-1), (int) simulationSchedule.getTickCount());
+		
+		if (nextAction == null){
+			nextAction = requestNewPlan();
+		}
+		int nextEventTime = this.plan.getTimeofAction(nextAction,(int) simulationSchedule.getTickCount());
+		this.simulationSchedule.schedule(ScheduleParameters.createOneTime(nextEventTime), 
+				this, "queryResource", new Object[]{nextAction.getEventAgent(),nextAction});
+	}
+
 	/** Query an action from a resource
 	 * @param resourceAgent
 	 * @param edge
@@ -214,12 +250,11 @@ public class ProductAgentInstance implements ProductAgent{
 		
 		if (!queried){
 			System.out.println("" + this + " query did not work for " + resourceAgent + " " + edge);
-			//this.startBidding(this.lastResourceAgent, this.beliefModel.getCurrentNode());
 		}
 	}
 	
 	//================================================================================
-    // Internal decision - helper methods
+    // Decision Maker - helper methods
     //================================================================================
 	
 	/** Finding the "best" (according to the weight transformer function) path
@@ -259,30 +294,9 @@ public class ProductAgentInstance implements ProductAgent{
 		};
 	}
 	
-	/** The function for the product agent to set the bid time
-	 * @return
-	 */
-	private int getBidTime() {
-		return 3000;
-	}
-	
 	//================================================================================
     // Communication sequence - helper methods
     //================================================================================
-	
-	/**
-	 * Start a bidding process using the starting resource
-	 * @param resource
-	 * @param startingNode 
-	 */
-	private void startBidding(ResourceAgent resource, ProductState startingNode) {
-		this.beliefModel.clear();
-		
-		//For the next needed process, request bids
-		PhysicalProperty property = this.getDesiredProperty();
-		int currentTime = (int) RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
-		resource.teamQuery(this, property, startingNode, currentTime, this.getBidTime(), new ArrayList<ResourceAgent>(), new ArrayList<ResourceEvent>());
-	}
 	            
 	/** The desired property for the product agent
 	 * @return
@@ -296,63 +310,22 @@ public class ProductAgentInstance implements ProductAgent{
 		
 		return new PhysicalProperty("End");
 	}
-
-	/**
-	 * Called by the scheduling method
-	 */
-	public void startScheduling(){
-		List<ResourceEvent> bestPath = this.getBestPath(); //Use the best bid
-		
-		//Schedule 1 tick in the future
-		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		double startTime = schedule.getTickCount();
-		int futureScheduleTime = (int) (startTime+1);
-		
-		//Flag if scheduling doesn't work
-		boolean badPathFlag = false;
-		ArrayList<ResourceAgent> scheduledPathAgents = new ArrayList<ResourceAgent>();
-		ArrayList<Integer> scheduledPathTimes = new ArrayList<Integer>();
-		
-		//For each edge in the path, request to schedule the action with the desired RA
-		for (ResourceEvent edge : bestPath){			
-			//int edgeOffset = edge.getWeight() - edge.getActiveAgent().getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
-			if (!edge.getEventAgent().requestScheduleTime(this, edge, futureScheduleTime, futureScheduleTime + edge.getEventTime())){
-				badPathFlag = true;
-				break;
-			}
-			this.agentPlan.addAction(edge, futureScheduleTime);
 	
-			//Keep track of the schedule so that we can remove it if there is a bad path
-			scheduledPathTimes.add(futureScheduleTime);
-			scheduledPathAgents.add(edge.getEventAgent());
-			
-			futureScheduleTime += edge.getEventTime();	
-		}
-		if (!badPathFlag){
-			//Scheduling method was finished
-			this.startSchedulingMethod = false;
-			scheduledPathTimes = null;
-			scheduledPathAgents = null;
-				
-			//Start the querying method (1 tick in the future)
-			ResourceEvent queryEdge = agentPlan.getActionatNextTime((int) startTime+1);
-			schedule.schedule(ScheduleParameters.createOneTime(this.agentPlan.getTimeofAction(queryEdge,(int) startTime)), this, "queryResource", 
-					new Object[]{queryEdge.getEventAgent(), queryEdge});			
-		}
-		else{
-			//For each edge in the path, request to remove the scheduled actions with the desired RA
-			for (int index = 0; index<scheduledPathAgents.size();index++){
-				scheduledPathAgents.get(index).removeScheduleTime(this, scheduledPathTimes.get(index));
-			}
-			
-			//Garbage collecting
-			scheduledPathTimes = null;
-			scheduledPathAgents = null;
-			
-			//Ask for biddings again
-			startBidding(lastResourceAgent, beliefModel.getCurrentNode());
-		}
+
+
+	//================================================================================
+    // PA communication
+    //================================================================================
+	
+	@Override
+	public int getPriority() {
+		return this.priority;
 	}
 
+	@Override
+	public void rescheduleRequest(ResourceAgent resourceAgent, int startTime) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -20,14 +20,6 @@ public interface ProductAgent {
 	public void rescheduleRequest(ResourceAgent resourceAgent, int startTime);
 	
 	//================================================================================
-    // Initializing agent communication
-    //================================================================================
-	
-	public void initializeProductionPlan();
-	
-	public void initializeExitPlan();
-	
-	//================================================================================
     // RA to PA communication
     //================================================================================
 	

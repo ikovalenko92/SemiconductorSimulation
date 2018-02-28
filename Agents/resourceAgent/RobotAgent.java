@@ -42,10 +42,11 @@ public class RobotAgent implements ResourceAgent {
 	//Scheduling
 	private RASchedule RAschedule;
 	
+
 	/**
 	 * @param name
-	 * @param tableLocationObject - table of physical points and the corresponding physical object
-	 * @param robotLLC
+	 * @param robot
+	 * @param tableLocationObject - Table of correlations between location and the object at that location (for robot neighbors)
 	 */
 	public RobotAgent(String name, RobotLLC robot, HashMap<Point, Object> tableLocationObject){
 		this.robot = robot;

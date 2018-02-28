@@ -405,7 +405,7 @@ Caused by: java.lang.NullPointerException
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:273)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-16] 2017-10-19 17:59:32,785 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (5.0)
@@ -432,7 +432,7 @@ Caused by: java.lang.NullPointerException
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:273)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-7] 2017-10-19 18:00:13,497 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (5.0)
@@ -459,7 +459,7 @@ Caused by: java.lang.NullPointerException
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:273)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-8] 2017-10-19 18:02:43,315 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (5.0)
@@ -486,7 +486,7 @@ Caused by: java.lang.NullPointerException
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:273)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-9] 2017-10-19 18:02:49,402 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (5.0)
@@ -513,7 +513,7 @@ Caused by: java.lang.NullPointerException
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:273)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-10] 2017-10-19 18:04:14,374 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (5.0)
@@ -543,7 +543,7 @@ Makes nothing completed.
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:273)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:166)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-11] 2017-10-19 18:07:31,569 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (6.0)
@@ -600,7 +600,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	... 6 more
 Caused by: java.lang.Error: Unresolved compilation problem: 
 
-	at intelligentProduct.AgentBeliefModel.getDesiredNodes(AgentBeliefModel.java:55)
+	at intelligentProduct.EnvironmentModel.getDesiredNodes(AgentBeliefModel.java:55)
 	at intelligentProduct.ProductAgentInstance.getBestPath(LotProductAgent.java:226)
 	at intelligentProduct.ProductAgentInstance.startScheduling(LotProductAgent.java:290)
 	... 9 more
@@ -619,9 +619,9 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
-Caused by: java.lang.NoSuchMethodError: intelligentProduct.AgentBeliefModel.<init>(LsharedInformation/CapabilitiesNode;)V
+Caused by: java.lang.NoSuchMethodError: intelligentProduct.EnvironmentModel.<init>(LsharedInformation/CapabilitiesNode;)V
 	at intelligentProduct.ProductAgentInstance.<init>(LotProductAgent.java:63)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:60)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:60)
 	... 9 more
 FATAL [Thread-7] 2017-10-19 18:11:47,959 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (2600.0)
@@ -704,7 +704,7 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 1, Size: 0
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:265)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:160)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-8] 2017-10-19 19:12:38,923 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (5.0)
@@ -729,7 +729,7 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:265)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:160)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-9] 2017-10-19 19:12:50,266 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (5.0)
@@ -754,7 +754,7 @@ Caused by: java.lang.ArrayIndexOutOfBoundsException: -1
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:265)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:160)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-9] 2017-10-19 19:24:40,437 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (106.0)
@@ -1007,7 +1007,7 @@ Caused by: java.lang.Error: Unresolved compilation problems:
 	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:77)
 	at intelligentProduct.ProductAgentInstance.startBidding(LotProductAgent.java:265)
 	at intelligentProduct.ProductAgentInstance.informEvent(LotProductAgent.java:160)
-	at Part.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:61)
 	... 9 more
 FATAL [Thread-20] 2017-10-20 11:29:53,316 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
 Current tick (381.0)
