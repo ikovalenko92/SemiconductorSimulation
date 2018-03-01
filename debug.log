@@ -1257,3 +1257,21 @@ Caused by: java.lang.NullPointerException
 	at intelligentProduct.ProductAgentInstance.sendExitPlan(ProductAgentInstance.java:146)
 	at intelligentProduct.ProductAgentInstance.checkPlanning(ProductAgentInstance.java:135)
 	... 9 more
+FATAL [Thread-6] 2018-03-01 18:18:23,333 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (7.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at intelligentProduct.ProductAgentInstance.checkPlanning(ProductAgentInstance.java:155)
+	... 9 more

@@ -43,6 +43,11 @@ public class ProductAgentInstance implements ProductAgent{
 	private ISchedule simulationSchedule;
 	
 	private EnvironmentModel newEnvironmentModel;
+	private PAPlan newPlan;
+	
+	private final int explorationWaitTime = 1;
+	private final int planningWaitTime = 1;
+	private int nextExecutionStartTime = 0;
 	
 	public ProductAgentInstance(Part part, ResourceAgent startingResource, ProductState startingNode, int priority,
 			ProductionPlan productionPlan, ExitPlan exitPlan){
@@ -97,8 +102,6 @@ public class ProductAgentInstance implements ProductAgent{
 		this.productHistory.update(systemOutput,currentState,occuredEvents);	
 	}
 	
-	
-	
 	//================================================================================
     // Decision Director - Intelligence
     //================================================================================
@@ -110,16 +113,20 @@ public class ProductAgentInstance implements ProductAgent{
 	public void requestNewPlan() {
 		startExploration(this.productHistory,this.getDesiredProperties());
 		
+		//Set the next time for execution
+		this.nextExecutionStartTime = (int) this.simulationSchedule.getTickCount()+
+				+ this.explorationWaitTime + this.planningWaitTime;
+		
 		//Wait for one time step and then check the output of the exploration
-		int nextTimeStep = (int) this.simulationSchedule.getTickCount()+1;
+		int nextTimeStep = (int) this.simulationSchedule.getTickCount() + this.explorationWaitTime;
 		this.simulationSchedule.schedule(ScheduleParameters.createOneTime(nextTimeStep), 
-				this, "checkPlanning", new Object[]{});
+				this, "checkExploration", new Object[]{});
 	}
 	
 	/**
 	 * Check whether the exploration found a feasible model and move onto planning
 	 */
-	public void checkPlanning() {
+	public void checkExploration() {
 		
 		//Check if the exploration built a model
 		if (!this.newEnvironmentModel.isEmpty()){
@@ -129,8 +136,29 @@ public class ProductAgentInstance implements ProductAgent{
 			this.newEnvironmentModel.clear();
 			
 			startPlanning(this.getDesiredProperties(),this.environmentModel,this.plan);
+			//Wait until execution step and then check the output of the planning
+			this.simulationSchedule.schedule(ScheduleParameters.createOneTime(this.nextExecutionStartTime), 
+					this, "checkPlanning", new Object[]{});
 		}
-		//If not send the exit plan to the execution
+		//If no model, send the exit plan to the execution
+		else{
+			sendExitPlan();
+		}
+	}
+	
+	/**
+	 * Check whether the planning made a feasible plan and move onto execution
+	 */
+	public void checkPlanning() {
+		
+		//Check if the planning compiled a new plan
+		if (!this.newPlan.isEmpty((int) this.simulationSchedule.getTickCount())){
+			//Replace the environment model
+			this.plan = newPlan;
+			
+			this.startExecution(this.plan);
+		}
+		//If no plan, send the exit plan to the execution
 		else{
 			sendExitPlan();
 		}
@@ -147,7 +175,6 @@ public class ProductAgentInstance implements ProductAgent{
 		for (int i=0;i<3;i++){
 			exitPAPlan.addEvent(this.exitPlan.getExitEvent(), currentTime+i, currentTime+i+1);
 		}
-		
 		//Start executing the exit PAPlan
 		startExecution(exitPAPlan);
 	}
@@ -165,7 +192,8 @@ public class ProductAgentInstance implements ProductAgent{
 		//Keep the bidding until enough bids are received (more than 0) or the max bid time is reached
 		while (newEnvironmentModel.isEmpty() && bidTime <= this.getMaxBidTime()){
 			ResourceAgent contactRA = productHistory.getLastEvent().getEventAgent();
-			int nextTimeQuery = (int) this.simulationSchedule.getTickCount()+2;  // ask for bids for two ticks in the future
+			int nextTimeQuery = (int) this.simulationSchedule.getTickCount()+ // ask for bids accounting for exploration and planning wait times
+					this.explorationWaitTime+this.planningWaitTime;
 			
 			//For each desired property, send bid requests
 			for (PhysicalProperty desiredProperty:desiredProperties){
@@ -209,90 +237,102 @@ public class ProductAgentInstance implements ProductAgent{
     //================================================================================
 
 	
+	/** Starts the planning method of the Product Agent
+	 * @param desiredProperties
+	 * @param environmentModel
+	 * @param plan
+	 */
 	private void startPlanning(ArrayList<PhysicalProperty> desiredProperties,
 			EnvironmentModel environmentModel, PAPlan plan) {
 		 //Solve the optimization problem to find the best path
 		List<ResourceEvent> bestPath = this.getBestPath(desiredProperties,environmentModel);
+		
+		int currentTime = (int) this.simulationSchedule.getTickCount(); //the current time
+		
+		//Create a new plan for the substring of the best path that needs to be scheduled
+		PAPlan newPlan = new PAPlan(this);
+		
+		int time = this.nextExecutionStartTime ;
+		int epsilon = 1; // Allow small time changes in event duration
+		int scheduleBound = Math.min(this.getMaxScheduledEvents(),bestPath.size());
+		
+		//Create the new plan based on the best path
+		for (int i = 0; i< scheduleBound;i++){
+			ResourceEvent scheduleEvent = bestPath.get(i);
+			int eventEndTime = time+scheduleEvent.getEventTime();
+			//Create a plan
+			newPlan.addEvent(scheduleEvent, time, time+scheduleEvent.getEventTime()+epsilon);
+			time = eventEndTime;
+		}
+		
+		//Remove any future events in the current plan
+		removeScheduledEvents(currentTime,plan);
+	
+		//Schedule all of the events in the new plan
+		boolean badPathFlag = scheduleEvents(currentTime,newPlan);
+		
+		if(!badPathFlag){
+			removeScheduledEvents(currentTime,newPlan);
+			newPlan = new PAPlan(this);
+		}
+		
+		this.plan = newPlan;
+	}
+
+	/** Maximum number of events to schedule
+	 * @return integer
+	 */
+	private int getMaxScheduledEvents() {
+		return 20;
 	}
 	
-	/**
-	 * Called by the scheduling method
+	/** Remove the events after a certain time
+	 * @param time
 	 */
-	public void startScheduling(){
-		List<ResourceEvent> bestPath = this.getBestPath(); //Use the best bid
+	private boolean removeScheduledEvents(int time, PAPlan plan){
 		
-		//Schedule 1 tick in the future
-		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		double startTime = schedule.getTickCount();
-		int futureScheduleTime = (int) (startTime+1);
+		int nextPlannedEventIndex = plan.getIndexOfNextEvent(time);
+		ResourceEvent nextEvent = plan.getIndexEvent(nextPlannedEventIndex);
+		boolean flag = true;
 		
-		//Flag if scheduling doesn't work
-		boolean badPathFlag = false;
-		ArrayList<ResourceAgent> scheduledPathAgents = new ArrayList<ResourceAgent>();
-		ArrayList<Integer> scheduledPathTimes = new ArrayList<Integer>();
-		
-		//For each edge in the path, request to schedule the action with the desired RA
-		for (ResourceEvent edge : bestPath){			
-			//int edgeOffset = edge.getWeight() - edge.getActiveAgent().getCapabilities().findEdge(edge.getParent(),edge.getChild()).getWeight();
-			if (!edge.getEventAgent().requestScheduleTime(this, edge, futureScheduleTime, futureScheduleTime + edge.getEventTime())){
-				badPathFlag = true;
-				break;
+		//Remove any of the current plan's scheduled events 
+		while(nextEvent!=null){
+			if(!nextEvent.getEventAgent().removeScheduleTime(this, plan.getIndexStartTime(nextPlannedEventIndex),
+					plan.getIndexEndTime(nextPlannedEventIndex))){
+				flag = false;
 			}
-			this.plan.addEvent(edge, futureScheduleTime, futureScheduleTime+ edge.getEventTime());
+			nextPlannedEventIndex+=1;
+			nextEvent = plan.getIndexEvent(nextPlannedEventIndex);
+		}
+		
+		return flag;
+	}
 	
-			//Keep track of the schedule so that we can remove it if there is a bad path
-			scheduledPathTimes.add(futureScheduleTime);
-			scheduledPathAgents.add(edge.getEventAgent());
-			
-			futureScheduleTime += edge.getEventTime();	
-		}
-		if (!badPathFlag){
-			//Scheduling method was finished
-			//this.startSchedulingMethod = false;
-			scheduledPathTimes = null;
-			scheduledPathAgents = null;
-				
-			//Start the querying method (1 tick in the future)
-			int actionIndex = this.plan.getIndexOfNextEvent((int) startTime+1);
-			ResourceEvent queryEdge = plan.getIndexEvent(actionIndex);
-			schedule.schedule(ScheduleParameters.createOneTime(this.plan.getIndexStartTime(actionIndex)), this, "queryResource", 
-					new Object[]{queryEdge.getEventAgent(), queryEdge});			
-		}
-		else{
-			//For each edge in the path, request to remove the scheduled actions with the desired RA
-			for (int index = 0; index<scheduledPathAgents.size();index++){
-				//scheduledPathAgents.get(index).removeScheduleTime(this, scheduledPathTimes.get(index));
+	/** Schedule events after a certain time
+	 * @param time
+	 */
+	private boolean scheduleEvents(int time, PAPlan plan){
+		int nextPlannedEventIndex = plan.getIndexOfNextEvent(time);
+		ResourceEvent nextEvent = plan.getIndexEvent(nextPlannedEventIndex);
+		boolean flag = true;
+		
+		//Remove any of the current plan's scheduled events 
+		while(nextEvent!=null){
+			if(!nextEvent.getEventAgent().requestScheduleTime(this, nextEvent,
+					plan.getIndexStartTime(nextPlannedEventIndex), plan.getIndexEndTime(nextPlannedEventIndex))){
+				flag = false;
 			}
-			
-			//Garbage collecting
-			scheduledPathTimes = null;
-			scheduledPathAgents = null;
-			
-			//Ask for biddings again
-			//startBidding(lastResourceAgent, environmentModel.getCurrentNode());
+			nextPlannedEventIndex+=1;
+			nextEvent = plan.getIndexEvent(nextPlannedEventIndex);
 		}
+		
+		return flag;
 	}
 	
 	@Override
 	public void updateEdge(ResourceEvent rescheduleEdge) {
-		// TODO Auto-generated method stub
+		this.requestNewPlan();
 	}
-	
-	public void updateEdge(ResourceEvent oldEdge, ResourceEvent newEdge){
-		
-		//If the model has the edge, update it
-		if (this.environmentModel.containsEdge(oldEdge)){
-			this.environmentModel.removeEdge(oldEdge);
-			if (newEdge != null){
-				this.environmentModel.addEdge(newEdge, newEdge.getParent(), newEdge.getChild());
-			}
-		}
-		
-		//Trying to replace wrong edge
-		else{
-			System.out.println(this + " doesn't have " + oldEdge + " in updateEdge()");
-		}
-	}	
 	
 	/** Finding the "best" (according to the weight transformer function) path
 	 * @param environmentModel

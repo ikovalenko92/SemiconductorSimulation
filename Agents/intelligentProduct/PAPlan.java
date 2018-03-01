@@ -144,7 +144,7 @@ public class PAPlan {
 	}
 	
 	public ResourceEvent getIndexEvent(int index){
-		if (index>=0){
+		if (index>=0 && index<this.plannedString.size()-1){
 			return this.plannedString.get(index);
 		}
 		return null;
