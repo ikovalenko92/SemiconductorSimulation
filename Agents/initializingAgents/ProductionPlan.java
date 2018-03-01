@@ -8,8 +8,7 @@ public class ProductionPlan {
 
 	private ArrayList<HashSet<PhysicalProperty>> setList;
 	
-	public ProductionPlan() {
-		
+	public ProductionPlan() {	
 		this.setList = new ArrayList<HashSet<PhysicalProperty>>();
 		HashSet<PhysicalProperty> initialSet = new HashSet<PhysicalProperty>();
 		this.setList.add(initialSet);
@@ -47,5 +46,9 @@ public class ProductionPlan {
 	
 	public HashSet<PhysicalProperty> getLastSet(){
 		return this.setList.get(this.setList.size()-1);
+	}
+	
+	public ArrayList<HashSet<PhysicalProperty>> getSetList(){
+		return this.setList;
 	}
 }

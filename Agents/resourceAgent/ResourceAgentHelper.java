@@ -25,8 +25,8 @@ public class ResourceAgentHelper {
 	 * @param resourceAgent
 	 * @param productAgent
 	 * @param desiredProperty
-	 * @param currentPartState
-	 * @param currentTime
+	 * @param bidPartState
+	 * @param existingBidTime
 	 * @param maxTime
 	 * @param teamList
 	 * @param neighbors
@@ -34,8 +34,8 @@ public class ResourceAgentHelper {
 	 * @param capabilities
 	 * @param weightTransformer
 	 */
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty,	ProductState currentPartState, int maxTimeAllowed,
-			DirectedSparseGraph<ProductState,ResourceEvent> existingBid, int currentTime,
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty,	ProductState bidPartState, int maxTimeAllowed,
+			DirectedSparseGraph<ProductState,ResourceEvent> existingBid, int existingBidTime,
 			// Resource Specific Information below. This is necessary because the ResourceAgentHelper method is outside the RA.
 			// If the teamQuery() was inside the RA, the below information could be accessed locally and doesn't need to be passed in the method.
 			ResourceAgent resourceAgent, ArrayList<ResourceAgent> neighbors, HashMap<ResourceAgent, ProductState> tableNeighborNode,
@@ -52,7 +52,7 @@ public class ResourceAgentHelper {
 		while (itr.hasNext()){
 			// Find the edge and update it based on current schedule
 			ResourceEvent edge = itr.next();
-			edge.setWeight(resourceAgent.getSchedule().getNextFreeTime(currentTime,edge.getEventTime()));
+			edge.setWeight(resourceAgent.getSchedule().getNextFreeTime(existingBidTime,edge.getEventTime()));
 			
 			//Add to entire graph
 			searchGraph.addEdge(edge, edge.getParent(), edge.getChild());
@@ -74,18 +74,22 @@ public class ResourceAgentHelper {
 			}
 		}
 		
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		double currentTime = schedule.getTickCount(); 
+		
 		// If a vertex satisfied a desired property
 		if (flag){
 			
 			//Find the shortest path
-			List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(currentPartState, desiredVertex);
-			int pathValue = shortestPathGetter.getDistanceMap(currentPartState).get(desiredVertex).intValue();
+			List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(bidPartState, desiredVertex);
+			int pathValue = shortestPathGetter.getDistanceMap(bidPartState).get(desiredVertex).intValue();
 			
 			//Calculate the bid
-			int bidTime = currentTime;
+			int bidTime = existingBidTime;
 			for (ResourceEvent path : shortestPathCandidateList){
 				bidTime = bidTime + path.getEventTime();
 				bid.addEdge(path, path.getParent(), path.getChild());
+				bidPartState = path.getChild();
 			}
 			
 			//Submit the bid to the product agent
@@ -95,23 +99,32 @@ public class ResourceAgentHelper {
 		}
 		
 		//Push the bid negotiation to a neighbor
-		for (ResourceAgent neighbor: neighbors){	
-			ProductState neighborNode = tableNeighborNode.get(neighbor);
-
-			//Find the shortest path
-			List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(currentPartState, neighborNode);
-			int pathValue = shortestPathGetter.getDistanceMap(currentPartState).get(neighborNode).intValue();
+		for (ResourceAgent neighbor: neighbors){
 			
-			//Calculate the bid
-			int bidTime = currentTime; //Reset bid time
-			for (ResourceEvent path : shortestPathCandidateList){
-				bidTime = bidTime + path.getEventTime();
-				bid.addEdge(path, path.getParent(), path.getChild());
+			//Don't visit the same agent more than once - need to formulate better algorithm for team formation
+			ArrayList <ResourceAgent> visitedAgents = new ArrayList <ResourceAgent>();
+			for (ResourceEvent edges:bid.getEdges()){
+				visitedAgents.add(edges.getEventAgent());
 			}
 			
-			//Push the bid to the resource agent
-			if (bidTime < currentTime + maxTimeAllowed){
-				neighbor.teamQuery(productAgent, desiredProperty, currentPartState, maxTimeAllowed, bid, bidTime);
+			if(!visitedAgents.contains(neighbor)){
+				ProductState neighborNode = tableNeighborNode.get(neighbor);
+		
+				//Find the shortest path
+				List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(bidPartState, neighborNode);
+				
+				//Calculate the bid
+				int bidTime = existingBidTime; //Reset bid time
+				for (ResourceEvent path : shortestPathCandidateList){
+					bidTime = bidTime + path.getEventTime();
+					bid.addEdge(path, path.getParent(), path.getChild());
+					bidPartState = path.getChild();
+				}
+				
+				//Push the bid to the resource agent
+				if (bidTime < currentTime + maxTimeAllowed && bidTime > existingBidTime){
+					neighbor.teamQuery(productAgent, desiredProperty, bidPartState, maxTimeAllowed, bid, bidTime);
+				}
 			}
 		}
 		

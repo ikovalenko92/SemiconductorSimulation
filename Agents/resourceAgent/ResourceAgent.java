@@ -29,13 +29,13 @@ public interface ResourceAgent {
 	 * Bidding propagation to find resource agent teammates to complete a requested task
 	 * @param productAgent The product agent sending the request
 	 * @param desiredProperty The product agent sending the request
-	 * @param currentTime The current time
+	 * @param currentState The product's current state
 	 * @param maxTime The max allowed time
-	 * @param teamList The current team list
-	 * @param edgeList The current list of capabilities edges for each resource
+	 * @param existingBid The current state of the bid
+	 * @param currentTime The current time
 	 */
-	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode, 
-			int maxTime, DirectedSparseGraph<ProductState,ResourceEvent> bid, int currentTime);
+	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState bidPartState, 
+			int maxTime, DirectedSparseGraph<ProductState,ResourceEvent> existingBid, int currentTime);
 	
 	/** From the PA's scheduling
 	 * @param productAgent the product agent to schedule

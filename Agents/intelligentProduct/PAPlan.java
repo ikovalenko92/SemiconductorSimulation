@@ -6,81 +6,77 @@ import java.util.ArrayList;
 
 public class PAPlan {
 	private ProductAgent productAgent;
-	private ArrayList<String> actions;
+	private ArrayList<ResourceEvent> plannedString;
 	private ArrayList<Integer> startTimes;
-	private ArrayList<ResourceEvent> edges;
+	private ArrayList<Integer> endTimes;
 	
-	/**
-	 * Part agents, start times array lists must be the same size
-	 * 
-	 * @param resourceAgent
-	 * @param partAgents (Array List) The part agents that occupy the resource agent
-	 * @param startTimes (Array List)
-	 * @param endTimes (Array List)
-	 */
 	public PAPlan(ProductAgent productAgent) {
 		this.productAgent = productAgent;
-		this.actions = new ArrayList<String>();
-		this.startTimes = new ArrayList<Integer>();
 		
-		this.edges = new ArrayList<ResourceEvent>();
+		this.plannedString = new ArrayList<ResourceEvent>();
+		
+		this.startTimes = new ArrayList<Integer>();
+		this.endTimes = new ArrayList<Integer>();
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		
 		String total = "";
-		for (int i = 0; i<this.actions.size();i++){
-			total = total + " "+ this.actions.get(i) + " [" + this.startTimes.get(i) + "];";		
+		for (int i = 0; i<this.plannedString.size();i++){
+			total = total + " "+ this.plannedString.get(i) + " [" + this.startTimes.get(i) + "];";		
 		}
 		return productAgent + "Schedule:" + total;
 	}
+	
 	
 	/** Add a desired action to the schedule
 	 * @param action
 	 * @param startTime
 	 * @return
 	 */
-	public boolean addAction(ResourceEvent edge, Integer startTime){
-		String action = changeToAction(edge);
-		
+	public boolean addEvent(ResourceEvent event, Integer startTime, Integer endTime){
 		if (startTime < 0){
-			System.out.println("Start time is wrong for " + this.productAgent + " for " + action);
+			System.out.println("Start time is wrong for " + this.productAgent + " for " + event);
 			return false;
 		}
 		
 		//If the new resource agent is the first resource agent to be added
-		if (actions.size() == 0){
-			actions.add(action);
-			startTimes.add(startTime);
-			this.edges.add(edge);
+		if (this.plannedString.size() == 0){
+			this.startTimes.add(startTime);
+			this.endTimes.add(endTime);
+			this.plannedString.add(event);
 			return true;
 		}
 		
 		Integer checkStartTime;
-
-		//Check to see if RA can be scheduled
+		Integer checkEndTime;
+		
+		//If the new part agent is scheduled after the first one and it doesn't allow multiple scheduled together
+		
+		//Check to see if event can be scheduled
 		for(int i = 0; i < startTimes.size(); i++){
 			checkStartTime = startTimes.get(i);
-				if (startTime < checkStartTime){
-					this.actions.add(i,action);
-					startTimes.add(i,startTime);
-					this.edges.add(edge);
+			checkEndTime = endTimes.get(i);
+			
+			if (startTime < checkEndTime){
+				if (endTime <= checkStartTime){
+					this.plannedString.add(i,event);
+					this.startTimes.add(i,startTime);
+					this.endTimes.add(i,endTime);
 					return true;
 				}
-				else if (checkStartTime == startTime){
-					System.out.println("Product busy " + action + " for " + this.productAgent);
+				else{
+					System.out.println("PA busy " + productAgent + " for " + event);
 					return false;
 				}
+			}
 		}
 		
 		//If the new part agent is scheduled last and the resource is free
-		actions.add(action);
-		startTimes.add(startTime);
-		this.edges.add(edge);
+		this.plannedString.add(event);
+		this.startTimes.add(startTime);
+		this.endTimes.add(endTime);
 		return true;
 	}
 	
@@ -88,94 +84,94 @@ public class PAPlan {
 	 * @param action
 	 * @param startTime
 	 */
-	public void removeAction(ResourceEvent edge){
-		String action = changeToAction(edge);
+	public boolean removeEvent(ResourceEvent event, Integer startTime, Integer endTime){
+		for(int index = 0; index < this.startTimes.size(); index++){
+			//Find if there is an event scheduled for the proposed time to remove it
+			if (startTime >= this.startTimes.get(index) && startTime< this.endTimes.get(index) && event.equals(this.plannedString.get(index))){
+				//Remove the event if the proposed scheduled agent is found
+				this.startTimes.remove(index);
+				
+				//Check if the desired end time is after the indexed end time
+				if (endTime>=this.endTimes.get(index)){
+					this.endTimes.remove(index);
+					this.plannedString.remove(index);
+				}
+				//If it is not, just shorten the length of the event by moving the start time to the proposed endTime
+				else{
+					this.startTimes.add(index, endTime);
+				}
+				
+				return true;
+			}
+		}
 		
-		int index = actions.indexOf(action);
-		if (index != -1){
-			actions.remove(index);
-			startTimes.remove(index);
-			this.edges.remove(edge);
-		}
-		else{
-			System.out.println("No " + action + " in " + this.productAgent);
-		}
+		return false;
 	}
 	
-	/** Returns the next action that is supposed to happen for this product agent
+	/** Returns the index of the next action that is supposed to happen for this product agent
 	 * @param action
 	 * @return
 	 */
-	public ResourceEvent getNextAction(ResourceEvent edge, int currentTime){
-		String action = changeToAction(edge);
-		
+	public int getIndexOfNextEvent(ResourceEvent event, int currentTime){
 		//Don't include the last edge
-		for (int index = 0; index<(actions.size()-1);index++){
-			if(action.equals(actions.get(index))){
-				if(currentTime<=startTimes.get(index+1)){
-					return changeToEdge(actions.get(index+1));
+		for (int index = 0; index<(this.plannedString.size()-1);index++){
+			if(plannedString.equals(this.plannedString.get(index))){
+				//If the current time is between the last start time and the next start time
+				if(currentTime>=startTimes.get(index) && currentTime <=startTimes.get(index+1)){
+					return index+1;
 				}
 			}
 		}
 		
-		System.out.println("No " + action + " planned for " + this.productAgent);
-		return null;
+		System.out.println("No " + event + " planned for " + this.productAgent);
+		return -1;
 	}
-	
-	/** Returns the time of the specified action that is planned for this product agent
-	 * @param d 
-	 * @param action
-	 * @return
-	 */
-	public Integer getTimeofAction(ResourceEvent edge, double currentTime){
-		String action = changeToAction(edge);
-		
-		for (int index = 0; index<actions.size();index++){
-			if(action.equals(actions.get(index))){
-				if(currentTime<=startTimes.get(index)){
-					return startTimes.get(index);
-				}
-			}
-		}
-		
-		System.out.println("No " + action + " planned for " + this.productAgent);
-		return null;
-	}
-	
-	/** Returns the action at that time
+
+	/** Returns the index of next action
 	 * @param time
 	 * @return
 	 */
-	public ResourceEvent getActionatNextTime(int time){
+	public int getIndexOfNextEvent(int time){
 		for (int i=0;i<this.startTimes.size();i++){
 			Integer startTime = this.startTimes.get(i);
 			if (startTime>=time){
-				return changeToEdge(actions.get(i));
+				return i;
 			}
 		}
 		
-		System.out.println("No action starts at or after " + time + " for " + this.productAgent);
-		return null;
+		//System.out.println("No action starts at or after " + time + " for " + this.productAgent);
+		return -1;
 	}
 	
-	public String changeToAction(ResourceEvent edge){
-		return "" + edge.getEventAgent() + "," + edge.getActiveMethod();
-	}
-	
-	
-	/** Reutrn the Capabilities Edge with this hash code
-	 * @param string
-	 * @return
-	 */
-	public ResourceEvent changeToEdge(String name){
-		for (ResourceEvent edge : this.edges){
-			if (changeToAction(edge).equals(name)){
-				return edge;
-			}
+	public ResourceEvent getIndexEvent(int index){
+		if (index>=0){
+			return this.plannedString.get(index);
 		}
 		return null;
 	}
 	
+	public int getIndexStartTime(int index){
+		if (index>=0){
+			return this.startTimes.get(index);
+		}
+		return -1;
+	}
 	
-	
+	public int getIndexEndTime(int index){
+
+		if (index>=0){
+		return this.endTimes.get(index);
+		}
+		return -1;
+	}
+
+	/**
+	 * @return if there are any events in the environment model
+	 */
+	public boolean isEmpty(int time){
+		if (this.getIndexOfNextEvent(time)==-1){
+			return true;
+		}
+		return false;
+	}
 }

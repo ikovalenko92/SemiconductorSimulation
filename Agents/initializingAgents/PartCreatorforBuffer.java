@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import Buffer.Buffer;
 import Part.Part;
 import Part.RFIDTag;
@@ -85,7 +86,12 @@ public class PartCreatorforBuffer {
 				getProductionPlan(partType), getExitPlan(partType));
 		
 		// Inform the PA that it was created
-		//productAgentInstance.informEvent(new ResourceEvent(bufferAgent, null, startingNode, null, 0));
+		DirectedSparseGraph<ProductState,ResourceEvent> bid = new DirectedSparseGraph<ProductState,ResourceEvent>();
+		ResourceEvent newEvent = new ResourceEvent(bufferAgent, startingNode, startingNode, null, 0);
+		bid.addEdge(newEvent,newEvent.getParent(),newEvent.getChild());
+		ArrayList<ResourceEvent> eventList = new ArrayList<ResourceEvent>();
+		eventList.add(newEvent);
+		productAgentInstance.informEvent(bid,newEvent.getChild(), eventList);
 
 		//Set the PA number
 		productAgentInstance.setPANumber(this.PAnumber);
@@ -100,30 +106,32 @@ public class PartCreatorforBuffer {
 	public ProductionPlan getProductionPlan(char partType){
 		ProductionPlan productionPlan = new ProductionPlan();
 		
-		if (partType == 'a'){	
-			HashSet<PhysicalProperty> set1 = new HashSet<PhysicalProperty>();
-			set1.add(new PhysicalProperty("S1"));
-			productionPlan.addNewSet(set1);
+		if (partType == 'a'){
+			productionPlan.add(new PhysicalProperty("S1"));
 			
 			HashSet<PhysicalProperty> set2 = new HashSet<PhysicalProperty>();
-			set1.add(new PhysicalProperty("S2"));
+			set2.add(new PhysicalProperty("S2"));
 			productionPlan.addNewSet(set2);
 			
 			HashSet<PhysicalProperty> set3 = new HashSet<PhysicalProperty>();
-			set1.add(new PhysicalProperty("S3"));
+			set3.add(new PhysicalProperty("S3"));
 			productionPlan.addNewSet(set3);
 			
 			HashSet<PhysicalProperty> set4 = new HashSet<PhysicalProperty>();
-			set1.add(new PhysicalProperty("S4"));
+			set4.add(new PhysicalProperty("S4"));
 			productionPlan.addNewSet(set4);
 			
 			HashSet<PhysicalProperty> set5 = new HashSet<PhysicalProperty>();
-			set1.add(new PhysicalProperty("S5"));
+			set5.add(new PhysicalProperty("S5"));
 			productionPlan.addNewSet(set5);
 			
 			HashSet<PhysicalProperty> set6 = new HashSet<PhysicalProperty>();
-			set1.add(new PhysicalProperty("S6"));
+			set6.add(new PhysicalProperty("S6"));
 			productionPlan.addNewSet(set6);
+			
+			HashSet<PhysicalProperty> end = new HashSet<PhysicalProperty>();
+			end.add(new PhysicalProperty("End"));
+			productionPlan.addNewSet(end);
 		}
 		
 		return productionPlan;

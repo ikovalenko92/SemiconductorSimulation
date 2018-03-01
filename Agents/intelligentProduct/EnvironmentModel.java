@@ -9,74 +9,58 @@ import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
 public class EnvironmentModel extends DirectedSparseGraph<ProductState, ResourceEvent>{
-
-	private ProductState currentNode = null;
-	private ArrayList<ProductState> desiredNodes = new ArrayList<ProductState>();
-	private ProductState dummyEmptyNode;
+	
+	private static final long serialVersionUID = 1L; //Eclipse wanted me to add this
+	
+	private ProductState currentState = null;
+	private ProductState dummyEmptyNode; // Empty node needed to represent the "parent" of the initial state.
 	private ResourceEvent startingEdge;
 	
-	public EnvironmentModel(ProductState currentNode){
+	/** This extends the DirectedSparseGraph<ProductState, ResourceEvent>
+	 * @param productAgentInstance
+	 * @param startingNode
+	 */
+	public EnvironmentModel(ProductAgentInstance productAgentInstance, ProductState currentState) {
+		
 		this.dummyEmptyNode = new ProductState(null, null, new PhysicalProperty(new Point(0,0)));
-		this.currentNode = currentNode;
-		this.startingEdge = new ResourceEvent(null, dummyEmptyNode, currentNode, null, 0);
-		this.addEdge(startingEdge, dummyEmptyNode, currentNode);
+		this.currentState = currentState;
+		this.startingEdge = new ResourceEvent(null, dummyEmptyNode, currentState, null, 0);
+		this.addEdge(startingEdge, dummyEmptyNode, currentState);
 	}
 	
-	public EnvironmentModel(ProductAgentInstance productAgentInstance,
-			ProductState startingNode) {
-		// TODO Auto-generated constructor stub
-	}
 
-	/** Add a list of edges
-	 * @param edgeList
-	 */
-	public void addEdges(ArrayList<ResourceEvent> edgeList) {
-		for (ResourceEvent edge:edgeList){
-			this.addEdge(edge, edge.getParent(), edge.getChild());
+	public void update(DirectedSparseGraph<ProductState, ResourceEvent> systemOutput,
+			ProductState currentState) {
+		
+		//Update both the graph and the current state
+		this.update(currentState);
+		this.update(systemOutput);
+	}
+	
+	public void update(DirectedSparseGraph<ProductState, ResourceEvent> systemOutput){
+		
+		//Update directed graph
+		for (ResourceEvent event : systemOutput.getEdges()){
+			this.addEdge(event,event.getParent(),event.getChild());
+		}
+		for (ProductState state : systemOutput.getVertices()){
+	        this.addVertex(state);
 		}
 	}
 	
-	public void setCurrentNode(ProductState currentNode){
-		addVertex(currentNode);
-		this.currentNode = currentNode;
+	public void update(ProductState currentState){
+		addVertex(currentState);
+		this.currentState = currentState;
 	}
 	
-	public ProductState getCurrentNode() {
-		return this.currentNode;
-	}
-	
-	public void addDesiredNode(ProductState desiredNode){
-		if (this.containsVertex(desiredNode)){
-			this.desiredNodes.add(desiredNode);
-		}
-	}
-	
-	public void clearDesiredNodes(){
-		this.desiredNodes.clear();
-	}
-
-	public ArrayList<ProductState> getDesiredNodes() {
-		return this.desiredNodes;
-	}
-	
-	/**
-	 * @return checks if the current node is one of the desired nodes
-	 */
-	public boolean checkCurrentDesired(){
-		if (this.desiredNodes.contains(currentNode)){
-			return true;
-		}
-		else{
-			return false;
-		}
+	public ProductState getCurrentState() {
+		return this.currentState;
 	}
 
 	/**
 	 * Clears everything except the current node and the dummy first node (edge that indicates current state)
 	 */
 	public void clear() {
-		//Clear desired nodes
-		this.clearDesiredNodes();
 		
 		ArrayList<ProductState> removeVertices = new ArrayList<ProductState>();
 		ArrayList<ResourceEvent> removeEdges = new ArrayList<ResourceEvent>();
@@ -84,7 +68,7 @@ public class EnvironmentModel extends DirectedSparseGraph<ProductState, Resource
 		//Find all the vertices to remove
 		for (ProductState node : getVertices()){
 			// Keep the current and dummy nodes (starting)
-			if (!this.currentNode.equals(node) && !this.currentNode.equals(dummyEmptyNode)){
+			if (!this.currentState.equals(node) && !this.currentState.equals(dummyEmptyNode)){
 				removeVertices.add(node);
 			}
 		}
@@ -105,6 +89,23 @@ public class EnvironmentModel extends DirectedSparseGraph<ProductState, Resource
 		removeEdges.clear();
 		removeVertices = null;
 		removeEdges = null;
+	}
+	
+	/**
+	 * @return if there are any events in the environment model
+	 */
+	public boolean isEmpty(){
+		boolean flag = true;
+		
+		for (ResourceEvent edge: getEdges()){
+			// Keep the starting edge
+			if (!this.startingEdge.equals(edge)){
+				flag = false;
+				break;
+			}
+		}
+		
+		return flag;
 	}
 	
 }
