@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.apache.commons.collections15.Transformer;
 
 import Part.Part;
@@ -69,14 +70,6 @@ public class RobotAgent implements ResourceAgent {
 		
 		this.RAschedule = new RASchedule(this);
 	}
-	
-	/*@ScheduledMethod ( start = 1 , interval = 1, priority = -50000)
-	public void adf(){
-		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		double startTime = schedule.getTickCount();
-		if (this.toString().contains("M12")){
-			System.out.println(this.getSchedule()+ ""+startTime);}
-	}*/
 	
 	@Override
 	public String toString() {
@@ -152,6 +145,7 @@ public class RobotAgent implements ResourceAgent {
 		}
 		
 		//Find the offset between the queried edge and when the actual program should be run
+		System.out.println(this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getEventTime());
 		int edgeOffset = queriedEdge.getEventTime() - this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getEventTime();
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		double startTime = schedule.getTickCount()+edgeOffset;
@@ -175,8 +169,14 @@ public class RobotAgent implements ResourceAgent {
 	private void informPA(ProductAgent productAgent, ResourceEvent edge){
 		//Using the edge of the weight (might need to check with Robot LLC in the future)
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		
+		DirectedSparseGraph<ProductState, ResourceEvent> systemOutput = new DirectedSparseGraph<ProductState, ResourceEvent>();
+		systemOutput.addEdge(edge, edge.getParent(),edge.getChild());
+		ArrayList<ResourceEvent> occuredEvents = new ArrayList<ResourceEvent>();
+		occuredEvents.add(edge);
+		
 		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
-				"informEvent", new Object[]{edge});
+				"informEvent",new Object[]{systemOutput,edge.getChild(),occuredEvents});
 	}
 
 	//================================================================================
@@ -235,8 +235,4 @@ public class RobotAgent implements ResourceAgent {
 			}
 		}
 	}
-
-	//================================================================================
-    // Testing
-    //================================================================================
 }

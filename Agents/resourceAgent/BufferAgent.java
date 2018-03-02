@@ -169,7 +169,14 @@ public class BufferAgent implements ResourceAgent {
 	private void informPA(ProductAgent productAgent, ResourceEvent edge){
 		//Using the edge of the weight (might need to check with Robot LLC in the future)
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent, "informEvent", new Object[]{edge});
+		
+		DirectedSparseGraph<ProductState, ResourceEvent> systemOutput = new DirectedSparseGraph<ProductState, ResourceEvent>();
+		systemOutput.addEdge(edge, edge.getParent(),edge.getChild());
+		ArrayList<ResourceEvent> occuredEvents = new ArrayList<ResourceEvent>();
+		occuredEvents.add(edge);
+		
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
+				"informEvent",new Object[]{systemOutput,edge.getChild(),occuredEvents});
 	}
 	
 	//================================================================================

@@ -250,7 +250,7 @@ public class ProductAgentInstance implements ProductAgent{
 		int currentTime = (int) this.simulationSchedule.getTickCount(); //the current time
 		
 		//Create a new plan for the substring of the best path that needs to be scheduled
-		PAPlan newPlan = new PAPlan(this);
+		PAPlan newPlanAttempt = new PAPlan(this);
 		
 		int time = this.nextExecutionStartTime ;
 		int epsilon = 1; // Allow small time changes in event duration
@@ -261,7 +261,7 @@ public class ProductAgentInstance implements ProductAgent{
 			ResourceEvent scheduleEvent = bestPath.get(i);
 			int eventEndTime = time+scheduleEvent.getEventTime();
 			//Create a plan
-			newPlan.addEvent(scheduleEvent, time, time+scheduleEvent.getEventTime()+epsilon);
+			newPlanAttempt.addEvent(scheduleEvent, time, time+scheduleEvent.getEventTime()+epsilon);
 			time = eventEndTime;
 		}
 		
@@ -269,14 +269,14 @@ public class ProductAgentInstance implements ProductAgent{
 		removeScheduledEvents(currentTime,plan);
 	
 		//Schedule all of the events in the new plan
-		boolean badPathFlag = scheduleEvents(currentTime,newPlan);
+		boolean badPathFlag = scheduleEvents(currentTime,newPlanAttempt);
 		
 		if(!badPathFlag){
-			removeScheduledEvents(currentTime,newPlan);
-			newPlan = new PAPlan(this);
+			removeScheduledEvents(currentTime,newPlanAttempt);
+			newPlanAttempt = new PAPlan(this);
 		}
 		
-		this.plan = newPlan;
+		this.newPlan = newPlanAttempt;
 	}
 
 	/** Maximum number of events to schedule
@@ -365,6 +365,9 @@ public class ProductAgentInstance implements ProductAgent{
 		//Find the fastest path to one of the desired nodes
 		for (ProductState desiredNode: desiredNodes){
 			int compareDist = shortestPathGetter.getDistanceMap(environmentModel.getCurrentState()).get(desiredNode).intValue();
+			System.out.println(desiredNode);
+			System.out.println(compareDist);
+			System.out.println(dist);
 			if (compareDist < dist){
 				dist = compareDist;
 				desiredNodeFinal = desiredNode;
@@ -431,6 +434,7 @@ public class ProductAgentInstance implements ProductAgent{
 		boolean queried = resourceAgent.query(edge, this);
 		
 		if (!queried){
+			this.sendExitPlan();
 			System.out.println("" + this + " query did not work for " + resourceAgent + " " + edge);
 		}
 	}

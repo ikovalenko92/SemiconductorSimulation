@@ -106,7 +106,7 @@ public class ResourceEvent {
 	@Override
 	public String toString(){
 	
-	return "Edge with weight " + this.eventTime + " goes from " + parent.getLocation().x + "," + parent.getLocation().y + " to " + child.getLocation().x + "," + child.getLocation().y + ".\n"
+	return "\nEdge with weight " + this.eventTime + " goes from " + parent.getLocation().x + "," + parent.getLocation().y + " to " + child.getLocation().x + "," + child.getLocation().y + ".\n"
 			+ "Makes " + child.getProcessCompleted() + ".\n"
 			+ " Activated by: " + this.eventAgent + " using " + this.activeMethod + "\n";//.getName() + "(" + activeParametersString + ")\n"
 			//+ " Controllable: " + this.controllability + ", Observable: " + this.observability;

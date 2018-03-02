@@ -3,6 +3,7 @@ package intelligentProduct;
 import sharedInformation.ResourceEvent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PAPlan {
 	private ProductAgent productAgent;
@@ -50,26 +51,18 @@ public class PAPlan {
 		}
 		
 		Integer checkStartTime;
-		Integer checkEndTime;
 		
 		//If the new part agent is scheduled after the first one and it doesn't allow multiple scheduled together
 		
 		//Check to see if event can be scheduled
 		for(int i = 0; i < startTimes.size(); i++){
 			checkStartTime = startTimes.get(i);
-			checkEndTime = endTimes.get(i);
 			
-			if (startTime < checkEndTime){
-				if (endTime <= checkStartTime){
+			if (checkStartTime < startTime){
 					this.plannedString.add(i,event);
 					this.startTimes.add(i,startTime);
 					this.endTimes.add(i,endTime);
-					return true;
-				}
-				else{
-					System.out.println("PA busy " + productAgent + " for " + event);
-					return false;
-				}
+					sortByStartTime();return true;
 			}
 		}
 		
@@ -77,9 +70,27 @@ public class PAPlan {
 		this.plannedString.add(event);
 		this.startTimes.add(startTime);
 		this.endTimes.add(endTime);
-		return true;
+		sortByStartTime();return true;
 	}
 	
+	private void sortByStartTime() {
+		ArrayList<Integer> newStartList = new ArrayList<Integer>(this.startTimes);
+		ArrayList<Integer> newEndList = new ArrayList<Integer>(this.endTimes);
+		ArrayList<ResourceEvent> newPlannedString = new ArrayList<ResourceEvent>(this.plannedString);
+		
+		Collections.sort(newStartList);
+		for(int sortIndex = 0;sortIndex<newStartList.size();sortIndex++){
+			int startTimeSorted = newStartList.get(sortIndex);
+			int index = this.startTimes.indexOf(startTimeSorted);
+			newEndList.set(sortIndex, this.endTimes.get(index));
+			newPlannedString.set(sortIndex, this.plannedString.get(index));
+		}
+		
+		this.startTimes = newStartList;
+		this.endTimes = newEndList;
+		this.plannedString = newPlannedString;
+	}
+
 	/** Removes a product agent from the plan
 	 * @param action
 	 * @param startTime
@@ -87,7 +98,7 @@ public class PAPlan {
 	public boolean removeEvent(ResourceEvent event, Integer startTime, Integer endTime){
 		for(int index = 0; index < this.startTimes.size(); index++){
 			//Find if there is an event scheduled for the proposed time to remove it
-			if (startTime >= this.startTimes.get(index) && startTime< this.endTimes.get(index) && event.equals(this.plannedString.get(index))){
+			if (startTime >= this.startTimes.get(index) && endTime< this.endTimes.get(index) && event.equals(this.plannedString.get(index))){
 				//Remove the event if the proposed scheduled agent is found
 				this.startTimes.remove(index);
 				
