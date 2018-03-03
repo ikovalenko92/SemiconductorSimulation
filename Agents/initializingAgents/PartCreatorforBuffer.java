@@ -46,7 +46,7 @@ public class PartCreatorforBuffer {
 	 */
 	public PartCreatorforBuffer(Buffer buffer, BufferAgent bufferAgent, ExitAgent exitRA, Grid<Object> physicalGrid, Context<Object> physicalContext, Context<Object> cyberContext) {
 		this.startTime = 5;
-		this.intervalTime = 250;
+		this.intervalTime = 300;
 		
 		this.buffer = buffer;
 		this.bufferAgent = bufferAgent;

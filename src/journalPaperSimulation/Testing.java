@@ -3,11 +3,16 @@ package journalPaperSimulation;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import Buffer.BufferLLC;
 import Part.Part;
 import intelligentProduct.ProductAgentInstance;
 import repast.simphony.context.Context;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.space.grid.Grid;
 import resourceAgent.BufferAgent;
 import resourceAgent.ResourceAgent;
 import sharedInformation.ResourceEvent;
@@ -15,45 +20,55 @@ import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
 
+
 //NOT USING RIGHT NOW
 public class Testing {
 
-
-	private ArrayList<BufferLLC> listBufferLLC;
-	private Point[] bufferLocations;
+	private Point exitPoint = new Point (142,60);
+	private Point exitHumanPointPlace = new Point (6,10);
+	
+	private Grid<Object> physicalGrid;
 	private Context<Object> cyberContext;
-	private ArrayList<BufferAgent> listBufferAgent;
-	private Part part;
 
-	public Testing(ArrayList<BufferLLC> listBufferLLC, Point[] bufferLocations, ArrayList<BufferAgent> listBufferAgent,
-			Context<Object> cyberContext, Part part) {
-		this.listBufferLLC = listBufferLLC;
-		this.listBufferAgent = listBufferAgent;
-		this.bufferLocations = bufferLocations;
+	public Testing(Grid<Object> physicalGrid, Context<Object> cyberContext) {	
+		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
-		this.part = part;
 	}
-
-	public void start(){
-		ArrayList<String> desiredList = new ArrayList<String>();
-		desiredList.add("S1");
-		desiredList.add("S2");
-		desiredList.add("S3");
-		desiredList.add("S4");
-		desiredList.add("S5");
-		desiredList.add("S6");
-		ProductState startingNode = new ProductState(this.listBufferLLC.get(0).getBuffer(), null, new PhysicalProperty(this.bufferLocations[0]));
-		//ProductAgentInstance productAgentInstance = new ProductAgentInstance(this.part, desiredList, this.listBufferAgent.get(0), startingNode, 0);
+	
+	@ScheduledMethod ( start = 1 , interval = 3000, priority = -150)
+	public void runTest() {	
+		String outputS1 = "";
+		String outputS2 = "";
 		
-		//productAgentInstance.informEvent(new ResourceEvent(this.listBufferAgent.get(0), null, startingNode, null, 0));
-		//cyberContext.add(productAgentInstance);
-	}
-	
-	
-	public void check() throws ClassNotFoundException{
-		//Iterable<Class> a = this.cyberContext.getAgentTypes();
-		for (Object resourceAgent : this.cyberContext.getObjects(Class.forName("resourceAgent.ResourceAgent"))){
-			System.out.println(((ResourceAgent) resourceAgent).getSchedule());
+		Class desiredType = null;
+		for (Class typee :cyberContext.getAgentTypes()){
+			if (typee.toString().contains("ProductAgent")){
+				 desiredType = typee;
+			}
 		}
+		
+		for (Object object:this.physicalGrid.getObjectsAt(exitPoint.x,exitPoint.y)){
+			if (object.toString().contains("art")){
+				outputS1 = outputS1+", "+object.toString();
+				for (Object PA : cyberContext.getObjects(desiredType)){
+					//System.out.println(((ProductAgentInstance) PA).getProductHistory());
+					int a =5;
+				}
+				
+			}
+		}
+		
+		for (Object object:this.physicalGrid.getObjectsAt(exitHumanPointPlace.x,exitHumanPointPlace.y)){
+			if (object.toString().contains("art")){
+				outputS2 = outputS2+", "+object.toString();
+			}
+		}
+		
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		System.out.println(schedule.getTickCount());
+		System.out.println("Completed: " + outputS1);
+		System.out.println("Exited: " + outputS2);
+
 	}
+	
 }

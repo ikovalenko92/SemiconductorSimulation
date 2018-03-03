@@ -35,6 +35,7 @@ public class ProductHistory  extends DirectedSparseGraph<ProductState, ResourceE
 		//Update both the graph and the current state
 		this.update(currentState);
 		this.update(systemOutput, occuredEvents);
+		
 	}
 	
 	public void update(DirectedSparseGraph<ProductState, ResourceEvent> systemOutput,

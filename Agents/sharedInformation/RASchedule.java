@@ -97,11 +97,11 @@ public class RASchedule {
 		//If the new part agent is scheduled after the first one and it doesn't allow multiple scheduled together
 		if (!allowMultiple){
 			//Check to see if PA can be scheduled
-			for(int i = 0; i < startTimes.size(); i++){
-				checkStartTime = startTimes.get(i);
+			for(int i = 0; i < startTimes.size()-1; i++){
+				checkStartTime = startTimes.get(i+1);
 				checkEndTime = endTimes.get(i);
 				
-				if (startTime < checkEndTime){
+				if (startTime <= checkEndTime){
 					if (endTime <= checkStartTime){
 						productAgents.add(i,productAgentName);
 						startTimes.add(i,startTime);

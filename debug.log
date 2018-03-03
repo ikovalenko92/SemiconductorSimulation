@@ -1,7 +1,8 @@
-FATAL [Thread-8] 2018-03-01 19:39:47,629 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (64.0)
+FATAL [Thread-6] 2018-03-02 18:48:04,983 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9992.0)
 java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
 	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
 	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
 	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
@@ -9,18 +10,21 @@ java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
 	at java.lang.Thread.run(Thread.java:745)
 Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at Machine.Machine$$FastClassByCGLIB$$c01ab160.invoke(<generated>)
 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgentInstance.startExecution(ProductAgentInstance.java:421)
-	at intelligentProduct.ProductAgentInstance.informEvent(ProductAgentInstance.java:405)
-	... 9 more
-FATAL [Thread-9] 2018-03-01 19:39:59,170 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (64.0)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: repast.simphony.space.SpatialException: Object 'null' must be added to the grid's context before it can be moved
+	at repast.simphony.space.grid.AbstractGrid.moveTo(AbstractGrid.java:128)
+	at Machine.Machine.move(Machine.java:426)
+	at Machine.Machine.makeChanges(Machine.java:412)
+	at Machine.Machine.waiting(Machine.java:378)
+	... 10 more
+FATAL [Thread-6] 2018-03-02 19:11:03,024 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (1.0)
 java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
 	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
 	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
 	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
@@ -28,11 +32,32 @@ java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
 	at java.lang.Thread.run(Thread.java:745)
 Caused by: java.lang.reflect.InvocationTargetException
-	at intelligentProduct.ProductAgentInstance$$FastClassByCGLIB$$c4e65fe1.invoke(<generated>)
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Syntax error, insert ")" to complete EnhancedForStatementHeader
+
+	at journalPaperSimulation.Testing.runTest(Testing.java:47)
+	... 10 more
+FATAL [Thread-7] 2018-03-02 19:11:27,109 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (9001.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at journalPaperSimulation.Testing$$FastClassByCGLIB$$1bf0067e.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
 Caused by: java.lang.NullPointerException
-	at intelligentProduct.ProductAgentInstance.startExecution(ProductAgentInstance.java:421)
-	at intelligentProduct.ProductAgentInstance.informEvent(ProductAgentInstance.java:405)
-	... 9 more
+	at intelligentProduct.ProductAgentInstance.<init>(ProductAgentInstance.java:54)
+	at journalPaperSimulation.Testing.runTest(Testing.java:46)
+	... 10 more

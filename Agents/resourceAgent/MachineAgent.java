@@ -103,7 +103,7 @@ public class MachineAgent implements ResourceAgent{
 
 	@Override
 	public boolean removeScheduleTime(ProductAgent productAgent, int startTime, int endTime) {
-		return this.removeScheduleTime(productAgent, startTime, endTime);
+		return this.RAschedule.removePA(productAgent, startTime, endTime);
 	}
 	
 	//================================================================================
@@ -140,7 +140,9 @@ public class MachineAgent implements ResourceAgent{
 				return true;
 			}
 			else if (desiredEdge.getActiveMethod() == "Reset"){
-				return false;
+				this.machine.doNothing();
+				informPA(productAgent, desiredEdge);
+				return true;
 			}
 			else{
 				//Schedule it for the future
@@ -160,20 +162,14 @@ public class MachineAgent implements ResourceAgent{
 	private void informPA(ProductAgent productAgent, ResourceEvent edge){
 		//Using the edge of the weight (might need to check with Robot LLC in the future)
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
-				"informEvent", new Object[]{edge});
 		
-		// If this is not a hold method (i.e. one of the programs was run)
-		// Inform the product agent that the machine was "reset" and new programs can be run on it
-		if (!(edge.getActiveMethod() == "Hold")){
-			for (ResourceEvent resetEdge : this.machineCapabilities.getIncidentEdges(edge.getChild())){
-				if (resetEdge.getActiveMethod()=="Reset"){
-					schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
-							"informEvent", new Object[]{resetEdge});
-				}
-			}
-			
-		}
+		DirectedSparseGraph<ProductState, ResourceEvent> systemOutput = new DirectedSparseGraph<ProductState, ResourceEvent>();
+		systemOutput.addEdge(edge, edge.getParent(),edge.getChild());
+		ArrayList<ResourceEvent> occuredEvents = new ArrayList<ResourceEvent>();
+		occuredEvents.add(edge);
+		
+		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
+				"informEvent",new Object[]{systemOutput,edge.getChild(),occuredEvents});
 	}
 	
 	//================================================================================
@@ -203,7 +199,7 @@ public class MachineAgent implements ResourceAgent{
 			this.machineCapabilities.addEdge(programEdge, startNode, programNode);
 			
 			//Create the edge to come back to the original position
-			ResourceEvent programReset = new ResourceEvent(this, programNode, startNode, "Reset", 0);
+			ResourceEvent programReset = new ResourceEvent(this, programNode, startNode, "Reset", 1);
 			this.machineCapabilities.addEdge(programReset, programNode, startNode);
 		}
 	}

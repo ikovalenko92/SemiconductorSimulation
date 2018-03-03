@@ -86,11 +86,11 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	//Time for processes
 	//int S1time = 225*scale;
 	int S1time = 25*scale;
-	int S2time = 30*scale;
-	int S3time = 55*scale;
-	int S4time = 50*scale;
+	int S2time = 20*scale;
+	int S3time = 35*scale;
+	int S4time = 30*scale;
 	//int S5time = 255*scale;
-	int S5time = 45*scale;
+	int S5time = 35*scale;
 	int S6time = 15*scale;
 	
 	//Machine Times: negative numbers indicate that that process can't be performed by the specific machine
@@ -313,6 +313,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		buildPartCreator(physicalContext, physicalGrid, cyberContext);
 		
+		Testing test = new Testing(physicalGrid,cyberContext);
+		cyberContext.add(test);
+		
 		return context;
 	}
 
@@ -443,8 +446,6 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 				bufferAgent.getCapabilities().addEdge(addEdge, n, addNode);}
 			//DoneProperty for end buffer agent//
 		}
-		
-		
 		
 		//================================================================================
 	    // Resource agents neighbors

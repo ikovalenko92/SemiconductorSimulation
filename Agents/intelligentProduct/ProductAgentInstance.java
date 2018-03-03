@@ -142,6 +142,8 @@ public class ProductAgentInstance implements ProductAgent{
 		}
 		//If no model, send the exit plan to the execution
 		else{
+			
+			System.out.println("Could not find " + this.getDesiredProperties() + " for " + this.partName);
 			sendExitPlan();
 		}
 	}
@@ -215,21 +217,21 @@ public class ProductAgentInstance implements ProductAgent{
 	 * @return
 	 */
 	private int getStartBidTime() {
-		return 200;
+		return 300;
 	}
 	
 	/** Function to increase the bid time
 	 * @return
 	 */
 	private int getBidTimeChange() {
-		return 400;
+		return 300;
 	}
 	
 	/** The function for the product agent to set the max bid time
 	 * @return
 	 */
 	private int getMaxBidTime() {
-		return 1800;
+		return 5000;
 	}
 	
 	//================================================================================
@@ -365,9 +367,6 @@ public class ProductAgentInstance implements ProductAgent{
 		//Find the fastest path to one of the desired nodes
 		for (ProductState desiredNode: desiredNodes){
 			int compareDist = shortestPathGetter.getDistanceMap(environmentModel.getCurrentState()).get(desiredNode).intValue();
-			System.out.println(desiredNode);
-			System.out.println(compareDist);
-			System.out.println(dist);
 			if (compareDist < dist){
 				dist = compareDist;
 				desiredNodeFinal = desiredNode;
@@ -464,8 +463,8 @@ public class ProductAgentInstance implements ProductAgent{
 			for (PhysicalProperty desiredProperty : set){
 				//Check if it has occurred
 				boolean propertyComplete = false;
-				for (int index = 0; index<checkStates.size()-1;index++){
-					if (checkStates.get(index).getPhysicalProperties().equals(desiredProperty)){
+				for (int index = 0; index<checkStates.size();index++){
+					if (checkStates.get(index).getPhysicalProperties().contains(desiredProperty)){
 						//If it's occurred, overwrite the highest index, if appropriate
 						if (index>highestIndex){
 							highestIndex = index;
@@ -489,7 +488,7 @@ public class ProductAgentInstance implements ProductAgent{
 			//Note: need to remove all of the properties that are associated with the previous set to continue
 			else{
 				for (int j=0;j<highestIndex;j++){
-					checkStates.remove(j);
+					checkStates.remove(0);
 				}
 			}
 		}
@@ -510,6 +509,10 @@ public class ProductAgentInstance implements ProductAgent{
 	public void rescheduleRequest(ResourceAgent resourceAgent, int startTime) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public String getProductHistory() {
+		return this.productHistory.getOccurredEvents().toString();
 	}
 	
 }

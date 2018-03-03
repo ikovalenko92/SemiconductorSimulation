@@ -145,7 +145,6 @@ public class RobotAgent implements ResourceAgent {
 		}
 		
 		//Find the offset between the queried edge and when the actual program should be run
-		System.out.println(this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getEventTime());
 		int edgeOffset = queriedEdge.getEventTime() - this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getEventTime();
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		double startTime = schedule.getTickCount()+edgeOffset;
