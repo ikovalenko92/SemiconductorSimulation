@@ -52,8 +52,9 @@ public class ResourceAgentHelper {
 		while (itr.hasNext()){
 			// Find the edge and update it based on current schedule
 			ResourceEvent edge = itr.next();
-			int bidOffset = resourceAgent.getSchedule().getNextFreeTime(existingBidTime,edge.getEventTime())-existingBidTime;
 			
+			int bidOffset = resourceAgent.getSchedule().getNextFreeTime(existingBidTime,edge.getEventTime())-existingBidTime;
+
 			edge.setWeight(edge.getEventTime()+bidOffset);
 			
 			//Add to entire graph

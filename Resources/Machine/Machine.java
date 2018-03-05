@@ -387,6 +387,7 @@ public class Machine {
 		Iterable<Object> objectsHere = grid.getObjectsAt(this.processLocation.x,this.processLocation.y);
 		
 		//Check the object is a physicalComponent_Part 
+		String partNameHere=null;
 		for (Object object : objectsHere){
 			if (object.getClass().getName().contains("Part")){
 				
@@ -395,6 +396,7 @@ public class Machine {
 				((Part) object).setColor(this.partColor);
 				((Part) object).setShape(this.partShape);
 				((Part) object).setWindingRule(this.windingRule);
+				partNameHere = ((Part) object).toString();
 				
 				break;
 			}
@@ -409,7 +411,7 @@ public class Machine {
 		//Finish working
 		this.working = false;
 		
-		move(this.partName,this.processLocation,this.location);
+		move(partNameHere,this.processLocation,this.location);
 	}
 	
 	private void move(String partName, Point location, Point destination) {
@@ -417,7 +419,7 @@ public class Machine {
 		
 		Object desiredObject = null;
 		for (Object object : objectsHere){
-			if (object.getClass().getName().contains("Part") && object.toString().contains(this.partName)){
+			if (object.getClass().getName().contains("Part") && object.toString().contains(partName)){
 				desiredObject = object;
 				break;
 			}

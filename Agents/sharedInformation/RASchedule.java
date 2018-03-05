@@ -91,6 +91,14 @@ public class RASchedule {
 			return true;
 		}
 		
+		// 0 times get added automatically (reset for machine agent)
+		if (startTime == endTime){
+			productAgents.add(productAgentName);
+			startTimes.add(startTime);
+			endTimes.add(endTime);
+			return true;
+		}
+		
 		Integer checkStartTime;
 		Integer checkEndTime;
 		
@@ -98,7 +106,7 @@ public class RASchedule {
 		if (!allowMultiple){
 			//Check to see if PA can be scheduled
 			for(int i = 0; i < startTimes.size()-1; i++){
-				checkStartTime = startTimes.get(i+1);
+				checkStartTime = startTimes.get(i);
 				checkEndTime = endTimes.get(i);
 				
 				if (startTime <= checkEndTime){
@@ -194,6 +202,12 @@ public class RASchedule {
 	 * @return
 	 */
 	public int getNextFreeTime(int startTime, int timeAction){
+		
+		//Allow reset actions to happen immediately for the machine agent
+		if(timeAction <=1){
+			return startTime;
+		}
+		
 		//If there are no end times or it's after all the scheduled events, return the start time
 		if (endTimes.size() == 0 || startTime > endTimes.get(endTimes.size()-1)){
 			return startTime;

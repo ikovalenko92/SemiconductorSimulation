@@ -98,6 +98,12 @@ public class MachineAgent implements ResourceAgent{
 	@Override
 	public boolean requestScheduleTime(ProductAgent productAgent,ResourceEvent edge, int startTime, int endTime) {
 		int edgeOffset = edge.getEventTime() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getEventTime();
+		
+
+		if (edge.getActiveMethod() == "Reset"){
+				endTime = startTime+edgeOffset;
+		}
+		
 		return this.RAschedule.addPA(productAgent, startTime+edgeOffset, endTime, false);
 	}	
 
@@ -127,6 +133,12 @@ public class MachineAgent implements ResourceAgent{
 			}
 		}
 		
+		if (desiredEdge.getActiveMethod() == "Reset"){
+				this.machine.doNothing();
+				informPA(productAgent, desiredEdge);
+				return true;
+		}
+		
 		//Find the offset between the queried edge and when the actual program should be run
 		int edgeOffset = queriedEdge.getEventTime() - this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getEventTime();
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
@@ -135,11 +147,6 @@ public class MachineAgent implements ResourceAgent{
 		//If the product agent is scheduled for this time, run the desired program
 		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getEventTime())){
 			if (desiredEdge.getActiveMethod() == "Hold"){
-				this.machine.doNothing();
-				informPA(productAgent, desiredEdge);
-				return true;
-			}
-			else if (desiredEdge.getActiveMethod() == "Reset"){
 				this.machine.doNothing();
 				informPA(productAgent, desiredEdge);
 				return true;

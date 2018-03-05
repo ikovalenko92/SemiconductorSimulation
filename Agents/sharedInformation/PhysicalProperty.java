@@ -30,6 +30,18 @@ public class PhysicalProperty {
 	public String getProcessCompleted() {
 		return processCompleted;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		if (this.processCompleted == null){
+			return "PhysicalProperty [point=" + point + "]";
+		}
+		
+		return "PhysicalProperty [point=" + point + ", processCompleted="
+				+ processCompleted + "]";
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
