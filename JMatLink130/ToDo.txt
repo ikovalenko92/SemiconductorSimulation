@@ -1,0 +1,97 @@
+############# things to do ##################
+
+2005/11/21 carlos
+  public static void main(String[] args)
+  {
+    JMatLink engine = new JMatLink();
+    engine.engOpen();
+    engine.engEvalString("imwrite(rand(128, 128), 'c:\\image.bmp');");
+    engine.engEvalString("image = imread('c:\\image.bmp', 'BMP');");
+image is now of type uint8
+    double[][] array = engine.engGetArray("image");
+the above command crashes JMatLink. Problem seems to be the uint8. Workaround:
+  image=double(image)
+
+    engine.engClose();
+  }
+  
+
+2005/11/10 alex rueegg engGetCharArray(ep, string) is missing
+2005/11/06 stefan the getFigure() method leaves begind some jpeg images (only
+                  sometimes). Maybe clean images at termination of JMatLink.
+2005/10/29 stefan provide makefiles for Linux
+2005/10/09 stefan add a version string to JMatLink.java or c in order to indentify the current version.
+2005/10/09 Ali KIZIL Using startup commands at Windows, just like in Linux.
+2005/10/09 Ali KIZIL Updated makefile for Linux
+2005/10/09 Ali KIZIL Command Window can be displayable at Linux, just like in Windows
+2005/09/25 daniel.ljungqvist I know of no way to get a matlab-figure to be presented 
+                  in a Java-GUI, but this is something I also would like to be made possible.
+2005/09/24 stefan keith used engEvalString() without synchronisation and claims that
+                  it is the only threadsafe method for the engine.
+2005/06/26 stefan add a more sophisticated method to inform the user why the dll could 
+                  not be loaded 
+2005/05/26 stefan introduce new methods engGetRowVector()
+2005/05/26 stefan introduce new methods engGetColumnVector()
+2005/06/05 stefan return more than double arrays. e.g. int, long, boolean.
+                  Therefor a class called Array.java is necessary which can contain
+                  all different types of Matlab's data types 
+2005/05/25 stefan provide wrappers for old engine functions
+2005/05/24 stefan check if all methods return useful data and don't 
+                  crash if the data from matlab's workspace is missing 
+                  or corrupted
+2005/05/24 stefan I'm not sure what happens if large matrices are passed 
+                  back and force between this class and other applications. 
+                  Maybe I should always clear all global arrays engGetArray1dD...
+2005/05/24 stefan I'm not sure if the locking mechanism is good or bad.
+                  There may be a problem, if two subsequent calls to 
+                  two different engine routines occur at the same time.
+2005/05/24 stefan what should I do with the return values of the engine 
+                  functions? Throw an exception?
+2005/05/24 stefan  make engPutArray also for int,
+2005/05/24 stefan  make engGetArray/Scalar also for int
+2005/05/24 stefan  make engGetCharArray also for different engine pointers
+2005/05/23 stefan check if #define V5_COMPAT in JMatLink.c can be omitted 
+2005/05/22 stefan support for complex numbers
+
+
+**** solved issues ****
+2005/10/23 stefan include a mechanism to get images (e.g. jpegs) from matlab into jmatlink.
+                  e.g. is there something linke getTempDir()??
+2005/05/17 keith  Handle concurrency issues.
+2005/05/17 keith  Build scripts
+2005/05/25 stefan provide new names for engine functions engPutVariable()... 
+                  since engPutArray is obsolete
+2005/06/26 stefan programms using JMatLink sometimes do not terminate. This is due
+                  to the JMatLink thread which keeps running until jmatlink.kill()
+                  is called. 
+                  Possible solution: start and kill the jmatlink thread when the
+                  first connection to the engine is created (engOpen()) and kill
+                  thread when the last engine is  closed (engClose() o engCloseAll())
+2005/11/02 stefan cleanup residues of engGetCharArray
+2005/05/17 keith  Clean up the method names (both to make them fit the Sun Java
+                  recommendations and to make somewhat more intuitive sense to your
+                  typical Java developer)
+2005/10/22 stefan call kill() when no link to Matlab is open. Only start thread when a
+                  connection to Matlab is requested/opened.
+2005/10/22 jacka  JMatLink crashes: caused by not using Kill() method to kill the running matlab thread
+2005/05/17 keith  Unit tests
+2005/06/11 stefan somehow the function engOutputBuffer has to be called twice before 
+                  it returns the first data
+2005/05/24 stefan engOpen is supposed to throw an exception if not successfull
+2005/05/24 stefan  make something like engGetOutputBuffer
+2005/05/17 keith  Get rid of or fix the methods that do not work
+2006/06/26 stefan jmatlink.engEvalString(e2, "ccc=789.0");
+        		  jmatlink.engEvalString(e1, "bbb=1234.5");
+        		  String output1 =    jmatlink.engOutputBuffer(e1);
+				  String output2 =    jmatlink.engOutputBuffer(e2);
+				  wrong result for output2. engOutputBuffer does not provide buffer
+				  for both engine pointers.
+2006/07/07 stefan when closing an engine alle engOutputBuffers must be closed
+2006/07/03 stefan add a method to turn of engOutputBuffer. On the C-side this has to
+                  be done by calling engOutputBuffer(Ep,NULL,0)
+2005/06/26 stefan engOutputBuffer() return null after first calling. Only calling the
+                  methods twice returns some data.
+                  -> put a call to engOutputBuffer into engOpen() and engOpenSingleUse()
+2005/06/19 stefan e.g. engClose(), engEvalSTring("a=4") should report an error, since
+                  the engine has been closed before
+                  -> throws a JMatLinkException 

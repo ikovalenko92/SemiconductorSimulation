@@ -158,6 +158,7 @@ public class RobotAgent implements ResourceAgent {
 			return true;
 		}
 		
+		
 		return false;
 	}
 	
@@ -207,7 +208,7 @@ public class RobotAgent implements ResourceAgent {
 			//Multiplier to give more time to the robot to perform the action
 			int distTravel = (int) (Math.abs(center.x-start.x) + Math.abs(center.y-start.y) + Math.abs(start.x-end.x) + Math.abs(start.y-end.y)
 					+ Math.abs(center.x-end.x) + Math.abs(center.y-end.y));
-			int pickPlaceOffset = 14;
+			int pickPlaceOffset = 15;
 			int weight = (int) ((distTravel)/this.robot.getRobot().getVelocity()) + pickPlaceOffset;
 			
 			//Create and add the edge to the capabilities

@@ -35,6 +35,9 @@ public class PartCreatorforBuffer {
 	private double intervalTime;
 	
 	private int PAnumber;
+
+	private Point exitPoint = new Point (142,60);
+	private Point exitHumanPointPlace = new Point (6,10);
 	
 	/**
 	 * @param buffer
@@ -46,7 +49,7 @@ public class PartCreatorforBuffer {
 	 */
 	public PartCreatorforBuffer(Buffer buffer, BufferAgent bufferAgent, ExitAgent exitRA, Grid<Object> physicalGrid, Context<Object> physicalContext, Context<Object> cyberContext) {
 		this.startTime = 5;
-		this.intervalTime = 150;
+		this.intervalTime = 200;
 		
 		this.buffer = buffer;
 		this.bufferAgent = bufferAgent;
@@ -68,6 +71,24 @@ public class PartCreatorforBuffer {
 	 * Creates a physical part and the agent
 	 */
 	public void startPartAgentCreation(){
+		
+		int currentPartCount = 0;
+		for (Object object:this.physicalGrid.getObjects()){
+			if (object.getClass().toString().contains("Part")){
+				int x_coor = this.physicalGrid.getLocation(object).getX();
+				int y_coor = this.physicalGrid.getLocation(object).getY();
+				if(!((x_coor == this.exitPoint.x && y_coor == this.exitPoint.y) || 
+						(x_coor == this.exitHumanPointPlace.x && y_coor == this.exitHumanPointPlace.y))){
+					currentPartCount++;
+				}
+			}
+		}
+		
+		if(currentPartCount>40){
+			return;
+		}
+		
+		
 		//set the part type
 		char partType = 'a';	
 		this.PAnumber = this.PAnumber+1;

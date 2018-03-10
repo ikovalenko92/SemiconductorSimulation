@@ -1,0 +1,158 @@
+####### changelog for JMatLink #####
+# xxxx/xx/xx <user> <action> <description> 
+# actions: "added"   for new feature
+#          "fixed"   for bugfixing
+#          "changed" for changed feature
+#          "doc"     for improvments of documentation
+
+release of JMatLink 1.3.0
+2005/12/28 stefan changed JMatLink.java changed version id from 1.2.0 to 1.3.0
+2005/12/27 stefan added   SimpleTestGui02.java as a simple test utility for
+						  engGetFigure()
+2005/12/17 stefan changed testEngGetFigure() more tests
+						  SimpleTestGui changed x-y of engGetFigure()
+						  JMatLink changed x-y of engGetFigure()
+2005/12/27 stefan changed JMatLink.java added Image engGetFigure(long epI, int figure, 
+                          int dy, int dx)
+						  in order to retrieve figures from matlab in the java 
+						  environment. Also added a mechanism to remove temporary
+						  image-filenames. These images sometimes cannot be deleted
+						  immediately. A list keeps track of all not deleted images.
+2005/11/10 stefan added   testEngGetCharArray.java to test the engGetCharArray
+                          methods.
+2005/11/10 stefan added   JMatLink.java engGetCharArray( epI, name). There 
+						  was only the function without engine pointer 
+						  engGetCharArray(name)
+2005/11/08 stefan fixed   Benchmark01.java and EnduranceTest01.java StressTest.java
+2005/11/06 stefan changed SimpleTestGui.java added support for getFigure()
+2005/11/06 stefan changed JMatLink.java and added a method 
+                          Image engGetFigure(int figure, int dy, int dx)
+                          in order to return an image of a Matlab figure
+
+release of JMatLink 1.2.0
+2005/11/02 stefan changed JMatLink.java added more comments
+2005/11/02 stefan changed CoreJMatLink.java removed engGetCharArray from file,
+                          function is still available in JMatLink.java
+2005/10/30 stefan changed build.xml and added task to compile c-file to dll
+2005/10/29 stefan changed CoreJMatLink.java added more useful text if loading of
+                          the library failed.
+2005/10/27 stefan changed CoreJMatLink.java added mechanism to stop and start the
+                          engine thread. If no connection to matlab is active the
+                          engine thread is terminated. Upon opening a new connection
+                          the thread is started again.
+2005/10/27 stefan changed JMatLink.java see above
+2005/10/27 stefan changed SimpleTestGui.java and added button to toggle debug output
+2005/10/27 stefan added   build.properties build.xml as ant scripts in order to
+                          generate a release very quickly
+2005/10/23 stefan changed SimpleTestGui.java JMatLink.java removed kill()
+2005/10/23 stefan changed SimpleTestGui.java added button for debug info
+2005/10/23 stefan changed CoreJMatLink.java added code to kill and restart the JMatLink thread.
+                          After closing all engines it is not necessary to call kill() on 
+                          JMatLink any more.
+2005/10/15 stefan added   HowToMakeARelease.txt
+2005/10/08 stefan changed some return values in JMatLink.c from "NULL" to "0"
+2005/10/08 stefan added   lots of javadoc generated documentation in ./doc/javadoc/...
+2005/10/01 stefan added   license file
+2005/07/21 stefan added   testcases for engGetArray(long, string) new file
+                          testEngGetArray.java
+2005/07/21 stefan fixed   engGetArray(int ,) -> engGetArray(long, ) bugfix
+2005/07/17 stefan added   JMatLinkExeption.java more comments
+
+release of JMatLink 1.1.0
+2005/07/10 stefan fixed   some problems with engOpen, engClose, engOutputBuffer
+2005/07/09 stefan added   engOutputBuffer(length) as function for engOpen(), engEval(String), 
+                          engClose()
+2005/07/07 stefan changed CoreJMatLink.java JMatLink.c JMatLink.java SimpleTestGui.java
+                          and implemented first working versin of different output buffers.
+                          New behavior of engOutputBuffer(ep, len) and
+                          engGetOutputBuffer(ep)
+2005/06/26 stefan changed CoreJMatLink.java to support original engGetVariable() and
+                          engPutVariable() methods
+2005/06/26 stefan added   EnduranceTest01.java to test the engine interface over
+                          a long period of time (>1hour). I already found a memory
+                          leak with this new program.
+2005/06/26 stefan fixed   JMatLink.c memory leak in engPutVariableNATIVE added
+                          ReleaseDoubleArrayElements() to release memory
+
+release of JMatLink 1.0.9
+2005/06/26 stefan added   testEngOutputBuffer()
+2005/06/26 stefan fixed   some issues for engOutputBuffer()
+2005/06/19 stefan added   methods engSetVisible() and engGetVisible(). This makes the
+                          MATLAB window on a Windows-Desktop visible/invisible. It 
+                          also returns a status of visibility.
+2005/06/19 stefan changed testsuite/AllTests.java testJMatLink.java
+2005/06/19 stefan added   support for exceptions to JMatLink (JMatLinkException.java) and
+                          removed a couple of methods which are not core-functions in
+                          CoreJMatLink.java. The functions must be created in JMatLink.java
+2005/06/19 stefan added   testcases testEngClose.java for testing of engClose(...)
+2005/06/19 stefan added   testcases testEngOpen.java for testing of engOpen(...)
+2005/06/19 stefan added   testcases testEngEvalString.java for testing of engEvalString(...)
+2005/06/14 stefan added   Benchmark01.java new benchmark suite to test the power 
+                          and speed of JMatLink
+2005/06/12 stefan added   testSingleUse for tests of engOpenSingleUse. Testing the
+                          connection to two running instances of MATLAB in parallel
+2005/06/12 stefan changed JMatLink.c JMatLink.h JMatLink.java CoreJMatLink.java
+                          SimpleTestGui.java StressTest01.java and introduced
+                          a pointer system. Now the engine functions return a
+                          "long" value which is casted from the (Engine *) pointer.
+                          This allows to call directly to different engines
+2005/06/12 stefan changed JMatLink.c and added more comments
+2005/06/11 stefan changed SimpleTestGui.java changed if-if-if into if-else if-else if
+2005/06/11 stefan added   SimpleTextGUI02.java : sends commands from the prompt to 
+                          MATLAB and returns the corresponding outputbuffer
+2005/06/11 stefan added   SimpleTextGUI01.java : sends one command to MATLAB and returns outputbuffer
+2005/06/07 stefan changed JMatLink.java cleanup of code and comments
+2005/06/06 stefan bugfix  JMatLink.java minor corrections due to new class CoreJMatLink.java
+2005/06/05 stefan changed JMatLink.h .java .c to work with the new CoreJMatLink.java file
+2005/06/05 stefan added   a new class called CoreJMatLink.java which will do all communication
+                          with Matlab. I'm planning to receive more different types of arrays
+                          from the workspace. double, int, boolean.
+2005/05/28 stefan changed testJMatLink.java and removed functions setUp and tearDown, 
+                          which are called by JUnit before and after each test. Since
+                          opening and closing the engine interface has to be tested 
+                          in many ways, it is done now inside each testcase.
+2005/05/26 stefan changed JMatLink.h JMatLink.c JMatLink.java changed to new methods
+                          engPutVariable() and engGetVariable() of matlab
+2005/05/25 stefan added   src/jmatlink/testsuite/StressTest01.java for stress testing
+                          of the engine functions. high volume of same tests
+2005/05/25 stefan added   src/jmatlink/ui/SimpleTestGui.java for testing
+2005/05/25 stefan added   src/jmatlink/ui/
+
+release of JMatLink 1.0.1
+2005/05/25 stefan changed JMatLink.c used new engPutVariable instead of obsolete engPutArray
+2005/05/25 stefan changed src/jmatlink/JMatLink.h to new package structure jmatlink
+2005/05/24 stefan added   src/jmatlink/testsuite/
+2005/05/24 stefan added   src/jmatlink/testsuite/jmatlink/
+2005/05/24 stefan added   src/jmatlink/testsuite/AllTests.java
+2005/05/24 stefan added   src/jmatlink/testsuite/jmatlink/AllTests.java
+2005/05/24 stefan added   src/jmatlink/testsuite/jmatlink/testJMatLink.java
+2005/05/23 stefan added   define for V5_COMPAT to JMatLink.c
+2005/05/22 stefan removed comments from sourcefiles
+2005/05/14 stefan added   folder src for all sourcecode
+2005/05/14 stefan added   folder bin for all output, exe, dll, class
+2005/05/14 stefan added   folder doc for all documentation
+2005/05/14 stefan added   intial start at sourceforge
+
+release of JMatLink 1.0.0
+2002/05/22 stefan add removed empty engGetVector methods 
+2001/10/10 stefan fix engGetCharArray throws exception if array is NULL   
+2001/09/08 stefan add final version. upgrade version number     
+2001/08/09 stefan add extensive documentation                                        
+2001/07/31 stefan add setDebug() to suppress messages to the console window           
+2001/06/10 stefan add use of maximum number of arguments of all engine functions     
+2001/06/04 stefan add engEvalString(ep, evalString)                                  
+2001/05/24 stefan add engClose(int pointer)                                   
+2001/05/24 stefan add engOpenSingleUse                                         
+2001/04/07 stefan add restart work on JMatLink                                 
+1999/10/10 stefan add engPutArray(String name, double[][] values)              
+1999/09/21 stefan add engGetCharArray working (conversion to double matrix first) (transfer as double throught engine and conversion back to double) engine doesn't support char arrays 
+1999/09/11 stefan add get char array from workspace            
+1999/08/29 stefan add made all engine routines "synchronized"  
+1999/08/16 stefan add wait for all engine calls to return savely   
+1999/08/15 stefan add intruduced 2 locking mechanisms to lock the engine and wait for data to be return to caller.                
+1999/08/13 stefan add thread implementation due to ActiveX thread problem    
+1999/05/20 stefan add deleted engPutArray (float..., int...)                 
+1999/05/02 stefan add engGetScalar already works                             
+1999/03/27 stefan add engGetScalar, engGetVector, engGetArray                
+1999/02/06 stefan add  separation from gui                                   
+1999/01/19 stefan add  beginning (reuse of HelloWorld example, Java Tutorial)

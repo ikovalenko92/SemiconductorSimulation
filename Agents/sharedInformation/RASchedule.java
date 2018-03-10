@@ -6,6 +6,7 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 import resourceAgent.ResourceAgent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RASchedule {
 	ResourceAgent resourceAgent;
@@ -88,16 +89,9 @@ public class RASchedule {
 			productAgents.add(productAgentName);
 			startTimes.add(startTime);
 			endTimes.add(endTime);
-			return true;
+			sortByStartTime();return true;
 		}
 		
-		// 0 times get added automatically (reset for machine agent)
-		if (startTime == endTime){
-			productAgents.add(productAgentName);
-			startTimes.add(startTime);
-			endTimes.add(endTime);
-			return true;
-		}
 		
 		Integer checkStartTime;
 		Integer checkEndTime;
@@ -109,12 +103,13 @@ public class RASchedule {
 				checkStartTime = startTimes.get(i);
 				checkEndTime = endTimes.get(i);
 				
+				//If the event starts before the 
 				if (startTime <= checkEndTime){
 					if (endTime <= checkStartTime){
 						productAgents.add(i,productAgentName);
 						startTimes.add(i,startTime);
 						endTimes.add(i,endTime);
-						return true;
+						sortByStartTime();return true;
 					}
 					else{
 						System.out.println("Resource busy " + resourceAgent + " for " + productAgent);
@@ -129,7 +124,25 @@ public class RASchedule {
 		productAgents.add(productAgentName);
 		startTimes.add(startTime);
 		endTimes.add(endTime);
-		return true;
+		sortByStartTime();return true;
+	}
+	
+	private void sortByStartTime() {
+		ArrayList<Integer> newStartList = new ArrayList<Integer>(this.startTimes);
+		ArrayList<Integer> newEndList = new ArrayList<Integer>(this.endTimes);
+		ArrayList<String> newPA = new ArrayList<String>(this.productAgents);
+		
+		Collections.sort(newStartList);
+		for(int sortIndex = 0;sortIndex<newStartList.size();sortIndex++){
+			int startTimeSorted = newStartList.get(sortIndex);
+			int index = this.startTimes.indexOf(startTimeSorted);
+			newEndList.set(sortIndex, this.endTimes.get(index));
+			newPA.set(sortIndex, this.productAgents.get(index));
+		}
+		
+		this.startTimes = newStartList;
+		this.endTimes = newEndList;
+		this.productAgents = newPA;
 	}
 	
 	/** Removes a product agent from the schedul
@@ -157,7 +170,7 @@ public class RASchedule {
 					this.startTimes.add(index, endTime);
 				}
 				
-				return true;
+				sortByStartTime();return true;
 			}
 		}
 		
@@ -202,11 +215,6 @@ public class RASchedule {
 	 * @return
 	 */
 	public int getNextFreeTime(int startTime, int timeAction){
-		
-		//Allow reset actions to happen immediately for the machine agent
-		if(timeAction <=1){
-			return startTime;
-		}
 		
 		//If there are no end times or it's after all the scheduled events, return the start time
 		if (endTimes.size() == 0 || startTime > endTimes.get(endTimes.size()-1)){

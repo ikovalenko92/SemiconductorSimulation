@@ -13,6 +13,9 @@ import Machine.Machine;
 import Machine.MachineLLC;
 import Robot.Robot;
 import Robot.RobotLLC;
+import Testing.Testing1;
+import Testing.Testing2;
+import Testing.Testing3;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
@@ -82,16 +85,14 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
 			machineTRPoint, machineTSPoint, machineTTPoint};
 	
-	int scale = 10;
+	int scale = 5;
 	//Time for processes
-	//int S1time = 225*scale;
-	int S1time = 25*scale;
-	int S2time = 20*scale;
-	int S3time = 35*scale;
-	int S4time = 30*scale;
-	//int S5time = 255*scale;
-	int S5time = 35*scale;
-	int S6time = 15*scale;
+	int S1time = 70*scale;
+	int S2time = 45*scale;
+	int S3time = 55*scale;
+	int S4time = 50*scale;
+	int S5time = 60*scale;
+	int S6time = 10*scale;
 	
 	//Machine Times: negative numbers indicate that that process can't be performed by the specific machine
 	//e.g. Machine TA can performa process 1 and 5 in 225 and 255 ticks, but can't perform other processes
@@ -313,8 +314,17 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		buildPartCreator(physicalContext, physicalGrid, cyberContext);
 		
-		Testing test = new Testing(physicalGrid,cyberContext);
+		Testing1 test = new Testing1(physicalGrid,cyberContext,physicalContext);
 		cyberContext.add(test);
+		
+		Testing2 test2 = new Testing2(physicalGrid,cyberContext,physicalContext);
+		cyberContext.add(test2);
+		
+		//Testing3 test3 = new Testing3(physicalGrid,cyberContext,physicalContext);
+		//cyberContext.add(test3);
+		
+		//PartSnapshot test2 = new PartSnapshot(physicalGrid,physicalContext);
+		//cyberContext.add(test2);
 		
 		return context;
 	}

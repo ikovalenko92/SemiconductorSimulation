@@ -20,7 +20,7 @@ public class ProductHistory  extends DirectedSparseGraph<ProductState, ResourceE
 	public ProductHistory(ProductAgentInstance productAgentInstance,
 			ProductState currentState) {
 
-		this.dummyEmptyNode = new ProductState(null, null, new PhysicalProperty(new Point(0,0)));
+		this.dummyEmptyNode = new ProductState(null, null, new PhysicalProperty(new Point(18,60))); // random point
 		this.currentState = currentState;
 		this.startingEdge = new ResourceEvent(null, dummyEmptyNode, currentState, null, 0);
 		this.addEdge(startingEdge, dummyEmptyNode, currentState);

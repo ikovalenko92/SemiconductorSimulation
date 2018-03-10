@@ -8,6 +8,7 @@ import org.apache.commons.collections15.Transformer;
 import Machine.MachineLLC;
 import Part.Part;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import groovy.ui.SystemOutputInterceptor;
 import intelligentProduct.ProductAgent;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
@@ -133,12 +134,6 @@ public class MachineAgent implements ResourceAgent{
 			}
 		}
 		
-		if (desiredEdge.getActiveMethod() == "Reset"){
-				this.machine.doNothing();
-				informPA(productAgent, desiredEdge);
-				return true;
-		}
-		
 		//Find the offset between the queried edge and when the actual program should be run
 		int edgeOffset = queriedEdge.getEventTime() - this.getCapabilities().findEdge(queriedEdge.getParent(),queriedEdge.getChild()).getEventTime();
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
@@ -147,6 +142,11 @@ public class MachineAgent implements ResourceAgent{
 		//If the product agent is scheduled for this time, run the desired program
 		if (desiredEdge!=null &&  this.RAschedule.checkPATime(productAgent, (int) startTime, (int) startTime+desiredEdge.getEventTime())){
 			if (desiredEdge.getActiveMethod() == "Hold"){
+				this.machine.doNothing();
+				informPA(productAgent, desiredEdge);
+				return true;
+			}
+			else if (desiredEdge.getActiveMethod() == "Reset"){
 				this.machine.doNothing();
 				informPA(productAgent, desiredEdge);
 				return true;
@@ -171,12 +171,27 @@ public class MachineAgent implements ResourceAgent{
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		
 		DirectedSparseGraph<ProductState, ResourceEvent> systemOutput = new DirectedSparseGraph<ProductState, ResourceEvent>();
-		systemOutput.addEdge(edge, edge.getParent(),edge.getChild());
 		ArrayList<ResourceEvent> occuredEvents = new ArrayList<ResourceEvent>();
-		occuredEvents.add(edge);
+
 		
-		schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
-				"informEvent",new Object[]{systemOutput,edge.getChild(),occuredEvents});
+		if (!(edge.getActiveMethod() == "Hold")){
+			systemOutput.addEdge(edge, edge.getParent(),edge.getChild());
+			occuredEvents.add(edge);
+			
+			for (ResourceEvent edgeResetFind:this.machineCapabilities.getIncidentEdges(edge.getChild())){
+				if (edgeResetFind.getActiveMethod().contains("Reset")){
+					systemOutput.addEdge(edgeResetFind, edgeResetFind.getParent(),edgeResetFind.getChild());
+					occuredEvents.add(edgeResetFind);
+				}
+			}
+			
+			schedule.schedule(ScheduleParameters.createOneTime(schedule.getTickCount()+edge.getEventTime()), productAgent,
+					"informEvent", new Object[]{systemOutput,occuredEvents.get(occuredEvents.size()-1).getChild(),occuredEvents});
+		}
+		else{
+			systemOutput.addEdge(edge, edge.getParent(),edge.getChild());
+			occuredEvents.add(edge);
+		}
 	}
 	
 	//================================================================================
@@ -206,7 +221,7 @@ public class MachineAgent implements ResourceAgent{
 			this.machineCapabilities.addEdge(programEdge, startNode, programNode);
 			
 			//Create the edge to come back to the original position
-			ResourceEvent programReset = new ResourceEvent(this, programNode, startNode, "Reset", 1);
+			ResourceEvent programReset = new ResourceEvent(this, programNode, startNode, "Reset", 0);
 			this.machineCapabilities.addEdge(programReset, programNode, startNode);
 		}
 	}
@@ -230,7 +245,7 @@ public class MachineAgent implements ResourceAgent{
 	}
 	
 	//================================================================================
-    // Testing
+    // Testing1
     //================================================================================
 	
 	/*@ScheduledMethod (start = 30)

@@ -22,9 +22,9 @@ public class EnvironmentModel extends DirectedSparseGraph<ProductState, Resource
 	 */
 	public EnvironmentModel(ProductAgentInstance productAgentInstance, ProductState currentState) {
 		
-		this.dummyEmptyNode = new ProductState(null, null, new PhysicalProperty(new Point(0,0)));
+		this.dummyEmptyNode = new ProductState(null, null, new PhysicalProperty(new Point(18,60))); //random point
 		this.currentState = currentState;
-		this.startingEdge = new ResourceEvent(null, dummyEmptyNode, currentState, null, 0);
+		this.startingEdge = new ResourceEvent(null, this.dummyEmptyNode, currentState, null, 0);
 		this.addEdge(startingEdge, dummyEmptyNode, currentState);
 	}
 	

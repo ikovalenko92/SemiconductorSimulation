@@ -108,7 +108,13 @@ public class ResourceAgentHelper {
 				//Find the shortest path
 				List<ResourceEvent> shortestPathCandidateList = shortestPathGetter.getPath(bidPartState, neighborNode);
 				
-				//Shortest path wasn't found (maybe because the part state and neighbor node are the same
+				//If the current state is the 1st neighbor state -> pass the bid on to the resource's neighbor
+				if(shortestPathCandidateList.isEmpty() && bid.getEdgeCount()==0){
+					ResourceEvent selfEdge = new ResourceEvent(resourceAgent, neighborNode, neighborNode, "Hold", 0);
+					bid.addEdge(selfEdge, selfEdge.getParent(), selfEdge.getChild());
+					neighbor.teamQuery(productAgent, desiredProperty, bidPartState, maxTimeAllowed, bid, existingBidTime);
+				}
+				else
 				//Don't revisit the same edges
 				if(!bid.getEdges().containsAll(shortestPathCandidateList)){	
 					//Calculate the bid

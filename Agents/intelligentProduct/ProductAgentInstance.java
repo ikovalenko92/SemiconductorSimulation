@@ -224,14 +224,14 @@ public class ProductAgentInstance implements ProductAgent{
 	 * @return
 	 */
 	private int getBidTimeChange() {
-		return 300;
+		return 500;
 	}
 	
 	/** The function for the product agent to set the max bid time
 	 * @return
 	 */
 	private int getMaxBidTime() {
-		return 5000;
+		return 7000;
 	}
 	
 	//================================================================================
@@ -511,8 +511,8 @@ public class ProductAgentInstance implements ProductAgent{
 		
 	}
 
-	public String getProductHistory() {
-		return this.productHistory.getOccurredEvents().toString();
+	public ArrayList<ResourceEvent> getProductHistory() {
+		return this.productHistory.getOccurredEvents();
 	}
 	
 }

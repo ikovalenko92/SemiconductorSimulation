@@ -204,6 +204,10 @@ public class BufferAgent implements ResourceAgent {
 			//Program to move TO storage. Format: Tx,y
 			ResourceEvent programInEdge = new ResourceEvent(this, enterNode, storageNode, "T" + enterNode.getLocation().x + "," + enterNode.getLocation().y, 1);
 			this.bufferCapabilities.addEdge(programInEdge, enterNode, storageNode);
+			
+			//Program to move hold at storage. Format: Tx,y
+			ResourceEvent holdEdge = new ResourceEvent(this, storageNode, storageNode, "S" + storageNode.getLocation().x + "," + storageNode.getLocation().y, 1);
+			this.bufferCapabilities.addEdge(holdEdge, storageNode, storageNode);
 		}
 	}
 	

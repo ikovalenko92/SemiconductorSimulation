@@ -1,0 +1,33 @@
+This is a guide of how to install and use JMatLink
+
+1. Introduction
+JMatLink is connecting Java and MATLAB.
+This guide will help you to install and use JMatLink
+
+
+2. Installation
+2.1 Windows systems
+2.1.1 Windows 98
+- copy the JMatLink.dll into the c:\windows\ directory
+- add the line "set PATH=%PATH%;c:/matlab/bin" to the file autoexec.bat. Make sure
+  to replace "matlab" with the appropriate path to your MATLAB installation.
+
+2.1.2 Windows 2000
+
+- copy the JMatLink.dll into the WINNT/system32 directory
+
+2.1.2 Windows XP
+
+
+2.2 Unix systems
+
+
+3. Test of installation
+3.1 Windows systems
+- Open a dos box
+- type java
+- you should see some messages from the installed java virtual machine
+- change to the installation directory of JMatLink
+- change to the bin directory
+- type java jmatlink.ui.test
+- some text messages will appear
