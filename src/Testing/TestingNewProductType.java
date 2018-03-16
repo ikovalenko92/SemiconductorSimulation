@@ -55,7 +55,7 @@ public class TestingNewProductType {
 	}
 	
 	public void oldProductVariety(){
-		partCreator.setPartType('a');
+		partCreator.setPartType('n');
 	}
 	
 	public void runTest() {	

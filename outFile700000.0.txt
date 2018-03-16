@@ -1,3 +1,0 @@
-Completed Part Count (a): 0
-Exited Part Count (a): 2200
-Exited Part Count (b): 50

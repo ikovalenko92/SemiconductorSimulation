@@ -295,7 +295,8 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	//================================================================================
     // Part Agent Creator
     //================================================================================
-	private PartCreatorforBuffer partCreator;
+	private PartCreatorforBuffer partCreatora;
+	private PartCreatorforBuffer partCreatorb;
 	
 //================================================================================
 // START OF METHODS
@@ -333,6 +334,21 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		return context;
 	}
+	
+	
+
+	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
+		
+		this.partCreatora = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,5,200);
+		cyberContext.add(partCreatora);
+		
+		this.partCreatorb = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,27100,200);
+		cyberContext.add(partCreatorb);
+
+	}
+	
 
 	private void buildTesting(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
@@ -348,8 +364,8 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 				100001, 200000, this.exitPointStorage, this.exitHumanPoint);
 		cyberContext.add(test2);
 		
-		TestingNewProductType test3 = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,partCreator,
-				new int[]{270000,280001},300000, this.exitPointStorage, this.exitHumanPoint);
+		TestingNewProductType test3 = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,partCreatorb,
+				new int[]{270000,280101},300000, this.exitPointStorage, this.exitHumanPoint);
 		cyberContext.add(test3);
 		
 		PartSnapshot partSnap = new PartSnapshot(physicalGrid,physicalContext);
@@ -512,30 +528,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		}
 		
 	}
-	
 
-	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
-		
-		this.partCreator = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				exitHumanAgent, physicalGrid, physicalContext, cyberContext);
-		cyberContext.add(partCreator);
-		
-		//================================================================================
-	    // Parts
-	    //================================================================================
-				
-		//testPart = new Part(new RFIDTag('a'));
-		//physicalContext.add(testPart);
-		//physicalGrid.moveTo(testPart, 18, 60);
-
-		//================================================================================
-	    // Parts
-	    //================================================================================
-
-		//PartAgentCreatorforBuffer partAgentCreatorforBuffer = new PartAgentCreatorforBuffer(this.listBufferAgent.get(0), cyberContext);
-		//cyberContext.add(partAgentCreatorforBuffer);
-	}
-	
 	/**
 	 * Makes sure all of the variables are reset whenever we reset the simulation
 	 */

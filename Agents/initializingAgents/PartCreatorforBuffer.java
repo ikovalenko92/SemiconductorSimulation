@@ -48,9 +48,10 @@ public class PartCreatorforBuffer {
 	 * @param physicalContext
 	 * @param cyberContext
 	 */
-	public PartCreatorforBuffer(Buffer buffer, BufferAgent bufferAgent, ExitAgent exitRA, Grid<Object> physicalGrid, Context<Object> physicalContext, Context<Object> cyberContext) {
-		this.startTime = 5;
-		this.intervalTime = 200;
+	public PartCreatorforBuffer(Buffer buffer, BufferAgent bufferAgent, ExitAgent exitRA, Grid<Object> physicalGrid, Context<Object> physicalContext, Context<Object> cyberContext,
+			int startTime, int intervalTime) {
+		this.startTime = startTime;
+		this.intervalTime = intervalTime;
 		
 		this.buffer = buffer;
 		this.bufferAgent = bufferAgent;
@@ -74,6 +75,10 @@ public class PartCreatorforBuffer {
 	 * Creates a physical part and the agent
 	 */
 	public void startPartAgentCreation(){
+		
+		if(!(this.partType == 'a' || this.partType == 'b')){
+			return;
+		}
 		
 		int currentFinishedPartCount = 0;
 		for (Object object:this.physicalGrid.getObjects()){
