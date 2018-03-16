@@ -30,17 +30,17 @@ for i = 1:size(uniqueNodesWithTimes,1)
     
     % Plot buffers
     if(uniqueNodesWithTimes(i,4)==0)
-        plotThicknessHold = uniqueNodesWithTimes(i,end)/maxPlot;
+        plotThicknessHold = uniqueNodesWithTimes(i,end)/maxPlot+1;
         rectangle('Position',[p_x-plotThicknessHold,p_y-plotThicknessHold,...
             2*plotThicknessHold,2*plotThicknessHold],'Curvature',[1,1],...
             'EdgeColor','r','FaceColor','r')
      % Plot machines
      else
-         plotThicknessManuf = uniqueNodesWithTimes(i,end)/maxPlot;
+         plotThicknessManuf = uniqueNodesWithTimes(i,end)/maxPlot+1;
          rectangle('Position',[p_x-plotThicknessManuf,p_y-plotThicknessManuf,...
             2*plotThicknessManuf,2*plotThicknessManuf],'FaceColor','b')
         
-        plotThicknessHold = uniqueNodesWithTimes(i,end-2)/maxPlot;
+        plotThicknessHold = uniqueNodesWithTimes(i,end-2)/maxPlot+1;
          rectangle('Position',[p_x-plotThicknessHold,p_y-plotThicknessHold,...
             2*plotThicknessHold,2*plotThicknessHold],'Curvature',[1,1],...
             'EdgeColor','r','FaceColor','r')

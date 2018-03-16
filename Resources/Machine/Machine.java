@@ -3,9 +3,11 @@ package Machine;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.GeneralPath;
+import java.lang.reflect.InvocationTargetException;
 
 import Part.Part;
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.space.SpatialException;
 import repast.simphony.space.grid.Grid;
 
 public class Machine {
@@ -77,7 +79,12 @@ public class Machine {
 	
 	public void setBroken(){
 		this.working = true;
-		this.waitTimer = 100000;
+		this.waitTimer = 150000;
+	}
+	
+	public void fix() {
+		this.working = false;
+		this.waitTimer = 0;
 	}
 	
 
@@ -425,7 +432,13 @@ public class Machine {
 			}
 		}
 		
-		grid.moveTo(desiredObject, destination.x, destination.y);
+		try{
+			grid.moveTo(desiredObject, destination.x, destination.y);
+		}
+	 	catch (SpatialException e) {
+	 		System.out.println("move didn't work for some reason");
+		}
+		
 	}
 	
 	//================================================================================
@@ -440,4 +453,5 @@ public class Machine {
 	public float getRotation() {
 		return this.rotation;
 	}
+
 }

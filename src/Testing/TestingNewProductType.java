@@ -4,14 +4,13 @@ import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import com.sun.javafx.geom.Edge;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import Buffer.BufferLLC;
-import Machine.Machine;
 import Part.Part;
+import initializingAgents.PartCreatorforBuffer;
 import intelligentProduct.ProductAgentInstance;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
@@ -20,13 +19,15 @@ import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.Grid;
 import resourceAgent.BufferAgent;
-import resourceAgent.MachineAgent;
 import resourceAgent.ResourceAgent;
 import sharedInformation.ResourceEvent;
 import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
-public class Testing2 {
+
+
+//NOT USING RIGHT NOW
+public class TestingNewProductType {
 
 	private Point exitPoint = new Point (142,60);
 	private Point exitHumanPointPlace = new Point (6,10);
@@ -34,63 +35,33 @@ public class Testing2 {
 	private Grid<Object> physicalGrid;
 	private Context<Object> cyberContext;
 	private Context<Object> physicalContext;
+	private PartCreatorforBuffer partCreator;
 
-	public Testing2(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext) {	
+	public TestingNewProductType(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
+			PartCreatorforBuffer partCreator, int[] injectTime, int endTime, Point exitPoint,Point exitHumanPointPlace) {	
 		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
 		this.physicalContext = physicalContext;
+		this.partCreator = partCreator;
+		
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		schedule.schedule(ScheduleParameters.createOneTime(injectTime[0],-145), this, "newProductVariety");		
+		schedule.schedule(ScheduleParameters.createOneTime(injectTime[1],-145), this, "oldProductVariety");		
+		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");		
 	}
 	
-	@ScheduledMethod ( start = 100001, priority = -149)
-	public void setMachineBroken(){
-		Class desClass = null;
-		for (Object clas:this.cyberContext.getAgentTypes()){
-			if(clas.toString().contains("MachineAgent")){
-				desClass = (Class) clas;
-				break;
-			}
-		}
-		
-		ArrayList<Object> removeMachines = new ArrayList<Object>();
-		for (Object object:this.cyberContext.getObjects(desClass)){
-			if(object.toString().contains("TM") || object.toString().contains("TN")){
-				removeMachines.add(object);
-			}
-		}
-		
-		for(Object o:removeMachines){
-			this.cyberContext.remove(o);
-		}
-		
+	public void newProductVariety(){
+		partCreator.setPartType('b');
 	}
 	
-	@ScheduledMethod ( start = 150000, priority = -149)
-	public void removeFinal(){
-		ArrayList<Object> removeList = new ArrayList<Object>();
-		
-		for (Object object:this.physicalGrid.getObjects()){
-			if (object.getClass().toString().contains("Part")){
-				int x_coor = this.physicalGrid.getLocation(object).getX();
-				int y_coor = this.physicalGrid.getLocation(object).getY();
-				
-				if (x_coor == exitPoint.x && y_coor == exitPoint.y){
-					removeList.add(object);
-				}
-				if (x_coor == exitHumanPointPlace.x && y_coor == exitHumanPointPlace.y){
-					removeList.add(object);
-				}
-			}
-		}
-		
-		for (Object o:removeList){
-			this.physicalContext.remove(o);
-		}
+	public void oldProductVariety(){
+		partCreator.setPartType('a');
 	}
 	
-	@ScheduledMethod ( start = 200000, priority = -150)
 	public void runTest() {	
 		String outputS1 = "";
 		String outputS2 = "";
+		String outputS3 = "";
 		String PAHistory = "";
 		
 		Class desiredType = null;
@@ -99,19 +70,33 @@ public class Testing2 {
 			if (typee.toString().contains("ProductAgent")){
 				 desiredType = typee;
 			}
-		}
+		}	
+		
+		
 	
 		//For each object at the end
 		for (Object object:this.physicalGrid.getObjectsAt(exitPoint.x,exitPoint.y)){
+			
+			System.out.println(object);
+			
 			//Find the parts
 			if (object.toString().contains("art")){
-				outputS1 = outputS1+", "+object.toString(); //for output to console
+				
 
 				//Find the Agent associated with the physical part
 				for (Object PAinst : cyberContext.getObjects(desiredType)){
 					ProductAgentInstance PA = (ProductAgentInstance) PAinst;
+					
 					if (PA.toString().contains(object.toString())){
 						//Obtain its product history based on specified format
+						
+						if (PA.getPartName().contains("b")){
+							outputS3 = outputS3+", "+object.toString(); //for output to console if part b
+						}
+						else{
+							outputS1 = outputS1+", "+object.toString(); //for output to console
+						}
+						
 						for (ResourceEvent edge:(PA.getProductHistory())){
 							String points = "" + edge.getParent().getLocation().x+ "," + edge.getParent().getLocation().y+"," + 
 									edge.getChild().getLocation().x+","+edge.getChild().getLocation().y;
@@ -130,8 +115,6 @@ public class Testing2 {
 			}
 		}
 		
-		
-		
 		for (Object object:this.physicalGrid.getObjectsAt(exitHumanPointPlace.x,exitHumanPointPlace.y)){
 			if (object.toString().contains("art")){
 				outputS2 = outputS2+", "+object.toString();
@@ -142,10 +125,11 @@ public class Testing2 {
 		System.out.println(schedule.getTickCount());
 		System.out.println("Completed: " + outputS1);
 		System.out.println("Exited: " + outputS2);
+		System.out.println("Completed new: " + outputS3);
 		
 
 		try {
-			PrintWriter out = new PrintWriter("outFile2.txt");
+			PrintWriter out = new PrintWriter("outFile3.txt");
 			out.println(PAHistory);
 			out.close();
 		} catch (FileNotFoundException e) {

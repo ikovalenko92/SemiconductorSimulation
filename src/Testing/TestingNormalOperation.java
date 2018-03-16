@@ -24,47 +24,29 @@ import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
 
+public class TestingNormalOperation {
 
-//NOT USING RIGHT NOW
-public class Testing3 {
-
-	private Point exitPoint = new Point (142,60);
-	private Point exitHumanPointPlace = new Point (6,10);
+	private Point exitPoint;
+	private Point exitHumanPointPlace;
 	
 	private Grid<Object> physicalGrid;
 	private Context<Object> cyberContext;
 	private Context<Object> physicalContext;
 
-	public Testing3(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext) {	
+	public TestingNormalOperation(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
+		 int endTime, Point exitPoint, Point exitHumanPointPlace) {	
 		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
 		this.physicalContext = physicalContext;
+		
+		this.exitPoint = exitPoint;
+		this.exitHumanPointPlace = exitHumanPointPlace;
+		
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		
+		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");		
 	}
 	
-	@ScheduledMethod ( start = 250000, priority = -149)
-	public void removeFinal(){
-		ArrayList<Object> removeList = new ArrayList<Object>();
-		
-		for (Object object:this.physicalGrid.getObjects()){
-			if (object.getClass().toString().contains("Part")){
-				int x_coor = this.physicalGrid.getLocation(object).getX();
-				int y_coor = this.physicalGrid.getLocation(object).getY();
-				
-				if (x_coor == exitPoint.x && y_coor == exitPoint.y){
-					removeList.add(object);
-				}
-				if (x_coor == exitHumanPointPlace.x && y_coor == exitHumanPointPlace.y){
-					removeList.add(object);
-				}
-			}
-		}
-		
-		for (Object o:removeList){
-			this.physicalContext.remove(o);
-		}
-	}
-	
-	@ScheduledMethod ( start = 300000, priority = -150)
 	public void runTest() {	
 		String outputS1 = "";
 		String outputS2 = "";
@@ -77,7 +59,7 @@ public class Testing3 {
 				 desiredType = typee;
 			}
 		}
-	
+			
 		//For each object at the end
 		for (Object object:this.physicalGrid.getObjectsAt(exitPoint.x,exitPoint.y)){
 			//Find the parts
@@ -107,8 +89,6 @@ public class Testing3 {
 			}
 		}
 		
-		
-		
 		for (Object object:this.physicalGrid.getObjectsAt(exitHumanPointPlace.x,exitHumanPointPlace.y)){
 			if (object.toString().contains("art")){
 				outputS2 = outputS2+", "+object.toString();
@@ -122,7 +102,7 @@ public class Testing3 {
 		
 
 		try {
-			PrintWriter out = new PrintWriter("outFile3.txt");
+			PrintWriter out = new PrintWriter("outFile1.txt");
 			out.println(PAHistory);
 			out.close();
 		} catch (FileNotFoundException e) {

@@ -38,6 +38,7 @@ public class PartCreatorforBuffer {
 
 	private Point exitPoint = new Point (142,60);
 	private Point exitHumanPointPlace = new Point (6,10);
+	private char partType;
 	
 	/**
 	 * @param buffer
@@ -60,6 +61,8 @@ public class PartCreatorforBuffer {
 		
 		this.exitRA = exitRA;
 		this.exitEvent = new ResourceEvent(exitRA, null, null, exitRA.getExitEventName(), 1);
+		
+		this.partType = 'a';
 				
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		schedule.schedule(ScheduleParameters.createRepeating(startTime,intervalTime), this, "startPartAgentCreation");
@@ -72,32 +75,33 @@ public class PartCreatorforBuffer {
 	 */
 	public void startPartAgentCreation(){
 		
-		int currentPartCount = 0;
+		int currentFinishedPartCount = 0;
 		for (Object object:this.physicalGrid.getObjects()){
 			if (object.getClass().toString().contains("Part")){
 				int x_coor = this.physicalGrid.getLocation(object).getX();
 				int y_coor = this.physicalGrid.getLocation(object).getY();
+				
+				//Count if not at either exit poitn
 				if(!((x_coor == this.exitPoint.x && y_coor == this.exitPoint.y) || 
 						(x_coor == this.exitHumanPointPlace.x && y_coor == this.exitHumanPointPlace.y))){
-					currentPartCount++;
+					currentFinishedPartCount++;
 				}
 			}
 		}
 		
-		if(currentPartCount>40){
+		if(currentFinishedPartCount>50){
 			return;
 		}
 		
 		
 		//set the part type
-		char partType = 'a';	
 		this.PAnumber = this.PAnumber+1;
 		
 		//Part and agent will be based on the storage of the bufer
 		Point storagePoint = this.buffer.getStoragePoint();
 		
 		// Create a new physical part
-		Part part = new Part(new RFIDTag(PAnumber+"",partType));
+		Part part = new Part(new RFIDTag(PAnumber+"",this.partType));
 		physicalContext.add(part);
 		physicalGrid.moveTo(part, storagePoint.x, storagePoint.y);
 		
@@ -155,10 +159,32 @@ public class PartCreatorforBuffer {
 			productionPlan.addNewSet(end);
 		}
 		
+		else if (partType == 'b'){
+			productionPlan.add(new PhysicalProperty("S4"));
+			
+			HashSet<PhysicalProperty> set5 = new HashSet<PhysicalProperty>();
+			set5.add(new PhysicalProperty("S5"));
+			productionPlan.addNewSet(set5);
+			
+			HashSet<PhysicalProperty> set6 = new HashSet<PhysicalProperty>();
+			set6.add(new PhysicalProperty("S6"));
+			productionPlan.addNewSet(set6);
+			
+			HashSet<PhysicalProperty> end = new HashSet<PhysicalProperty>();
+			end.add(new PhysicalProperty("End"));
+			productionPlan.addNewSet(end);
+		}
+		
 		return productionPlan;
 	}
 	
 	public ExitPlan getExitPlan(char partType){
 		return new ExitPlan(this.exitRA,this.exitEvent);
 	}
+	
+	public void setPartType(char partType){
+		this.partType = partType;
+	}
+	
+	
 }

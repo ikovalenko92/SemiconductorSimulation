@@ -83,6 +83,10 @@ public class MachineAgent implements ResourceAgent{
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode, 
 			int maxTime, DirectedSparseGraph<ProductState,ResourceEvent> bid, int currentTime) {
 		
+		if (this.machine.getMachine().getTimeLeft()>5000){
+			return;
+		}
+		
 		new ResourceAgentHelper().teamQuery(productAgent, desiredProperty, currentNode, maxTime, bid,
 				currentTime, this, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
 	}
@@ -98,6 +102,7 @@ public class MachineAgent implements ResourceAgent{
 	
 	@Override
 	public boolean requestScheduleTime(ProductAgent productAgent,ResourceEvent edge, int startTime, int endTime) {
+		
 		int edgeOffset = edge.getEventTime() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getEventTime();
 		
 
@@ -245,7 +250,7 @@ public class MachineAgent implements ResourceAgent{
 	}
 	
 	//================================================================================
-    // Testing1
+    // TestingNormalOperation
     //================================================================================
 	
 	/*@ScheduledMethod (start = 30)

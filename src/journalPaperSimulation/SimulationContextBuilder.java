@@ -13,9 +13,10 @@ import Machine.Machine;
 import Machine.MachineLLC;
 import Robot.Robot;
 import Robot.RobotLLC;
-import Testing.Testing1;
-import Testing.Testing2;
-import Testing.Testing3;
+import Testing.RemoveExitAndEnd;
+import Testing.TestingNormalOperation;
+import Testing.TestingBrokenMachine;
+import Testing.TestingNewProductType;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
@@ -85,14 +86,21 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
 			machineTRPoint, machineTSPoint, machineTTPoint};
 	
-	int scale = 5;
+	int scale = 2;
 	//Time for processes
-	int S1time = 70*scale;
+/*	int S1time = 70*scale;
 	int S2time = 45*scale;
 	int S3time = 55*scale;
 	int S4time = 50*scale;
 	int S5time = 60*scale;
+	int S6time = 10*scale;*/
+	int S1time = 225*scale;
+	int S2time = 30*scale;
+	int S3time = 55*scale;
+	int S4time = 50*scale;
+	int S5time = 255*scale;
 	int S6time = 10*scale;
+
 	
 	//Machine Times: negative numbers indicate that that process can't be performed by the specific machine
 	//e.g. Machine TA can performa process 1 and 5 in 225 and 255 ticks, but can't perform other processes
@@ -139,7 +147,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private ArrayList<BufferAgent> listBufferAgent = new ArrayList<BufferAgent>();
 		
 	//Storage points for bay buffers
-	private Point enterPointStorage = new Point (18,60);
+	private Point exitPoint = new Point (18,60);
 	private Point exitPointStorage = new Point (142,60);
 	private Point depositB1Point = new Point (40,70);
 	private Point depositB2Point = new Point (40,50);
@@ -162,7 +170,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private Point buffer2PointEnter = new Point (98,60);
 
 	//Exit points for bay buffers
-	private Point exitPoint = new Point (140,60);
+	private Point exitBufferEnter = new Point (140,60);
 	private Point depositB1PointExit = new Point (40,72);
 	private Point depositB2PointExit = new Point (40,48);
 	private Point depositB3PointExit = new Point (80,72);
@@ -172,10 +180,10 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private Point buffer1PointExit = new Point (62,60);
 	private Point buffer2PointExit = new Point (102,60);
 	
-	private final Point[] bufferLocations = new Point[]{enterPointStorage, exitPointStorage, depositB1Point, depositB2Point,
+	private final Point[] bufferLocations = new Point[]{exitPoint, exitPointStorage, depositB1Point, depositB2Point,
 			depositB3Point,depositB4Point, depositB5Point, depositB6Point, buffer1Point, buffer2Point};
 			
-	private final Point[][] bufferEnterLocations = new Point[][]{{enterPoint}, {exitPoint}, {depositB1PointEnter, depositB1PointExit},
+	private final Point[][] bufferEnterLocations = new Point[][]{{enterPoint}, {exitBufferEnter}, {depositB1PointEnter, depositB1PointExit},
 		{depositB2PointEnter, depositB2PointExit}, {depositB3PointEnter, depositB3PointExit}, {depositB4PointEnter, depositB4PointExit},
 		{depositB5PointEnter, depositB5PointExit},{depositB6PointEnter, depositB6PointExit},{buffer1PointEnter, buffer1PointExit},{buffer2PointEnter, buffer2PointExit}};
 	
@@ -236,7 +244,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private final Point[] robotM34PointMove = new Point[]{buffer1PointExit, depositB3PointEnter,
 			depositB4PointEnter, buffer2PointEnter};
 	private final Point[] robotM56PointMove = new Point[]{buffer2PointExit, depositB5PointEnter,
-			depositB6PointEnter, exitPoint};
+			depositB6PointEnter, exitBufferEnter};
 	
 	//Where the robots can move things between
 	private final Point[][] robotNeighborLocations = new Point[][]{robotB1PointMove, robotB2PointMove, robotB3PointMove,
@@ -280,8 +288,14 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
     // Exit Agent
     //================================================================================
 
-	private final Point exitHumanPoint = new Point(10,10);
+	private final Point exitHumanLocation = new Point(10,10);
+	private final Point exitHumanPoint = new Point(6,10);
 	private ExitAgent exitHumanAgent;
+	
+	//================================================================================
+    // Part Agent Creator
+    //================================================================================
+	private PartCreatorforBuffer partCreator;
 	
 //================================================================================
 // START OF METHODS
@@ -314,19 +328,33 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		buildPartCreator(physicalContext, physicalGrid, cyberContext);
 		
-		Testing1 test = new Testing1(physicalGrid,cyberContext,physicalContext);
-		cyberContext.add(test);
+		buildTesting(physicalContext, physicalGrid, cyberContext);
 		
-		Testing2 test2 = new Testing2(physicalGrid,cyberContext,physicalContext);
-		cyberContext.add(test2);
-		
-		//Testing3 test3 = new Testing3(physicalGrid,cyberContext,physicalContext);
-		//cyberContext.add(test3);
-		
-		//PartSnapshot test2 = new PartSnapshot(physicalGrid,physicalContext);
-		//cyberContext.add(test2);
 		
 		return context;
+	}
+
+	private void buildTesting(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
+		
+		RemoveExitAndEnd clearEnds = new RemoveExitAndEnd(physicalGrid, cyberContext, physicalContext,
+				new int[]{50000,150000,250000}, this.exitPointStorage, this.exitHumanPoint);
+		cyberContext.add(clearEnds);
+		
+		TestingNormalOperation test = new TestingNormalOperation(physicalGrid,cyberContext,physicalContext, 
+				100000, this.exitPointStorage, this.exitHumanPoint);
+		cyberContext.add(test);
+		
+		TestingBrokenMachine test2 = new TestingBrokenMachine(physicalGrid,cyberContext,physicalContext,
+				100001, 200000, this.exitPointStorage, this.exitHumanPoint);
+		cyberContext.add(test2);
+		
+		TestingNewProductType test3 = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,partCreator,
+				new int[]{270000,280001},300000, this.exitPointStorage, this.exitHumanPoint);
+		cyberContext.add(test3);
+		
+		PartSnapshot partSnap = new PartSnapshot(physicalGrid,physicalContext);
+		cyberContext.add(partSnap);
+		
 	}
 
 	private void buildProductionControl(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
@@ -402,9 +430,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	    // Exit Robot (and Agent)
 	    //================================================================================
 		
-		Robot exitHumanRobot = new Robot("exitHuman", exitHumanPoint, 200, physicalGrid, 200);
+		Robot exitHumanRobot = new Robot("exitHuman", exitHumanLocation, 200, physicalGrid, 200);
 		physicalContext.add(exitHumanRobot);
-		physicalGrid.moveTo(exitHumanRobot, exitHumanPoint.x,exitHumanPoint.y);
+		physicalGrid.moveTo(exitHumanRobot, exitHumanLocation.x,exitHumanLocation.y);
 		this.exitHumanAgent = new ExitAgent("exitHumanAgent", exitHumanRobot, "exit", physicalGrid);
 		cyberContext.add(exitHumanRobot);
 	}
@@ -488,7 +516,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 
 	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
-		PartCreatorforBuffer partCreator = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+		this.partCreator = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
 				exitHumanAgent, physicalGrid, physicalContext, cyberContext);
 		cyberContext.add(partCreator);
 		

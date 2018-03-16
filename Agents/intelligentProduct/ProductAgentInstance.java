@@ -255,7 +255,7 @@ public class ProductAgentInstance implements ProductAgent{
 		PAPlan newPlanAttempt = new PAPlan(this);
 		
 		int time = this.nextExecutionStartTime ;
-		int epsilon = 4; // Allow small time changes in event duration
+		int epsilon = 2; // Allow small time changes in event duration
 		int scheduleBound = Math.min(this.getMaxScheduledEvents(),bestPath.size());
 		
 		//Create the new plan based on the best path

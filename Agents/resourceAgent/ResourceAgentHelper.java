@@ -51,7 +51,7 @@ public class ResourceAgentHelper {
 		Iterator<ResourceEvent> itr = updatedCapabilities.getEdges().iterator();
 		while (itr.hasNext()){
 			// Find the edge and update it based on current schedule
-			ResourceEvent edge = itr.next();
+			ResourceEvent edge = itr.next().copy();
 			
 			int bidOffset = resourceAgent.getSchedule().getNextFreeTime(existingBidTime,edge.getEventTime())-existingBidTime;
 

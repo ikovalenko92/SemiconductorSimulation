@@ -4,11 +4,13 @@ import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import com.sun.javafx.geom.Edge;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import Buffer.BufferLLC;
+import Machine.Machine;
 import Part.Part;
 import intelligentProduct.ProductAgentInstance;
 import repast.simphony.context.Context;
@@ -18,15 +20,13 @@ import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.Grid;
 import resourceAgent.BufferAgent;
+import resourceAgent.MachineAgent;
 import resourceAgent.ResourceAgent;
 import sharedInformation.ResourceEvent;
 import sharedInformation.ProductState;
 import sharedInformation.PhysicalProperty;
 
-
-
-//NOT USING RIGHT NOW
-public class Testing1 {
+public class TestingBrokenMachine {
 
 	private Point exitPoint = new Point (142,60);
 	private Point exitHumanPointPlace = new Point (6,10);
@@ -34,37 +34,38 @@ public class Testing1 {
 	private Grid<Object> physicalGrid;
 	private Context<Object> cyberContext;
 	private Context<Object> physicalContext;
+	private ArrayList<Machine> brokenMachines;
 
-	public Testing1(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext) {	
+	public TestingBrokenMachine(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
+			int startTime, int endTime, Point exitPoint,Point exitHumanPointPlace) {	
 		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
 		this.physicalContext = physicalContext;
+		
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		schedule.schedule(ScheduleParameters.createOneTime(startTime,-145), this, "setMachineBroken");		
+		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");		
+	
 	}
 	
-	@ScheduledMethod ( start = 50000, priority = -149)
-	public void removeFinal(){
-		ArrayList<Object> removeList = new ArrayList<Object>();
-		
-		for (Object object:this.physicalGrid.getObjects()){
-			if (object.getClass().toString().contains("Part")){
-				int x_coor = this.physicalGrid.getLocation(object).getX();
-				int y_coor = this.physicalGrid.getLocation(object).getY();
-				
-				if (x_coor == exitPoint.x && y_coor == exitPoint.y){
-					removeList.add(object);
-				}
-				if (x_coor == exitHumanPointPlace.x && y_coor == exitHumanPointPlace.y){
-					removeList.add(object);
-				}
+	public void setMachineBroken(){
+		Class desClass = null;
+		for (Object clas:this.physicalContext.getAgentTypes()){
+			if(clas.toString().contains("Machine")){
+				desClass = (Class) clas;
+				break;
 			}
 		}
 		
-		for (Object o:removeList){
-			this.physicalContext.remove(o);
+		this.brokenMachines = new ArrayList<Machine>();
+		for (Object object:this.physicalContext.getObjects(desClass)){
+			if(object.toString().contains("TM") || object.toString().contains("TN")){
+				((Machine) object).setBroken();
+				brokenMachines.add((Machine) object);
+			}
 		}
 	}
 	
-	@ScheduledMethod ( start = 100000, priority = -150)
 	public void runTest() {	
 		String outputS1 = "";
 		String outputS2 = "";
@@ -77,6 +78,9 @@ public class Testing1 {
 				 desiredType = typee;
 			}
 		}
+		
+		ArrayList<Object> cyberContextRemove = new ArrayList<Object>();
+	
 	
 		//For each object at the end
 		for (Object object:this.physicalGrid.getObjectsAt(exitPoint.x,exitPoint.y)){
@@ -102,12 +106,14 @@ public class Testing1 {
 								PAHistory = PAHistory+ points + ","+waitingTimeAtParent+ ","+ eventTime +"\n";
 							}
 						}
+						cyberContextRemove.add(PAinst);
 					}
 				}
 			}
 		}
 		
 		
+		this.cyberContext.removeAll(cyberContextRemove);
 		
 		for (Object object:this.physicalGrid.getObjectsAt(exitHumanPointPlace.x,exitHumanPointPlace.y)){
 			if (object.toString().contains("art")){
@@ -119,14 +125,17 @@ public class Testing1 {
 		System.out.println(schedule.getTickCount());
 		System.out.println("Completed: " + outputS1);
 		System.out.println("Exited: " + outputS2);
-		
 
 		try {
-			PrintWriter out = new PrintWriter("outFile1.txt");
+			PrintWriter out = new PrintWriter("outFile2.txt");
 			out.println(PAHistory);
 			out.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		}
+		
+		for (Machine machine:this.brokenMachines){
+			machine.fix();
 		}
 	}
 	
