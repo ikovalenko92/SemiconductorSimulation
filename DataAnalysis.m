@@ -10,9 +10,9 @@ for indexBig = 1:3
     
     subplot(2,2,indexBig);hold on;
     grey = [0.6 0.6 0.6];
-    scaleFactorEdge = 25;
+    scaleFactorEdge = 20;
     plotEdges;
-    scaleFactorNode = 4;
+    scaleFactorNode = 10;
     plotNodes;
 
     xlim([15 145])

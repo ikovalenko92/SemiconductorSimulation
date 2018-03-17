@@ -38,24 +38,20 @@ public class TestingNewProductType {
 	private PartCreatorforBuffer partCreator;
 
 	public TestingNewProductType(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
-			PartCreatorforBuffer partCreator, int[] injectTime, int endTime, Point exitPoint,Point exitHumanPointPlace) {	
+			PartCreatorforBuffer partCreator, int injectTime, int endTime, Point exitPoint,Point exitHumanPointPlace) {	
 		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
 		this.physicalContext = physicalContext;
 		this.partCreator = partCreator;
-		
+		  
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(injectTime[0],-145), this, "newProductVariety");		
-		schedule.schedule(ScheduleParameters.createOneTime(injectTime[1],-145), this, "oldProductVariety");		
+		schedule.schedule(ScheduleParameters.createOneTime(injectTime,-145), this, "newProductVariety");
 		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");		
 	}
 	
 	public void newProductVariety(){
 		partCreator.setPartType('b');
-	}
-	
-	public void oldProductVariety(){
-		partCreator.setPartType('n');
+		partCreator.setMaxNumberOfParts(20);
 	}
 	
 	public void runTest() {	
@@ -76,9 +72,7 @@ public class TestingNewProductType {
 	
 		//For each object at the end
 		for (Object object:this.physicalGrid.getObjectsAt(exitPoint.x,exitPoint.y)){
-			
-			System.out.println(object);
-			
+					
 			//Find the parts
 			if (object.toString().contains("art")){
 				

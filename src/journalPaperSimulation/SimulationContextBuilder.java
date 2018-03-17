@@ -292,12 +292,6 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private final Point exitHumanPoint = new Point(6,10);
 	private ExitAgent exitHumanAgent;
 	
-	//================================================================================
-    // Part Agent Creator
-    //================================================================================
-	private PartCreatorforBuffer partCreatora;
-	private PartCreatorforBuffer partCreatorb;
-	
 //================================================================================
 // START OF METHODS
 //================================================================================
@@ -339,14 +333,9 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 
 	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
-		this.partCreatora = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+		PartCreatorforBuffer partCreatora = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
 				exitHumanAgent, physicalGrid, physicalContext, cyberContext,5,200);
 		cyberContext.add(partCreatora);
-		
-		this.partCreatorb = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				exitHumanAgent, physicalGrid, physicalContext, cyberContext,27100,200);
-		cyberContext.add(partCreatorb);
-
 	}
 	
 
@@ -364,8 +353,12 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 				100001, 200000, this.exitPointStorage, this.exitHumanPoint);
 		cyberContext.add(test2);
 		
+		int bufferStartTime = 250010;
+		PartCreatorforBuffer partCreatorb = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTime,200);
+		cyberContext.add(partCreatorb);
 		TestingNewProductType test3 = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,partCreatorb,
-				new int[]{270000,280101},300000, this.exitPointStorage, this.exitHumanPoint);
+				bufferStartTime-1,300000, this.exitPointStorage, this.exitHumanPoint);
 		cyberContext.add(test3);
 		
 		PartSnapshot partSnap = new PartSnapshot(physicalGrid,physicalContext);

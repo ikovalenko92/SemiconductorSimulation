@@ -39,6 +39,8 @@ public class PartCreatorforBuffer {
 	private Point exitPoint = new Point (142,60);
 	private Point exitHumanPointPlace = new Point (6,10);
 	private char partType;
+	private int maxNumberOfParts;
+	private int numberofParts;
 	
 	/**
 	 * @param buffer
@@ -69,6 +71,8 @@ public class PartCreatorforBuffer {
 		schedule.schedule(ScheduleParameters.createRepeating(startTime,intervalTime), this, "startPartAgentCreation");
 		
 		this.PAnumber = -1;
+		this.maxNumberOfParts = 100000000;
+		this.numberofParts = 0;
 	}
 	
 	/**
@@ -76,7 +80,7 @@ public class PartCreatorforBuffer {
 	 */
 	public void startPartAgentCreation(){
 		
-		if(!(this.partType == 'a' || this.partType == 'b')){
+		if(!(this.partType == 'a' || this.partType == 'b') || this.numberofParts>=this.maxNumberOfParts){
 			return;
 		}
 		
@@ -94,7 +98,7 @@ public class PartCreatorforBuffer {
 			}
 		}
 		
-		if(currentFinishedPartCount>50){
+		if(currentFinishedPartCount>60){
 			return;
 		}
 		
@@ -127,6 +131,7 @@ public class PartCreatorforBuffer {
 		productAgentInstance.setPANumber(this.PAnumber);
 		
 		cyberContext.add(productAgentInstance);
+		this.numberofParts++;
 	}
 	
 	/**
@@ -191,5 +196,8 @@ public class PartCreatorforBuffer {
 		this.partType = partType;
 	}
 	
+	public void setMaxNumberOfParts(int maxNumberOfParts){
+		this.maxNumberOfParts = maxNumberOfParts;
+	}
 	
 }
