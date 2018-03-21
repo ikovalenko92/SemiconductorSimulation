@@ -32,9 +32,11 @@ public class TestingNormalOperation {
 	private Grid<Object> physicalGrid;
 	private Context<Object> cyberContext;
 	private Context<Object> physicalContext;
+	
+	private String prefix;
 
 	public TestingNormalOperation(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
-		 int endTime, Point exitPoint, Point exitHumanPointPlace) {	
+		 int endTime, Point exitPoint, Point exitHumanPointPlace, String prefix) {	
 		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
 		this.physicalContext = physicalContext;
@@ -44,7 +46,9 @@ public class TestingNormalOperation {
 		
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		
-		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");		
+		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");
+		
+		this.prefix = prefix;
 	}
 	
 	public void runTest() {	
@@ -102,7 +106,7 @@ public class TestingNormalOperation {
 		
 
 		try {
-			PrintWriter out = new PrintWriter("outFile1.txt");
+			PrintWriter out = new PrintWriter(this.prefix+"outFile1.txt");
 			out.println(PAHistory);
 			out.close();
 		} catch (FileNotFoundException e) {

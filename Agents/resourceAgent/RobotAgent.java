@@ -112,6 +112,7 @@ public class RobotAgent implements ResourceAgent {
 	@Override
 	public boolean requestScheduleTime(ProductAgent productAgent, ResourceEvent edge, int startTime, int endTime) {
 		int edgeOffset = edge.getEventTime() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getEventTime();
+		
 		return this.RAschedule.addPA(productAgent, startTime+edgeOffset, endTime, false);
 	}
 

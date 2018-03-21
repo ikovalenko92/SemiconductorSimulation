@@ -22,6 +22,8 @@ import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.dataLoader.ContextBuilder;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.parameter.Parameters;
 import repast.simphony.space.grid.BouncyBorders;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
@@ -86,7 +88,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
 			machineTRPoint, machineTSPoint, machineTTPoint};
 	
-	int scale = 2;
+	int scale = 3;
 	//Time for processes
 /*	int S1time = 70*scale;
 	int S2time = 45*scale;
@@ -196,7 +198,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
     //================================================================================
 	
 	//Speed of the robots
-	final int robotSpeed = 5;
+	int robotSpeed = 10;
 
 	/**
 	 * List of all of Robot Controllers
@@ -328,8 +330,6 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		return context;
 	}
-	
-	
 
 	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
@@ -341,27 +341,41 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 
 	private void buildTesting(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
+		Parameters params = RunEnvironment.getInstance ().getParameters();
+		String prefix = params.getString("prefix");
+		
 		RemoveExitAndEnd clearEnds = new RemoveExitAndEnd(physicalGrid, cyberContext, physicalContext,
-				new int[]{50000,150000,250000}, this.exitPointStorage, this.exitHumanPoint);
+				new int[]{50000,100001,150001,200001}, this.exitPointStorage, this.exitHumanPoint);
 		cyberContext.add(clearEnds);
 		
 		TestingNormalOperation test = new TestingNormalOperation(physicalGrid,cyberContext,physicalContext, 
-				100000, this.exitPointStorage, this.exitHumanPoint);
+				100000, this.exitPointStorage, this.exitHumanPoint, prefix);
 		cyberContext.add(test);
 		
+	
+		int bufferStartTimeb = 100050;
+		int bufferStartTimec = 100100;
+		PartCreatorforBuffer partCreatorb = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimeb,200);
+		cyberContext.add(partCreatorb);
+		PartCreatorforBuffer partCreatorc = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimec,200);
+		cyberContext.add(partCreatorc);
+		TestingNewProductType test3b = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,partCreatorb,
+				partCreatorc, bufferStartTimeb-1, bufferStartTimec-1, 150000 , this.exitPointStorage, this.exitHumanPoint, prefix);
+		cyberContext.add(test3b);
+		
 		TestingBrokenMachine test2 = new TestingBrokenMachine(physicalGrid,cyberContext,physicalContext,
-				100001, 200000, this.exitPointStorage, this.exitHumanPoint);
+				150001, 200000, 250000, this.exitPointStorage, this.exitHumanPoint, prefix);
 		cyberContext.add(test2);
 		
-		int bufferStartTime = 250010;
-		PartCreatorforBuffer partCreatorb = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTime,200);
-		cyberContext.add(partCreatorb);
-		TestingNewProductType test3 = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,partCreatorb,
-				bufferStartTime-1,300000, this.exitPointStorage, this.exitHumanPoint);
-		cyberContext.add(test3);
 		
-		PartSnapshot partSnap = new PartSnapshot(physicalGrid,physicalContext);
+		/*TestingBrokenMachine test2 = new TestingBrokenMachine(physicalGrid,cyberContext,physicalContext,
+				100001, 200000, this.exitPointStorage, this.exitHumanPoint, prefix);
+		cyberContext.add(test2);*/
+		
+		
+		PartSnapshot partSnap = new PartSnapshot(physicalGrid,physicalContext, prefix);
 		cyberContext.add(partSnap);
 		
 	}

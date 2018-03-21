@@ -231,7 +231,7 @@ public class ProductAgentInstance implements ProductAgent{
 	 * @return
 	 */
 	private int getMaxBidTime() {
-		return 7000;
+		return 10000;
 	}
 	
 	//================================================================================

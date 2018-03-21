@@ -1,155 +1,265 @@
-FATAL [Thread-10] 2018-03-09 23:29:53,102 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (101129.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Machine.MachineLLC$$FastClassByCGLIB$$62487963.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
-	... 6 more
-Caused by: repast.simphony.space.SpatialException: Object 'null' must be added to the grid's context before it can be moved
-	at repast.simphony.space.grid.AbstractGrid.moveTo(AbstractGrid.java:128)
-	at Machine.Machine.move(Machine.java:428)
-	at Machine.Machine.S3(Machine.java:213)
-	at Machine.MachineLLC.runProgram(MachineLLC.java:61)
-	... 9 more
-FATAL [Thread-6] 2018-03-14 13:08:56,226 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (100000.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
-	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Testing.Testing1$$FastClassByCGLIB$$d0f1ca7f.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
-	... 7 more
-Caused by: java.util.ConcurrentModificationException
-	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:901)
-	at java.util.ArrayList$Itr.next(ArrayList.java:851)
-	at repast.simphony.util.collections.DelegatedIterator.next(DelegatedIterator.java:44)
-	at org.apache.commons.collections15.iterators.IteratorChain.next(IteratorChain.java:271)
-	at Testing.TestingNormalOperation.runTest(Testing1.java:88)
-	... 10 more
-FATAL [Thread-6] 2018-03-14 13:16:45,597 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (200000.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
-	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Testing.Testing2$$FastClassByCGLIB$$d0f1ca80.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
-	... 7 more
-Caused by: java.util.ConcurrentModificationException
-	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:901)
-	at java.util.ArrayList$Itr.next(ArrayList.java:851)
-	at repast.simphony.util.collections.DelegatedIterator.next(DelegatedIterator.java:44)
-	at org.apache.commons.collections15.iterators.IteratorChain.next(IteratorChain.java:271)
-	at Testing.TestingBrokenMachine.runTest(Testing2.java:108)
-	... 10 more
-FATAL [Thread-7] 2018-03-14 13:18:02,226 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (200000.0)
-java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
-	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
-	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
-	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
-	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
-	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
-	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: java.lang.reflect.InvocationTargetException
-	at Testing.Testing2$$FastClassByCGLIB$$d0f1ca80.invoke(<generated>)
-	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
-	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
-	... 7 more
-Caused by: java.lang.Error: Unresolved compilation problems: 
-	cyberContextRemove cannot be resolved
-	cyberContextRemove cannot be resolved to a variable
-
-	at Testing.TestingBrokenMachine.runTest(Testing2.java:125)
-	... 10 more
-WARN  [AWT-EventQueue-0] 2018-03-15 12:12:53,812 repast.simphony.util.ClassUtilities - Utilities.findMethod: warning, could not find method 'runTest([])' in class Testing.RemoveExitAndEnd, returning null
-ERROR [AWT-EventQueue-0] 2018-03-15 12:12:53,813 repast.simphony.ui.RSApplication - Error while initializing simulation
-java.lang.IllegalArgumentException: Method Testing.RemoveExitAndEnd.runTest() not found!
-	at repast.simphony.engine.schedule.CallBackAction.initMethod(CallBackAction.java:101)
-	at repast.simphony.engine.schedule.CallBackAction.<init>(CallBackAction.java:79)
-	at repast.simphony.engine.schedule.DefaultActionFactory.createAction(DefaultActionFactory.java:45)
-	at repast.simphony.engine.schedule.DefaultSchedulableActionFactory.createAction(DefaultSchedulableActionFactory.java:81)
-	at repast.simphony.engine.schedule.Schedule.schedule(Schedule.java:191)
-	at Testing.RemoveExitAndEnd.<init>(RemoveExitAndEnd.java:36)
-	at journalPaperSimulation.SimulationContextBuilder.buildTesting(SimulationContextBuilder.java:331)
-	at journalPaperSimulation.SimulationContextBuilder.build(SimulationContextBuilder.java:323)
-	at repast.simphony.dataLoader.engine.ClassNameContextBuilder.build(ClassNameContextBuilder.java:41)
-	at repast.simphony.dataLoader.engine.DataLoaderControllerAction.runInitialize(DataLoaderControllerAction.java:48)
-	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:214)
-	at repast.simphony.engine.controller.DefaultController$2.visit(DefaultController.java:1)
-	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:292)
-	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
-	at repast.simphony.util.collections.NaryTree.preOrderTraverals(NaryTree.java:295)
-	at repast.simphony.util.collections.NaryTree.preOrderTraversal(NaryTree.java:288)
-	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:212)
-	at repast.simphony.engine.controller.DefaultController.runInitialize(DefaultController.java:383)
-	at repast.simphony.ui.RSApplication.initSim(RSApplication.java:157)
-	at repast.simphony.ui.RSApplication.start(RSApplication.java:189)
-	at repast.simphony.ui.action.StartRun.actionPerformed(StartRun.java:17)
-	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
-	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2348)
-	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
-	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
-	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:252)
-	at java.awt.AWTEventMulticaster.mouseReleased(AWTEventMulticaster.java:289)
-	at java.awt.Component.processMouseEvent(Component.java:6535)
-	at javax.swing.JComponent.processMouseEvent(JComponent.java:3324)
-	at java.awt.Component.processEvent(Component.java:6300)
-	at java.awt.Container.processEvent(Container.java:2236)
-	at java.awt.Component.dispatchEventImpl(Component.java:4891)
-	at java.awt.Container.dispatchEventImpl(Container.java:2294)
-	at java.awt.Component.dispatchEvent(Component.java:4713)
-	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4888)
-	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4525)
-	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4466)
-	at java.awt.Container.dispatchEventImpl(Container.java:2280)
-	at java.awt.Window.dispatchEventImpl(Window.java:2750)
-	at java.awt.Component.dispatchEvent(Component.java:4713)
-	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758)
-	at java.awt.EventQueue.access$500(EventQueue.java:97)
-	at java.awt.EventQueue$3.run(EventQueue.java:709)
-	at java.awt.EventQueue$3.run(EventQueue.java:703)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:76)
-	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
-	at java.awt.EventQueue$4.run(EventQueue.java:731)
-	at java.awt.EventQueue$4.run(EventQueue.java:729)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:76)
-	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728)
-	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
-	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
-	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
-	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
-	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
-FATAL [Thread-4] 2018-03-15 12:12:53,839 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
-Current tick (5.0)
+INFO  [Thread-4] 2018-03-19 14:59:08,160 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 50,40 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:08,161 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:08,161 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move10
+INFO  [Thread-4] 2018-03-19 14:59:08,161 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:09,090 repast.simphony.batch.ssh.LocalSession - PA250 for Part250a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:09,091 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 40,52 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:09,091 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:09,092 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move23
+INFO  [Thread-4] 2018-03-19 14:59:09,092 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:09,293 repast.simphony.batch.ssh.LocalSession - PA244 for Part244a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:09,294 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 80,68 to 98,60.
+INFO  [Thread-4] 2018-03-19 14:59:09,294 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:09,294 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move13
+INFO  [Thread-4] 2018-03-19 14:59:09,294 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:09,972 repast.simphony.batch.ssh.LocalSession - PA253 for Part253a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:09,973 repast.simphony.batch.ssh.LocalSession - Edge with weight 106 goes from 40,68 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:09,973 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:09,973 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move13
+INFO  [Thread-4] 2018-03-19 14:59:09,974 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:10,192 repast.simphony.batch.ssh.LocalSession - PA255 for Part255a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:10,192 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 40,68 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:10,193 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:10,193 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move13
+INFO  [Thread-4] 2018-03-19 14:59:10,193 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:11,033 repast.simphony.batch.ssh.LocalSession - PA261 for Part261a query did not work for Robot Agent for RobotB2 
+INFO  [Thread-4] 2018-03-19 14:59:11,034 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 50,40 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:11,034 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:11,034 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move10
+INFO  [Thread-4] 2018-03-19 14:59:11,034 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:11,990 repast.simphony.batch.ssh.LocalSession - PA272 for Part272a query did not work for Robot Agent for RobotB3 
+INFO  [Thread-4] 2018-03-19 14:59:11,991 repast.simphony.batch.ssh.LocalSession - Edge with weight 22 goes from 80,72 to 70,80.
+INFO  [Thread-4] 2018-03-19 14:59:11,991 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:11,991 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB3 using move02
+INFO  [Thread-4] 2018-03-19 14:59:11,992 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:13,661 repast.simphony.batch.ssh.LocalSession - PA286 for Part286a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:13,661 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 40,52 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:13,662 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:13,662 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move23
+INFO  [Thread-4] 2018-03-19 14:59:13,662 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:13,880 repast.simphony.batch.ssh.LocalSession - PA284 for Part284a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:13,881 repast.simphony.batch.ssh.LocalSession - Edge with weight 66 goes from 40,68 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:13,881 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:13,881 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move13
+INFO  [Thread-4] 2018-03-19 14:59:13,881 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:14,306 repast.simphony.batch.ssh.LocalSession - PA302 for Part302a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:14,307 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 40,52 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:14,307 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:14,307 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move23
+INFO  [Thread-4] 2018-03-19 14:59:14,307 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:14,434 repast.simphony.batch.ssh.LocalSession - PA297 for Part297a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:14,435 repast.simphony.batch.ssh.LocalSession - Edge with weight 18 goes from 80,68 to 80,52.
+INFO  [Thread-4] 2018-03-19 14:59:14,435 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:14,436 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move12
+INFO  [Thread-4] 2018-03-19 14:59:14,436 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:14,540 repast.simphony.batch.ssh.LocalSession - PA301 for Part301a query did not work for BufferAgent for depositB2 
+INFO  [Thread-4] 2018-03-19 14:59:14,542 repast.simphony.batch.ssh.LocalSession - Edge with weight 1 goes from 40,52 to 40,50.
+INFO  [Thread-4] 2018-03-19 14:59:14,542 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:14,542 repast.simphony.batch.ssh.LocalSession -  Activated by: BufferAgent for depositB2 using T40,52
+INFO  [Thread-4] 2018-03-19 14:59:14,542 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:14,957 repast.simphony.batch.ssh.LocalSession - PA304 for Part304a query did not work for Robot Agent for RobotB1 
+INFO  [Thread-4] 2018-03-19 14:59:14,957 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 50,90 to 40,72.
+INFO  [Thread-4] 2018-03-19 14:59:14,958 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:14,958 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB1 using move20
+INFO  [Thread-4] 2018-03-19 14:59:14,958 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:15,342 repast.simphony.batch.ssh.LocalSession - PA309 for Part309a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:15,342 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 40,52 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:15,343 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:15,343 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move23
+INFO  [Thread-4] 2018-03-19 14:59:15,343 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:16,529 repast.simphony.batch.ssh.LocalSession - PA313 for Part313a query did not work for Robot Agent for RobotB4 
+INFO  [Thread-4] 2018-03-19 14:59:16,530 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 70,40 to 80,48.
+INFO  [Thread-4] 2018-03-19 14:59:16,530 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:16,531 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB4 using move10
+INFO  [Thread-4] 2018-03-19 14:59:16,531 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:16,636 repast.simphony.batch.ssh.LocalSession - PA320 for Part320a query did not work for BufferAgent for depositB4 
+INFO  [Thread-4] 2018-03-19 14:59:16,636 repast.simphony.batch.ssh.LocalSession - Edge with weight 1 goes from 80,52 to 80,50.
+INFO  [Thread-4] 2018-03-19 14:59:16,637 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:16,637 repast.simphony.batch.ssh.LocalSession -  Activated by: BufferAgent for depositB4 using T80,52
+INFO  [Thread-4] 2018-03-19 14:59:16,637 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:17,101 repast.simphony.batch.ssh.LocalSession - PA328 for Part328a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:17,101 repast.simphony.batch.ssh.LocalSession - Edge with weight 18 goes from 80,68 to 80,52.
+INFO  [Thread-4] 2018-03-19 14:59:17,102 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:17,102 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move12
+INFO  [Thread-4] 2018-03-19 14:59:17,102 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:17,849 repast.simphony.batch.ssh.LocalSession - PA334 for Part334a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:17,849 repast.simphony.batch.ssh.LocalSession - Edge with weight 39 goes from 98,60 to 80,52.
+INFO  [Thread-4] 2018-03-19 14:59:17,849 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:17,849 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move32
+INFO  [Thread-4] 2018-03-19 14:59:17,849 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:18,163 repast.simphony.batch.ssh.LocalSession - PA341 for Part341a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:18,163 repast.simphony.batch.ssh.LocalSession - Edge with weight 59 goes from 80,52 to 98,60.
+INFO  [Thread-4] 2018-03-19 14:59:18,163 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:18,164 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move23
+INFO  [Thread-4] 2018-03-19 14:59:18,164 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:18,337 repast.simphony.batch.ssh.LocalSession - PA357 for Part357a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:18,337 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 40,68 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:18,337 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:18,337 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move13
+INFO  [Thread-4] 2018-03-19 14:59:18,337 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:18,569 repast.simphony.batch.ssh.LocalSession - PA359 for Part359a query did not work for Robot Agent for RobotB1 
+INFO  [Thread-4] 2018-03-19 14:59:18,569 repast.simphony.batch.ssh.LocalSession - Edge with weight 62 goes from 30,80 to 40,72.
+INFO  [Thread-4] 2018-03-19 14:59:18,569 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:18,569 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB1 using move30
+INFO  [Thread-4] 2018-03-19 14:59:18,569 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:18,791 repast.simphony.batch.ssh.LocalSession - PA376 for Part376a query did not work for Robot Agent for RobotB2 
+INFO  [Thread-4] 2018-03-19 14:59:18,792 repast.simphony.batch.ssh.LocalSession - Edge with weight 46 goes from 50,40 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:18,792 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:18,792 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move10
+INFO  [Thread-4] 2018-03-19 14:59:18,792 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:18,950 repast.simphony.batch.ssh.LocalSession - PA382 for Part382a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:18,950 repast.simphony.batch.ssh.LocalSession - Edge with weight 77 goes from 62,60 to 80,52.
+INFO  [Thread-4] 2018-03-19 14:59:18,950 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:18,950 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move02
+INFO  [Thread-4] 2018-03-19 14:59:18,950 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:19,363 repast.simphony.batch.ssh.LocalSession - PA402 for Part402a query did not work for BufferAgent for depositB3 
+INFO  [Thread-4] 2018-03-19 14:59:19,363 repast.simphony.batch.ssh.LocalSession - Edge with weight 1 goes from 80,68 to 80,70.
+INFO  [Thread-4] 2018-03-19 14:59:19,363 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:19,363 repast.simphony.batch.ssh.LocalSession -  Activated by: BufferAgent for depositB3 using T80,68
+INFO  [Thread-4] 2018-03-19 14:59:19,363 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:19,892 repast.simphony.batch.ssh.LocalSession - PA419 for Part419a query did not work for Robot Agent for RobotB4 
+INFO  [Thread-4] 2018-03-19 14:59:19,892 repast.simphony.batch.ssh.LocalSession - Edge with weight 21 goes from 90,40 to 70,40.
+INFO  [Thread-4] 2018-03-19 14:59:19,892 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:19,892 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB4 using move31
+INFO  [Thread-4] 2018-03-19 14:59:19,892 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:19,899 repast.simphony.batch.ssh.LocalSession - Resource busy Robot Agent for RobotM34 for PA415 for Part415a
+INFO  [Thread-4] 2018-03-19 14:59:19,918 repast.simphony.batch.ssh.LocalSession - PA410 for Part410a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:19,918 repast.simphony.batch.ssh.LocalSession - Edge with weight 18 goes from 80,52 to 80,68.
+INFO  [Thread-4] 2018-03-19 14:59:19,919 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:19,919 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move21
+INFO  [Thread-4] 2018-03-19 14:59:19,919 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:19,975 repast.simphony.batch.ssh.LocalSession - PA407 for Part407a query did not work for Robot Agent for RobotB2 
+INFO  [Thread-4] 2018-03-19 14:59:19,975 repast.simphony.batch.ssh.LocalSession - Edge with weight 26 goes from 30,30 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:19,975 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:19,975 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move20
+INFO  [Thread-4] 2018-03-19 14:59:19,975 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:20,104 repast.simphony.batch.ssh.LocalSession - PA420 for Part420a query did not work for Robot Agent for RobotB2 
+INFO  [Thread-4] 2018-03-19 14:59:20,104 repast.simphony.batch.ssh.LocalSession - Edge with weight 24 goes from 30,30 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:20,104 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:20,104 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move20
+INFO  [Thread-4] 2018-03-19 14:59:20,104 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:20,359 repast.simphony.batch.ssh.LocalSession - PA430 for Part430a query did not work for BufferAgent for buffer1234 
+INFO  [Thread-4] 2018-03-19 14:59:20,359 repast.simphony.batch.ssh.LocalSession - Edge with weight 1 goes from 58,60 to 60,60.
+INFO  [Thread-4] 2018-03-19 14:59:20,359 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:20,359 repast.simphony.batch.ssh.LocalSession -  Activated by: BufferAgent for buffer1234 using T58,60
+INFO  [Thread-4] 2018-03-19 14:59:20,359 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:20,857 repast.simphony.batch.ssh.LocalSession - PA447 for Part447a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:20,857 repast.simphony.batch.ssh.LocalSession - Edge with weight 140 goes from 40,68 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:20,857 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:20,857 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move13
+INFO  [Thread-4] 2018-03-19 14:59:20,857 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:20,964 repast.simphony.batch.ssh.LocalSession - PA442 for Part442a query did not work for Robot Agent for RobotB1 
+INFO  [Thread-4] 2018-03-19 14:59:20,964 repast.simphony.batch.ssh.LocalSession - Edge with weight 29 goes from 30,80 to 40,72.
+INFO  [Thread-4] 2018-03-19 14:59:20,965 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:20,965 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB1 using move30
+INFO  [Thread-4] 2018-03-19 14:59:20,965 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:21,312 repast.simphony.batch.ssh.LocalSession - PA454 for Part454a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:21,313 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 40,52 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:21,313 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:21,313 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move23
+INFO  [Thread-4] 2018-03-19 14:59:21,313 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:21,739 repast.simphony.batch.ssh.LocalSession - PA476 for Part476a query did not work for Robot Agent for RobotB4 
+INFO  [Thread-4] 2018-03-19 14:59:21,739 repast.simphony.batch.ssh.LocalSession - Edge with weight 72 goes from 90,40 to 70,40.
+INFO  [Thread-4] 2018-03-19 14:59:21,739 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:21,739 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB4 using move31
+INFO  [Thread-4] 2018-03-19 14:59:21,739 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:21,779 repast.simphony.batch.ssh.LocalSession - PA475 for Part475a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:21,779 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 62,60 to 80,52.
+INFO  [Thread-4] 2018-03-19 14:59:21,779 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:21,779 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move02
+INFO  [Thread-4] 2018-03-19 14:59:21,779 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:22,301 repast.simphony.batch.ssh.LocalSession - PA494 for Part494a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:22,302 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 40,52 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:22,302 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:22,302 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move23
+INFO  [Thread-4] 2018-03-19 14:59:22,302 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:22,305 repast.simphony.batch.ssh.LocalSession - PA486 for Part486a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:22,305 repast.simphony.batch.ssh.LocalSession - Edge with weight 75 goes from 62,60 to 80,68.
+INFO  [Thread-4] 2018-03-19 14:59:22,305 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:22,305 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move01
+INFO  [Thread-4] 2018-03-19 14:59:22,305 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:22,356 repast.simphony.batch.ssh.LocalSession - PA497 for Part497a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:22,356 repast.simphony.batch.ssh.LocalSession - Edge with weight 63 goes from 20,60 to 40,52.
+INFO  [Thread-4] 2018-03-19 14:59:22,356 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:22,357 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move02
+INFO  [Thread-4] 2018-03-19 14:59:22,357 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:24,029 repast.simphony.batch.ssh.LocalSession - 100000.0
+INFO  [Thread-4] 2018-03-19 14:59:24,030 repast.simphony.batch.ssh.LocalSession - Completed: , Part239a, Part241a, Part242a, Part243a, Part245a, Part246a, Part247a, Part248a, Part249a, Part251a, Part252a, Part253a, Part254a, Part255a, Part256a, Part257a, Part258a, Part259a, Part260a, Part262a, Part263a, Part264a, Part265a, Part266a, Part267a, Part268a, Part269a, Part270a, Part271a, Part273a, Part274a, Part275a, Part276a, Part277a, Part278a, Part279a, Part280a, Part281a, Part282a, Part283a, Part284a, Part285a, Part287a, Part288a, Part289a, Part290a, Part291a, Part292a, Part293a, Part294a, Part295a, Part296a, Part297a, Part298a, Part299a, Part300a, Part303a, Part304a, Part305a, Part306a, Part307a, Part308a, Part309a, Part310a, Part311a, Part312a, Part313a, Part314a, Part315a, Part316a, Part317a, Part318a, Part319a, Part320a, Part321a, Part322a, Part323a, Part324a, Part325a, Part326a, Part327a, Part329a, Part330a, Part331a, Part332a, Part333a, Part334a, Part335a, Part336a, Part337a, Part338a, Part339a, Part340a, Part341a, Part342a, Part343a, Part344a, Part345a, Part346a, Part347a, Part348a, Part349a, Part350a, Part351a, Part352a, Part353a, Part354a, Part355a, Part356a, Part358a, Part359a, Part360a, Part361a, Part362a, Part363a, Part364a, Part365a, Part366a, Part367a, Part368a, Part369a, Part370a, Part371a, Part372a, Part373a, Part374a, Part375a, Part377a, Part378a, Part379a, Part380a, Part381a, Part383a, Part384a, Part385a, Part386a, Part387a, Part388a, Part389a, Part390a, Part391a, Part392a, Part393a, Part394a, Part395a, Part396a, Part397a, Part398a, Part399a, Part400a, Part401a, Part403a, Part404a, Part405a, Part406a, Part407a, Part408a, Part409a, Part410a, Part411a, Part412a, Part413a, Part414a, Part415a, Part416a, Part417a, Part418a, Part420a, Part421a, Part422a, Part423a, Part424a, Part425a, Part426a, Part427a, Part428a, Part429a, Part430a, Part431a, Part432a, Part433a, Part434a, Part435a, Part436a, Part437a, Part438a, Part439a, Part440a, Part441a, Part442a, Part443a, Part444a, Part445a, Part446a, Part447a, Part448a, Part449a, Part450a, Part451a, Part452a, Part453a, Part455a, Part456a, Part457a, Part458a, Part459a, Part460a, Part461a, Part462a, Part463a, Part464a, Part465a, Part466a, Part467a, Part468a, Part469a, Part470a, Part471a, Part472a, Part473a, Part474a, Part475a, Part477a, Part478a, Part479a, Part480a, Part481a, Part482a, Part483a, Part484a, Part485a, Part487a
+INFO  [Thread-4] 2018-03-19 14:59:24,030 repast.simphony.batch.ssh.LocalSession - Exited: , Part250a, Part244a, Part261a, Part272a, Part286a, Part302a, Part301a, Part328a, Part357a, Part376a, Part382a, Part402a, Part419a, Part454a, Part476a, Part494a, Part486a
+INFO  [Thread-4] 2018-03-19 14:59:24,078 repast.simphony.batch.ssh.LocalSession - Could not find [PhysicalProperty [point=null, processCompleted=S5]] for Part492a
+INFO  [Thread-4] 2018-03-19 14:59:24,167 repast.simphony.batch.ssh.LocalSession - 100000.0
+INFO  [Thread-4] 2018-03-19 14:59:24,168 repast.simphony.batch.ssh.LocalSession - Completed: , Part236a, Part237a, Part238a, Part239a, Part240a, Part241a, Part242a, Part243a, Part244a, Part245a, Part246a, Part247a, Part248a, Part249a, Part250a, Part251a, Part252a, Part254a, Part256a, Part257a, Part258a, Part259a, Part260a, Part261a, Part262a, Part263a, Part264a, Part265a, Part266a, Part267a, Part268a, Part269a, Part270a, Part271a, Part272a, Part273a, Part274a, Part275a, Part276a, Part277a, Part278a, Part279a, Part280a, Part281a, Part282a, Part283a, Part285a, Part286a, Part287a, Part288a, Part289a, Part290a, Part291a, Part292a, Part293a, Part294a, Part295a, Part296a, Part298a, Part299a, Part300a, Part301a, Part302a, Part303a, Part305a, Part306a, Part307a, Part308a, Part310a, Part311a, Part312a, Part314a, Part315a, Part316a, Part317a, Part318a, Part319a, Part321a, Part322a, Part323a, Part324a, Part325a, Part326a, Part327a, Part328a, Part329a, Part330a, Part331a, Part332a, Part333a, Part335a, Part336a, Part337a, Part338a, Part339a, Part340a, Part342a, Part343a, Part344a, Part345a, Part346a, Part347a, Part348a, Part349a, Part350a, Part351a, Part352a, Part353a, Part354a, Part355a, Part356a, Part357a, Part358a, Part360a, Part361a, Part362a, Part363a, Part364a, Part365a, Part366a, Part367a, Part368a, Part369a, Part370a, Part371a, Part372a, Part373a, Part374a, Part375a, Part376a, Part377a, Part378a, Part379a, Part380a, Part381a, Part382a, Part383a, Part384a, Part385a, Part386a, Part387a, Part388a, Part389a, Part390a, Part391a, Part392a, Part393a, Part394a, Part395a, Part396a, Part397a, Part398a, Part399a, Part400a, Part401a, Part402a, Part403a, Part404a, Part405a, Part406a, Part408a, Part409a, Part411a, Part412a, Part413a, Part414a, Part416a, Part417a, Part418a, Part419a, Part421a, Part422a, Part423a, Part424a, Part425a, Part426a, Part427a, Part428a, Part429a, Part431a, Part432a, Part433a, Part434a, Part435a, Part436a, Part437a, Part438a, Part439a, Part440a, Part441a, Part443a, Part444a, Part445a, Part446a, Part448a, Part449a, Part450a, Part451a, Part452a, Part453a, Part454a, Part455a, Part456a, Part457a, Part458a, Part459a, Part460a, Part461a, Part462a, Part463a, Part464a, Part465a, Part466a, Part467a, Part468a, Part469a, Part470a, Part471a, Part472a, Part473a, Part474a, Part476a, Part477a, Part478a, Part479a, Part480a, Part481a, Part482a, Part483a, Part484a, Part485a, Part486a, Part487a
+INFO  [Thread-4] 2018-03-19 14:59:24,168 repast.simphony.batch.ssh.LocalSession - Exited: , Part253a, Part255a, Part284a, Part297a, Part304a, Part309a, Part313a, Part320a, Part334a, Part341a, Part359a, Part415a, Part410a, Part407a, Part420a, Part430a, Part447a, Part442a, Part475a, Part497a
+INFO  [Thread-4] 2018-03-19 14:59:24,190 repast.simphony.batch.ssh.LocalSession - Could not find [PhysicalProperty [point=null, processCompleted=S3]] for Part495a
+INFO  [Thread-4] 2018-03-19 14:59:24,220 repast.simphony.batch.ssh.LocalSession - Could not find [PhysicalProperty [point=null, processCompleted=S5]] for Part493a
+INFO  [Thread-4] 2018-03-19 14:59:24,404 repast.simphony.batch.ssh.LocalSession - PA503 for Part503a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:24,404 repast.simphony.batch.ssh.LocalSession - Edge with weight 84 goes from 62,60 to 98,60.
+INFO  [Thread-4] 2018-03-19 14:59:24,404 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:24,404 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move03
+INFO  [Thread-4] 2018-03-19 14:59:24,404 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:24,530 repast.simphony.batch.ssh.LocalSession - PA499 for Part499a query did not work for Robot Agent for RobotB2 
+INFO  [Thread-4] 2018-03-19 14:59:24,530 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 50,40 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:24,530 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:24,530 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move10
+INFO  [Thread-4] 2018-03-19 14:59:24,530 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:24,563 repast.simphony.batch.ssh.LocalSession - PA509 for Part509a query did not work for Robot Agent for RobotB2 
+INFO  [Thread-4] 2018-03-19 14:59:24,563 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 50,40 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:24,563 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:24,563 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move10
+INFO  [Thread-4] 2018-03-19 14:59:24,563 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:24,652 repast.simphony.batch.ssh.LocalSession - PA502 for Part502a query did not work for Robot Agent for RobotB1 
+INFO  [Thread-4] 2018-03-19 14:59:24,652 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 30,80 to 40,72.
+INFO  [Thread-4] 2018-03-19 14:59:24,652 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:24,652 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB1 using move30
+INFO  [Thread-4] 2018-03-19 14:59:24,652 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:24,846 repast.simphony.batch.ssh.LocalSession - PA519 for Part519a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:24,846 repast.simphony.batch.ssh.LocalSession - Edge with weight 174 goes from 62,60 to 98,60.
+INFO  [Thread-4] 2018-03-19 14:59:24,846 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:24,846 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move03
+INFO  [Thread-4] 2018-03-19 14:59:24,846 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:24,951 repast.simphony.batch.ssh.LocalSession - PA509 for Part509a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:24,951 repast.simphony.batch.ssh.LocalSession - Edge with weight 22 goes from 62,60 to 80,52.
+INFO  [Thread-4] 2018-03-19 14:59:24,951 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:24,951 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move02
+INFO  [Thread-4] 2018-03-19 14:59:24,951 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:25,338 repast.simphony.batch.ssh.LocalSession - PA513 for Part513a query did not work for Robot Agent for RobotB2 
+INFO  [Thread-4] 2018-03-19 14:59:25,338 repast.simphony.batch.ssh.LocalSession - Edge with weight 369 goes from 50,40 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:25,339 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:25,339 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move10
+INFO  [Thread-4] 2018-03-19 14:59:25,339 repast.simphony.batch.ssh.LocalSession - 
+INFO  [pool-2-thread-1] 2018-03-19 14:59:25,371 repast.simphony.batch.ssh.LocalDonePoller - Polled /var/folders/rt/vvp2ykr93_9bnkh0gcz1wl180000gn/T/simphony_model_1521485901258 for DONE:  no
+INFO  [Thread-4] 2018-03-19 14:59:25,407 repast.simphony.batch.ssh.LocalSession - PA525 for Part525a query did not work for Robot Agent for RobotB1 
+INFO  [Thread-4] 2018-03-19 14:59:25,408 repast.simphony.batch.ssh.LocalSession - Edge with weight 30 goes from 50,90 to 40,72.
+INFO  [Thread-4] 2018-03-19 14:59:25,408 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:25,408 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB1 using move20
+INFO  [Thread-4] 2018-03-19 14:59:25,409 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:26,955 repast.simphony.batch.ssh.LocalSession - PA520 for Part520a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:26,956 repast.simphony.batch.ssh.LocalSession - Edge with weight 152 goes from 62,60 to 80,52.
+INFO  [Thread-4] 2018-03-19 14:59:26,956 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:26,956 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move02
+INFO  [Thread-4] 2018-03-19 14:59:26,956 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:27,168 repast.simphony.batch.ssh.LocalSession - PA535 for Part535a query did not work for Robot Agent for RobotM12 
+INFO  [Thread-4] 2018-03-19 14:59:27,168 repast.simphony.batch.ssh.LocalSession - Edge with weight 36 goes from 40,68 to 58,60.
+INFO  [Thread-4] 2018-03-19 14:59:27,168 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:27,169 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM12 using move13
+INFO  [Thread-4] 2018-03-19 14:59:27,169 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:27,701 repast.simphony.batch.ssh.LocalSession - PA528 for Part528a query did not work for Robot Agent for RobotM34 
+INFO  [Thread-4] 2018-03-19 14:59:27,702 repast.simphony.batch.ssh.LocalSession - Edge with weight 89 goes from 62,60 to 80,68.
+INFO  [Thread-4] 2018-03-19 14:59:27,702 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:27,702 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotM34 using move01
+INFO  [Thread-4] 2018-03-19 14:59:27,702 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:27,886 repast.simphony.batch.ssh.LocalSession - PA529 for Part529a query did not work for Robot Agent for RobotB3 
+INFO  [Thread-4] 2018-03-19 14:59:27,886 repast.simphony.batch.ssh.LocalSession - Edge with weight 243 goes from 90,100 to 80,72.
+INFO  [Thread-4] 2018-03-19 14:59:27,886 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:27,886 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB3 using move30
+INFO  [Thread-4] 2018-03-19 14:59:27,886 repast.simphony.batch.ssh.LocalSession - 
+INFO  [Thread-4] 2018-03-19 14:59:29,544 repast.simphony.batch.ssh.LocalSession - PA535 for Part535a query did not work for Robot Agent for RobotB2 
+INFO  [Thread-4] 2018-03-19 14:59:29,545 repast.simphony.batch.ssh.LocalSession - Edge with weight 20 goes from 50,40 to 40,48.
+INFO  [Thread-4] 2018-03-19 14:59:29,545 repast.simphony.batch.ssh.LocalSession - Makes nothing completed.
+INFO  [Thread-4] 2018-03-19 14:59:29,546 repast.simphony.batch.ssh.LocalSession -  Activated by: Robot Agent for RobotB2 using move10
+INFO  [Thread-4] 2018-03-19 14:59:29,546 repast.simphony.batch.ssh.LocalSession - 
+FATAL [Thread-11] 2018-03-20 13:27:22,924 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (251700.0)
 java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
 	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
@@ -163,11 +273,8 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
 	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
 	... 6 more
-Caused by: java.lang.NullPointerException
-	at resourceAgent.ResourceAgentHelper.teamQuery(ResourceAgentHelper.java:106)
-	at resourceAgent.BufferAgent.teamQuery(BufferAgent.java:75)
-	at intelligentProduct.ProductAgentInstance.startExploration(ProductAgentInstance.java:204)
-	at intelligentProduct.ProductAgentInstance.requestNewPlan(ProductAgentInstance.java:114)
-	at intelligentProduct.ProductAgentInstance.informEvent(ProductAgentInstance.java:404)
-	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:117)
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token ")", delete this token
+
+	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:83)
 	... 9 more

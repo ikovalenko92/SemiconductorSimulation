@@ -35,16 +35,22 @@ public class TestingBrokenMachine {
 	private Context<Object> cyberContext;
 	private Context<Object> physicalContext;
 	private ArrayList<Machine> brokenMachines;
+	
+	public String prefix;
 
 	public TestingBrokenMachine(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
-			int startTime, int endTime, Point exitPoint,Point exitHumanPointPlace) {	
+			int startTime, int midTime, int endTime, Point exitPoint,Point exitHumanPointPlace, String prefix) {	
 		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
 		this.physicalContext = physicalContext;
 		
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		schedule.schedule(ScheduleParameters.createOneTime(startTime,-145), this, "setMachineBroken");		
-		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");		
+		schedule.schedule(ScheduleParameters.createOneTime(midTime,-145), this, "runTest",new Object[]{"3"});	
+		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest",new Object[]{"4"});			
+		//schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "fixMachine");		
+		
+		this.prefix = prefix;
 	
 	}
 	
@@ -66,7 +72,7 @@ public class TestingBrokenMachine {
 		}
 	}
 	
-	public void runTest() {	
+	public void runTest(String suffix) {	
 		String outputS1 = "";
 		String outputS2 = "";
 		String PAHistory = "";
@@ -127,13 +133,15 @@ public class TestingBrokenMachine {
 		System.out.println("Exited: " + outputS2);
 
 		try {
-			PrintWriter out = new PrintWriter("outFile2.txt");
+			PrintWriter out = new PrintWriter(this.prefix+"outFile"+suffix+".txt");
 			out.println(PAHistory);
 			out.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+	}
+	
+	public void fixMachine(){
 		for (Machine machine:this.brokenMachines){
 			machine.fix();
 		}

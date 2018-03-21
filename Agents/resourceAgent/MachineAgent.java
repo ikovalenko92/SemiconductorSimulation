@@ -83,12 +83,25 @@ public class MachineAgent implements ResourceAgent{
 	public void teamQuery(ProductAgent productAgent, PhysicalProperty desiredProperty, ProductState currentNode, 
 			int maxTime, DirectedSparseGraph<ProductState,ResourceEvent> bid, int currentTime) {
 		
-		if (this.machine.getMachine().getTimeLeft()>5000){
-			return;
+		if (this.machine.getTimeLeft()>30000){
+			ResourceAgentHelper rah = new ResourceAgentHelper();
+			
+			DirectedSparseGraph<ProductState, ResourceEvent> machineCapabilitiesBroken = rah.copyGraph(machineCapabilities);
+			
+			for (ResourceEvent edge:machineCapabilitiesBroken.getEdges()){
+				if (!(edge.getActiveMethod() == "Reset" || edge.getActiveMethod() == "Hold")){
+					edge.setWeight(this.machine.getTimeLeft());
+				}
+			}
+			
+			rah.teamQuery(productAgent, desiredProperty, currentNode, maxTime, bid,
+			currentTime, this, neighbors, tableNeighborNode, machineCapabilitiesBroken, weightTransformer);
 		}
 		
+		else{
 		new ResourceAgentHelper().teamQuery(productAgent, desiredProperty, currentNode, maxTime, bid,
 				currentTime, this, neighbors, tableNeighborNode, machineCapabilities, weightTransformer);
+		}
 	}
 	
 	//================================================================================
@@ -104,7 +117,6 @@ public class MachineAgent implements ResourceAgent{
 	public boolean requestScheduleTime(ProductAgent productAgent,ResourceEvent edge, int startTime, int endTime) {
 		
 		int edgeOffset = edge.getEventTime() - this.getCapabilities().findEdge(edge.getParent(),edge.getChild()).getEventTime();
-		
 
 		if (edge.getActiveMethod() == "Reset"){
 				endTime = startTime+edgeOffset;

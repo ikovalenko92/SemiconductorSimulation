@@ -36,17 +36,24 @@ public class TestingNewProductType {
 	private Context<Object> cyberContext;
 	private Context<Object> physicalContext;
 	private PartCreatorforBuffer partCreator;
+	private String prefix;
+	private PartCreatorforBuffer partCreator2;
 
 	public TestingNewProductType(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
-			PartCreatorforBuffer partCreator, int injectTime, int endTime, Point exitPoint,Point exitHumanPointPlace) {	
+			PartCreatorforBuffer partCreator, PartCreatorforBuffer partCreator2, int injectTime1, int injectTime2, 
+			int endTime, Point exitPoint,Point exitHumanPointPlace, String prefix) {	
 		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
 		this.physicalContext = physicalContext;
 		this.partCreator = partCreator;
+		this.partCreator2 = partCreator2;
 		  
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(injectTime,-145), this, "newProductVariety");
+		schedule.schedule(ScheduleParameters.createOneTime(injectTime1,-145), this, "newProductVariety");
+		schedule.schedule(ScheduleParameters.createOneTime(injectTime2,-145), this, "newProductVariety2");
 		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");		
+		
+		this.prefix = prefix;
 	}
 	
 	public void newProductVariety(){
@@ -54,10 +61,16 @@ public class TestingNewProductType {
 		partCreator.setMaxNumberOfParts(20);
 	}
 	
+	public void newProductVariety2(){
+		partCreator2.setPartType('c');
+		partCreator2.setMaxNumberOfParts(20);
+	}
+	
 	public void runTest() {	
 		String outputS1 = "";
 		String outputS2 = "";
 		String outputS3 = "";
+		String outputS4 = "";
 		String PAHistory = "";
 		
 		Class desiredType = null;
@@ -86,6 +99,9 @@ public class TestingNewProductType {
 						
 						if (PA.getPartName().contains("b")){
 							outputS3 = outputS3+", "+object.toString(); //for output to console if part b
+						}
+						else if(PA.getPartName().contains("c")){
+							outputS4 = outputS4+", "+object.toString(); //for output to console if part c
 						}
 						else{
 							outputS1 = outputS1+", "+object.toString(); //for output to console
@@ -119,11 +135,12 @@ public class TestingNewProductType {
 		System.out.println(schedule.getTickCount());
 		System.out.println("Completed: " + outputS1);
 		System.out.println("Exited: " + outputS2);
-		System.out.println("Completed new: " + outputS3);
-		
+		System.out.println("Completed new b: " + outputS3);
+		System.out.println("Completed new c: " + outputS4);
+
 
 		try {
-			PrintWriter out = new PrintWriter("outFile3.txt");
+			PrintWriter out = new PrintWriter(this.prefix+"outFile2.txt");
 			out.println(PAHistory);
 			out.close();
 		} catch (FileNotFoundException e) {

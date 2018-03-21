@@ -22,22 +22,27 @@ public class PartSnapshot {
 	private Context<Object> physicalContext;
 	int[][] heatMap;
 	private Hashtable<Object, Point> lastPlaceMap;
+	private String prefix;
 
-	public PartSnapshot(Grid<Object> physicalGrid, Context<Object> physicalContext) {	
+	public PartSnapshot(Grid<Object> physicalGrid, Context<Object> physicalContext, String prefix) {	
 		this.physicalGrid = physicalGrid;
 		this.physicalContext = physicalContext;
 		
 		this.heatMap = new int[this.physicalGrid.getDimensions().getWidth()]
 				[this.physicalGrid.getDimensions().getHeight()];
 		this.lastPlaceMap = new Hashtable<Object,Point>();
+		
+		this.prefix = prefix;
 	}
 	
-	@ScheduledMethod ( start = 100000, interval = 100000, priority = -500)
+	@ScheduledMethod ( start = 100000, interval = 50000, priority = -500)
 	public void gatherSnapshots(){		
 		int completedPartCounta = 0;
 		int completedPartCountb = 0;
+		int completedPartCountc = 0;
 		int exitedPartCounta = 0;
 		int exitedPartCountb = 0;
+		int exitedPartCountc = 0;
 		int livePartCount = 0;
 		
 		for (Object object:this.physicalGrid.getObjects()){
@@ -49,6 +54,9 @@ public class PartSnapshot {
 					if(((Part) object).getRFIDTag().getType() == 'b'){
 						completedPartCountb++;
 					}
+					else if(((Part) object).getRFIDTag().getType() == 'c'){
+						completedPartCountc++;
+					}
 					else{
 						completedPartCounta++;
 					}
@@ -56,6 +64,9 @@ public class PartSnapshot {
 				else if (x_coor == this.exitHumanPointPlace.x && y_coor == this.exitHumanPointPlace.y){
 					if(((Part) object).getRFIDTag().getType() == 'b'){
 						exitedPartCountb++;
+					}
+					else if(((Part) object).getRFIDTag().getType() == 'c'){
+						exitedPartCountc++;
 					}
 					else{
 						exitedPartCounta++;
@@ -71,7 +82,7 @@ public class PartSnapshot {
 		
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		try {
-			PrintWriter out = new PrintWriter("outFile" + schedule.getTickCount() +".txt");
+			PrintWriter out = new PrintWriter(this.prefix+"outFile" + schedule.getTickCount() +".txt");
 			out.println("Completed Part Count (a): " + completedPartCounta);
 			out.println("Exited Part Count (a): " + exitedPartCounta);
 			
@@ -81,6 +92,14 @@ public class PartSnapshot {
 			
 			if (exitedPartCountb!=0){
 				out.println("Exited Part Count (b): " + exitedPartCountb);
+			}
+			
+			if(completedPartCountc!=0){
+				out.println("Completed Part Count (c): " + completedPartCountc);
+			}
+			
+			if (exitedPartCountc!=0){
+				out.println("Exited Part Count (c): " + exitedPartCountc);
 			}
 			
 			//out.println("Live Part Count: " + completedPartCount);

@@ -147,7 +147,7 @@ public class ResourceAgentHelper {
 	 * @param oldgraph
 	 * @return
 	 */
-	private DirectedSparseGraph<ProductState, ResourceEvent> copyGraph(
+	public DirectedSparseGraph<ProductState, ResourceEvent> copyGraph(
 			DirectedSparseGraph<ProductState, ResourceEvent> oldgraph) {
 		DirectedSparseGraph<ProductState, ResourceEvent> graph = new DirectedSparseGraph<ProductState, ResourceEvent>();
 		
@@ -162,7 +162,7 @@ public class ResourceAgentHelper {
 	/** Clears the graph
 	 * @param graph
 	 */
-	private void clearGraph(DirectedSparseGraph<ProductState, ResourceEvent> graph) {
+	public void clearGraph(DirectedSparseGraph<ProductState, ResourceEvent> graph) {
 		for (ResourceEvent e : graph.getEdges()){
 			e = null;
 		}

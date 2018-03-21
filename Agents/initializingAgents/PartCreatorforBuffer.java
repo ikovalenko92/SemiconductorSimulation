@@ -80,7 +80,7 @@ public class PartCreatorforBuffer {
 	 */
 	public void startPartAgentCreation(){
 		
-		if(!(this.partType == 'a' || this.partType == 'b') || this.numberofParts>=this.maxNumberOfParts){
+		if(!(this.partType == 'a' || this.partType == 'b' || this.partType == 'c') || this.numberofParts>=this.maxNumberOfParts){
 			return;
 		}
 		
@@ -170,6 +170,22 @@ public class PartCreatorforBuffer {
 		}
 		
 		else if (partType == 'b'){
+			productionPlan.add(new PhysicalProperty("S1"));
+			
+			HashSet<PhysicalProperty> set5 = new HashSet<PhysicalProperty>();
+			set5.add(new PhysicalProperty("S2"));
+			productionPlan.addNewSet(set5);
+			
+			HashSet<PhysicalProperty> set6 = new HashSet<PhysicalProperty>();
+			set6.add(new PhysicalProperty("S3"));
+			productionPlan.addNewSet(set6);
+			
+			HashSet<PhysicalProperty> end = new HashSet<PhysicalProperty>();
+			end.add(new PhysicalProperty("End"));
+			productionPlan.addNewSet(end);
+		}
+		
+		else if (partType == 'c'){
 			productionPlan.add(new PhysicalProperty("S4"));
 			
 			HashSet<PhysicalProperty> set5 = new HashSet<PhysicalProperty>();
