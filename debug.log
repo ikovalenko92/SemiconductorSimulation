@@ -278,3 +278,21 @@ Caused by: java.lang.Error: Unresolved compilation problem:
 
 	at initializingAgents.PartCreatorforBuffer.startPartAgentCreation(PartCreatorforBuffer.java:83)
 	... 9 more
+FATAL [Thread-10] 2018-03-22 13:28:05,605 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (10000.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:129)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.reflect.InvocationTargetException
+	at Testing.TestingBrokenMachine$$FastClassByCGLIB$$4968cfe0.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.CallBackAction.execute(CallBackAction.java:127)
+	... 6 more
+Caused by: java.lang.NullPointerException
+	at Testing.TestingBrokenMachine.fixMachine(TestingBrokenMachine.java:145)
+	... 9 more

@@ -71,7 +71,7 @@ public class PartCreatorforBuffer {
 		schedule.schedule(ScheduleParameters.createRepeating(startTime,intervalTime), this, "startPartAgentCreation");
 		
 		this.PAnumber = -1;
-		this.maxNumberOfParts = 100000000;
+		this.maxNumberOfParts = 150;
 		this.numberofParts = 0;
 	}
 	
@@ -98,7 +98,7 @@ public class PartCreatorforBuffer {
 			}
 		}
 		
-		if(currentFinishedPartCount>60){
+		if(currentFinishedPartCount>50){
 			return;
 		}
 		
@@ -170,14 +170,26 @@ public class PartCreatorforBuffer {
 		}
 		
 		else if (partType == 'b'){
-			productionPlan.add(new PhysicalProperty("S1"));
+			productionPlan.add(new PhysicalProperty("S2"));
+			
+			HashSet<PhysicalProperty> set2 = new HashSet<PhysicalProperty>();
+			set2.add(new PhysicalProperty("S1"));
+			productionPlan.addNewSet(set2);
+			
+			HashSet<PhysicalProperty> set3 = new HashSet<PhysicalProperty>();
+			set3.add(new PhysicalProperty("S3"));
+			productionPlan.addNewSet(set3);
+			
+			HashSet<PhysicalProperty> set4 = new HashSet<PhysicalProperty>();
+			set4.add(new PhysicalProperty("S5"));
+			productionPlan.addNewSet(set4);
 			
 			HashSet<PhysicalProperty> set5 = new HashSet<PhysicalProperty>();
-			set5.add(new PhysicalProperty("S2"));
+			set5.add(new PhysicalProperty("S4"));
 			productionPlan.addNewSet(set5);
 			
 			HashSet<PhysicalProperty> set6 = new HashSet<PhysicalProperty>();
-			set6.add(new PhysicalProperty("S3"));
+			set6.add(new PhysicalProperty("S6"));
 			productionPlan.addNewSet(set6);
 			
 			HashSet<PhysicalProperty> end = new HashSet<PhysicalProperty>();
@@ -188,12 +200,24 @@ public class PartCreatorforBuffer {
 		else if (partType == 'c'){
 			productionPlan.add(new PhysicalProperty("S4"));
 			
+			HashSet<PhysicalProperty> set2 = new HashSet<PhysicalProperty>();
+			set2.add(new PhysicalProperty("S5"));
+			productionPlan.addNewSet(set2);
+			
+			HashSet<PhysicalProperty> set3 = new HashSet<PhysicalProperty>();
+			set3.add(new PhysicalProperty("S6"));
+			productionPlan.addNewSet(set3);
+			
+			HashSet<PhysicalProperty> set4 = new HashSet<PhysicalProperty>();
+			set4.add(new PhysicalProperty("S1"));
+			productionPlan.addNewSet(set4);
+			
 			HashSet<PhysicalProperty> set5 = new HashSet<PhysicalProperty>();
-			set5.add(new PhysicalProperty("S5"));
+			set5.add(new PhysicalProperty("S2"));
 			productionPlan.addNewSet(set5);
 			
 			HashSet<PhysicalProperty> set6 = new HashSet<PhysicalProperty>();
-			set6.add(new PhysicalProperty("S6"));
+			set6.add(new PhysicalProperty("S3"));
 			productionPlan.addNewSet(set6);
 			
 			HashSet<PhysicalProperty> end = new HashSet<PhysicalProperty>();

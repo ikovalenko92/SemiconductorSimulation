@@ -1,5 +1,2 @@
-Completed Part Count (a): 225
-Exited Part Count (a): 20
-Completed Part Count (b): 20
-Completed Part Count (c): 19
-Exited Part Count (c): 1
+Completed Part Count (a): 137
+Exited Part Count (a): 13

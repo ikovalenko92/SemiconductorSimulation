@@ -35,35 +35,46 @@ public class TestingNewProductType {
 	private Grid<Object> physicalGrid;
 	private Context<Object> cyberContext;
 	private Context<Object> physicalContext;
-	private PartCreatorforBuffer partCreator;
 	private String prefix;
-	private PartCreatorforBuffer partCreator2;
+
+	private PartCreatorforBuffer partCreatora;
+	private PartCreatorforBuffer partCreatora_new;
+	private PartCreatorforBuffer partCreatorb;
+	private PartCreatorforBuffer partCreatorc;
 
 	public TestingNewProductType(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
-			PartCreatorforBuffer partCreator, PartCreatorforBuffer partCreator2, int injectTime1, int injectTime2, 
+			PartCreatorforBuffer partCreatora_new,PartCreatorforBuffer partCreatorb, PartCreatorforBuffer partCreatorc,
+			int startTime, int injectTime1, int injectTime2, 
 			int endTime, Point exitPoint,Point exitHumanPointPlace, String prefix) {	
 		this.physicalGrid = physicalGrid;
 		this.cyberContext = cyberContext;
 		this.physicalContext = physicalContext;
-		this.partCreator = partCreator;
-		this.partCreator2 = partCreator2;
+		this.partCreatora = partCreatora_new;
+		this.partCreatorb = partCreatorb;
+		this.partCreatorc = partCreatorc;
 		  
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		schedule.schedule(ScheduleParameters.createOneTime(injectTime1,-145), this, "newProductVariety");
+		schedule.schedule(ScheduleParameters.createOneTime(startTime,-145), this, "newProductVariety0");
+		schedule.schedule(ScheduleParameters.createOneTime(injectTime1,-145), this, "newProductVariety1");
 		schedule.schedule(ScheduleParameters.createOneTime(injectTime2,-145), this, "newProductVariety2");
 		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest");		
 		
 		this.prefix = prefix;
 	}
 	
-	public void newProductVariety(){
-		partCreator.setPartType('b');
-		partCreator.setMaxNumberOfParts(20);
+	public void newProductVariety0(){
+		partCreatora.setPartType('a');
+		partCreatora.setMaxNumberOfParts(50);
+	}
+	
+	public void newProductVariety1(){
+		partCreatorb.setPartType('b');
+		partCreatorb.setMaxNumberOfParts(50);
 	}
 	
 	public void newProductVariety2(){
-		partCreator2.setPartType('c');
-		partCreator2.setMaxNumberOfParts(20);
+		partCreatorc.setPartType('c');
+		partCreatorc.setMaxNumberOfParts(50);
 	}
 	
 	public void runTest() {	

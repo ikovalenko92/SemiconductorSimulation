@@ -46,9 +46,9 @@ public class TestingBrokenMachine {
 		
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		schedule.schedule(ScheduleParameters.createOneTime(startTime,-145), this, "setMachineBroken");		
-		schedule.schedule(ScheduleParameters.createOneTime(midTime,-145), this, "runTest",new Object[]{"3"});	
-		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest",new Object[]{"4"});			
-		//schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "fixMachine");		
+		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest",new Object[]{"3"});	
+		//schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "runTest",new Object[]{"4"});			
+		schedule.schedule(ScheduleParameters.createOneTime(endTime,-145), this, "fixMachine");		
 		
 		this.prefix = prefix;
 	

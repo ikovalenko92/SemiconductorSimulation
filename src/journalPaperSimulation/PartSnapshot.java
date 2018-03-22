@@ -35,7 +35,7 @@ public class PartSnapshot {
 		this.prefix = prefix;
 	}
 	
-	@ScheduledMethod ( start = 100000, interval = 50000, priority = -500)
+	@ScheduledMethod ( start = 50000, interval = 50000, priority = -500)
 	public void gatherSnapshots(){		
 		int completedPartCounta = 0;
 		int completedPartCountb = 0;

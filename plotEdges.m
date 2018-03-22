@@ -27,7 +27,10 @@ end
 plotThickness = zeros(size(uniqueEdgesWithTimes,1),1);
 
 %Plot
-maxPlot = max(uniqueEdgesWithTimes(:,end))/scaleFactorEdge; %scale factor
+%maxPlot = max(uniqueEdgesWithTimes(:,end))/scaleFactorEdge; %scale factor
+maxPlot = max(uniqueEdgesWithTimes(:,end));
+minPlot = min(uniqueEdgesWithTimes(:,end));
+
 nodesManufacturing = [];
 for i = 1:size(uniqueEdgesWithTimes,1)
     p_x = uniqueEdgesWithTimes(i,1);
@@ -45,7 +48,8 @@ for i = 1:size(uniqueEdgesWithTimes,1)
         
         % Don't plot buffer lines
         if (~(p_x_rounded == c_x_rounded && p_y_rounded == c_y_rounded))
-            plotThickness = uniqueEdgesWithTimes(i,end)/maxPlot;
+            %plotThickness = uniqueEdgesWithTimes(i,end)/maxPlot;
+            plotThickness = (scaleMax-scaleMin)/(maxPlot-minPlot)*(uniqueEdgesWithTimes(i,end) - maxPlot)+scaleMax;
             plot([p_x_rounded c_x_rounded],[p_y_rounded c_y_rounded],...
                 'LineWidth', plotThickness,'color',grey);
         end

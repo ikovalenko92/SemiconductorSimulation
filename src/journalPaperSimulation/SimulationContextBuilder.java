@@ -88,7 +88,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 			machineTMPoint, machineTNPoint, machineTOPoint, machineTPPoint, machineTQPoint, 
 			machineTRPoint, machineTSPoint, machineTTPoint};
 	
-	int scale = 3;
+	int scale = 2;
 	//Time for processes
 /*	int S1time = 70*scale;
 	int S2time = 45*scale;
@@ -96,11 +96,11 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	int S4time = 50*scale;
 	int S5time = 60*scale;
 	int S6time = 10*scale;*/
-	int S1time = 225*scale;
+	int S1time = 75*scale;
 	int S2time = 30*scale;
 	int S3time = 55*scale;
 	int S4time = 50*scale;
-	int S5time = 255*scale;
+	int S5time = 85*scale;
 	int S6time = 10*scale;
 
 	
@@ -198,7 +198,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
     //================================================================================
 	
 	//Speed of the robots
-	int robotSpeed = 10;
+	int robotSpeed = 20;
 
 	/**
 	 * List of all of Robot Controllers
@@ -293,6 +293,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 	private final Point exitHumanLocation = new Point(10,10);
 	private final Point exitHumanPoint = new Point(6,10);
 	private ExitAgent exitHumanAgent;
+	private PartCreatorforBuffer partCreatora;
 	
 //================================================================================
 // START OF METHODS
@@ -333,8 +334,8 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 
 	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
-		PartCreatorforBuffer partCreatora = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				exitHumanAgent, physicalGrid, physicalContext, cyberContext,5,200);
+		this.partCreatora = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,5,120);
 		cyberContext.add(partCreatora);
 	}
 	
@@ -345,29 +346,41 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		String prefix = params.getString("prefix");
 		
 		RemoveExitAndEnd clearEnds = new RemoveExitAndEnd(physicalGrid, cyberContext, physicalContext,
-				new int[]{50000,100001,150001,200001}, this.exitPointStorage, this.exitHumanPoint);
+				new int[]{50001,100001,150001,200001}, this.exitPointStorage, this.exitHumanPoint);
 		cyberContext.add(clearEnds);
 		
 		TestingNormalOperation test = new TestingNormalOperation(physicalGrid,cyberContext,physicalContext, 
-				100000, this.exitPointStorage, this.exitHumanPoint, prefix);
+				50000, this.exitPointStorage, this.exitHumanPoint, prefix);
 		cyberContext.add(test);
 		
-	
-		int bufferStartTimeb = 100050;
-		int bufferStartTimec = 100100;
+		int startTime = 50001;
+		int bufferStartTimeb = 50121;
+		int bufferStartTimec = 50241;
+		PartCreatorforBuffer partCreatora_new = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,startTime,360);
+		cyberContext.add(partCreatora_new);
 		PartCreatorforBuffer partCreatorb = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimeb,200);
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimeb,360);
 		cyberContext.add(partCreatorb);
 		PartCreatorforBuffer partCreatorc = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimec,200);
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimec,360);
 		cyberContext.add(partCreatorc);
-		TestingNewProductType test3b = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,partCreatorb,
-				partCreatorc, bufferStartTimeb-1, bufferStartTimec-1, 150000 , this.exitPointStorage, this.exitHumanPoint, prefix);
+		
+		TestingNewProductType test3b = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,
+				partCreatora_new, partCreatorb, partCreatorc,
+				startTime,bufferStartTimeb-1, bufferStartTimec-1, 100000 , this.exitPointStorage, this.exitHumanPoint, prefix);
 		cyberContext.add(test3b);
 		
+		
+		PartCreatorforBuffer partCreatora_new2 = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,100001,120);
+		cyberContext.add(partCreatora_new2);
 		TestingBrokenMachine test2 = new TestingBrokenMachine(physicalGrid,cyberContext,physicalContext,
-				150001, 200000, 250000, this.exitPointStorage, this.exitHumanPoint, prefix);
+				100001, 102000, 150000, this.exitPointStorage, this.exitHumanPoint, prefix);
 		cyberContext.add(test2);
+		
+	
+		
 		
 		
 		/*TestingBrokenMachine test2 = new TestingBrokenMachine(physicalGrid,cyberContext,physicalContext,
