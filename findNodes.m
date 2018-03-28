@@ -21,3 +21,7 @@ for ind = 1:size(uniqueNodes,1)
    %append total time
    uniqueNodesWithTimes(ind,end) = sum(uniqueNodesWithTimes(ind,end-3:end-1));
 end
+
+%maxPlot = max(uniqueNodesWithTimes(:,end))/scaleFactorNode; %scale factor
+maxPlot = max(uniqueNodesWithTimes(:,end));
+minPlot = min(uniqueNodesWithTimes(:,end));

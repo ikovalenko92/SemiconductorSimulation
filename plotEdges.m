@@ -1,10 +1,6 @@
 plotThickness = zeros(size(uniqueEdgesWithTimes,1),1);
 
 %Plot
-%maxPlot = max(uniqueEdgesWithTimes(:,end))/scaleFactorEdge; %scale factor
-maxPlot = max(uniqueEdgesWithTimes(:,end));
-minPlot = min(uniqueEdgesWithTimes(:,end));
-
 nodesManufacturing = [];
 for i = 1:size(uniqueEdgesWithTimes,1)
     p_x = uniqueEdgesWithTimes(i,1);

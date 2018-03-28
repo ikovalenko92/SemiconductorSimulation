@@ -24,6 +24,7 @@ for ind = 1:size(uniqueEdges,1)
    uniqueEdgesWithTimes(ind,end) = sum(combine_edge(inds,end));
 end
 
+nodesManufacturing = [];
 for i = 1:size(uniqueEdgesWithTimes,1)
     p_x = uniqueEdgesWithTimes(i,1);
     p_y = uniqueEdgesWithTimes(i,2);
@@ -31,9 +32,11 @@ for i = 1:size(uniqueEdgesWithTimes,1)
     c_y = uniqueEdgesWithTimes(i,4);
     
     % Save edges that are loops separetly (manufacturing edges)
-    if(~(p_x == c_x && p_y == c_y))
-       
-    else
+    if(p_x == c_x && p_y == c_y)
         nodesManufacturing = [nodesManufacturing;p_x p_y uniqueEdgesWithTimes(i,end)];
     end
 end
+
+%maxPlot = max(uniqueEdgesWithTimes(:,end))/scaleFactorEdge; %scale factor
+maxPlot = max(uniqueEdgesWithTimes(:,end));
+minPlot = min(uniqueEdgesWithTimes(:,end));
