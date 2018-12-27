@@ -1,4 +1,4 @@
-package journalPaperSimulation;
+package Testing;
 
 import java.awt.Point;
 import java.io.FileNotFoundException;
@@ -10,6 +10,7 @@ import Part.Part;
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.Grid;
 
@@ -24,7 +25,14 @@ public class PartSnapshot {
 	private Hashtable<Object, Point> lastPlaceMap;
 	private String prefix;
 
-	public PartSnapshot(Grid<Object> physicalGrid, Context<Object> physicalContext, String prefix) {	
+	/**
+	 * @param startTime
+	 * @param intervalTime
+	 * @param physicalGrid
+	 * @param physicalContext
+	 * @param prefix - (name for saving the file)
+	 */
+	public PartSnapshot(int startTime, int intervalTime, Grid<Object> physicalGrid, Context<Object> physicalContext, String prefix) {	
 		this.physicalGrid = physicalGrid;
 		this.physicalContext = physicalContext;
 		
@@ -33,9 +41,16 @@ public class PartSnapshot {
 		this.lastPlaceMap = new Hashtable<Object,Point>();
 		
 		this.prefix = prefix;
+		
+		//Run the gather snapshot method based on some interval
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		schedule.schedule(ScheduleParameters.createRepeating(startTime,intervalTime),
+				this, "gatherSnapshots");
 	}
 	
-	@ScheduledMethod ( start = 50000, interval = 50000, priority = -500)
+	/**
+	 * Takes a snapshot of the existing "Part" objects in the system 
+	 */
 	public void gatherSnapshots(){		
 		int completedPartCounta = 0;
 		int completedPartCountb = 0;

@@ -1,4 +1,4 @@
-package initializingAgents;
+package intelligentProduct;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -9,9 +9,7 @@ import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.engine.schedule.ScheduleParameters;
-import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.Grid;
-import sharedInformation.ResourceEvent;
 
 public class RemoveExitAndEnd {
 
@@ -21,6 +19,14 @@ public class RemoveExitAndEnd {
 	private Point exitPoint;
 	private Point exitHumanPointPlace;
 
+	/**
+	 * @param physicalGrid
+	 * @param cyberContext
+	 * @param physicalContext
+	 * @param startTimes
+	 * @param exitPoint
+	 * @param exitHumanPointPlace
+	 */
 	public RemoveExitAndEnd(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
 			int[] startTimes, Point exitPoint,Point exitHumanPointPlace) {	
 		this.physicalGrid = physicalGrid;
@@ -38,6 +44,9 @@ public class RemoveExitAndEnd {
 	}
 	
 	
+	/**
+	 * Removes the objects at both the exit and end of the system
+	 */
 	public void removeFinal(){
 		ArrayList<Object> removeList = new ArrayList<Object>();
 		

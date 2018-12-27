@@ -1,4 +1,4 @@
-package initializingAgents;
+package intelligentProduct;
 
 import resourceAgent.ResourceAgent;
 import sharedInformation.ResourceEvent;

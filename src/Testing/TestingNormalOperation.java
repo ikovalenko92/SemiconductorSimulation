@@ -35,6 +35,15 @@ public class TestingNormalOperation {
 	
 	private String prefix;
 
+	/**
+	 * @param physicalGrid
+	 * @param cyberContext
+	 * @param physicalContext
+	 * @param endTime
+	 * @param exitPoint
+	 * @param exitHumanPointPlace
+	 * @param prefix
+	 */
 	public TestingNormalOperation(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
 		 int endTime, Point exitPoint, Point exitHumanPointPlace, String prefix) {	
 		this.physicalGrid = physicalGrid;

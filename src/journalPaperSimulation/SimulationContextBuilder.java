@@ -13,6 +13,7 @@ import Machine.Machine;
 import Machine.MachineLLC;
 import Robot.Robot;
 import Robot.RobotLLC;
+import Testing.PartSnapshot;
 import Testing.RemoveExitAndEnd;
 import Testing.TestingNormalOperation;
 import Testing.TestingBrokenMachine;
@@ -307,92 +308,138 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 		
 		context.setId("JournalPaperSimulation");
 		
-		//Physical System Floor
+		//Machines, robots, and parts interact in the physical context
 		Context<Object> physicalContext = new DefaultContext<Object>("physicalContext");
 		context.addSubContext(physicalContext);
 		
-		//Cyber System
-				Context<Object> cyberContext = new DefaultContext<Object>("cyberContext");
-				context.addSubContext(cyberContext);
+		//Agents live and interact in the Cyber Context
+		Context<Object> cyberContext = new DefaultContext<Object>("cyberContext");
+		context.addSubContext(cyberContext);
 		
 		//Physical grid
 		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
 		Grid<Object> physicalGrid =  gridFactory.createGrid ("physicalGrid", physicalContext, new GridBuilderParameters<Object>(new BouncyBorders(),
 						new SimpleGridAdder<Object>(), true, XDIM, YDIM));
 		
+		//Creates the machines, robots, and buffers
 		buildProductionControl(physicalContext, physicalGrid, cyberContext);
 		
+		//Builds the agents for each resource
 		buildAgentNetwork(cyberContext);
 		
+		//Puts a physical part into the system at some interval
 		buildPartCreator(physicalContext, physicalGrid, cyberContext);
 		
+		//Builds the environment for recording some various scenarios. 
 		buildTesting(physicalContext, physicalGrid, cyberContext);
-		
 		
 		return context;
 	}
 
+	/**
+	 * Creates a physical part (rectangle) at a buffer. This simulates putting a part into the system.
+	 * @param physicalContext
+	 * @param physicalGrid
+	 * @param cyberContext
+	 */
 	private void buildPartCreator(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
-		this.partCreatora = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				exitHumanAgent, physicalGrid, physicalContext, cyberContext,5,120);
+		//Some of the parameters for the part creator
+		int startTime = 5;
+		int partCreatingInterval = 120;
+		Buffer startingBuffer = this.listBufferLLC.get(0).getBuffer();
+		BufferAgent startingBufferAgent = this.listBufferAgent.get(0);
+		
+		
+		//Create and add this part creator to the cyber context
+		this.partCreatora = new PartCreatorforBuffer(startingBuffer, startingBufferAgent,
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext, startTime, partCreatingInterval);
 		cyberContext.add(partCreatora);
 	}
 	
 
+	/**
+	 * Creates some of the scenarios (e.g. shut down a machine) and the recordkeeping for it
+	 * @param physicalContext
+	 * @param physicalGrid
+	 * @param cyberContext
+	 */
 	private void buildTesting(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
+		//Just the prefix for collecting the data (T1 = Trial1, etc.)
 		Parameters params = RunEnvironment.getInstance ().getParameters();
 		String prefix = params.getString("prefix");
 		
+		//Clears all of the accumulated parts at the exit location and end buffer at the specified intervals
 		RemoveExitAndEnd clearEnds = new RemoveExitAndEnd(physicalGrid, cyberContext, physicalContext,
 				new int[]{50001,100001,150001,200001}, this.exitPointStorage, this.exitHumanPoint);
 		cyberContext.add(clearEnds);
+			
+		//Obtain a Snapshot of all of the parts every 50000 ticks
+		int startTime = 50000;
+		int intervalTime = 50000;
 		
+		PartSnapshot partSnap = new PartSnapshot(startTime, intervalTime,
+				physicalGrid,physicalContext, prefix);
+		cyberContext.add(partSnap);
+
+		//================================================================================
+	    // Build the objects that simulate normal operation of the system for the first "endTick" ticks
+	    //================================================================================	
+		
+		int endTick = 50000;
 		TestingNormalOperation test = new TestingNormalOperation(physicalGrid,cyberContext,physicalContext, 
-				50000, this.exitPointStorage, this.exitHumanPoint, prefix);
+				endTick, this.exitPointStorage, this.exitHumanPoint, prefix);
 		cyberContext.add(test);
 		
-		int startTime = 50001;
+		//================================================================================
+	    // Build the objects that simulate a variety of parts in the system (a,b,c type parts)
+		// Agents.initalizingAgents.PartCreatorforBuffer contains the specific processes in those plans
+	    //================================================================================
+		
+		//Start times for each of the creators
+		int bufferStartTimea = 50001;
 		int bufferStartTimeb = 50121;
 		int bufferStartTimec = 50241;
+		
+		//Initialize and add all of the part creators (a,b, and c) to the cyber context
 		PartCreatorforBuffer partCreatora_new = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
-				exitHumanAgent, physicalGrid, physicalContext, cyberContext,startTime,360);
-		cyberContext.add(partCreatora_new);
+				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimea,360);	
 		PartCreatorforBuffer partCreatorb = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
 				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimeb,360);
-		cyberContext.add(partCreatorb);
 		PartCreatorforBuffer partCreatorc = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
 				exitHumanAgent, physicalGrid, physicalContext, cyberContext,bufferStartTimec,360);
+		cyberContext.add(partCreatora_new);
+		cyberContext.add(partCreatorb);
 		cyberContext.add(partCreatorc);
 		
+		//Start up all of the new products
 		TestingNewProductType test3b = new TestingNewProductType(physicalGrid,cyberContext,physicalContext,
 				partCreatora_new, partCreatorb, partCreatorc,
-				startTime,bufferStartTimeb-1, bufferStartTimec-1, 100000 , this.exitPointStorage, this.exitHumanPoint, prefix);
+				bufferStartTimea,bufferStartTimeb-1, bufferStartTimec-1, 100000 , this.exitPointStorage, this.exitHumanPoint, prefix);
 		cyberContext.add(test3b);
 		
+		//================================================================================
+	    // Build the objects that simulate a machine failure
+	    //================================================================================	
 		
+		//Creates a new part creator
 		PartCreatorforBuffer partCreatora_new2 = new PartCreatorforBuffer(this.listBufferLLC.get(0).getBuffer(), this.listBufferAgent.get(0),
 				exitHumanAgent, physicalGrid, physicalContext, cyberContext,100001,120);
 		cyberContext.add(partCreatora_new2);
+		//Start up the broken machine test
 		TestingBrokenMachine test2 = new TestingBrokenMachine(physicalGrid,cyberContext,physicalContext,
 				100001, 102000, 150000, this.exitPointStorage, this.exitHumanPoint, prefix);
 		cyberContext.add(test2);
 		
-	
-		
-		
-		
-		/*TestingBrokenMachine test2 = new TestingBrokenMachine(physicalGrid,cyberContext,physicalContext,
-				100001, 200000, this.exitPointStorage, this.exitHumanPoint, prefix);
-		cyberContext.add(test2);*/
-		
-		
-		PartSnapshot partSnap = new PartSnapshot(physicalGrid,physicalContext, prefix);
-		cyberContext.add(partSnap);
-		
 	}
 
+	/**
+	 * Creates the machines, robots, and buffers
+	 * @param physicalContext
+	 * @param physicalGrid
+	 * @param cyberContext
+	 */
 	private void buildProductionControl(Context<Object> physicalContext, Grid<Object> physicalGrid, Context<Object> cyberContext) {
 		
 		this.tableLocationObject = new HashMap<Point, Object>();
@@ -551,6 +598,7 @@ public class SimulationContextBuilder implements ContextBuilder<Object> {
 
 	/**
 	 * Makes sure all of the variables are reset whenever we reset the simulation
+	 * (Like a garbage collector)
 	 */
 	private void resetVariables() {
 		

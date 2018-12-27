@@ -3,7 +3,6 @@ package Part;
 import java.awt.Color;
 import java.awt.geom.GeneralPath;
 
-
 public class Part {
 
 	private GeneralPath shape;

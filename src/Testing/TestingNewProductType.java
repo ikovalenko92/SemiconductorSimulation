@@ -42,6 +42,21 @@ public class TestingNewProductType {
 	private PartCreatorforBuffer partCreatorb;
 	private PartCreatorforBuffer partCreatorc;
 
+	/**
+	 * @param physicalGrid
+	 * @param cyberContext
+	 * @param physicalContext
+	 * @param partCreatora_new
+	 * @param partCreatorb
+	 * @param partCreatorc
+	 * @param startTime
+	 * @param injectTime1
+	 * @param injectTime2
+	 * @param endTime
+	 * @param exitPoint
+	 * @param exitHumanPointPlace
+	 * @param prefix
+	 */
 	public TestingNewProductType(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
 			PartCreatorforBuffer partCreatora_new,PartCreatorforBuffer partCreatorb, PartCreatorforBuffer partCreatorc,
 			int startTime, int injectTime1, int injectTime2, 

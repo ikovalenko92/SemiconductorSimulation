@@ -38,6 +38,17 @@ public class TestingBrokenMachine {
 	
 	public String prefix;
 
+	/**
+	 * @param physicalGrid
+	 * @param cyberContext
+	 * @param physicalContext
+	 * @param startTime
+	 * @param midTime
+	 * @param endTime
+	 * @param exitPoint
+	 * @param exitHumanPointPlace
+	 * @param prefix
+	 */
 	public TestingBrokenMachine(Grid<Object> physicalGrid, Context<Object> cyberContext, Context<Object> physicalContext,
 			int startTime, int midTime, int endTime, Point exitPoint,Point exitHumanPointPlace, String prefix) {	
 		this.physicalGrid = physicalGrid;
@@ -54,6 +65,9 @@ public class TestingBrokenMachine {
 	
 	}
 	
+	/**
+	 * Breaks machines TM and TN down
+	 */
 	public void setMachineBroken(){
 		Class desClass = null;
 		for (Object clas:this.physicalContext.getAgentTypes()){
@@ -72,6 +86,10 @@ public class TestingBrokenMachine {
 		}
 	}
 	
+	/**
+	 * Writes down how many parts are left
+	 * @param suffix
+	 */
 	public void runTest(String suffix) {	
 		String outputS1 = "";
 		String outputS2 = "";
