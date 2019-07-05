@@ -4,4 +4,4 @@ The Resources folder has all of the physical representations of the machines, ro
 
 The Agents folder has all of the agents that were used to control the resources in the simulation.
 
-If you have any questions, please send an email to me (Ilya Kovalenko) at ikoval@umich.edu.
+If you have any questions or are unable to run the code, please send an email to me (Ilya Kovalenko) at ikoval@umich.edu.
